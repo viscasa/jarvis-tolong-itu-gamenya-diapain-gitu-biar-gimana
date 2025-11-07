@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://d36d70p2syni3"]
+
+[ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
+[ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="2_ajqqa"]
+[ext_resource type="Texture2D" uid="uid://qmbf804desic" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0192.png" id="3_rkmeh"]
+[ext_resource type="Texture2D" uid="uid://bsb4kfa60ht0u" path="res://assets/temp/hades.jpg" id="4_5lop3"]
+[ext_resource type="Script" uid="uid://184i1jkejuje" path="res://script/player/dash_manager.gd" id="5_ajqqa"]
+[ext_resource type="Script" uid="uid://23opve5ed1ex" path="res://script/player/possession_manager.gd" id="6_rkmeh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hfhxk"]
+texture = ExtResource("2_ajqqa")
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pisg7"]
+texture = ExtResource("3_rkmeh")
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)
+
+[sub_resource type="TileSet" id="TileSet_oypl4"]
+tile_shape = 1
+tile_layout = 1
+tile_size = Vector2i(16, 8)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_hfhxk")
+sources/2 = SubResource("TileSetAtlasSource_pisg7")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ajqqa"]
+radius = 26.0
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 1.5707964
+floor_constant_speed = true
+safe_margin = 0.6
+script = ExtResource("1_cm2cf")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+visible = false
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(0, 8)
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0, 255, 255, 254, 255, 1, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_oypl4")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, -13.000006)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("4_5lop3")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.0000002)
+rotation = 0.7853982
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_5lop3")
+
+[node name="Check" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Check"]
+shape = SubResource("CircleShape2D_ajqqa")
+
+[node name="DashManager" type="Node2D" parent="."]
+script = ExtResource("5_ajqqa")
+
+[node name="PossessionManager" type="Node2D" parent="."]
+script = ExtResource("6_rkmeh")
