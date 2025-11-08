@@ -78,6 +78,8 @@ func can_dash() -> bool:
 	return cooldown_timer <= 0.0 and weak_exit_lock_timer <= 0.0 and not is_dash_moving
 
 func start_dash() -> void:
+	if is_dashing or is_dash_moving:
+		return
 	if not can_dash():
 		return
 	if must_exit_before_possession and not has_exited_since_last_possession:

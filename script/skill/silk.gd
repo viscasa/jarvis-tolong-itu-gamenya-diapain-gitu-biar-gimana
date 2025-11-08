@@ -21,11 +21,9 @@ func _ready() -> void:
 	possession_manager.exit_dash_manual.connect(_on_exit_dash)
 
 func _on_exit_dash(target) -> void :
-	print("hello")
 	if !can_cast:
 		return
 	list_target.append(target)
-	print(list_target, target.get_global_position())
 	self.add_point(target.get_global_position())
 	if list_target.size()>max_connected:
 		can_cast = false
@@ -35,4 +33,3 @@ func _on_exit_dash(target) -> void :
 		list_target = []
 		self.clear_points()
 		can_cast = true
-		
