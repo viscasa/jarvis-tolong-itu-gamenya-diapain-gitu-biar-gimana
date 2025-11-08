@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name Player
 const SPEED = 150.0
 const Y_MUL = 1.5
 const ACCELERATION = 600.0
@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 		dash_manager.process_exit_dash(delta)
 		if not dash_manager.is_exit_moving:               # BARU SAJA berakhir movement
 			velocity *= 0.3
-
+	
 func _set_dash_velocity():
 	var speed_factor = dash_manager.get_dash_speed_factor()
 	var current_dash_speed = DASH_SPEED * speed_factor

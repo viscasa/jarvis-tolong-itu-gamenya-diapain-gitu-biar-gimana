@@ -114,6 +114,7 @@ func _end_dash_movement() -> void:
 		return
 	is_dash_moving = false
 	emit_signal("dash_movement_ended")
+
 	# ⚠ cooldown TIDAK dipasang di sini; dipasang saat cycle berakhir
 
 func _end_dash_cycle() -> void:
@@ -163,7 +164,6 @@ func process_exit_dash(delta: float) -> void:
 	exit_move_timer -= delta
 	if exit_move_timer <= 0.0:
 		_end_exit_movement()
-
 func _end_exit_movement() -> void:
 	if not is_exit_moving:
 		return
