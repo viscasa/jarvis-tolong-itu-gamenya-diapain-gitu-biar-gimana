@@ -11,10 +11,14 @@ class_name EnemyBase
 @onready var hitbox_shape: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: ProgressBar = $HealthBar
-
+@onready var nav_agent: NavigationAgent2D = $NavAgent
+@export var path_update_rate: float = 0.25
+@export var body_radius := 10
 enum State { CHASE, ATTACK, POSSESSED, DEAD }
 var current_state: State = State.CHASE 
 var player_target: Node2D = null 
+
+var path_update_timer: float = 0.0
 
 func _ready():
 	health_bar.max_value = stats.max_health
@@ -25,6 +29,11 @@ func _ready():
 	attack_timer.wait_time = attack_cooldown
 	attack_timer.one_shot = true
 	
+	nav_agent.radius = body_radius
+	nav_agent.simplify_path = true
+	nav_agent.target_desired_distance = attack_range * 0.9 
+	nav_agent.path_desired_distance = 8.0
+	call_deferred("_setup_navigation")
 	
 	var player_nodes = get_tree().get_root().find_children("*", "Player", true, false)
 	
@@ -36,48 +45,86 @@ func _ready():
 		current_state = State.DEAD 
 		set_physics_process(false)
 
+func _setup_navigation():
+	await get_tree().physics_frame
+	if is_instance_valid(player_target):
+		nav_agent.target_position = player_target.global_position
+
 func _physics_process(delta):
 	if current_state == State.DEAD or current_state == State.POSSESSED:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
-
+		
 	if not is_instance_valid(player_target):
 		velocity = Vector2.ZERO
-		#animated_sprite.play("idle")
 		move_and_slide()
 		return
-
+	
+	path_update_timer += delta
+	if path_update_timer >= path_update_rate:
+		path_update_timer = 0.0
+		_update_target_position()
+	
+	var distance_to_player = global_position.distance_to(player_target.global_position)
+	
 	match current_state:
 		State.CHASE:
 			_state_chase(delta) 
-			var distance_to_player = global_position.distance_to(player_target.global_position)
 			if distance_to_player <= attack_range and attack_timer.is_stopped():
-				print("change to att")
 				current_state = State.ATTACK
 				_perform_attack()
-				#animated_sprite.play("attack")
 				attack_timer.start() 
-
+				
 		State.ATTACK:
 			_state_attack(delta)
 			
+			if distance_to_player > attack_range * 1.2:
+				current_state = State.CHASE
+				_update_target_position()  
+			
 	move_and_slide()
-	
+
+func _update_target_position():
+	if is_instance_valid(player_target):
+		var distance_to_target = player_target.global_position.distance_to(nav_agent.target_position)
+		if distance_to_target > 20.0 or not nav_agent.is_target_reachable():
+			nav_agent.target_position = player_target.global_position
+
+
+
 func _state_chase(delta):
-	if (global_position.distance_to(player_target.global_position) > attack_range):
-		var direction = global_position.direction_to(player_target.global_position)
-		velocity = direction * move_speed
-		#animated_sprite.play("walk")
-	else:
+	if not is_instance_valid(player_target):
 		velocity = Vector2.ZERO
+		return
+		
+	var distance_to_player = global_position.distance_to(player_target.global_position)
+
+	if distance_to_player <= attack_range:
+		velocity = velocity.lerp(Vector2.ZERO, 10.0 * delta) 
+		return 
+	
+	if nav_agent.is_navigation_finished():
+		velocity = velocity.lerp(Vector2.ZERO, 10.0 * delta)
+		return
+	
+	var next_position = nav_agent.get_next_path_position()
+	var direction = (next_position - global_position).normalized()
+	
+	var target_velocity = direction * move_speed
+	velocity = velocity.lerp(target_velocity, 8.0 * delta) 
 	
 	if velocity.x != 0:
-		animated_sprite.flip_h = (velocity.x > 0) 
-
+		animated_sprite.flip_h = (velocity.x < 0)
+		
 func _state_attack(delta):
-	velocity = Vector2.ZERO
+	velocity = velocity.lerp(Vector2.ZERO, 15.0 * delta)
 	
+	if is_instance_valid(player_target):
+		var direction_to_player = sign(player_target.global_position.x - global_position.x)
+		if direction_to_player != 0:
+			animated_sprite.flip_h = direction_to_player < 0
+
 func connect_signals():
 	stats.no_health.connect(_on_death)
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
@@ -87,12 +134,12 @@ func on_possessed():
 	velocity = Vector2.ZERO
 
 func on_released():
-	current_state = State.CHASE 
-
+	current_state = State.CHASE
+	path_update_timer = 0.0
+	_update_target_position()
 
 func _perform_attack():
 	hitbox.damage = stats.get_final_damage()
-	
 	hitbox_shape.disabled = false
 	
 	await get_tree().create_timer(0.2).timeout
@@ -100,7 +147,6 @@ func _perform_attack():
 	if self and hitbox_shape:
 		hitbox_shape.disabled = true
 		
-
 func _on_death():
 	print(name + " mati!")
 	current_state = State.DEAD
@@ -110,11 +156,9 @@ func _on_death():
 	if $Hurtbox: 
 		$Hurtbox/CollisionShape2D.disabled = true
 	
-	#animated_sprite.play("death") 
-	
 	await animated_sprite.animation_finished
 	queue_free()
 
-
 func _on_attack_timer_timeout() -> void:
 	current_state = State.CHASE
+	_update_target_position()
