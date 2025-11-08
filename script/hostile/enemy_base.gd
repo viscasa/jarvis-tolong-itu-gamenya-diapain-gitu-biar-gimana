@@ -10,18 +10,21 @@ class_name EnemyBase
 @onready var hitbox: Hitbox = $Hitbox
 @onready var hitbox_shape: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var attack_timer: Timer = $AttackTimer
+@onready var health_bar: ProgressBar = $HealthBar
 
 enum State { CHASE, ATTACK, POSSESSED, DEAD }
 var current_state: State = State.CHASE 
 var player_target: Node2D = null 
 
 func _ready():
+	health_bar.max_value = stats.max_health
+	health_bar.value = stats.current_health
+	connect_signals()
 	hitbox_shape.disabled = true
 	
 	attack_timer.wait_time = attack_cooldown
 	attack_timer.one_shot = true
 	
-	stats.no_health.connect(_on_death)
 	
 	var player_nodes = get_tree().get_root().find_children("*", "Player", true, false)
 	
@@ -62,18 +65,22 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func _state_chase(delta):
-	if (global_position.distance_to(player_target.global_position) <= attack_range):
-		return
-	var direction = global_position.direction_to(player_target.global_position)
-	velocity = direction * move_speed
-	#animated_sprite.play("walk")
-	animated_sprite.flip_h = (velocity.x > 0)
+	if (global_position.distance_to(player_target.global_position) > attack_range):
+		var direction = global_position.direction_to(player_target.global_position)
+		velocity = direction * move_speed
+		#animated_sprite.play("walk")
+	else:
+		velocity = Vector2.ZERO
+	
+	if velocity.x != 0:
+		animated_sprite.flip_h = (velocity.x > 0) 
 
 func _state_attack(delta):
 	velocity = Vector2.ZERO
 	
 func connect_signals():
 	stats.no_health.connect(_on_death)
+	attack_timer.timeout.connect(_on_attack_timer_timeout)
 	
 func on_possessed():
 	current_state = State.POSSESSED
@@ -93,7 +100,6 @@ func _perform_attack():
 	if self and hitbox_shape:
 		hitbox_shape.disabled = true
 		
-	current_state = State.CHASE
 
 func _on_death():
 	print(name + " mati!")
@@ -108,3 +114,7 @@ func _on_death():
 	
 	await animated_sprite.animation_finished
 	queue_free()
+
+
+func _on_attack_timer_timeout() -> void:
+	current_state = State.CHASE

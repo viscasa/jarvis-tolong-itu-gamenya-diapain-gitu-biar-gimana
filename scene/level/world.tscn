@@ -93,7 +93,5 @@ drag_bottom_margin = 0.1
 width = 2.0
 
 [node name="BrokenPuppet" parent="." instance=ExtResource("7_jul5o")]
-reposition_distance = 30.0
 
 [node name="Wolf" parent="." instance=ExtResource("8_jul5o")]
-position = Vector2(-88, -26)

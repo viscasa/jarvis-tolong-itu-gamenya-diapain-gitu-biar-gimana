@@ -7,7 +7,7 @@ signal no_health()
 @export var max_health: float = 100.0
 @export var base_damage: float = 10.0
 @export var base_defense: float = 2.0
-
+@export var health_bar : ProgressBar
 var current_health: float:
 	set(value):
 		current_health = clamp(value, 0, max_health)
@@ -27,6 +27,7 @@ func take_damage(damage_amount: float):
 		final_damage = 1
 		
 	current_health -= final_damage
+	health_bar.value = current_health
 	print(get_parent().name + " takes " + str(final_damage) + " damage. Health: " + str(current_health))
 
 func get_final_damage() -> float:
