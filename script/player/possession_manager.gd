@@ -11,6 +11,7 @@ var player: CharacterBody2D
 var is_possessing: bool = false
 var possessed_target: Node = null
 var possession_timer: Timer = null
+var auto_weak_exit_time: float = 0.76
 
 func possess(target: Node) -> void:
 	# ⛔ blokir bila habis auto-exit dan lock masih aktif
@@ -38,7 +39,7 @@ func possess(target: Node) -> void:
 	# Timer for auto weak exit
 	possession_timer = Timer.new()
 	possession_timer.one_shot = true
-	possession_timer.wait_time = 1.2
+	possession_timer.wait_time = auto_weak_exit_time
 	player.add_child(possession_timer)
 	possession_timer.connect("timeout", Callable(self, "_on_auto_exit"))
 	possession_timer.start()
