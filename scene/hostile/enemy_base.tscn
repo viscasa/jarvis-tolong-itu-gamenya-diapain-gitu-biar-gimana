@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bke8ohgi88a3k"]
+[gd_scene load_steps=9 format=3 uid="uid://bke8ohgi88a3k"]
 
 [ext_resource type="Script" uid="uid://dbuhl7tojgto2" path="res://script/hostile/enemy_base.gd" id="1_0dq4w"]
 [ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="2_54ojy"]
@@ -12,6 +12,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_roat0"]
 size = Vector2(30, 30)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhfx3"]
+bg_color = Color(0.98749274, 0, 0.25822866, 1)
+
 [node name="EnemyBase" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_0dq4w")
@@ -20,8 +23,9 @@ script = ExtResource("1_0dq4w")
 rotation = 0.7853982
 shape = SubResource("RectangleShape2D_54ojy")
 
-[node name="Stats" type="Node2D" parent="."]
+[node name="Stats" type="Node2D" parent="." node_paths=PackedStringArray("health_bar")]
 script = ExtResource("2_54ojy")
+health_bar = NodePath("../HealthBar")
 metadata/_custom_type_script = "uid://cnxvknb5bqxce"
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -43,3 +47,11 @@ metadata/_custom_type_script = "uid://dtffxjfmsjwuw"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 rotation = 0.7853982
 shape = SubResource("RectangleShape2D_roat0")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -9.0
+offset_top = -26.0
+offset_right = 9.0
+offset_bottom = -22.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_vhfx3")
+show_percentage = false

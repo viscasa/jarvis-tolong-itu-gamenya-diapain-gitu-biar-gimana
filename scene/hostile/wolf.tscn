@@ -1,5 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://b28onaqdnjytk"]
+[gd_scene load_steps=4 format=3 uid="uid://b28onaqdnjytk"]
 
 [ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_06050"]
+[ext_resource type="Script" uid="uid://c67eesrels53n" path="res://script/hostile/wolf.gd" id="2_kdeku"]
+[ext_resource type="Texture2D" uid="uid://q2i3jtwq541v" path="res://assets/temp/wowo.jpg" id="3_s65gn"]
 
 [node name="Wolf" instance=ExtResource("1_06050")]
+script = ExtResource("2_kdeku")
+dash_speed = null
+charge_time = null
+dash_duration = null
+move_speed = null
+attack_range = 80.0
+attack_cooldown = null
+
+[node name="Wowo" type="Sprite2D" parent="." index="6"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_s65gn")
