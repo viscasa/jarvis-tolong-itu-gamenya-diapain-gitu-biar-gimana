@@ -18,12 +18,13 @@ size = Vector2(24.041632, 24.041632)
 [node name="ShootingEnemy" instance=ExtResource("1_y3bx4")]
 script = ExtResource("2_0dw0y")
 projectile_scene = ExtResource("3_6nnlf")
-reposition_distance = 100.0
-reposition_speed_mult = 0.7
+reposition_distance = 80.0
 reload_time = 0.5
-orbit_strength = 0.8
+wander_range = 60.0
+wander_speed_mult = 0.6
 move_speed = 40.0
 attack_range = 200.0
+attack_cooldown = 2.5
 
 [node name="CollisionShape2D" parent="." index="0"]
 scale = Vector2(0.99999994, 0.99999994)

@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmy8uiudeygmw"]
+[gd_scene load_steps=8 format=3 uid="uid://bmy8uiudeygmw"]
 
 [ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_l5y4r"]
+[ext_resource type="Script" uid="uid://b0evx7rp0j7ny" path="res://script/hostile/dash_shooting_enemy.gd" id="2_s042g"]
 [ext_resource type="Texture2D" uid="uid://q2i3jtwq541v" path="res://assets/temp/wowo.jpg" id="2_xhmb2"]
+[ext_resource type="PackedScene" uid="uid://cgpsyybggnue7" path="res://scene/hostile/shooting_enemy_projectile.tscn" id="3_s042g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s042g"]
 resource_local_to_scene = true
@@ -15,6 +17,13 @@ resource_local_to_scene = true
 size = Vector2(24.041632, 24.041632)
 
 [node name="DashShootingEnemy" instance=ExtResource("1_l5y4r")]
+script = ExtResource("2_s042g")
+projectile_scene = ExtResource("3_s042g")
+reposition_distance = 60.0
+shotgun_spread_angle = 0.3
+dash_speed = 500.0
+dash_duration = 0.1
+attack_range = 150.0
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_s042g")
@@ -29,3 +38,9 @@ shape = SubResource("RectangleShape2D_k2one")
 modulate = Color(0, 0, 1, 1)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_xhmb2")
+
+[node name="DashCheckLeft" type="RayCast2D" parent="." index="9"]
+target_position = Vector2(-60, 0)
+
+[node name="DashCheckRight" type="RayCast2D" parent="." index="10"]
+target_position = Vector2(60, 0)
