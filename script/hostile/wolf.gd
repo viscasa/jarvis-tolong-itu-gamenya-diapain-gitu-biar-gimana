@@ -12,19 +12,19 @@ var charge_timer: float = 0.0
 var dash_timer: float = 0.0
 var dash_direction: Vector2 = Vector2.ZERO
 
-func _state_chase(delta):
-	var distance_to_player = global_position.distance_to(player_target.global_position)
-	var direction_to_player = global_position.direction_to(player_target.global_position)
-
-	if distance_to_player > attack_range:
-		velocity = direction_to_player * move_speed
-		#animated_sprite.play("walk")
-	else:
-		velocity = Vector2.ZERO
-		#animated_sprite.play("idle")
-
-	if velocity.x != 0:
-		animated_sprite.flip_h = (velocity.x < 0)
+#func _state_chase(delta):
+	#var distance_to_player = global_position.distance_to(player_target.global_position)
+	#var direction_to_player = global_position.direction_to(player_target.global_position)
+#
+	#if distance_to_player > attack_range:
+		#velocity = direction_to_player * move_speed
+		##animated_sprite.play("walk")
+	#else:
+		#velocity = Vector2.ZERO
+		##animated_sprite.play("idle")
+#
+	#if velocity.x != 0:
+		#animated_sprite.flip_h = (velocity.x < 0)
 
 
 

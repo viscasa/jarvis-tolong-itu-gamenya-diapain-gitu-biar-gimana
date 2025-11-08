@@ -8,6 +8,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_54ojy"]
 resource_local_to_scene = true
+size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vhfx3"]
 resource_local_to_scene = true
