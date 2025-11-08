@@ -1,0 +1,85 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://luphdaj6kyxk" path="res://script/ui/HUD.gd" id="1_b5k9c"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_b5k9c")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="TopLeft" type="MarginContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 416.0
+offset_bottom = 180.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBox" type="VBoxContainer" parent="Root/TopLeft"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DashLabel" type="Label" parent="Root/TopLeft/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dash READY"
+
+[node name="DashCooldownBar" type="ProgressBar" parent="Root/TopLeft/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="WeakLockBar" type="ProgressBar" parent="Root/TopLeft/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 1.0
+step = 0.0
+value = 0.0
+visible = false
+
+[node name="TopRight" type="MarginContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -316.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 200.0
+
+[node name="StatsPanel" type="PanelContainer" parent="Root/TopRight"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="StatsLabel" type="Label" parent="Root/TopRight/StatsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "dashing: false\nexit dashing: false\nweak lock: 0.00s\npossessing: false"
