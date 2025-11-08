@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cd8pqdcf40jc3"]
+[gd_scene load_steps=8 format=3 uid="uid://cd8pqdcf40jc3"]
 
 [ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_y3bx4"]
 [ext_resource type="Script" uid="uid://dnj3blru05w53" path="res://script/hostile/shooting_enemy.gd" id="2_0dw0y"]
 [ext_resource type="PackedScene" uid="uid://cgpsyybggnue7" path="res://scene/hostile/shooting_enemy_projectile.tscn" id="3_6nnlf"]
+[ext_resource type="Texture2D" uid="uid://q2i3jtwq541v" path="res://assets/temp/wowo.jpg" id="4_bk3dr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nnlf"]
 resource_local_to_scene = true
@@ -18,10 +19,11 @@ size = Vector2(24.041632, 24.041632)
 script = ExtResource("2_0dw0y")
 projectile_scene = ExtResource("3_6nnlf")
 reposition_distance = 100.0
-reposition_wander_range = 80.0
-reposition_speed_mult = 0.8
+reposition_speed_mult = 0.7
+reload_time = 0.5
+orbit_strength = 0.8
+move_speed = 40.0
 attack_range = 200.0
-show_debug_path = false
 
 [node name="CollisionShape2D" parent="." index="0"]
 scale = Vector2(0.99999994, 0.99999994)
@@ -32,3 +34,8 @@ shape = SubResource("CircleShape2D_bk3dr")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_vt8rj")
+
+[node name="Wowo" type="Sprite2D" parent="." index="8"]
+modulate = Color(1, 1, 0, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_bk3dr")

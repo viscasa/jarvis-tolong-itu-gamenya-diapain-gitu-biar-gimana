@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://benoe2kbrdpcf"]
+[gd_scene load_steps=16 format=4 uid="uid://benoe2kbrdpcf"]
 
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="1_d3gj4"]
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_jul5o"]
@@ -8,12 +8,8 @@
 [ext_resource type="PackedScene" path="res://scene/HUD.tscn" id="6_gk4mf"]
 [ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="7_jul5o"]
 [ext_resource type="PackedScene" uid="uid://cc4qgfj5q0v1n" path="res://scene/skill/silk.tscn" id="7_l6qlb"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_l6qlb"]
-vertices = PackedVector2Array(8, 0, 0, 4, -8, 0, 0, -4)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)])
-agent_radius = 0.0
+[ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="8_jul5o"]
+[ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mss46"]
 texture = ExtResource("1_jul5o")
@@ -50,6 +46,12 @@ texture_region_size = Vector2i(16, 8)
 1:7/0 = 0
 2:7/0 = 0
 3:7/0 = 0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_l6qlb"]
+vertices = PackedVector2Array(8, 0, 0, 4, -8, 0, 0, -4)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)])
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_er4cb"]
 texture = ExtResource("1_d3gj4")
@@ -101,3 +103,12 @@ width = 2.0
 
 [node name="BrokenPuppet" parent="." instance=ExtResource("7_jul5o")]
 position = Vector2(120, 53)
+
+[node name="Wolf" parent="." instance=ExtResource("8_jul5o")]
+position = Vector2(-105, -82)
+
+[node name="Wolf2" parent="." instance=ExtResource("8_jul5o")]
+position = Vector2(3, -92)
+
+[node name="ShootingEnemy" parent="." instance=ExtResource("9_mss46")]
+position = Vector2(-77, -10)

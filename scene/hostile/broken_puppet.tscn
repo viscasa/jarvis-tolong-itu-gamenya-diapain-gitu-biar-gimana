@@ -26,10 +26,9 @@ resource_local_to_scene = true
 size = Vector2(24.041632, 24.041632)
 
 [node name="BrokenPuppet" instance=ExtResource("1_b13j0")]
-collision_mask = 0
 script = ExtResource("2_02fdu")
-reposition_distance = 5.0
-move_speed = 50.0
+reposition_distance = 10.0
+move_speed = 60.0
 
 [node name="CollisionShape2D" parent="." index="0"]
 scale = Vector2(0.9999999, 0.9999999)
