@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=4 uid="uid://benoe2kbrdpcf"]
+[gd_scene load_steps=12 format=4 uid="uid://benoe2kbrdpcf"]
 
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="1_d3gj4"]
 [ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="2_0hn3o"]
 [ext_resource type="Texture2D" uid="uid://qmbf804desic" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0192.png" id="2_er4cb"]
 [ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="3_er4cb"]
-[ext_resource type="PackedScene" uid="uid://cjssleuymvvxi" path="res://scene/hostile/test1.tscn" id="5_cud0k"]
 [ext_resource type="PackedScene" path="res://scene/HUD.tscn" id="6_gk4mf"]
+[ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="7_jul5o"]
 [ext_resource type="PackedScene" uid="uid://cc4qgfj5q0v1n" path="res://scene/skill/silk.tscn" id="7_l6qlb"]
+[ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="8_jul5o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_er4cb"]
 texture = ExtResource("1_d3gj4")
@@ -48,25 +49,13 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="Enemy" parent="." instance=ExtResource("5_cud0k")]
-position = Vector2(-195, -87)
-
-[node name="Enemy2" parent="." instance=ExtResource("5_cud0k")]
-position = Vector2(-87, -72)
-
-[node name="Enemy5" parent="." instance=ExtResource("5_cud0k")]
-position = Vector2(-136, -122)
-
-[node name="Enemy6" parent="." instance=ExtResource("5_cud0k")]
-position = Vector2(-16, -23)
-
-[node name="Enemy3" parent="." instance=ExtResource("5_cud0k")]
-position = Vector2(-129, -23)
-
-[node name="Enemy4" parent="." instance=ExtResource("5_cud0k")]
-position = Vector2(-203, -23)
-
 [node name="HUD" parent="." instance=ExtResource("6_gk4mf")]
 
 [node name="Silk" parent="." instance=ExtResource("7_l6qlb")]
 width = 2.0
+
+[node name="BrokenPuppet" parent="." instance=ExtResource("7_jul5o")]
+reposition_distance = 30.0
+
+[node name="Wolf" parent="." instance=ExtResource("8_jul5o")]
+position = Vector2(-88, -26)

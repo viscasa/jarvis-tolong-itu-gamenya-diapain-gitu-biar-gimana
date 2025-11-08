@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=7 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://bsb4kfa60ht0u" path="res://assets/temp/hades.jpg" id="4_5lop3"]
@@ -7,7 +7,11 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqqa"]
+size = Vector2(9.896308, 9.90268)
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 motion_mode = 1
 wall_min_slide_angle = 1.5707964
 floor_constant_speed = true
@@ -32,3 +36,10 @@ script = ExtResource("5_ajqqa")
 script = ExtResource("6_rkmeh")
 
 [node name="SkillManager" type="Node2D" parent="."]
+
+[node name="PossessArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PossessArea"]
+position = Vector2(0, -1)
+rotation = 0.78572005
+shape = SubResource("RectangleShape2D_ajqqa")

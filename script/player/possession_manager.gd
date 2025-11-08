@@ -26,7 +26,8 @@ func possess(target: Node) -> void:
 	player.velocity = Vector2.ZERO
 	emit_signal("possessed", target)
 	player.dash_manager.on_possession_started()
-
+	if possessed_target.get_parent().has_method("on_possessed"):
+		possessed_target.get_parent().on_possessed()
 	# Timer for auto weak exit
 	possession_timer = Timer.new()
 	possession_timer.one_shot = true
@@ -47,11 +48,16 @@ func _on_auto_exit() -> void:
 
 
 func release_possession() -> void:
+	if possessed_target and possessed_target.get_parent() and possessed_target.get_parent().has_method("on_released"):
+		print("a")
+		possessed_target.get_parent().on_released()
 	is_possessing = false
 	possessed_target = null
+		
 	if possession_timer:
 		possession_timer.queue_free()
 		possession_timer = null
+
 
 
 func process_possession(delta: float) -> void:
