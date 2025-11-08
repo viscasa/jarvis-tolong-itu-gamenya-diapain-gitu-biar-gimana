@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://cd8pqdcf40jc3"]
+
+[ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_y3bx4"]
+[ext_resource type="Script" uid="uid://dnj3blru05w53" path="res://script/hostile/shooting_enemy.gd" id="2_0dw0y"]
+[ext_resource type="PackedScene" uid="uid://cgpsyybggnue7" path="res://scene/hostile/shooting_enemy_projectile.tscn" id="3_6nnlf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6nnlf"]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bk3dr"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt8rj"]
+resource_local_to_scene = true
+size = Vector2(24.041632, 24.041632)
+
+[node name="ShootingEnemy" instance=ExtResource("1_y3bx4")]
+script = ExtResource("2_0dw0y")
+projectile_scene = ExtResource("3_6nnlf")
+reposition_distance = 100.0
+reposition_wander_range = 80.0
+reposition_speed_mult = 0.8
+attack_range = 200.0
+show_debug_path = false
+
+[node name="CollisionShape2D" parent="." index="0"]
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_6nnlf")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_bk3dr")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_vt8rj")
