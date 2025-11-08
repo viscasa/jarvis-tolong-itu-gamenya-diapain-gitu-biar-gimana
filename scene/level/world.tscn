@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://benoe2kbrdpcf"]
+[gd_scene load_steps=12 format=4 uid="uid://benoe2kbrdpcf"]
 
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="1_d3gj4"]
 [ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="2_0hn3o"]
@@ -7,10 +7,8 @@
 [ext_resource type="PackedScene" path="res://scene/HUD.tscn" id="6_gk4mf"]
 [ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="7_jul5o"]
 [ext_resource type="PackedScene" uid="uid://cc4qgfj5q0v1n" path="res://scene/skill/silk.tscn" id="7_l6qlb"]
-[ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="8_jul5o"]
-[ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_mss46"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_l6qlb"]
 vertices = PackedVector2Array(8, 0, 0, 4, -8, 0, 0, -4)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)])
@@ -20,7 +18,7 @@ agent_radius = 0.0
 texture = ExtResource("1_d3gj4")
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -3)
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_mss46")
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_l6qlb")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cud0k"]
 texture = ExtResource("2_er4cb")
@@ -65,9 +63,3 @@ width = 2.0
 
 [node name="BrokenPuppet" parent="." instance=ExtResource("7_jul5o")]
 position = Vector2(120, 53)
-
-[node name="Wolf" parent="." instance=ExtResource("8_jul5o")]
-position = Vector2(-159, -91)
-
-[node name="ShootingEnemy" parent="." instance=ExtResource("9_mss46")]
-position = Vector2(1, -18)

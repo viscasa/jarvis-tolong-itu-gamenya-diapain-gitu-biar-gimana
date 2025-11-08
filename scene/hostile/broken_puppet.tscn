@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://bk5wwoaco0je8" path="res://script/hostile/broken_puppet.gd" id="2_02fdu"]
 [ext_resource type="Texture2D" uid="uid://q2i3jtwq541v" path="res://assets/temp/wowo.jpg" id="2_t11nw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_02fdu"]
-radius = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sf0qu"]
+size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6x8c6"]
 resource_local_to_scene = true
@@ -26,13 +26,14 @@ resource_local_to_scene = true
 size = Vector2(24.041632, 24.041632)
 
 [node name="BrokenPuppet" instance=ExtResource("1_b13j0")]
+collision_mask = 0
 script = ExtResource("2_02fdu")
 reposition_distance = 5.0
 move_speed = 50.0
 
 [node name="CollisionShape2D" parent="." index="0"]
 scale = Vector2(0.9999999, 0.9999999)
-shape = SubResource("CircleShape2D_02fdu")
+shape = SubResource("RectangleShape2D_sf0qu")
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CircleShape2D_6x8c6")
@@ -44,6 +45,3 @@ animation = &"walk"
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_02fdu")
-
-[node name="NavAgent" parent="." index="7"]
-simplify_path = true

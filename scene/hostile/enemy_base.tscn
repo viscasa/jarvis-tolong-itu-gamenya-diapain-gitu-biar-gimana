@@ -59,8 +59,6 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_vhfx3")
 show_percentage = false
 
 [node name="NavAgent" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
 avoidance_enabled = true
-radius = 40.0
-
-[node name="DebugPathLine" type="Line2D" parent="."]
-default_color = Color(0.94509804, 0.59607846, 0, 1)
+debug_enabled = true

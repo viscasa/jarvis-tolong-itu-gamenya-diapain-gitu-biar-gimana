@@ -4,7 +4,6 @@ class_name EnemyBase
 @export var move_speed: float = 80.0
 @export var attack_range: float = 40.0
 @export var attack_cooldown: float = 1.5 
-@export var show_debug_path: bool = true
 
 @onready var stats: Stats = $Stats
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -13,13 +12,12 @@ class_name EnemyBase
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var nav_agent: NavigationAgent2D = $NavAgent
-@onready var debug_path_line: Line2D = $DebugPathLine
-
+@export var path_update_rate: float = 0.25
+@export var body_radius := 10
 enum State { CHASE, ATTACK, POSSESSED, DEAD }
 var current_state: State = State.CHASE 
 var player_target: Node2D = null 
 
-# Path update throttling
 var path_update_timer: float = 0.0
 
 func _ready():
@@ -31,9 +29,10 @@ func _ready():
 	attack_timer.wait_time = attack_cooldown
 	attack_timer.one_shot = true
 	
+	nav_agent.radius = body_radius
 	nav_agent.simplify_path = true
-	
-	
+	nav_agent.target_desired_distance = attack_range * 0.9 
+	nav_agent.path_desired_distance = 8.0
 	call_deferred("_setup_navigation")
 	
 	var player_nodes = get_tree().get_root().find_children("*", "Player", true, false)
@@ -63,18 +62,15 @@ func _physics_process(delta):
 		return
 	
 	path_update_timer += delta
-
-	_update_target_position()
-	
-	if show_debug_path:
-		_draw_debug_path()
+	if path_update_timer >= path_update_rate:
+		path_update_timer = 0.0
+		_update_target_position()
 	
 	var distance_to_player = global_position.distance_to(player_target.global_position)
 	
 	match current_state:
 		State.CHASE:
 			_state_chase(delta) 
-			
 			if distance_to_player <= attack_range and attack_timer.is_stopped():
 				current_state = State.ATTACK
 				_perform_attack()
@@ -95,65 +91,32 @@ func _update_target_position():
 		if distance_to_target > 20.0 or not nav_agent.is_target_reachable():
 			nav_agent.target_position = player_target.global_position
 
-func _draw_debug_path():
-	if not is_instance_valid(debug_path_line):
-		return
-		
-	if not nav_agent.is_target_reachable():
-		debug_path_line.default_color = Color.ORANGE
-		debug_path_line.points = PackedVector2Array()
-		return
-		
-	debug_path_line.default_color = Color.RED
-	
-	var path_points: PackedVector2Array = nav_agent.get_current_navigation_path()
-	var local_points: PackedVector2Array = []
-	
-	for point in path_points:
-		local_points.append(to_local(point))
-	
-	debug_path_line.points = local_points
+
 
 func _state_chase(delta):
+	if not is_instance_valid(player_target):
+		velocity = Vector2.ZERO
+		return
+		
 	var distance_to_player = global_position.distance_to(player_target.global_position)
 
 	if distance_to_player <= attack_range:
-		velocity = velocity.lerp(Vector2.ZERO, 15.0 * delta) 
-		return
+		velocity = velocity.lerp(Vector2.ZERO, 10.0 * delta) 
+		return 
 	
 	if nav_agent.is_navigation_finished():
-		if distance_to_player > attack_range * 1.5:
-			_update_target_position()
 		velocity = velocity.lerp(Vector2.ZERO, 10.0 * delta)
 		return
 	
-	var direct_to_player = global_position.direction_to(player_target.global_position)
-	if distance_to_player < 150.0:  
-		var space_state = get_world_2d().direct_space_state
-		var query = PhysicsRayQueryParameters2D.create(global_position, player_target.global_position)
-		query.exclude = [self]
-		query.collision_mask = 1  
-		
-		var result = space_state.intersect_ray(query)
-		if not result:  
-			velocity = direct_to_player * move_speed
-			if abs(direct_to_player.x) > 0.1:
-				animated_sprite.flip_h = direct_to_player.x < 0
-			return
-	
 	var next_position = nav_agent.get_next_path_position()
-	var direction = global_position.direction_to(next_position)
-	
-	var blend_factor = clamp(distance_to_player / 200.0, 0.0, 1.0)
-	direction = direction.lerp(direct_to_player, 1.0 - blend_factor)
-	direction = direction.normalized()
+	var direction = (next_position - global_position).normalized()
 	
 	var target_velocity = direction * move_speed
-	velocity = velocity.lerp(target_velocity, 8.0 * delta)
+	velocity = velocity.lerp(target_velocity, 8.0 * delta) 
 	
-	if abs(direction.x) > 0.1:
-		animated_sprite.flip_h = direction.x < 0
-
+	if velocity.x != 0:
+		animated_sprite.flip_h = (velocity.x < 0)
+		
 func _state_attack(delta):
 	velocity = velocity.lerp(Vector2.ZERO, 15.0 * delta)
 	
