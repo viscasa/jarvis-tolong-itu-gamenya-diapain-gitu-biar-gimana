@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 150.0
 const Y_MUL = 1.5
-const ACCELERATION = 450.0
+const ACCELERATION = 600.0
 
 const DASH_SPEED = 600.0 
 const EXIT_DASH_SPEED = 120.0
@@ -29,24 +29,23 @@ func _physics_process(delta: float) -> void:
 
 	if possession_manager.is_possessing:
 		possession_manager.process_possession(delta)
-	elif dash_manager.is_dashing:
+	elif dash_manager.is_dash_moving:                     # was: is_dashing
 		_set_dash_velocity()
-	elif dash_manager.is_exit_dashing:
+	elif dash_manager.is_exit_moving:                     # was: is_exit_dashing
 		_set_exit_dash_velocity()
 	else:
 		_process_movement(delta)
 
 	move_and_slide()
 
-	if dash_manager.is_dashing:
-		dash_manager.process_dash(delta) # Ini akan memanggil end_dash() jika timer habis
-		if not dash_manager.is_dashing: # Cek apakah dash BARU SAJA berakhir
-			velocity = velocity * 0.3 # Terapkan momentum tail
-			
-	elif dash_manager.is_exit_dashing:
-		dash_manager.process_exit_dash(delta) # Ini akan memanggil _end_exit_dash()
-		if not dash_manager.is_exit_dashing: # Cek apakah exit dash BARU SAJA berakhir
-			velocity = velocity * 0.3 # Terapkan momentum tail
+	if dash_manager.is_dash_moving:
+		dash_manager.process_dash(delta)
+		if not dash_manager.is_dash_moving:               # BARU SAJA berakhir movement
+			velocity *= 0.3
+	elif dash_manager.is_exit_moving:
+		dash_manager.process_exit_dash(delta)
+		if not dash_manager.is_exit_moving:               # BARU SAJA berakhir movement
+			velocity *= 0.3
 
 func _set_dash_velocity():
 	var speed_factor = dash_manager.get_dash_speed_factor()
