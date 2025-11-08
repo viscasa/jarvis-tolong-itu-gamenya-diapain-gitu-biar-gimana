@@ -72,7 +72,7 @@ func release_possession() -> void:
 func process_possession(delta: float) -> void:
 	if possessed_target and is_instance_valid(possessed_target):
 		player.global_position = possessed_target.global_position
-		if Input.is_action_just_pressed("exit_dash"):
+		if Input.is_action_just_pressed("dash"):
 			emit_signal("exit_dash_manual", possessed_target)
 			release_possession()
 			player.dash_manager.start_exit_dash(false, false)   # weak=false, is_auto=false
