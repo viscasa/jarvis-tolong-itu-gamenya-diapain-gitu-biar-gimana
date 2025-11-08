@@ -11,6 +11,9 @@ signal exit_movement_ended
 signal exit_cycle_started
 signal exit_cycle_ended
 
+signal exit_dash_manual_started     # manual exit (sukses)
+signal auto_exit_dash_started       # auto-exit (timeout / gagal)
+
 var player: CharacterBody2D
 
 # ====== PARAM ======
@@ -47,6 +50,7 @@ var weak_exit_lock_timer: float = 0.0
 
 var must_exit_before_possession: bool = true
 var has_exited_since_last_possession: bool = true
+var auto_exit_possess_lock: bool = false
 
 # ====== TICK ======
 func update_cooldown(delta: float) -> void:
@@ -65,7 +69,9 @@ func update_cooldown(delta: float) -> void:
 	if is_exit_dashing:
 		exit_cycle_timer -= delta
 		if exit_cycle_timer <= 0.0:
-			_end_exit_cycle()
+			is_exit_dashing = false                    # CYCLE selesai
+			emit_signal("exit_cycle_ended")
+			auto_exit_possess_lock = false            # 🔓 boleh possess lagi
 
 # ====== DASH ======
 func can_dash() -> bool:
@@ -128,7 +134,7 @@ func get_dash_speed_factor() -> float:
 	return 1.0 - pow(1.0 - progress, 2.0) # ease-out
 
 # ====== EXIT DASH ======
-func start_exit_dash(weak: bool = false) -> void:
+func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 	is_exit_moving = true
 	is_exit_dashing = true
 	is_exit_weak = weak
@@ -138,6 +144,13 @@ func start_exit_dash(weak: bool = false) -> void:
 
 	exit_dash_direction = (player.get_global_mouse_position() - player.global_position).normalized()
 	current_exit_speed = EXIT_DASH_SPEED * (0.5 if weak else 1.0)
+
+	# 🔔 Emit sesuai jenis exit
+	if is_auto:
+		auto_exit_possess_lock = true               # ⛔ blokir possess ke musuh lain dulu
+		emit_signal("auto_exit_dash_started")
+	else:
+		emit_signal("exit_dash_manual_started")
 
 	emit_signal("exit_movement_started")
 	emit_signal("exit_cycle_started")

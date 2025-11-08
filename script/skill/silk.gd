@@ -18,9 +18,10 @@ func _ready() -> void:
 	var player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	if player:
 		possession_manager = player.get_node("PossessionManager") as PossessionManager
-	possession_manager.possessed.connect(_on_possessed)
+	possession_manager.exit_dash_manual.connect(_on_exit_dash)
 
-func _on_possessed(target) -> void :
+func _on_exit_dash(target) -> void :
+	print("hello")
 	if !can_cast:
 		return
 	list_target.append(target)

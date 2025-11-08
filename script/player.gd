@@ -82,7 +82,6 @@ func handle_global_inputs() -> void:
 		if can_start_possession():
 			dash_manager.start_dash()
 	if Input.is_action_just_pressed("exit_dash") and possession_manager.is_possessing:
-		possession_manager.release_possession()
 		dash_manager.start_exit_dash()
 
 func _on_possessed(target):
