@@ -15,6 +15,7 @@ signal exit_dash_manual_started     # manual exit (sukses)
 signal auto_exit_dash_started       # auto-exit (timeout / gagal)
 
 var player: CharacterBody2D
+var super_dash: SuperDash # TAMBAHKAN INI: Referensi ke SuperDash
 
 # ====== PARAM ======
 const DASH_SPEED := 600.0
@@ -52,6 +53,9 @@ var must_exit_before_possession: bool = true
 var has_exited_since_last_possession: bool = true
 var auto_exit_possess_lock: bool = false
 
+var dash_count_max: int = 1
+var dash_counter : int = 0
+
 # ====== TICK ======
 func update_cooldown(delta: float) -> void:
 	if cooldown_timer > 0.0:
@@ -75,7 +79,16 @@ func update_cooldown(delta: float) -> void:
 
 # ====== DASH ======
 func can_dash() -> bool:
-	return cooldown_timer <= 0.0 and weak_exit_lock_timer <= 0.0 and not is_dash_moving
+	# TAMBAHKAN CHECK INI: Cek apakah super_dash sedang aktif
+	if super_dash and super_dash.is_active():
+		return false
+	
+	if (cooldown_timer <= 0.0 and weak_exit_lock_timer <= 0.0 and not is_dash_moving):
+		dash_counter = 0
+	if dash_counter<dash_count_max :
+		return true
+	else :
+		return false
 
 func start_dash() -> void:
 	if is_dashing or is_dash_moving:
@@ -85,6 +98,11 @@ func start_dash() -> void:
 	if must_exit_before_possession and not has_exited_since_last_possession:
 		print("⚠ Must exit before next possession dash!")
 		return
+	
+	# TAMBAHKAN CHECK INI: Pastikan super_dash tidak aktif
+	if super_dash and super_dash.is_active():
+		print("Cannot dash, SuperDash is active.")
+		return
 
 	var mouse_pos = player.get_global_mouse_position()
 	dash_direction = (mouse_pos - player.global_position).normalized()
@@ -92,7 +110,9 @@ func start_dash() -> void:
 	# Jika masih exit moving, hentikan gerak exit (cycle boleh lanjut)
 	if is_exit_moving and not is_exit_weak:
 		_force_end_exit_movement()
-
+	
+	dash_counter += 1
+	
 	# MULAI MOVEMENT
 	is_dash_moving = true
 	dash_move_timer = dash_move_time
@@ -138,6 +158,11 @@ func get_dash_speed_factor() -> float:
 
 # ====== EXIT DASH ======
 func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
+	# TAMBAHKAN CHECK INI: Jangan exit dash jika super_dash aktif
+	if super_dash and super_dash.is_active():
+		print("Cannot ExitDash, SuperDash is active.")
+		return
+		
 	is_exit_moving = true
 	is_exit_dashing = true
 	is_exit_weak = weak

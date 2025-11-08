@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=12 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://bsb4kfa60ht0u" path="res://assets/temp/hades.jpg" id="4_5lop3"]
 [ext_resource type="Script" uid="uid://bviu6417canup" path="res://script/player/circle_timing.gd" id="5_732fb"]
 [ext_resource type="Script" uid="uid://184i1jkejuje" path="res://script/player/dash_manager.gd" id="5_ajqqa"]
 [ext_resource type="Script" uid="uid://dg8lpebxxa4ju" path="res://script/player/attack_manager.gd" id="5_hfhxk"]
+[ext_resource type="Script" uid="uid://bbyofitikb5qc" path="res://script/skill/skill_manager.gd" id="5_pisg7"]
 [ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="6_hfhxk"]
+[ext_resource type="Script" uid="uid://bu0iam8jk0csv" path="res://script/skill/super_dash.gd" id="6_oypl4"]
 [ext_resource type="Script" uid="uid://23opve5ed1ex" path="res://script/player/possession_manager.gd" id="6_rkmeh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
@@ -39,6 +41,10 @@ script = ExtResource("5_ajqqa")
 script = ExtResource("6_rkmeh")
 
 [node name="SkillManager" type="Node2D" parent="."]
+script = ExtResource("5_pisg7")
+
+[node name="SuperDash" type="Node2D" parent="SkillManager"]
+script = ExtResource("6_oypl4")
 
 [node name="AttackManager" type="Node2D" parent="."]
 script = ExtResource("5_hfhxk")

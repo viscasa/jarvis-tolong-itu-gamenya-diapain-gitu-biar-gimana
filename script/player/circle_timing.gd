@@ -33,7 +33,6 @@ func _on_exit() -> void:
 func _on_auto_exit() -> void:
 	if !possesion_target:
 		return
-	print("hello")
 	possesion_target.auto_exit()
 
 	possesion_target = null
