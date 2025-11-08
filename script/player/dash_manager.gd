@@ -152,6 +152,7 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 	if is_auto:
 		auto_exit_possess_lock = true               # ⛔ blokir possess ke musuh lain dulu
 		emit_signal("auto_exit_dash_started")
+		is_dashing = true
 	else:
 		emit_signal("exit_dash_manual_started")
 
@@ -175,14 +176,13 @@ func _end_exit_movement() -> void:
 		weak_exit_lock_timer = WEAK_EXIT_LOCK_TIME
 		player.lock_actions_during_weak_exit(WEAK_EXIT_LOCK_TIME)
 	is_exit_weak = false
-	# ⚠ cooldown dash TIDAK dipasang oleh exit-dash (sesuai permintaan fokus ke dash)
 
 func _end_exit_cycle() -> void:
 	if not is_exit_dashing:
 		return
 	is_exit_dashing = false
 	emit_signal("exit_cycle_ended")
-	# tidak menyentuh cooldown
+	is_dashing = false
 
 func _force_end_exit_movement() -> void:
 	if is_exit_moving:
