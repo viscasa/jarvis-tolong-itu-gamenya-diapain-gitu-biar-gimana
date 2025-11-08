@@ -71,11 +71,12 @@ func _physics_process(delta):
 	match current_state:
 		State.CHASE:
 			_state_chase(delta) 
-			if distance_to_player <= attack_range and attack_timer.is_stopped():
+			var is_stopped = velocity.length_squared() < 1.0
+			
+			if distance_to_player <= attack_range and attack_timer.is_stopped() and is_stopped:
 				current_state = State.ATTACK
 				_perform_attack()
 				attack_timer.start() 
-				
 		State.ATTACK:
 			_state_attack(delta)
 			
