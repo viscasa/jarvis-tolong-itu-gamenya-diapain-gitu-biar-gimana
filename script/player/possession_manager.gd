@@ -29,9 +29,9 @@ func possess(target: Node) -> void:
 
 	is_possessing = true
 	possessed_target = target
-	player.global_position = target.global_position
+	player.global_position = possessed_target.global_position
 	player.velocity = Vector2.ZERO
-	emit_signal("possessed", target)
+	emit_signal("possessed", possessed_target)
 	player.dash_manager.on_possession_started()
 	if possessed_target.get_parent().has_method("on_possessed"):
 		possessed_target.get_parent().on_possessed()

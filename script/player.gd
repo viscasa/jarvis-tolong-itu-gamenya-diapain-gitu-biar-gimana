@@ -1,5 +1,6 @@
 extends CharacterBody2D
 class_name Player
+
 const SPEED = 150.0
 const Y_MUL = 1.5
 const ACCELERATION = 600.0
@@ -81,8 +82,6 @@ func handle_global_inputs() -> void:
 	if Input.is_action_just_pressed("dash") and not possession_manager.is_possessing:
 		if can_start_possession():
 			dash_manager.start_dash()
-	if Input.is_action_just_pressed("exit_dash") and possession_manager.is_possessing:
-		dash_manager.start_exit_dash()
 
 func _on_possessed(target):
 	emit_signal("possessed", target)

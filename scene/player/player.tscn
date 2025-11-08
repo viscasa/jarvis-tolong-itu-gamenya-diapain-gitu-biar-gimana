@@ -2,11 +2,90 @@
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://bsb4kfa60ht0u" path="res://assets/temp/hades.jpg" id="4_5lop3"]
+[ext_resource type="Script" uid="uid://bviu6417canup" path="res://script/player/circle_timing.gd" id="5_732fb"]
 [ext_resource type="Script" uid="uid://184i1jkejuje" path="res://script/player/dash_manager.gd" id="5_ajqqa"]
+[ext_resource type="Texture2D" uid="uid://cp511vlvuylir" path="res://assets/temp/White-Circle-PNG.png" id="5_rkmeh"]
 [ext_resource type="Script" uid="uid://23opve5ed1ex" path="res://script/player/possession_manager.gd" id="6_rkmeh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
 
+[sub_resource type="Animation" id="Animation_732fb"]
+resource_name = "shrink_in"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CircleTiming/CircleTimer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.4666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.03912925, 0.03912925), Vector2(0.007, 0.007), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CircleTiming:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+
+[sub_resource type="Animation" id="Animation_hfhxk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CircleTiming:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CircleTiming:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rkmeh"]
+resource_name = "fade_out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CircleTiming:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pisg7"]
+_data = {
+&"RESET": SubResource("Animation_hfhxk"),
+&"fade_out": SubResource("Animation_rkmeh"),
+&"shrink_in": SubResource("Animation_732fb")
+}
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqqa"]
 size = Vector2(9.896308, 9.90268)
 
@@ -26,7 +105,7 @@ texture = ExtResource("4_5lop3")
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.0000002)
 rotation = 0.7853982
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.49999997, 0.49999997)
 shape = SubResource("RectangleShape2D_5lop3")
 
 [node name="DashManager" type="Node2D" parent="."]
@@ -37,6 +116,28 @@ script = ExtResource("6_rkmeh")
 
 [node name="SkillManager" type="Node2D" parent="."]
 
+[node name="CircleTiming" type="Node2D" parent="."]
+visible = false
+z_index = 1
+script = ExtResource("5_732fb")
+
+[node name="CircleAnimation" type="AnimationPlayer" parent="CircleTiming"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_pisg7")
+}
+
+[node name="CircleTimer" type="Sprite2D" parent="CircleTiming"]
+position = Vector2(4.7683716e-07, -9.536743e-07)
+rotation = -3.1415925
+scale = Vector2(0.03912925, 0.03912925)
+texture = ExtResource("5_rkmeh")
+
+[node name="Reference" type="Sprite2D" parent="CircleTiming"]
+position = Vector2(4.7683716e-07, -9.536743e-07)
+rotation = -3.1415925
+scale = Vector2(0.0071148598, 0.0071148598)
+texture = ExtResource("5_rkmeh")
 [node name="PossessArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PossessArea"]

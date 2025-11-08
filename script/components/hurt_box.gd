@@ -1,6 +1,8 @@
 extends Area2D
 class_name Hurtbox
 
+var cooldown_possessed:float = 1.5
+
 func _ready():
 	area_entered.connect(_on_area_entered)
 	connect("body_entered", Callable(self, "_on_body_entered"))
@@ -13,14 +15,17 @@ func _on_area_entered(area):
 	var pm = player.get_node("PossessionManager")
 
 	var allowed := false
-	if dm.must_exit_before_possession:
-		allowed = dm.has_exited_since_last_possession
-	else:
-		# Gerak atau masih dalam jendela siklus
-		allowed = dm.is_dashing or dm.is_exit_dashing or dm.dash_cycle_active or dm.exit_dash_cycle_active
+	allowed = dm.is_dashing or dm.is_exit_dashing
 
-	if allowed:
+	if allowed and not dm.auto_exit_possess_lock:
+		set_collision_layer_value(1,false)
+		set_collision_mask_value(1,false)
 		pm.possess(self)
+		await dm.exit_cycle_started
+		await get_tree().create_timer(cooldown_possessed).timeout
+		set_collision_layer_value(1,true)
+		set_collision_mask_value(1,true)
+		
 	# 1. Cek apakah yang masuk adalah sebuah Hitbox
 	if area is Hitbox:
 		# 2. Cari node 'Stats' yang seharusnya ada di parent kita
