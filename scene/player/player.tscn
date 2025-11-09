@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bsb4kfa60ht0u" path="res://assets/temp/hades.jpg" id="4_5lop3"]
 [ext_resource type="Script" uid="uid://bviu6417canup" path="res://script/player/circle_timing.gd" id="5_732fb"]
 [ext_resource type="Script" uid="uid://184i1jkejuje" path="res://script/player/dash_manager.gd" id="5_ajqqa"]
-[ext_resource type="Script" uid="uid://dg8lpebxxa4ju" path="res://script/player/attack_manager.gd" id="5_hfhxk"]
-[ext_resource type="Script" uid="uid://bbyofitikb5qc" path="res://script/skill/skill_manager.gd" id="5_pisg7"]
+[ext_resource type="Script" path="res://script/player/attack_manager.gd" id="5_hfhxk"]
+[ext_resource type="Script" path="res://script/skill/skill_manager.gd" id="5_pisg7"]
 [ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="6_hfhxk"]
-[ext_resource type="Script" uid="uid://bu0iam8jk0csv" path="res://script/skill/super_dash.gd" id="6_oypl4"]
+[ext_resource type="Script" path="res://script/skill/super_dash.gd" id="6_oypl4"]
 [ext_resource type="Script" uid="uid://23opve5ed1ex" path="res://script/player/possession_manager.gd" id="6_rkmeh"]
 [ext_resource type="Script" uid="uid://cps5dwhtnhmsi" path="res://script/skill/pin.gd" id="7_oypl4"]
 [ext_resource type="PackedScene" uid="uid://mf4miuiyvjap" path="res://scene/skill/pin.tscn" id="8_qjg4s"]
@@ -60,6 +60,7 @@ script = ExtResource("5_hfhxk")
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("6_hfhxk")
+base_damage = 100.0
 
 [node name="CircleTiming" type="Node2D" parent="."]
 z_index = 1
@@ -74,3 +75,6 @@ shape = SubResource("RectangleShape2D_ajqqa")
 
 [node name="DamageNumberOrigin" type="Node2D" parent="."]
 position = Vector2(0, -22)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
