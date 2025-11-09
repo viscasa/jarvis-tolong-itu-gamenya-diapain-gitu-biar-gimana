@@ -85,3 +85,12 @@ shape = SubResource("RectangleShape2D_ajqqa")
 
 [node name="DamageNumberOrigin" type="Node2D" parent="."]
 position = Vector2(0, -22)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1

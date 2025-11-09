@@ -12,13 +12,12 @@ class_name EnemyBase
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var nav_agent: NavigationAgent2D = $NavAgent
-@export var path_update_rate: float = 0.25
 @export var body_radius := 10
+@export var update_rate := 0.35
 enum State { CHASE, ATTACK, POSSESSED, DEAD }
 var current_state: State = State.CHASE 
 var player_target: Node2D = null 
-
-var path_update_timer: float = 0.0
+var _time_since_update := 0.0
 
 func _ready():
 	add_to_group("enemies")
@@ -61,11 +60,11 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
-	
-	path_update_timer += delta
-	if path_update_timer >= path_update_rate:
-		path_update_timer = 0.0
+	_time_since_update += delta
+	if _time_since_update >= update_rate:
 		_update_target_position()
+		_time_since_update = 0.0
+
 	
 	var distance_to_player = global_position.distance_to(player_target.global_position)
 	
@@ -90,8 +89,8 @@ func _physics_process(delta):
 func _update_target_position():
 	if is_instance_valid(player_target):
 		var distance_to_target = player_target.global_position.distance_to(nav_agent.target_position)
-		if distance_to_target > 20.0 or not nav_agent.is_target_reachable():
-			nav_agent.target_position = player_target.global_position
+		
+		nav_agent.target_position = player_target.global_position
 
 
 
@@ -139,7 +138,6 @@ func on_possessed():
 
 func on_released():
 	current_state = State.CHASE
-	path_update_timer = 0.0
 	_update_target_position()
 
 func _perform_attack():
