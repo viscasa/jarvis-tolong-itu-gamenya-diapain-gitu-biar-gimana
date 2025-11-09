@@ -100,3 +100,27 @@ position = Vector2(-133, -38)
 position = Vector2(-48, -82)
 
 [node name="BrokenPuppet" parent="." instance=ExtResource("6_r647c")]
+
+[node name="ShootingEnemy3" parent="." instance=ExtResource("9_mss46")]
+position = Vector2(-7, -103)
+
+[node name="DashShootingEnemy3" parent="." instance=ExtResource("8_jul5o")]
+position = Vector2(-102, -109)
+
+[node name="Wolf3" parent="." instance=ExtResource("10_r647c")]
+position = Vector2(-17, -153)
+
+[node name="BrokenPuppet3" parent="." instance=ExtResource("6_r647c")]
+position = Vector2(31, -71)
+
+[node name="ShootingEnemy2" parent="." instance=ExtResource("9_mss46")]
+position = Vector2(-84, -24)
+
+[node name="DashShootingEnemy2" parent="." instance=ExtResource("8_jul5o")]
+position = Vector2(-179, -30)
+
+[node name="Wolf2" parent="." instance=ExtResource("10_r647c")]
+position = Vector2(-94, -74)
+
+[node name="BrokenPuppet2" parent="." instance=ExtResource("6_r647c")]
+position = Vector2(-46, 8)

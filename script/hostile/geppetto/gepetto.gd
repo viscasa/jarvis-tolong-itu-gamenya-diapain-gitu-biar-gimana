@@ -130,7 +130,7 @@ func _perform_spawn_puppets():
 	for spawn_point in picked_points:
 		if puppet_scene:
 			var puppet = puppet_scene.instantiate()
-			puppet_container.add_child(puppet) 
+			puppet_container.add_child(puppet, true) 
 			puppet.global_position = spawn_point.global_position
 
 	_create_random_attack_sequence() 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=20 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://bsb4kfa60ht0u" path="res://assets/temp/hades.jpg" id="4_5lop3"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://rbphogr1dvw6" path="res://scene/skill/homing_projectile.tscn" id="10_p3aiu"]
 [ext_resource type="Script" uid="uid://bbl61wn2ljyp3" path="res://script/player/health_manager.gd" id="10_qjg4s"]
 [ext_resource type="Script" uid="uid://cmg0hbp1r416i" path="res://script/skill/triple_homing_shot.gd" id="11_f5r2w"]
+[ext_resource type="Script" uid="uid://c2xhksrn233qj" path="res://script/skill/slash_shot.gd" id="13_5g408"]
+[ext_resource type="PackedScene" uid="uid://hx00w01i2p80" path="res://scene/skill/slash_projectile.tscn" id="14_sc4n2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
 
@@ -58,6 +60,11 @@ pin_scene = ExtResource("8_qjg4s")
 
 [node name="MorphSkill" type="Node2D" parent="SkillManager"]
 script = ExtResource("9_oen5c")
+dash_speed = null
+dash_move_time = null
+cooldown = null
+wolf_dash_count = null
+wolf_dash_delay = null
 
 [node name="HomingShot" type="Node2D" parent="SkillManager"]
 script = ExtResource("9_1wtbu")
@@ -69,6 +76,11 @@ missile_proximity_threshold = 50.0
 [node name="TripleHomingShot" type="Node2D" parent="SkillManager"]
 script = ExtResource("11_f5r2w")
 projectile_scene = ExtResource("10_p3aiu")
+
+[node name="SlashShot" type="Node2D" parent="SkillManager"]
+script = ExtResource("13_5g408")
+projectile_scene = ExtResource("14_sc4n2")
+slash_speed = 400.0
 
 [node name="AttackManager" type="Node2D" parent="."]
 script = ExtResource("5_hfhxk")
