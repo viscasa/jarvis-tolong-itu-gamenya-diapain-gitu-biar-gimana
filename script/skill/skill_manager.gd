@@ -11,14 +11,17 @@ class_name SkillManager
 
 var homing_shot_ready : bool = false
 var triple_homing_shot_ready : bool = false
+var wolf_morph_ready : bool = false
 
 func start_or_return_super_dash() :
 	super_dash.start_super_dash()
 
 func use_morph_skill() -> void:
-	if morph_skill.start_skill(homing_shot_ready, triple_homing_shot_ready) :
+	print(homing_shot_ready, triple_homing_shot_ready, wolf_morph_ready)
+	if morph_skill.start_skill(homing_shot_ready, triple_homing_shot_ready, wolf_morph_ready) :
 		homing_shot_ready = false
 		triple_homing_shot_ready = false
+		wolf_morph_ready = false
 
 func use_pin() -> void:
 	pin.throw_pin()
@@ -40,3 +43,5 @@ func morph(name:String) :
 		homing_shot_ready = true
 	elif name.begins_with("DashShootingEnemy") :
 		triple_homing_shot_ready = true
+	elif name.begins_with("Wolf") :
+		wolf_morph_ready = true

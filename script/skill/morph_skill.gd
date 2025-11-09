@@ -5,7 +5,9 @@ signal morph_dash_started
 
 @export var dash_speed: float = 350
 @export var dash_move_time: float = 0.15
-@export var cooldown: float = 5
+@export var cooldown: float = 1
+@export var wolf_dash_count: int = 2 # Berapa kali Wolf Morph dash
+@export var wolf_dash_delay: float = 0.7 # <-- Delay antar dash (dalam detik)
 
 @onready var player: Player = $"../.."
 @onready var dash_manager: DashManager = $"../../DashManager"
@@ -15,52 +17,102 @@ signal morph_dash_started
 @onready var triple_homing_shot: TripleHomingShot = $"../TripleHomingShot"
 
 var is_dashing: bool = false
+var is_in_delay: bool = false
 var is_homing_shoot_ready:bool = false
 var is_triple_homing_shoot_ready:bool = false
+var current_wolf_dashes: int = 0
+
 var dash_move_timer: float = 0.0
 var cooldown_timer: float = 0.0
+var delay_timer: float = 0.0
 var dash_direction: Vector2 = Vector2.ZERO
 
 func _process(delta: float) -> void:
 	if cooldown_timer > 0.0:
 		cooldown_timer -= delta
 		
+	if is_in_delay:
+		delay_timer -= delta
+		if delay_timer <= 0.0:
+			is_in_delay = false
+			_start_dash_internal() # Mulai dash berikutnya
+		return 
+	
 	if is_dashing:
 		dash_move_timer -= delta
 		if dash_move_timer <= 0.0:
 			_end_dash_movement()
 
 func is_active() -> bool:
+	# --- PERUBAHAN UTAMA DI SINI ---
+	# Skill hanya 'aktif' (mengganti velocity player)
+	# saat sedang 'is_dashing', BUKAN saat 'is_in_delay'.
 	return is_dashing
+	# ---------------------------------
 
 func _end_dash_movement() -> void:
 	is_dashing = false
-	if is_homing_shoot_ready :
-		use_homing_shot()
-	if is_triple_homing_shoot_ready :
-		use_triple_homing_shot()
-	emit_signal("morph_dash_ended")
+	
+	if current_wolf_dashes > 0:
+		current_wolf_dashes -= 1 
+		
+		process_all_skill(false) 
+		
+		if current_wolf_dashes > 0:
+			is_in_delay = true
+			delay_timer = wolf_dash_delay
+			return
+		else:
+			process_all_skill(true) 
+			emit_signal("morph_dash_ended")
+			
+	else:
+		process_all_skill(true) 
+		emit_signal("morph_dash_ended")
 
-func start_skill(homing_shoot_ready:bool = false, triple_homing_shoot_ready:bool = false) -> bool:
-	# 1. Cek Cooldown & State
-	if is_dashing or cooldown_timer > 0.0:
+func process_all_skill(reset_flags: bool) -> void:
+	# ... (Tidak ada perubahan di sini)
+	if not reset_flags:
+		if is_homing_shoot_ready :
+			use_homing_shot()
+		if is_triple_homing_shoot_ready :
+			use_triple_homing_shot()
+
+	if reset_flags:
+		is_homing_shoot_ready = false
+		is_triple_homing_shoot_ready = false
+		current_wolf_dashes = 0
+
+func start_skill(homing_shoot_ready:bool = false, triple_homing_shoot_ready:bool = false, wolf_morph_ready:bool = false) -> bool:
+	# --- MODIFIKASI: Tambahkan check 'is_in_delay' ---
+	if is_dashing or is_in_delay or cooldown_timer > 0.0:
+	# -----------------------------------------------
 		return false
 	
-	if !homing_shoot_ready and !triple_homing_shoot_ready :
+	if not homing_shoot_ready and not triple_homing_shoot_ready and not wolf_morph_ready:
 		return false
 	
-	# 2. Cek Skill Lain
-	if not player or not dash_manager or not super_dash or not pin: # TAMBAHAN
+	if not player or not dash_manager or not super_dash or not pin:
 		return false
 		
-	# --- MODIFIKASI: Cek semua skill ---
 	if dash_manager.is_dashing or dash_manager.is_dash_moving or \
 	   dash_manager.is_exit_dashing or dash_manager.is_exit_moving or \
-	   super_dash.is_active() or pin.is_active(): # TAMBAHAN
+	   super_dash.is_active() or pin.is_active():
 		return false
-	# --- AKHIR MODIFIKASI ---
-		
-	# 3. Tentukan Arah Dash (berdasarkan input/gerakan player)
+
+	is_homing_shoot_ready = homing_shoot_ready
+	is_triple_homing_shoot_ready = triple_homing_shoot_ready
+	
+	if wolf_morph_ready:
+		current_wolf_dashes = wolf_dash_count 
+	else:
+		current_wolf_dashes = 1 
+	
+	_start_dash_internal() 
+	return true
+
+func _start_dash_internal():
+	# ... (Tidak ada perubahan di sini)
 	var input_vector := Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
@@ -68,32 +120,32 @@ func start_skill(homing_shoot_ready:bool = false, triple_homing_shoot_ready:bool
 	
 	if input_vector.length_squared() > 0.1:
 		dash_direction = input_vector.normalized()
-	elif player.velocity.length_squared() > 10.0: # Fallback ke velocity
+	elif player.velocity.length_squared() > 10.0: 
 		dash_direction = player.velocity.normalized()
 	else:
-		return false # Tidak bergerak, tidak bisa dash
+		dash_direction = (player.get_global_mouse_position() - player.global_position).normalized()
+		if dash_direction == Vector2.ZERO:
+			dash_direction = Vector2.RIGHT 
 
-	# 4. Mulai Dash
 	is_dashing = true
-	is_triple_homing_shoot_ready = triple_homing_shoot_ready
-	is_homing_shoot_ready = homing_shoot_ready
 	dash_move_timer = dash_move_time
-	cooldown_timer = cooldown
+	
+	if (wolf_dash_count > 0 and current_wolf_dashes == wolf_dash_count) or \
+	   (wolf_dash_count == 0 and current_wolf_dashes == 1):
+		cooldown_timer = cooldown
 	
 	emit_signal("morph_dash_started")
-	return true
 
-# Dipanggil oleh Player untuk set velocity
 func get_dash_velocity() -> Vector2:
+	# ... (Tidak ada perubahan di sini)
 	if not is_dashing:
 		return Vector2.ZERO
-	# Player akan menerapkan Y_MUL
 	return dash_direction * dash_speed
 
 func use_homing_shot() -> void:
+	# ... (Tidak ada perubahan di sini)
 	homing_shot.shoot_projectile()
-	is_homing_shoot_ready = false
 
 func use_triple_homing_shot() -> void:
+	# ... (Tidak ada perubahan di sini)
 	triple_homing_shot.shoot_projectiles()
-	is_triple_homing_shoot_ready
