@@ -10,13 +10,15 @@ signal no_health()
 @export var health_bar : ProgressBar
 @export var damage_multiplier: float = 1.0
 @onready var damage_number_origin: Node2D = $"../DamageNumberOrigin"
+var is_death = false
 
 var current_health: float:
 	set(value):
 		current_health = clamp(value, 0, max_health)
 		health_changed.emit(current_health, max_health)
-		if current_health == 0:
+		if current_health <= 0:
 			no_health.emit()
+			is_death = true
 
 
 func _ready():
@@ -24,7 +26,7 @@ func _ready():
 
 
 func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
-	if get_owner().current_state == 3 :
+	if is_death :
 		return
 	var final_damage = damage_amount*crit_multiplier - base_defense
 	

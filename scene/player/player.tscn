@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=18 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://bsb4kfa60ht0u" path="res://assets/temp/hades.jpg" id="4_5lop3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cps5dwhtnhmsi" path="res://script/skill/pin.gd" id="7_oypl4"]
 [ext_resource type="PackedScene" uid="uid://mf4miuiyvjap" path="res://scene/skill/pin.tscn" id="8_qjg4s"]
 [ext_resource type="Script" uid="uid://bvtskufdxcgpu" path="res://script/skill/homing_shot.gd" id="9_1wtbu"]
+[ext_resource type="Script" uid="uid://cgmsbawchaf13" path="res://script/skill/morph_skill.gd" id="9_oen5c"]
 [ext_resource type="PackedScene" uid="uid://rbphogr1dvw6" path="res://scene/skill/homing_projectile.tscn" id="10_p3aiu"]
 [ext_resource type="Script" uid="uid://bbl61wn2ljyp3" path="res://script/player/health_manager.gd" id="10_qjg4s"]
 [ext_resource type="Script" uid="uid://cmg0hbp1r416i" path="res://script/skill/triple_homing_shot.gd" id="11_f5r2w"]
@@ -54,6 +55,9 @@ script = ExtResource("6_oypl4")
 [node name="Pin" type="Node2D" parent="SkillManager"]
 script = ExtResource("7_oypl4")
 pin_scene = ExtResource("8_qjg4s")
+
+[node name="MorphSkill" type="Node2D" parent="SkillManager"]
+script = ExtResource("9_oen5c")
 
 [node name="HomingShot" type="Node2D" parent="SkillManager"]
 script = ExtResource("9_1wtbu")

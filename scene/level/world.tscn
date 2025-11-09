@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://benoe2kbrdpcf"]
+[gd_scene load_steps=16 format=4 uid="uid://benoe2kbrdpcf"]
 
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="1_d3gj4"]
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_jul5o"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://qmbf804desic" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0192.png" id="2_er4cb"]
 [ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="3_er4cb"]
 [ext_resource type="PackedScene" path="res://scene/HUD.tscn" id="6_gk4mf"]
+[ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="6_r647c"]
 [ext_resource type="PackedScene" uid="uid://bmy8uiudeygmw" path="res://scene/hostile/dash_shooting_enemy.tscn" id="8_jul5o"]
 [ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
 [ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="10_r647c"]
@@ -97,3 +98,5 @@ position = Vector2(-133, -38)
 
 [node name="Wolf" parent="." instance=ExtResource("10_r647c")]
 position = Vector2(-48, -82)
+
+[node name="BrokenPuppet" parent="." instance=ExtResource("6_r647c")]
