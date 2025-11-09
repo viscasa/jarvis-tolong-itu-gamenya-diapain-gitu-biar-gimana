@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="2_s1n0h"]
 [ext_resource type="PackedScene" uid="uid://0x16bvdxe50c" path="res://scene/hostile/geppetto/geppetto_scissors.tscn" id="3_o1mhc"]
 [ext_resource type="Texture2D" uid="uid://bg03qyy06fgbo" path="res://icon.svg" id="3_plffo"]
-[ext_resource type="Script" uid="uid://cf1nrc451ad8p" path="res://script/components/boss_hurtbox.gd" id="3_w6ka3"]
+[ext_resource type="Script" path="res://script/components/boss_hurtbox.gd" id="3_w6ka3"]
 [ext_resource type="Script" uid="uid://bdec50ymu4lsw" path="res://script/hostile/geppetto/hammer_indicator.gd" id="6_rquf0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iapjk"]
@@ -59,3 +59,6 @@ one_shot = true
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_right = 4.0
 offset_bottom = 27.0
+
+[node name="DamageNumberOrigin" type="Node2D" parent="."]
+position = Vector2(0, -27)

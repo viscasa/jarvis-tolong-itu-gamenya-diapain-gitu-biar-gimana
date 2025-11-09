@@ -13,6 +13,8 @@ func _ready():
 	connect("body_entered", Callable(self, "_on_body_entered"))
 
 func _on_area_entered(area):
+	if !circle :
+		return
 	if not area.get_parent() is Player:
 		return
 	var player = area.get_parent()
