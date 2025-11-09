@@ -1,0 +1,185 @@
+[gd_scene load_steps=12 format=4 uid="uid://wh8dbv0xoj4g"]
+
+[ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_6rk7x"]
+[ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="2_ohnom"]
+[ext_resource type="Texture2D" uid="uid://qmbf804desic" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0192.png" id="3_qwijf"]
+[ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="4_0ryd4"]
+[ext_resource type="PackedScene" uid="uid://7xvfxcypiid7" path="res://scene/hostile/geppetto/geppetto.tscn" id="5_l811l"]
+[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="6_1w48m"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6t8t0"]
+texture = ExtResource("1_6rk7x")
+texture_region_size = Vector2i(16, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_l6qlb"]
+vertices = PackedVector2Array(8, 0, 0, 4, -8, 0, 0, -4)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nxly7"]
+texture = ExtResource("2_ohnom")
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_l6qlb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v8aen"]
+texture = ExtResource("3_qwijf")
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)
+
+[sub_resource type="TileSet" id="TileSet_u8c0e"]
+tile_shape = 1
+tile_layout = 1
+tile_size = Vector2i(16, 8)
+physics_layer_0/collision_layer = 1
+navigation_layer_0/layers = 1
+sources/1 = SubResource("TileSetAtlasSource_nxly7")
+sources/2 = SubResource("TileSetAtlasSource_v8aen")
+sources/0 = SubResource("TileSetAtlasSource_6t8t0")
+
+[node name="GepettoLevel" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAD//wAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAUAAQAAAAAAAAAAAAYAAQAAAAAAAAAAAAcAAQAAAAAAAAD//wgAAQAAAAAAAAD//wcAAQAAAAAAAAD+/wYAAQAAAAAAAAD//wUAAQAAAAAAAAD+/wQAAQAAAAAAAAD//wMAAQAAAAAAAAD+/wIAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAMAAQAAAAAAAAD//wQAAQAAAAAAAAAAAAUAAQAAAAAAAAD//wkAAQAAAAAAAAD+/wgAAQAAAAAAAAD//wIAAQAAAAAAAAD//wYAAQAAAAAAAAD+/wMAAQAAAAAAAAD9/wQAAQAAAAAAAAD+/wUAAQAAAAAAAAD9/wYAAQAAAAAAAAD9/wcAAQAAAAAAAAD9/wgAAQAAAAAAAAD+/wkAAQAAAAAAAAD+/wcAAQAAAAAAAAD9/wUAAQAAAAAAAAD8/wYAAQAAAAAAAAABAAQAAQAAAAAAAAD+/woAAQAAAAAAAAD//woAAQAAAAAAAAD//wsAAQAAAAAAAAD//wwAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAkAAQAAAAAAAAAAAAoAAQAAAAAAAAAAAAsAAQAAAAAAAAAAAAwAAQAAAAAAAAAAAA0AAQAAAAAAAAAAAA4AAQAAAAAAAAABAAYAAQAAAAAAAAABAAcAAQAAAAAAAAABAAgAAQAAAAAAAAABAAkAAQAAAAAAAAABAAoAAQAAAAAAAAABAAsAAQAAAAAAAAABAAwAAQAAAAAAAAABAA0AAQAAAAAAAAACAAUAAQAAAAAAAAACAAYAAQAAAAAAAAACAAcAAQAAAAAAAAACAAgAAQAAAAAAAAACAAkAAQAAAAAAAAACAAoAAQAAAAAAAAACAAsAAQAAAAAAAAADAAcAAQAAAAAAAAADAAgAAQAAAAAAAAADAAkAAQAAAAAAAAABAA4AAQAAAAAAAAABAA8AAQAAAAAAAAABABAAAQAAAAAAAAACAAwAAQAAAAAAAAACAA0AAQAAAAAAAAACAA4AAQAAAAAAAAACAA8AAQAAAAAAAAACABAAAQAAAAAAAAACABEAAQAAAAAAAAACABIAAQAAAAAAAAADAAoAAQAAAAAAAAADAAsAAQAAAAAAAAADAAwAAQAAAAAAAAADAA0AAQAAAAAAAAADAA4AAQAAAAAAAAADAA8AAQAAAAAAAAADABAAAQAAAAAAAAADABEAAQAAAAAAAAAEAAkAAQAAAAAAAAAEAAoAAQAAAAAAAAAEAAsAAQAAAAAAAAAEAAwAAQAAAAAAAAAEAA0AAQAAAAAAAAAEAA4AAQAAAAAAAAAEAA8AAQAAAAAAAAAFAAsAAQAAAAAAAAAFAAwAAQAAAAAAAAAFAA0AAQAAAAAAAAD6/wsAAQAAAAAAAAD7/wkAAQAAAAAAAAD6/woAAQAAAAAAAAD7/wsAAQAAAAAAAAD6/wwAAQAAAAAAAAD7/w0AAQAAAAAAAAD8/wcAAQAAAAAAAAD7/wgAAQAAAAAAAAD8/wkAAQAAAAAAAAD7/woAAQAAAAAAAAD8/wsAAQAAAAAAAAD7/wwAAQAAAAAAAAD8/w0AAQAAAAAAAAD7/w4AAQAAAAAAAAD8/w8AAQAAAAAAAAD8/wgAAQAAAAAAAAD9/wkAAQAAAAAAAAD8/woAAQAAAAAAAAD9/wsAAQAAAAAAAAD8/wwAAQAAAAAAAAD9/w0AAQAAAAAAAAD8/w4AAQAAAAAAAAD9/w8AAQAAAAAAAAD8/xAAAQAAAAAAAAD9/xEAAQAAAAAAAAD9/woAAQAAAAAAAAD+/wsAAQAAAAAAAAD9/wwAAQAAAAAAAAD+/w0AAQAAAAAAAAD9/w4AAQAAAAAAAAD+/w8AAQAAAAAAAAD9/xAAAQAAAAAAAAD+/xEAAQAAAAAAAAD9/xIAAQAAAAAAAAD+/xMAAQAAAAAAAAD+/wwAAQAAAAAAAAD//w0AAQAAAAAAAAD+/w4AAQAAAAAAAAD//w8AAQAAAAAAAAD+/xAAAQAAAAAAAAD//xEAAQAAAAAAAAD+/xIAAQAAAAAAAAD//xMAAQAAAAAAAAD+/xQAAQAAAAAAAAD//xUAAQAAAAAAAAD//w4AAQAAAAAAAAAAAA8AAQAAAAAAAAD//xAAAQAAAAAAAAAAABEAAQAAAAAAAAD//xIAAQAAAAAAAAAAABMAAQAAAAAAAAD//xQAAQAAAAAAAAAAABUAAQAAAAAAAAD//xYAAQAAAAAAAAAAABcAAQAAAAAAAAAAABAAAQAAAAAAAAABABEAAQAAAAAAAAAAABIAAQAAAAAAAAABABMAAQAAAAAAAAAAABQAAQAAAAAAAAABABUAAQAAAAAAAAAAABYAAQAAAAAAAAABABIAAQAAAAAAAAACABMAAQAAAAAAAAABABQAAQAAAAAAAAD3/xEAAQAAAAAAAAD4/w8AAQAAAAAAAAD3/xAAAQAAAAAAAAD4/xEAAQAAAAAAAAD3/xIAAQAAAAAAAAD4/xMAAQAAAAAAAAD5/w0AAQAAAAAAAAD4/w4AAQAAAAAAAAD5/w8AAQAAAAAAAAD4/xAAAQAAAAAAAAD5/xEAAQAAAAAAAAD4/xIAAQAAAAAAAAD5/xMAAQAAAAAAAAD4/xQAAQAAAAAAAAD5/xUAAQAAAAAAAAD5/wwAAQAAAAAAAAD6/w0AAQAAAAAAAAD5/w4AAQAAAAAAAAD6/w8AAQAAAAAAAAD5/xAAAQAAAAAAAAD6/xEAAQAAAAAAAAD5/xIAAQAAAAAAAAD6/xMAAQAAAAAAAAD5/xQAAQAAAAAAAAD6/xUAAQAAAAAAAAD5/xYAAQAAAAAAAAD6/xcAAQAAAAAAAAD6/w4AAQAAAAAAAAD7/w8AAQAAAAAAAAD6/xAAAQAAAAAAAAD7/xEAAQAAAAAAAAD6/xIAAQAAAAAAAAD7/xMAAQAAAAAAAAD6/xQAAQAAAAAAAAD7/xUAAQAAAAAAAAD6/xYAAQAAAAAAAAD7/xcAAQAAAAAAAAD6/xgAAQAAAAAAAAD7/xkAAQAAAAAAAAD7/xAAAQAAAAAAAAD8/xEAAQAAAAAAAAD7/xIAAQAAAAAAAAD8/xMAAQAAAAAAAAD7/xQAAQAAAAAAAAD8/xUAAQAAAAAAAAD7/xYAAQAAAAAAAAD8/xcAAQAAAAAAAAD7/xgAAQAAAAAAAAD8/xkAAQAAAAAAAAD7/xoAAQAAAAAAAAD8/xsAAQAAAAAAAAD8/xIAAQAAAAAAAAD9/xMAAQAAAAAAAAD8/xQAAQAAAAAAAAD9/xUAAQAAAAAAAAD8/xYAAQAAAAAAAAD9/xcAAQAAAAAAAAD8/xgAAQAAAAAAAAD9/xkAAQAAAAAAAAD8/xoAAQAAAAAAAAD9/xsAAQAAAAAAAAD8/xwAAQAAAAAAAAD9/x0AAQAAAAAAAAD9/xQAAQAAAAAAAAD+/xUAAQAAAAAAAAD9/xYAAQAAAAAAAAD+/xcAAQAAAAAAAAD9/xgAAQAAAAAAAAD+/xkAAQAAAAAAAAD9/xoAAQAAAAAAAAD+/xsAAQAAAAAAAAD9/xwAAQAAAAAAAAD+/xYAAQAAAAAAAAD//xcAAQAAAAAAAAD+/xgAAQAAAAAAAAD//xkAAQAAAAAAAAD+/xoAAQAAAAAAAAD//xgAAQAAAAAAAAD2/xIAAQAAAAAAAAD3/xMAAQAAAAAAAAD3/xQAAQAAAAAAAAD4/xUAAQAAAAAAAAD4/xYAAQAAAAAAAAD5/xcAAQAAAAAAAAD5/xgAAQAAAAAAAAD6/xkAAQAAAAAAAAD6/xoAAQAAAAAAAAD7/xsAAQAAAAAAAAD7/xwAAQAAAAAAAAD8/x0AAQAAAAAAAAD8/x4AAQAAAAAAAAD+/x0AAQAAAAAAAAD9/x4AAQAAAAAAAAD//xsAAQAAAAAAAAD+/xwAAQAAAAAAAAAAABkAAQAAAAAAAAD//xoAAQAAAAAAAAABABcAAQAAAAAAAAAAABgAAQAAAAAAAAACABUAAQAAAAAAAAABABYAAQAAAAAAAAADABMAAQAAAAAAAAACABQAAQAAAAAAAAAEABEAAQAAAAAAAAADABIAAQAAAAAAAAAFAA8AAQAAAAAAAAAEABAAAQAAAAAAAAAGAA0AAQAAAAAAAAAFAA4AAQAAAAAAAAD9/x8AAQAAAAAAAAD7/wYAAQAAAAAAAAD4/wwAAQAAAAAAAAD4/w0AAQAAAAAAAAD2/xAAAQAAAAAAAAD3/w8AAQAAAAAAAAD2/xEAAQAAAAAAAAD3/w4AAQAAAAAAAAD5/wsAAQAAAAAAAAD5/woAAQAAAAAAAAD6/wkAAQAAAAAAAAD6/wgAAQAAAAAAAAD7/wcAAQAAAAAAAAD8/wUAAQAAAAAAAAD8/wQAAQAAAAAAAAD9/wMAAQAAAAAAAAD9/wIAAQAAAAAAAAD+/wEAAQAAAAAAAAD+/wAAAQAAAAAAAAD/////AQAAAAAAAAA=")
+tile_set = SubResource("TileSet_u8c0e")
+script = ExtResource("4_0ryd4")
+
+[node name="SwingIndicator" type="Node2D" parent="."]
+
+[node name="Top" type="Polygon2D" parent="SwingIndicator"]
+visible = false
+position = Vector2(-78, 163)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 225, -93, 304, -52, 0, 100)
+
+[node name="Bottom" type="Polygon2D" parent="SwingIndicator"]
+visible = false
+position = Vector2(-239, 82)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 225, -93, 304, -52, 0, 100)
+
+[node name="Mid" type="Polygon2D" parent="SwingIndicator"]
+visible = false
+position = Vector2(-159, 122)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 104, -29, 225, -93, 304, -52, 0, 100)
+
+[node name="Gepetto" parent="." node_paths=PackedStringArray("puppet_container", "spawn_container", "swing_indicator", "player_target") instance=ExtResource("5_l811l")]
+position = Vector2(30, 71)
+puppet_container = NodePath("../PuppetContainer")
+spawn_container = NodePath("../SpawnContainer")
+swing_indicator = NodePath("../SwingIndicator")
+player_target = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("6_1w48m")]
+position = Vector2(-137, 173)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2.5, 2.5)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1
+
+[node name="SpawnContainer" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-252, 128)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-192, 162)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-129, 192)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-73, 219)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-177, 90)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-133, 120)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-80, 166)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-28, 200)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(15, 176)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-21, 142)
+
+[node name="Marker2D11" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-73, 90)
+
+[node name="Marker2D12" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-107, 55)
+
+[node name="Marker2D13" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-47, 33)
+
+[node name="Marker2D14" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(14, 65)
+
+[node name="Marker2D15" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(61, 90)
+
+[node name="Marker2D16" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(110, 118)
+
+[node name="Marker2D17" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(-2, 8)
+
+[node name="Marker2D18" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(53, 40)
+
+[node name="Marker2D19" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(99, 65)
+
+[node name="Marker2D20" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(149, 90)
+
+[node name="PuppetContainer" type="Node2D" parent="."]

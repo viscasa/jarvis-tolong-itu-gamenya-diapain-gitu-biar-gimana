@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://benoe2kbrdpcf"]
+[gd_scene load_steps=16 format=4 uid="uid://benoe2kbrdpcf"]
 
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="1_d3gj4"]
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_jul5o"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cc4qgfj5q0v1n" path="res://scene/skill/silk.tscn" id="7_l6qlb"]
 [ext_resource type="PackedScene" uid="uid://bmy8uiudeygmw" path="res://scene/hostile/dash_shooting_enemy.tscn" id="8_jul5o"]
 [ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
+[ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="10_r647c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mss46"]
 texture = ExtResource("1_jul5o")
@@ -105,3 +106,6 @@ position = Vector2(-38, -32)
 
 [node name="DashShootingEnemy" parent="." instance=ExtResource("8_jul5o")]
 position = Vector2(46, -25)
+
+[node name="Wolf" parent="." instance=ExtResource("10_r647c")]
+position = Vector2(-48, -82)

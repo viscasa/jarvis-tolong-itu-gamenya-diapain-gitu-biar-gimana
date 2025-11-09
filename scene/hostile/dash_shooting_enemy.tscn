@@ -21,8 +21,9 @@ script = ExtResource("2_s042g")
 projectile_scene = ExtResource("3_s042g")
 reposition_distance = 60.0
 shotgun_spread_angle = 0.3
-dash_speed = 500.0
-dash_duration = 0.1
+dash_speed = 200.0
+dash_duration = 0.2
+move_speed = 60.0
 attack_range = 150.0
 
 [node name="CollisionShape2D" parent="." index="0"]
