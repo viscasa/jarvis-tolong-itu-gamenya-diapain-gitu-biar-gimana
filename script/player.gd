@@ -15,8 +15,9 @@ const EXIT_DASH_SPEED = 120.0
 # Referensi skill di dalam SkillManager
 @onready var super_dash: SuperDash = $SkillManager/SuperDash
 @onready var pin: Pin = $SkillManager/Pin
+@onready var morph_skill: Node2D = $SkillManager/MorphSkill
 @onready var homing_shot: HomingShot = $SkillManager/HomingShot
-@onready var triple_homing_shot: TripleHomingShot = $SkillManager/TripleHomingShot # TAMBAHAN
+@onready var triple_homing_shot: TripleHomingShot = $SkillManager/TripleHomingShot
 
 signal possessed(target)
 
@@ -42,30 +43,9 @@ func _ready() -> void:
 	pin.dash_manager = dash_manager
 	pin.super_dash = super_dash
 	
-	# Beri referensi ke HomingShot
-	homing_shot.player = self
-	homing_shot.dash_manager = dash_manager
-	homing_shot.super_dash = super_dash
-	homing_shot.pin = pin
-	
-	# Beri referensi ke TripleHomingShot (BARU)
-	triple_homing_shot.player = self
-	triple_homing_shot.dash_manager = dash_manager
-	triple_homing_shot.super_dash = super_dash
-	triple_homing_shot.pin = pin
-	triple_homing_shot.homing_shot = homing_shot
-	
-	# Beri tahu skill lain tentang skill baru ini
-	pin.homing_shot = homing_shot
-	pin.triple_homing_shot = triple_homing_shot # TAMBAHAN
-	homing_shot.triple_homing_shot = triple_homing_shot # TAMBAHAN
-	
 	# Beri referensi skill ke DashManager
 	dash_manager.super_dash = super_dash
 	dash_manager.pin = pin
-	dash_manager.homing_shot = homing_shot
-	dash_manager.triple_homing_shot = triple_homing_shot # TAMBAHAN
-	# --- AKHIR PENGATURAN REFERENSI ---
 
 
 func _physics_process(delta: float) -> void:
@@ -75,8 +55,7 @@ func _physics_process(delta: float) -> void:
 	# Proses semua skill
 	super_dash.process_super_dash(delta)
 	pin._process(delta) 
-	homing_shot._process(delta) 
-	triple_homing_shot._process(delta) # TAMBAHAN
+	morph_skill._process(delta) 
 
 	if not is_locked_out:
 		handle_global_inputs()
@@ -88,14 +67,12 @@ func _physics_process(delta: float) -> void:
 		_set_super_dash_charge_velocity()
 	elif super_dash.is_dashing:
 		_set_super_dash_move_velocity()
-	elif homing_shot.is_dashing:
-		_set_homing_shot_dash_velocity()
-	elif triple_homing_shot.is_dashing: # TAMBAHAN
-		_set_triple_homing_shot_dash_velocity()
 	elif dash_manager.is_dash_moving:
 		_set_dash_velocity()
 	elif dash_manager.is_exit_moving:
 		_set_exit_dash_velocity()
+	elif morph_skill.is_dashing:
+		_set_morph_dash_velocity()
 	else:
 		_process_movement(delta)
 	# --- AKHIR PENGATURAN VELOCITY ---
@@ -135,21 +112,14 @@ func _set_super_dash_move_velocity():
 	velocity.x = vel.x
 	velocity.y = vel.y / Y_MUL
 
-func _set_homing_shot_dash_velocity():
-	var vel = homing_shot.get_dash_velocity()
+func _set_morph_dash_velocity():
+	var vel = morph_skill.get_dash_velocity()
 	velocity.x = vel.x
 	velocity.y = vel.y / Y_MUL
-
-# --- FUNGSI BARU ---
-func _set_triple_homing_shot_dash_velocity():
-	var vel = triple_homing_shot.get_dash_velocity()
-	velocity.x = vel.x
-	velocity.y = vel.y / Y_MUL
-# --- AKHIR FUNGSI BARU ---
 
 func _process_movement(delta: float) -> void:
 	# Pastikan kita tidak bergerak jika ada skill dash aktif
-	if super_dash.is_active() or homing_shot.is_active() or triple_homing_shot.is_active(): # TAMBAHAN
+	if super_dash.is_active() or morph_skill.is_active(): # TAMBAHAN
 		velocity = Vector2.ZERO
 		return
 

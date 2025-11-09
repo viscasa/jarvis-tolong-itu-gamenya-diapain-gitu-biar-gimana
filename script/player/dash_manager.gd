@@ -18,8 +18,7 @@ var player: CharacterBody2D
 # --- REFERENSI SKILL ---
 var super_dash: SuperDash
 var pin: Pin 
-var homing_shot: HomingShot
-var triple_homing_shot: TripleHomingShot # TAMBAHAN
+@onready var morph_skill: Node2D = $"../SkillManager/MorphSkill"
 # ---------------------
 
 # ====== PARAM ======
@@ -79,8 +78,7 @@ func can_dash() -> bool:
 	# --- MODIFIKASI: Cek semua skill ---
 	if (super_dash and super_dash.is_active()) or \
 	   (pin and pin.is_active()) or \
-	   (homing_shot and homing_shot.is_active()) or \
-	   (triple_homing_shot and triple_homing_shot.is_active()): # TAMBAHAN
+	   (morph_skill and morph_skill.is_active()): # TAMBAHAN
 		return false
 	# ---------------------------------
 	
@@ -148,8 +146,7 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 	# --- MODIFIKASI: Cek semua skill ---
 	if (super_dash and super_dash.is_active()) or \
 	   (pin and pin.is_active()) or \
-	   (homing_shot and homing_shot.is_active()) or \
-	   (triple_homing_shot and triple_homing_shot.is_active()): # TAMBAHAN
+	   (morph_skill and morph_skill.is_active()): # TAMBAHAN
 		print("Cannot ExitDash, skill lain aktif.")
 		return
 	# ---------------------------------

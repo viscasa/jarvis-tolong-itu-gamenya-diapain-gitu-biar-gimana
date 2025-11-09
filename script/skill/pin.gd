@@ -8,11 +8,13 @@ class_name Pin
 @export var max_distance: float = 100.0
 @export var pin_speed: float = 800.0
 
-var player: Player
-var dash_manager: DashManager
-var super_dash: SuperDash
-var homing_shot: HomingShot
-var triple_homing_shot: TripleHomingShot # TAMBAHAN
+@onready var player: Player = $"../.."
+@onready var dash_manager: DashManager = $"../../DashManager"
+@onready var super_dash: SuperDash = $"../SuperDash"
+@onready var homing_shot: HomingShot = $"../HomingShot"
+@onready var triple_homing_shot: TripleHomingShot = $"../TripleHomingShot"
+@onready var morph_skill: Node2D = $"../MorphSkill"
+
 
 var current_pins: int
 var reload_timer: float = 0.0
@@ -45,7 +47,7 @@ func throw_pin() -> void:
 		
 	if dash_manager.is_dashing or dash_manager.is_dash_moving or \
 	   dash_manager.is_exit_dashing or dash_manager.is_exit_moving or \
-	   super_dash.is_active() or homing_shot.is_active() or triple_homing_shot.is_active(): # TAMBAHAN
+	   super_dash.is_active() or morph_skill.is_active(): # TAMBAHAN
 		return
 	# --- AKHIR MODIFIKASI ---
 		
