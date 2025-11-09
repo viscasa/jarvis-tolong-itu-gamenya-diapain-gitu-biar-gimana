@@ -20,6 +20,7 @@ var player_target: Node2D = null
 var _time_since_update := 0.0
 
 func _ready():
+	add_to_group("enemies")
 	health_bar.max_value = stats.max_health
 	health_bar.value = stats.current_health
 	connect_signals()
@@ -149,7 +150,6 @@ func _perform_attack():
 		hitbox_shape.disabled = true
 		
 func _on_death():
-	print(name + " mati!")
 	current_state = State.DEAD
 	
 	set_physics_process(false)
