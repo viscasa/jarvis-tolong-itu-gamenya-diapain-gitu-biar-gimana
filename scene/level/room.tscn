@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://yncml2ptnko7"]
+
+[ext_resource type="Script" uid="uid://do6lcn32wdt8o" path="res://script/level/room.gd" id="1_6ar0q"]
+[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="2_3xw8e"]
+[ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="2_cupyr"]
+[ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="3_3xw8e"]
+[ext_resource type="Texture2D" uid="uid://qmbf804desic" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0192.png" id="4_7pugk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qr4op"]
+texture = ExtResource("2_cupyr")
+texture_region_size = Vector2i(16, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_l6qlb"]
+vertices = PackedVector2Array(8, 0, 0, 4, -8, 0, 0, -4)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ib65q"]
+texture = ExtResource("3_3xw8e")
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_l6qlb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7j0h5"]
+texture = ExtResource("4_7pugk")
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)
+
+[sub_resource type="TileSet" id="TileSet_5pks2"]
+tile_shape = 1
+tile_layout = 1
+tile_size = Vector2i(16, 8)
+physics_layer_0/collision_layer = 1
+navigation_layer_0/layers = 1
+sources/1 = SubResource("TileSetAtlasSource_ib65q")
+sources/2 = SubResource("TileSetAtlasSource_7j0h5")
+sources/0 = SubResource("TileSetAtlasSource_qr4op")
+
+[node name="Room" type="Node2D"]
+script = ExtResource("1_6ar0q")
+player_scene = ExtResource("2_3xw8e")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_5pks2")
+
+[node name="PlayerSpawnPosition" type="Marker2D" parent="."]
+
+[node name="RewardSpawnPosition" type="Marker2D" parent="."]
+
+[node name="EnemyContainer" type="Node2D" parent="."]
+
+[node name="WaveSpawners" type="Node2D" parent="."]
+
+[node name="DoorContainer" type="Node2D" parent="."]

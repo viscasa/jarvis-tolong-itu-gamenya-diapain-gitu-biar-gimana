@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
 [ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="10_r647c"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mss46"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r647c"]
 texture = ExtResource("1_jul5o")
 texture_region_size = Vector2i(16, 8)
 0:0/0 = 0
@@ -53,13 +53,13 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, -4, -8, 0, 0, 4, 8, 0)])
 agent_radius = 0.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_er4cb"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x3aj5"]
 texture = ExtResource("1_d3gj4")
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -3)
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_l6qlb")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cud0k"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejcbg"]
 texture = ExtResource("2_er4cb")
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -3)
@@ -71,9 +71,9 @@ tile_layout = 1
 tile_size = Vector2i(16, 8)
 physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
-sources/1 = SubResource("TileSetAtlasSource_er4cb")
-sources/2 = SubResource("TileSetAtlasSource_cud0k")
-sources/0 = SubResource("TileSetAtlasSource_mss46")
+sources/1 = SubResource("TileSetAtlasSource_x3aj5")
+sources/2 = SubResource("TileSetAtlasSource_ejcbg")
+sources/0 = SubResource("TileSetAtlasSource_r647c")
 
 [node name="World" type="Node2D"]
 
@@ -86,15 +86,6 @@ tile_set = SubResource("TileSet_cud0k")
 script = ExtResource("3_er4cb")
 
 [node name="Player" parent="." instance=ExtResource("2_0hn3o")]
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(2.5, 2.5)
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.1
-drag_top_margin = 0.1
-drag_right_margin = 0.1
-drag_bottom_margin = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("6_gk4mf")]
 
