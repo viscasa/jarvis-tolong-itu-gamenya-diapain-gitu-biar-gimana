@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://dsnpef6k8ivsm"]
+
+[ext_resource type="FontFile" uid="uid://fhjnbtw3ka03" path="res://assets/fonts/squac___.TTF" id="1_w2yyt"]
+
+[resource]
+base_font = ExtResource("1_w2yyt")
