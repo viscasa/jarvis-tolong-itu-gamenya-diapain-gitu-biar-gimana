@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://wh8dbv0xoj4g"]
+[gd_scene load_steps=12 format=4 uid="uid://l31l1m5mycnv"]
 
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_6rk7x"]
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="2_ohnom"]

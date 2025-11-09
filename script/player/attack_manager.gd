@@ -11,6 +11,8 @@ var enemy_stats:Stats = null
 
 func attack(enemy:Node, is_critical: bool, damage:float = my_stats.get_final_damage()) -> void :
 	var enemy_stats
+	if enemy is Scissor :
+		return
 	if enemy is CharacterBody2D :
 		enemy_stats = enemy.get_node("Stats")
 	else :
