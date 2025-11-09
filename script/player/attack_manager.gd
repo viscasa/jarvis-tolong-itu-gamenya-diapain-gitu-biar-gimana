@@ -3,13 +3,15 @@ class_name AttackManager
 
 signal critical_circle
 
-@onready var my_stats: Stats = $"../Stats"
+@export var base_damage: float = 10.0
+@export var base_defense: float = 2.0
+@export var damage_multiplier: float = 1.0
 
 var crit_multiplier:float = 2.0
 var enemy_stats:Stats = null
 
 
-func attack(enemy:Node, is_critical: bool, damage:float = my_stats.get_final_damage()) -> void :
+func attack(enemy:Node, is_critical: bool, damage:float = get_final_damage()) -> void :
 	var enemy_stats
 	if enemy is Scissor :
 		return
@@ -24,3 +26,8 @@ func attack(enemy:Node, is_critical: bool, damage:float = my_stats.get_final_dam
 		emit_signal("critical_circle")
 	else :
 		enemy_stats.take_damage(damage)
+
+func get_final_damage() -> float:
+	var final_damage = base_damage * damage_multiplier
+	
+	return final_damage

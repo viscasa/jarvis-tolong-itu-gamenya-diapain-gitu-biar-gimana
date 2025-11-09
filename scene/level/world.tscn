@@ -89,9 +89,11 @@ position = Vector2(-239, -92)
 
 [node name="HUD" parent="." instance=ExtResource("6_gk4mf")]
 
-[node name="Wolf" parent="." instance=ExtResource("10_r647c")]
-position = Vector2(-48, -82)
+[node name="ShootingEnemy" parent="." instance=ExtResource("9_mss46")]
+position = Vector2(-38, -32)
 
 [node name="DashShootingEnemy" parent="." instance=ExtResource("8_jul5o")]
+position = Vector2(-133, -38)
 
-[node name="ShootingEnemy" parent="." instance=ExtResource("9_mss46")]
+[node name="Wolf" parent="." instance=ExtResource("10_r647c")]
+position = Vector2(-48, -82)

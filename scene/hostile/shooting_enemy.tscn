@@ -27,7 +27,12 @@ move_speed = 40.0
 attack_range = 250.0
 attack_cooldown = 2.5
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="Wowo" type="Sprite2D" parent="." index="0"]
+modulate = Color(1, 1, 0, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_bk3dr")
+
+[node name="CollisionShape2D" parent="." index="1"]
 scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_6nnlf")
 
@@ -36,8 +41,3 @@ shape = SubResource("CircleShape2D_bk3dr")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_vt8rj")
-
-[node name="Wowo" type="Sprite2D" parent="." index="8"]
-modulate = Color(1, 1, 0, 1)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("4_bk3dr")

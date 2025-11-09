@@ -53,11 +53,9 @@ func _physics_process(delta):
 	var collision = get_last_slide_collision()
 	if collision:
 		if collision.get_collider() is TileMapLayer:
-			print("nabrak")
 			queue_free()
 
 func _on_homing_timer_timeout():
-	print("stop homing")
 	state = State.STRAIGHT
 	
 	var lifetime_timer = Timer.new()
