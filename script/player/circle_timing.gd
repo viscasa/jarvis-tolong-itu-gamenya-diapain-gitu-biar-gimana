@@ -6,6 +6,7 @@ var dash_manager: DashManager
 var attack_manager: AttackManager
 
 var possesion_target:Node = null
+var crit_interval: Array = [0.63,0.76]
 
 func _ready() -> void:
 	if owner is Player:
@@ -24,8 +25,14 @@ func _on_possessed(target) -> void :
 func _on_exit() -> void:
 	if !possesion_target:
 		return
-
-	attack_manager.attack(possesion_target, possesion_target.get_current_circle_time())
+		
+	var is_critical:bool = false
+	var time:float = possesion_target.get_current_circle_time()
+	
+	if time>=crit_interval[0] and time <= crit_interval[1]  :
+		is_critical = true
+	
+	attack_manager.attack(possesion_target, is_critical)
 	possesion_target.exit()
 	
 	possesion_target = null

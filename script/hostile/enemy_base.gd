@@ -155,11 +155,11 @@ func _on_death():
 	current_state = State.DEAD
 	
 	set_physics_process(false)
-	$CollisionShape2D.disabled = true
-	if $Hurtbox: 
-		$Hurtbox/CollisionShape2D.disabled = true
-	
-	await animated_sprite.animation_finished
+	#$CollisionShape2D.disabled = true
+	#if $Hurtbox: 
+		#$Hurtbox/CollisionShape2D.disabled = true
+	#
+	#await animated_sprite.animation_finished
 	queue_free()
 
 func _on_attack_timer_timeout() -> void:

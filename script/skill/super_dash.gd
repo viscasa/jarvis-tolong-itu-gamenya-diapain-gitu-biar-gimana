@@ -5,6 +5,7 @@ class_name SuperDash
 signal super_dash_started
 signal super_dash_charge_ended
 signal super_dash_movement_ended # Sinyal ini aktif saat AOE terjadi
+signal rechare_counter_changed
 
 @onready var attack_manager: AttackManager = $"../../AttackManager"
 
@@ -18,6 +19,8 @@ signal super_dash_movement_ended # Sinyal ini aktif saat AOE terjadi
 @export var aoe_damage := 50.0
 @export var super_dash_max : int = 1
 @export var super_dash_counter : int = 1
+@export var super_dash_recharge_counter : int = 0
+@export var super_dash_recharge_needed : int = 3
 
 # --- REFERENSI ---
 var player: Player
@@ -61,8 +64,9 @@ func _ready() -> void:
 	# Hubungkan sinyal 'body_entered' ke fungsi baru
 	aoe_area.body_entered.connect(_on_aoe_body_entered)
 	
-	attack_manager.critical_circle.connect(_reset_super_dash_counter)
+	attack_manager.critical_circle.connect(_add_counter)
 	super_dash_started.connect(_add_super_dash)
+	rechare_counter_changed.connect(_process_recharge_counter)
 
 # ... (is_active() dan start_super_dash() tidak berubah) ...
 func is_active() -> bool:
@@ -178,7 +182,7 @@ func _on_aoe_body_entered(body) -> void:
 		
 	# Jika body punya method "take_damage", panggil
 	damaged_bodies_this_dash.append(body)
-	attack_manager.attack(body, 1, aoe_damage)
+	attack_manager.attack(body, false, aoe_damage)
 # ---------------------------------
 
 # ... (fungsi _reset dan _add tidak berubah) ...
@@ -189,3 +193,12 @@ func _add_super_dash() :
 	if (super_dash_counter+1>super_dash_max) :
 		return
 	super_dash_counter+=1
+
+func _process_recharge_counter() -> void :
+	if super_dash_recharge_counter >= super_dash_recharge_needed :
+		super_dash_counter = 0
+		super_dash_recharge_counter = 0
+
+func _add_counter() :
+	super_dash_recharge_counter += 1
+	emit_signal("rechare_counter_changed")

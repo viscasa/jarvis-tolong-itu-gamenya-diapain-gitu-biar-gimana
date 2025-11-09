@@ -33,4 +33,6 @@ func display_number(value: int, damage_number_origin: Node2D, color: Color = Col
 	).set_ease(Tween.EASE_IN).set_delay(0.9)
 	
 	await tween.finished 
+	if !number:
+		return
 	number.queue_free()

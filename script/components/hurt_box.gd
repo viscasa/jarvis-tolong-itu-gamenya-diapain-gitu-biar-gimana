@@ -1,6 +1,9 @@
 extends Area2D
 class_name Hurtbox
 
+signal player_possessed
+signal player_auto_exit
+
 var cooldown_possessed:float = 1.5
 @onready var circle: Node2D = $Circle
 @onready var circle_animation: AnimationPlayer = $Circle/CircleAnimation
@@ -25,6 +28,7 @@ func _on_area_entered(area):
 		circle_animation.stop()
 		circle_animation.play("shrink_in")
 		pm.possess(self)
+		emit_signal("player_possessed")
 		await dm.exit_cycle_started
 		await get_tree().create_timer(cooldown_possessed).timeout
 		set_collision_layer_value(1,true)
@@ -43,6 +47,7 @@ func _on_area_entered(area):
 			print("ERROR: " + get_parent().name + " tidak punya node Stats!")
 
 func auto_exit() -> void:
+	emit_signal("player_auto_exit")
 	circle_animation.stop()
 	circle_animation.play("shrink_in")
 	circle_animation.advance(0.76)

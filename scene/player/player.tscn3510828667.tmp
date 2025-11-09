@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=12 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://bsb4kfa60ht0u" path="res://assets/temp/hades.jpg" id="4_5lop3"]
@@ -9,8 +9,6 @@
 [ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="6_hfhxk"]
 [ext_resource type="Script" uid="uid://bu0iam8jk0csv" path="res://script/skill/super_dash.gd" id="6_oypl4"]
 [ext_resource type="Script" uid="uid://23opve5ed1ex" path="res://script/player/possession_manager.gd" id="6_rkmeh"]
-[ext_resource type="Script" uid="uid://cps5dwhtnhmsi" path="res://script/skill/pin.gd" id="7_oypl4"]
-[ext_resource type="PackedScene" uid="uid://mf4miuiyvjap" path="res://scene/skill/pin.tscn" id="8_qjg4s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
 
@@ -48,12 +46,7 @@ script = ExtResource("5_pisg7")
 [node name="SuperDash" type="Node2D" parent="SkillManager"]
 script = ExtResource("6_oypl4")
 
-[node name="Pin" type="Node2D" parent="SkillManager" node_paths=PackedStringArray("player", "dash_manager", "super_dash")]
-script = ExtResource("7_oypl4")
-pin_scene = ExtResource("8_qjg4s")
-player = NodePath("../..")
-dash_manager = NodePath("../../DashManager")
-super_dash = NodePath("../SuperDash")
+[node name="Pin" type="Node2D" parent="SkillManager"]
 
 [node name="AttackManager" type="Node2D" parent="."]
 script = ExtResource("5_hfhxk")
