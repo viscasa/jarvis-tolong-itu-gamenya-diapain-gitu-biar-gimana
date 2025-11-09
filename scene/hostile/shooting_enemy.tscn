@@ -7,6 +7,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nnlf"]
 resource_local_to_scene = true
+size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bk3dr"]
 resource_local_to_scene = true
@@ -23,7 +24,7 @@ reload_time = 0.5
 wander_range = 60.0
 wander_speed_mult = 0.6
 move_speed = 40.0
-attack_range = 200.0
+attack_range = 250.0
 attack_cooldown = 2.5
 
 [node name="CollisionShape2D" parent="." index="0"]

@@ -14,6 +14,8 @@ class_name Geppetto
 @export var swing_indicator: Node2D
 @export var player_target: CharacterBody2D
 @onready var hammer_indicator: Polygon2D = $HammerIndicator
+@onready var health_bar: ProgressBar = $HealthBar
+
 enum State { MOVING, ATTACKING }
 var state: State = State.ATTACKING
 var attack_pattern_index: int = 0
@@ -21,6 +23,8 @@ var spawn_points = []
 var attack_sequence = []
 var path_update_timer: float = 0.0
 func _ready():
+	health_bar.max_value = stats.max_health
+	health_bar.value = stats.current_health
 	if (is_instance_valid(spawn_container)):
 		spawn_points = spawn_container.get_children()
 		
@@ -165,7 +169,7 @@ func _perform_hammer_attack():
 		_setup_next_attack()
 		
 	else:
-		print("Hammer skip, player too far.")
+		print("hammer skip, too far.")
 		_skip_attack()
 	
 func _perform_scissor_attack():
@@ -214,6 +218,6 @@ func _setup_next_attack():
 	attack_timer.start()
 	
 func _skip_attack():
-	print("Attack skipped, setting up next attack.")
+	print("attack skipped, next att")
 	state = State.MOVING
 	attack_timer.start()

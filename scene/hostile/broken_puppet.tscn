@@ -27,7 +27,6 @@ size = Vector2(24.041632, 24.041632)
 
 [node name="BrokenPuppet" instance=ExtResource("1_b13j0")]
 script = ExtResource("2_02fdu")
-reposition_distance = 10.0
 move_speed = 60.0
 
 [node name="CollisionShape2D" parent="." index="0"]
