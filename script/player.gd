@@ -10,8 +10,13 @@ const EXIT_DASH_SPEED = 120.0
 
 @onready var dash_manager: DashManager = $DashManager
 @onready var possession_manager: PossessionManager = $PossessionManager
-@onready var super_dash: SuperDash = $SkillManager/SuperDash # TAMBAHKAN INI
 @onready var skill_manager: Node2D = $SkillManager
+
+# Referensi skill di dalam SkillManager
+@onready var super_dash: SuperDash = $SkillManager/SuperDash
+@onready var pin: Pin = $SkillManager/Pin
+@onready var homing_shot: HomingShot = $SkillManager/HomingShot
+@onready var triple_homing_shot: TripleHomingShot = $SkillManager/TripleHomingShot # TAMBAHAN
 
 signal possessed(target)
 
@@ -27,59 +32,85 @@ func _ready() -> void:
 	possession_manager.player = self
 	possession_manager.possessed.connect(_on_possessed)
 
-	# TAMBAHKAN 2 BARIS INI: Beri referensi ke SuperDash
+	# --- PENGATURAN REFERENSI SKILL ---
+	# Beri referensi ke SuperDash
 	super_dash.player = self
 	super_dash.dash_manager = dash_manager
 	
-	# TAMBAHKAN 1 BARIS INI: Beri referensi SuperDash ke DashManager
+	# Beri referensi ke Pin
+	pin.player = self
+	pin.dash_manager = dash_manager
+	pin.super_dash = super_dash
+	
+	# Beri referensi ke HomingShot
+	homing_shot.player = self
+	homing_shot.dash_manager = dash_manager
+	homing_shot.super_dash = super_dash
+	homing_shot.pin = pin
+	
+	# Beri referensi ke TripleHomingShot (BARU)
+	triple_homing_shot.player = self
+	triple_homing_shot.dash_manager = dash_manager
+	triple_homing_shot.super_dash = super_dash
+	triple_homing_shot.pin = pin
+	triple_homing_shot.homing_shot = homing_shot
+	
+	# Beri tahu skill lain tentang skill baru ini
+	pin.homing_shot = homing_shot
+	pin.triple_homing_shot = triple_homing_shot # TAMBAHAN
+	homing_shot.triple_homing_shot = triple_homing_shot # TAMBAHAN
+	
+	# Beri referensi skill ke DashManager
 	dash_manager.super_dash = super_dash
+	dash_manager.pin = pin
+	dash_manager.homing_shot = homing_shot
+	dash_manager.triple_homing_shot = triple_homing_shot # TAMBAHAN
+	# --- AKHIR PENGATURAN REFERENSI ---
 
 
 func _physics_process(delta: float) -> void:
 	
 	dash_manager.update_cooldown(delta)
-	super_dash.process_super_dash(delta) # TAMBAHKAN INI: Biarkan SuperDash update state-nya
+	
+	# Proses semua skill
+	super_dash.process_super_dash(delta)
+	pin._process(delta) 
+	homing_shot._process(delta) 
+	triple_homing_shot._process(delta) # TAMBAHAN
 
 	if not is_locked_out:
 		handle_global_inputs()
 
-	# --- PINDAHKAN LOGIKA VELOCITY KE BAWAH INI ---
+	# --- PENGATURAN VELOCITY ---
 	if possession_manager.is_possessing:
 		possession_manager.process_possession(delta)
-	elif super_dash.is_charging: # TAMBAHKAN: Prioritas SuperDash Charge
+	elif super_dash.is_charging:
 		_set_super_dash_charge_velocity()
-	elif super_dash.is_dashing: # TAMBAHKAN: Prioritas SuperDash Move
+	elif super_dash.is_dashing:
 		_set_super_dash_move_velocity()
-	elif dash_manager.is_dash_moving:                     # was: is_dashing
+	elif homing_shot.is_dashing:
+		_set_homing_shot_dash_velocity()
+	elif triple_homing_shot.is_dashing: # TAMBAHAN
+		_set_triple_homing_shot_dash_velocity()
+	elif dash_manager.is_dash_moving:
 		_set_dash_velocity()
-	elif dash_manager.is_exit_moving:                     # was: is_exit_dashing
+	elif dash_manager.is_exit_moving:
 		_set_exit_dash_velocity()
 	else:
 		_process_movement(delta)
+	# --- AKHIR PENGATURAN VELOCITY ---
 
 	move_and_slide()
 
+	# Proses logika akhir dash
 	if dash_manager.is_dash_moving:
 		dash_manager.process_dash(delta)
-		if not dash_manager.is_dash_moving:               # BARU SAJA berakhir movement
+		if not dash_manager.is_dash_moving:
 			velocity *= 0.3
 	elif dash_manager.is_exit_moving:
 		dash_manager.process_exit_dash(delta)
-		if not dash_manager.is_exit_moving:               # BARU SAJA berakhir movement
+		if not dash_manager.is_exit_moving:
 			velocity *= 0.3
-	
-	# TAMBAHKAN INI: Jika super dash baru saja selesai, hentikan velocity
-	elif not super_dash.is_dashing and not super_dash.is_charging and velocity.length() > 0.1 and not dash_manager.is_dashing and not dash_manager.is_exit_dashing:
-		# Cek ini mungkin perlu disesuaikan, tapi idenya adalah
-		# velocity dari superdash harus berhenti setelah selesai.
-		# Karena superdash_process terjadi sebelum move_and_slide,
-		# kita perlu menghentikan velocity di frame *setelah* selesai.
-		# Mari kita coba cara yang lebih simpel:
-		if not super_dash.is_active():
-			# Jika super dash TIDAK aktif, dan kita tidak dash biasa,
-			# velocity harusnya di-handle oleh _process_movement.
-			# _set_super_dash_move_velocity akan return ZERO saat !is_dashing.
-			pass # Seharusnya sudah beres oleh blok if/elif di atas.
 
 func _set_dash_velocity():
 	var speed_factor = dash_manager.get_dash_speed_factor()
@@ -94,20 +125,32 @@ func _set_exit_dash_velocity():
 	velocity.x = dash_manager.exit_dash_direction.x * current_speed
 	velocity.y = dash_manager.exit_dash_direction.y * current_speed / Y_MUL
 
-# --- TAMBAHKAN DUA FUNGSI BARU DI BAWAH INI ---
 func _set_super_dash_charge_velocity():
-	# Ambil velocity dari script SuperDash
-	velocity = super_dash.get_charge_velocity()
+	var vel = super_dash.get_charge_velocity()
+	velocity.x = vel.x
+	velocity.y = vel.y / Y_MUL
 
 func _set_super_dash_move_velocity():
-	# Ambil velocity dari script SuperDash
-	velocity = super_dash.get_dash_velocity()
+	var vel = super_dash.get_dash_velocity()
+	velocity.x = vel.x
+	velocity.y = vel.y / Y_MUL
+
+func _set_homing_shot_dash_velocity():
+	var vel = homing_shot.get_dash_velocity()
+	velocity.x = vel.x
+	velocity.y = vel.y / Y_MUL
+
+# --- FUNGSI BARU ---
+func _set_triple_homing_shot_dash_velocity():
+	var vel = triple_homing_shot.get_dash_velocity()
+	velocity.x = vel.x
+	velocity.y = vel.y / Y_MUL
 # --- AKHIR FUNGSI BARU ---
 
 func _process_movement(delta: float) -> void:
-	# Pastikan kita tidak bergerak jika super dash aktif
-	if super_dash.is_active(): # TAMBAHKAN CHECK INI
-		velocity = Vector2.ZERO # Seharusnya tidak pernah sampai sini, tapi untuk jaga-jaga
+	# Pastikan kita tidak bergerak jika ada skill dash aktif
+	if super_dash.is_active() or homing_shot.is_active() or triple_homing_shot.is_active(): # TAMBAHAN
+		velocity = Vector2.ZERO
 		return
 
 	var input_vector := Vector2(
@@ -127,20 +170,20 @@ func can_start_possession() -> bool:
 	return true
 
 func handle_global_inputs() -> void:
-	# --- MODIFIKASI BAGIAN INI ---
-	if Input.is_action_just_pressed("super_dash") and not possession_manager.is_possessing: # GANTI "dash" -> "super_dash"
-		if can_start_possession(): # Anda mungkin ingin logic berbeda di sini
-			skill_manager.start_or_return_super_dash() # Panggil super_dash
+	if Input.is_action_just_pressed("super_dash") and not possession_manager.is_possessing:
+		if can_start_possession():
+			skill_manager.start_or_return_super_dash()
 	
-	# Tambahkan 'elif' di sini agar prioritasnya di bawah super_dash
 	elif Input.is_action_just_pressed("dash") and not possession_manager.is_possessing:
 		if can_start_possession():
 			dash_manager.start_dash()
-	# --- AKHIR MODIFIKASI ---
 	
-	if Input.is_action_just_pressed("pin") and not possession_manager.is_possessing: # GANTI "dash" -> "super_dash"
-		if can_start_possession(): # Anda mungkin ingin logic berbeda di sini
-			skill_manager.use_pin() # Panggil super_dash
+	elif Input.is_action_just_pressed("pin") and not possession_manager.is_possessing:
+		if can_start_possession():
+			skill_manager.use_pin()
+	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: # TAMBAHAN
+		if can_start_possession():
+			skill_manager.use_morph_skill()
 
 func _on_possessed(target):
 	emit_signal("possessed", target)

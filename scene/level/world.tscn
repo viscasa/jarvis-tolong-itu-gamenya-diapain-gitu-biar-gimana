@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://benoe2kbrdpcf"]
+[gd_scene load_steps=14 format=4 uid="uid://benoe2kbrdpcf"]
 
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="1_d3gj4"]
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_jul5o"]
@@ -8,8 +8,6 @@
 [ext_resource type="PackedScene" path="res://scene/HUD.tscn" id="6_gk4mf"]
 [ext_resource type="PackedScene" uid="uid://bmy8uiudeygmw" path="res://scene/hostile/dash_shooting_enemy.tscn" id="8_jul5o"]
 [ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
-[ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="9_r647c"]
-[ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="10_r647c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mss46"]
 texture = ExtResource("1_jul5o")
@@ -102,27 +100,5 @@ drag_bottom_margin = 0.1
 [node name="ShootingEnemy" parent="." instance=ExtResource("9_mss46")]
 position = Vector2(-38, -32)
 
-[node name="ShootingEnemy2" parent="." instance=ExtResource("9_mss46")]
-position = Vector2(-36, -71)
-
 [node name="DashShootingEnemy" parent="." instance=ExtResource("8_jul5o")]
-position = Vector2(46, -25)
-
-[node name="DashShootingEnemy2" parent="." instance=ExtResource("8_jul5o")]
-position = Vector2(-37, 8)
-
-[node name="BrokenPuppet" parent="." instance=ExtResource("9_r647c")]
-
-[node name="BrokenPuppet2" parent="." instance=ExtResource("9_r647c")]
-position = Vector2(-80, -7)
-
-[node name="BrokenPuppet3" parent="." instance=ExtResource("9_r647c")]
-position = Vector2(-78, -45)
-
-[node name="BrokenPuppet4" parent="." instance=ExtResource("9_r647c")]
-position = Vector2(0, -45)
-
-[node name="BrokenPuppet5" parent="." instance=ExtResource("9_r647c")]
-position = Vector2(-119, -10)
-[node name="Wolf" parent="." instance=ExtResource("10_r647c")]
-position = Vector2(-48, -82)
+position = Vector2(-133, -38)

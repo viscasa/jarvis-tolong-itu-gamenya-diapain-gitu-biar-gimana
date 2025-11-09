@@ -59,6 +59,8 @@ func _ready() -> void:
 	aoe_area.monitorable = false
 	aoe_shape.disabled = true
 	aoe_area.set_collision_mask_value(3, true)
+	aoe_area.set_collision_mask_value(1, false)
+	aoe_area.set_collision_layer_value(1, false)
 	
 	# --- TAMBAHKAN INI ---
 	# Hubungkan sinyal 'body_entered' ke fungsi baru
@@ -168,7 +170,6 @@ func get_dash_velocity() -> Vector2:
 # --- TAMBAHKAN FUNGSI BARU INI ---
 # Fungsi ini akan dipanggil oleh sinyal 'body_entered'
 func _on_aoe_body_entered(body) -> void:
-	print(body)
 	# Pastikan damage hanya terjadi saat sedang dash
 	if not is_dashing:
 		return
@@ -179,7 +180,7 @@ func _on_aoe_body_entered(body) -> void:
 	# Cek apakah body ini sudah pernah kena damage di dash yang sama
 	if body in damaged_bodies_this_dash:
 		return
-		
+	
 	# Jika body punya method "take_damage", panggil
 	damaged_bodies_this_dash.append(body)
 	attack_manager.attack(body, false, aoe_damage)
