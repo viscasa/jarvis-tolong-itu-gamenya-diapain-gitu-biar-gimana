@@ -4,7 +4,7 @@ extends EnemyBase
 @export var charge_time: float = 0.5   
 @export var dash_duration: float = 0.3 
 
-enum WolfAttackState { CHARGING, DASHING, RECOVERING }
+enum WolfAttackState { CHARGING, DASHING, DASHBACK, RECOVERING }
 var wolf_attack_state: WolfAttackState = WolfAttackState.RECOVERING
 
 var charge_timer: float = 0.0
@@ -45,7 +45,6 @@ func _state_chase(delta):
 	if velocity.x != 0:
 		animated_sprite.flip_h = (velocity.x < 0)
 
-# (Fungsi _perform_attack Anda sudah benar)
 func _perform_attack():
 	if wolf_attack_state != WolfAttackState.RECOVERING:
 		return
@@ -63,6 +62,7 @@ func _perform_attack():
 		animated_sprite.flip_h = (dash_direction.x < 0)
 
 func _state_attack(delta):
+	print("attaack")
 	var target_velocity: Vector2
 
 	match wolf_attack_state:
@@ -84,16 +84,25 @@ func _state_attack(delta):
 			
 			dash_timer -= delta
 			if dash_timer <= 0:
+				dash_timer = dash_duration
+				wolf_attack_state = WolfAttackState.DASHBACK
+				if self and hitbox_shape:
+					hitbox_shape.disabled = true
+					
+		WolfAttackState.DASHBACK:
+			print("dashback")
+			target_velocity = -dash_direction * dash_speed
+			velocity = target_velocity 
+			dash_timer -= delta
+			if dash_timer <= 0:
 				wolf_attack_state = WolfAttackState.RECOVERING
 				if self and hitbox_shape:
 					hitbox_shape.disabled = true
-		
 		WolfAttackState.RECOVERING:
 			target_velocity = Vector2.ZERO
-			velocity = velocity.lerp(target_velocity, 15.0 * delta) #
+			velocity = velocity.lerp(target_velocity, 15.0 * delta) 
 			
 
-# (Fungsi _on_attack_timer_timeout Anda sudah benar)
 func _on_attack_timer_timeout():
 	super._on_attack_timer_timeout()
 	

@@ -41,7 +41,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_xhmb2")
 
 [node name="DashCheckLeft" type="RayCast2D" parent="." index="9"]
-target_position = Vector2(-60, 0)
+target_position = Vector2(60, 0)
 
 [node name="DashCheckRight" type="RayCast2D" parent="." index="10"]
-target_position = Vector2(60, 0)
+target_position = Vector2(-60, 0)

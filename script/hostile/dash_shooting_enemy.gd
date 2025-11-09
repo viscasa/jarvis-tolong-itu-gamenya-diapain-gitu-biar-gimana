@@ -102,7 +102,7 @@ func _state_attack(delta):
 
 
 func _pick_dash_direction(dir_to_player: Vector2): 
-	var dir_left = dir_to_player.rotated(-PI / 2.0) 
+	var dir_left = dir_to_player.rotated(PI / 2.0) 
 	var dir_right = dir_to_player.rotated(PI / 2.0) 
 	
 	dash_check_left.rotation = dir_left.angle() 
