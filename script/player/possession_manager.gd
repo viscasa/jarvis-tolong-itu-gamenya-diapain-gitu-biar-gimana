@@ -58,7 +58,6 @@ func _on_auto_exit() -> void:
 
 func release_possession() -> void:
 	if possessed_target and possessed_target.get_parent() and possessed_target.get_parent().has_method("on_released"):
-		print("a")
 		possessed_target.get_parent().on_released()
 	is_possessing = false
 	possessed_target = null

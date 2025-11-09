@@ -137,6 +137,10 @@ func handle_global_inputs() -> void:
 		if can_start_possession():
 			dash_manager.start_dash()
 	# --- AKHIR MODIFIKASI ---
+	
+	if Input.is_action_just_pressed("pin") and not possession_manager.is_possessing: # GANTI "dash" -> "super_dash"
+		if can_start_possession(): # Anda mungkin ingin logic berbeda di sini
+			skill_manager.use_pin() # Panggil super_dash
 
 func _on_possessed(target):
 	emit_signal("possessed", target)
@@ -149,3 +153,6 @@ func lock_actions_during_weak_exit(duration: float) -> void:
 	await get_tree().create_timer(duration).timeout
 	is_locked_out = false
 	print("🔓 Lockout ended")
+
+func morph(name:String) :
+	skill_manager.morph(name)

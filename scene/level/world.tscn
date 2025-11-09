@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://qmbf804desic" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0192.png" id="2_er4cb"]
 [ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="3_er4cb"]
 [ext_resource type="PackedScene" path="res://scene/HUD.tscn" id="6_gk4mf"]
-[ext_resource type="PackedScene" uid="uid://cc4qgfj5q0v1n" path="res://scene/skill/silk.tscn" id="7_l6qlb"]
 [ext_resource type="PackedScene" uid="uid://bmy8uiudeygmw" path="res://scene/hostile/dash_shooting_enemy.tscn" id="8_jul5o"]
 [ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
+[ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="9_r647c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mss46"]
 texture = ExtResource("1_jul5o")
@@ -85,6 +85,7 @@ tile_set = SubResource("TileSet_cud0k")
 script = ExtResource("3_er4cb")
 
 [node name="Player" parent="." instance=ExtResource("2_0hn3o")]
+position = Vector2(-239, -92)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2.5, 2.5)
@@ -97,11 +98,28 @@ drag_bottom_margin = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("6_gk4mf")]
 
-[node name="Silk" parent="." instance=ExtResource("7_l6qlb")]
-width = 2.0
-
 [node name="ShootingEnemy" parent="." instance=ExtResource("9_mss46")]
 position = Vector2(-38, -32)
 
+[node name="ShootingEnemy2" parent="." instance=ExtResource("9_mss46")]
+position = Vector2(-36, -71)
+
 [node name="DashShootingEnemy" parent="." instance=ExtResource("8_jul5o")]
 position = Vector2(46, -25)
+
+[node name="DashShootingEnemy2" parent="." instance=ExtResource("8_jul5o")]
+position = Vector2(-37, 8)
+
+[node name="BrokenPuppet" parent="." instance=ExtResource("9_r647c")]
+
+[node name="BrokenPuppet2" parent="." instance=ExtResource("9_r647c")]
+position = Vector2(-80, -7)
+
+[node name="BrokenPuppet3" parent="." instance=ExtResource("9_r647c")]
+position = Vector2(-78, -45)
+
+[node name="BrokenPuppet4" parent="." instance=ExtResource("9_r647c")]
+position = Vector2(0, -45)
+
+[node name="BrokenPuppet5" parent="." instance=ExtResource("9_r647c")]
+position = Vector2(-119, -10)
