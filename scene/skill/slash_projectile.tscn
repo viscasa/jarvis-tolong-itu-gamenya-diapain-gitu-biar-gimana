@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://hx00w01i2p80"]
+
+[ext_resource type="Script" uid="uid://i55kn4e6j1dl" path="res://script/skill/slash_projectile.gd" id="1_cgj0u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnbcb"]
+size = Vector2(92, 4)
+
+[node name="SlashProjectile" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_cgj0u")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 2.0
+offset_top = -46.0
+offset_right = 94.0
+offset_bottom = -42.0
+rotation = 1.5707964
+color = Color(1, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_cnbcb")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
