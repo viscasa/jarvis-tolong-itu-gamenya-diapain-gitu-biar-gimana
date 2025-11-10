@@ -40,6 +40,7 @@ func possess(target: Node) -> void:
 	possession_timer = Timer.new()
 	possession_timer.one_shot = true
 	possession_timer.wait_time = auto_weak_exit_time
+	player.start_invisible()
 	player.add_child(possession_timer)
 	possession_timer.connect("timeout", Callable(self, "_on_auto_exit"))
 	possession_timer.start()

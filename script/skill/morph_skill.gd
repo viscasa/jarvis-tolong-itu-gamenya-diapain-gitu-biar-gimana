@@ -6,10 +6,15 @@ signal morph_dash_started
 const SCALE_UP = 1.7
 
 @export var dash_speed: float = 350 * SCALE_UP
-@export var dash_move_time: float = 0.15
+@export var dash_move_time: float = 0.3
 @export var cooldown: float = 1
 @export var wolf_dash_count: int = 2
 @export var wolf_dash_delay: float = 0.7
+
+@export var color_homing : Color
+@export var color_triple_homing : Color
+@export var color_wolf_dash : Color
+@export var color_slash : Color
 
 @onready var player: Player = $"../.."
 @onready var dash_manager: DashManager = $"../../DashManager"
@@ -18,6 +23,10 @@ const SCALE_UP = 1.7
 @onready var homing_shot: HomingShot = $"../HomingShot"
 @onready var triple_homing_shot: TripleHomingShot = $"../TripleHomingShot"
 @onready var slash_shot: SlashShot = $"../SlashShot"
+@onready var sprite: AnimatedSprite2D = $"../../Sprite"
+@onready var ghost_timer_morph: Timer = $"../../GhostTimerMorph"
+
+var ghost_scene = preload("res://scene/skill/dash_ghost.tscn")
 
 var is_dashing: bool = false
 var is_in_delay: bool = false
@@ -30,6 +39,7 @@ var dash_move_timer: float = 0.0
 var cooldown_timer: float = 0.0
 var delay_timer: float = 0.0
 var dash_direction: Vector2 = Vector2.ZERO # <-- ARAH DASH DISIMPAN DI SINI
+var list_color : Array[Color]
 
 func _process(delta: float) -> void:
 	# ... (Tidak ada perubahan di _process)
@@ -66,11 +76,15 @@ func _end_dash_movement() -> void:
 			delay_timer = wolf_dash_delay
 			return
 		else:
-			process_all_skill(true) 
+			process_all_skill(true)
+			ghost_timer_morph.stop()
+			list_color = []
 			emit_signal("morph_dash_ended")
 			
 	else:
 		process_all_skill(true) 
+		ghost_timer_morph.stop()
+		list_color = []
 		emit_signal("morph_dash_ended")
 
 func process_all_skill(reset_flags: bool) -> void:
@@ -109,7 +123,14 @@ func start_skill(homing_shoot_ready:bool = false, triple_homing_shoot_ready:bool
 	is_triple_homing_shoot_ready = triple_homing_shoot_ready
 	is_slash_shot_ready = slash_shot_ready
 	
+	if homing_shoot_ready:
+		list_color.push_front(color_homing)
+	if triple_homing_shoot_ready:
+		list_color.push_front(color_triple_homing)
+	if slash_shot_ready:
+		list_color.push_front(color_slash)
 	if wolf_morph_ready:
+		list_color.push_front(color_wolf_dash)
 		current_wolf_dashes = wolf_dash_count 
 	else:
 		current_wolf_dashes = 1 
@@ -140,6 +161,7 @@ func _start_dash_internal():
 	   (wolf_dash_count == 0 and current_wolf_dashes == 1):
 		cooldown_timer = cooldown
 	
+	ghost_timer_morph.start()
 	emit_signal("morph_dash_started")
 
 func get_dash_velocity() -> Vector2:
@@ -161,4 +183,19 @@ func use_slash_shot() -> void:
 	if slash_shot:
 		# Berikan 'dash_direction' yang sudah tersimpan
 		slash_shot.execute_shot(dash_direction)
-# -------------------------
+
+func instance_ghost(color : Color) -> void :
+	var ghost: Sprite2D = ghost_scene.instantiate()
+	ghost.color = color
+	get_tree().root.add_child(ghost)
+	
+	ghost.global_position = self.global_position
+	ghost.texture = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+
+func _on_ghost_timer_morph_timeout() -> void:
+	instance_ghost(get_next_color())
+
+func get_next_color() -> Color:
+	var color_now : Color = list_color.pop_back()
+	list_color.push_front(color_now)
+	return color_now
