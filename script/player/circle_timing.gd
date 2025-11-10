@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var player: CharacterBody2D = null
+@onready var health_manager: HealthManager = $"../HealthManager"
 var possession_manager: PossessionManager
 var dash_manager: DashManager
 var attack_manager: AttackManager
@@ -36,6 +37,7 @@ func _on_exit() -> void:
 		enemy= possesion_target.get_owner()
 	if time>=crit_interval[0] and time <= crit_interval[1]  :
 		is_critical = true
+		health_manager.heal()
 		player.morph(enemy.name)
 	var player_dash_direction = dash_manager.exit_dash_direction
 	var hit_direction = -player_dash_direction.normalized()

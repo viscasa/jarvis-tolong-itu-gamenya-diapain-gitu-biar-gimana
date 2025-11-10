@@ -34,10 +34,14 @@ signal possessed(target)
 
 var is_locked_out := false
 var last_move_direction := Vector2.DOWN
+var is_throwing_pin := false
+var is_throwing_pin_first := true
 
 
 func _ready() -> void:
 	add_to_group("player")
+	
+	sprite.animation_finished.connect(_on_animation_finished) # <-- TAMBAHAN: Hubungkan sinyal
 	
 	dash_manager.player = self
 	possession_manager.player = self
@@ -173,9 +177,32 @@ func handle_global_inputs() -> void:
 		if can_start_possession():
 			dash_manager.start_dash()
 	
+	# --- MODIFIKASI UNTUK ANIMASI PIN ---
 	elif Input.is_action_just_pressed("pin") and not possession_manager.is_possessing:
 		if can_start_possession():
-			skill_manager.use_pin()
+			
+			# Cek apakah kita sudah dalam animasi
+			if is_throwing_pin:
+				return # Jangan lakukan apa-apa jika animasi sedang main
+			
+			# Duplikat pengecekan dari pin.gd untuk tahu apakah pin BISA dilempar.
+			var can_throw_pin = true
+			if pin.reload_timer > 0.0:
+				can_throw_pin = false
+			if pin.current_pins <= 0:
+				can_throw_pin = false
+			if dash_manager.is_dashing or dash_manager.is_dash_moving or \
+			dash_manager.is_exit_dashing or dash_manager.is_exit_moving or \
+			super_dash.is_active() or morph_skill.is_active():
+				can_throw_pin = false
+			
+			if can_throw_pin:
+				is_throwing_pin = true # <-- Mulai animasi
+				skill_manager.use_pin() # <-- Lakukan aksi
+			
+			# Baris asli: skill_manager.use_pin() (dipindahkan ke dalam if can_throw_pin)
+	# --- AKHIR MODIFIKASI PIN ---
+			
 	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: 
 		if can_start_possession():
 			skill_manager.use_morph_skill()
@@ -197,8 +224,6 @@ func morph(name:String) :
 
 # KEMBALI NORMAL (TIDAK ASYNC)
 func start_invisible(time:float = 0) :
-	print("invis! start phasing")
-	hurt_box_player.get_node("CollisionShape2D").disabled = true
 	hurt_box_player.set_collision_layer_value(2, false)
 	
 	# Matikan tabrakan dengan layer 5
@@ -212,7 +237,6 @@ func start_invisible(time:float = 0) :
 # KEMBALI NORMAL (TIDAK ASYNC)
 # HAPUS SEMUA LOGIKA ANTI-SANGKUT DARI SINI
 func end_invisible() :
-	print("berhenti invis! end phasing")
 	hurt_box_player.set_collision_layer_value(2, true)
 	
 	# Nyalakan lagi mask-nya. Selesai.
@@ -224,7 +248,17 @@ func _update_animation_state() -> void:
 	var anim_prefix = "Idle" 
 	var anim_direction = last_move_direction 
 
-	if possession_manager.is_possessing:
+	# --- TAMBAHAN: Pengecekan Animasi Pin ---
+	# Ini harus jadi prioritas di atas state lain.
+	if is_throwing_pin:
+		if !is_throwing_pin_first :
+			return
+		is_throwing_pin_first = false
+		anim_prefix = "Cast" # Asumsi nama animasinya "Pin_E", "Pin_S", dll.
+		anim_direction = last_move_direction # Gunakan arah terakhir
+	# --- AKHIR TAMBAHAN ---
+	
+	elif possession_manager.is_possessing: # <-- Perhatikan ini menjadi 'elif'
 		if velocity.length() > 1.0:
 			anim_prefix = "Idle" 
 			anim_direction = velocity.normalized()
@@ -290,3 +324,13 @@ func _get_direction_suffix(direction: Vector2) -> String:
 		return "NE"
 	
 	return "S" # Fallback default
+
+
+# --- TAMBAHAN: Callback untuk sinyal animation_finished ---
+func _on_animation_finished() -> void:
+	# Jika kita dalam status 'is_throwing_pin' dan animasinya selesai,
+	# kembalikan status ke false agar animasi idle/run bisa diputar.
+	if is_throwing_pin:
+		is_throwing_pin_first = true
+		is_throwing_pin = false
+# --- AKHIR TAMBAHAN ---
