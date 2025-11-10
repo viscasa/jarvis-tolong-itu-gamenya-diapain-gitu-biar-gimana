@@ -16,19 +16,16 @@ position = Vector2(-208, 182)
 
 [node name="Wave1" type="Node2D" parent="WaveSpawners" index="0"]
 
-[node name="EnemySpawner" type="Marker2D" parent="WaveSpawners/Wave1" index="0"]
-position = Vector2(-206, 38)
+[node name="EnemySpawner3" type="Marker2D" parent="WaveSpawners/Wave1" index="0"]
+position = Vector2(249, 86)
 script = ExtResource("2_lvruv")
+ENEMY_TYPE = 3
 metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
 
-[node name="EnemySpawner2" type="Marker2D" parent="WaveSpawners/Wave1" index="1"]
-position = Vector2(2, 64)
+[node name="EnemySpawner4" type="Marker2D" parent="WaveSpawners/Wave1" index="1"]
+position = Vector2(249, 86)
 script = ExtResource("2_lvruv")
-metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
-
-[node name="EnemySpawner4" type="Marker2D" parent="WaveSpawners/Wave1" index="2"]
-position = Vector2(100, 115)
-script = ExtResource("2_lvruv")
+ENEMY_TYPE = 1
 metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
 
 [node name="Wave2" type="Node2D" parent="WaveSpawners" index="1"]

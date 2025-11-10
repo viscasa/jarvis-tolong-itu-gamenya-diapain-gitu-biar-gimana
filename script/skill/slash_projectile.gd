@@ -37,5 +37,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		enemy_stats= body.get_owner().get_node("Stats")
 	if !enemy_stats :
 		return
-	enemy_stats.take_damage(damage)
+	var hit_direction = (body.global_position - global_position).normalized()
+	enemy_stats.take_damage(damage, hit_direction)
 	bodies_hit.append(body) # Tandai sudah kena

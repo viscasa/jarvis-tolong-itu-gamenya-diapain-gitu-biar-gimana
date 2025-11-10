@@ -37,8 +37,9 @@ func _on_exit() -> void:
 	if time>=crit_interval[0] and time <= crit_interval[1]  :
 		is_critical = true
 		player.morph(enemy.name)
-	
-	attack_manager.attack(possesion_target, is_critical)
+	var player_dash_direction = dash_manager.exit_dash_direction
+	var hit_direction = -player_dash_direction.normalized()
+	attack_manager.attack(possesion_target, hit_direction,  is_critical)
 	possesion_target.exit()
 	
 	possesion_target = null

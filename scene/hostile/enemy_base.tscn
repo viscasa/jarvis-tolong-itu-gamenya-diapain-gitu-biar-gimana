@@ -125,6 +125,7 @@ bg_color = Color(0.98749274, 0, 0.25822866, 1)
 y_sort_enabled = true
 collision_layer = 4
 script = ExtResource("1_0dq4w")
+body_radius = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_54ojy")
@@ -193,3 +194,6 @@ debug_enabled = true
 
 [node name="DamageNumberOrigin" type="Node2D" parent="."]
 position = Vector2(0, -27)
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 0.2

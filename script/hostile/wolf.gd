@@ -21,6 +21,9 @@ func _ready():
 
 
 func _state_chase(delta):
+	if is_in_knockback:
+		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		return
 	if not is_instance_valid(player_target):
 		velocity = Vector2.ZERO
 		return
@@ -62,7 +65,9 @@ func _perform_attack():
 		animated_sprite.flip_h = (dash_direction.x < 0)
 
 func _state_attack(delta):
-	print("attaack")
+	if is_in_knockback:
+		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		return
 	var target_velocity: Vector2
 
 	match wolf_attack_state:

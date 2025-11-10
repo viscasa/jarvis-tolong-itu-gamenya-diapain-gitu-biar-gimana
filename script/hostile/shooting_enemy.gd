@@ -13,6 +13,9 @@ var _wander_target_pos: Vector2 = Vector2.ZERO
 
 
 func _state_chase(delta):
+	if is_in_knockback:
+		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		return
 	if not is_instance_valid(player_target):
 		nav_agent.set_velocity(Vector2.ZERO) 
 		return
@@ -66,6 +69,9 @@ func _perform_attack():
 
 
 func _state_attack(delta):
+	if is_in_knockback:
+		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		return
 	var target_velocity: Vector2 = Vector2.ZERO
 
 	match _attack_sub_state:
