@@ -859,6 +859,7 @@ animations = [{
 size = Vector2(9.896308, 9.90268)
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 2
 motion_mode = 1
 wall_min_slide_angle = 1.5707964
@@ -874,35 +875,36 @@ animation = &"Idle_E"
 frame = 9
 frame_progress = 0.28148857
 
-[node name="Icon" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, -8)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("4_5lop3")
-
 [node name="Collider" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
 position = Vector2(0, -1.0000002)
 rotation = 0.7853982
 scale = Vector2(0.49999997, 0.49999997)
 shape = SubResource("RectangleShape2D_5lop3")
 
 [node name="DashManager" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("5_ajqqa")
 
 [node name="PossessionManager" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("6_rkmeh")
 
 [node name="SkillManager" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("5_pisg7")
 
 [node name="SuperDash" type="Node2D" parent="SkillManager"]
+y_sort_enabled = true
 script = ExtResource("6_oypl4")
 
 [node name="Pin" type="Node2D" parent="SkillManager"]
+y_sort_enabled = true
 script = ExtResource("7_oypl4")
 pin_scene = ExtResource("8_qjg4s")
 
 [node name="MorphSkill" type="Node2D" parent="SkillManager"]
+y_sort_enabled = true
 script = ExtResource("9_oen5c")
 dash_speed = null
 dash_move_time = null
@@ -911,6 +913,7 @@ wolf_dash_count = null
 wolf_dash_delay = null
 
 [node name="HomingShot" type="Node2D" parent="SkillManager"]
+y_sort_enabled = true
 script = ExtResource("9_1wtbu")
 projectile_scene = ExtResource("10_p3aiu")
 missile_speed = 500.0
@@ -918,32 +921,40 @@ missile_damage = 30.0
 missile_proximity_threshold = 50.0
 
 [node name="TripleHomingShot" type="Node2D" parent="SkillManager"]
+y_sort_enabled = true
 script = ExtResource("11_f5r2w")
 projectile_scene = ExtResource("10_p3aiu")
 
 [node name="SlashShot" type="Node2D" parent="SkillManager"]
+y_sort_enabled = true
 script = ExtResource("13_5g408")
 projectile_scene = ExtResource("14_sc4n2")
 slash_speed = 400.0
 
 [node name="AttackManager" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("5_hfhxk")
 
 [node name="HealthManager" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("10_qjg4s")
 
 [node name="CircleTiming" type="Node2D" parent="."]
 z_index = 1
+y_sort_enabled = true
 script = ExtResource("5_732fb")
 
 [node name="PossessArea" type="Area2D" parent="."]
+y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PossessArea"]
+y_sort_enabled = true
 position = Vector2(0, -1)
 rotation = 0.78572005
 shape = SubResource("RectangleShape2D_ajqqa")
 
 [node name="DamageNumberOrigin" type="Node2D" parent="."]
+y_sort_enabled = true
 position = Vector2(0, -22)
 
 [node name="Camera2D" type="Camera2D" parent="."]

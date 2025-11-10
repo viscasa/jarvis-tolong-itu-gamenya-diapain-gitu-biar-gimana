@@ -4,11 +4,65 @@
 [ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="2_0hn3o"]
 [ext_resource type="Texture2D" uid="uid://d35ejpembt0qw" path="res://assets/tile_assets/ground/Untitled540_20251108163445.png" id="2_r647c"]
 [ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="3_er4cb"]
+[ext_resource type="Texture2D" uid="uid://dc8gdkx8kn4y2" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071032.png" id="3_xi2vx"]
+[ext_resource type="Texture2D" uid="uid://cgld5hq0p24bd" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071036.png" id="4_yq5i0"]
+[ext_resource type="Texture2D" uid="uid://bfmmlc6ht55ei" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071041.png" id="5_re3du"]
+[ext_resource type="Texture2D" uid="uid://nfx7nrwi5x5p" path="res://assets/tile_assets/Tile batu/Untitled542_20251109075329.png" id="6_6x1hn"]
 [ext_resource type="PackedScene" path="res://scene/HUD.tscn" id="6_gk4mf"]
 [ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="6_r647c"]
+[ext_resource type="Texture2D" uid="uid://y4m5s25dfkwe" path="res://assets/tile_assets/Tile batu/Untitled542_20251109075334.png" id="7_sxhjt"]
+[ext_resource type="Texture2D" uid="uid://eijlx522n2e4" path="res://assets/tile_assets/Tile batu/Untitled544_20251109084716.png" id="8_jr18e"]
 [ext_resource type="PackedScene" uid="uid://bmy8uiudeygmw" path="res://scene/hostile/dash_shooting_enemy.tscn" id="8_jul5o"]
+[ext_resource type="Texture2D" uid="uid://d11fire6xuddr" path="res://assets/tile_assets/Tile batu/Untitled544_20251109085049.png" id="9_c1mob"]
 [ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
+[ext_resource type="Texture2D" uid="uid://d1afrgfq5l7p8" path="res://assets/tile_assets/Tile batu/Untitled544_20251109085057.png" id="10_jsm2k"]
 [ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="10_r647c"]
+[ext_resource type="PackedScene" uid="uid://yvfty5mbnbc8" path="res://scene/menu/pause_menu.tscn" id="11_x3aj5"]
+[ext_resource type="Texture2D" uid="uid://cbckqdkksmd64" path="res://assets/tile_assets/Tile Rumput/Hijau ke kuning/Untitled538_20251108160044.png" id="11_ydifr"]
+[ext_resource type="Texture2D" uid="uid://dagocy4jwdjt5" path="res://assets/tile_assets/Tile Rumput/Hijau ke kuning/Untitled538_20251108160049.png" id="12_0rlct"]
+[ext_resource type="Texture2D" uid="uid://g7l2xo8yfx0d" path="res://assets/tile_assets/Tile Rumput/Hijau ke kuning/Untitled538_20251108160053.png" id="14_tv7t1"]
+[ext_resource type="Texture2D" uid="uid://cdk7kscuous7j" path="res://assets/tile_assets/Tile Rumput/Hijau ke kuning/Untitled538_20251108160058.png" id="15_moop7"]
+[ext_resource type="Texture2D" uid="uid://bswr7q5kempco" path="res://assets/tile_assets/Tile Rumput/Hijau ke kuning/Untitled538_20251108160106.png" id="16_is1xi"]
+[ext_resource type="Texture2D" uid="uid://cxvf2tbvrph60" path="res://assets/tile_assets/Tile Rumput/Hijau ke kuning/Untitled538_20251108160109.png" id="17_g7lmm"]
+[ext_resource type="Texture2D" uid="uid://cf2e7v3q7sucj" path="res://assets/tile_assets/Tile Rumput/Hijau ke kuning/Untitled538_20251108161046.png" id="18_4p5bh"]
+[ext_resource type="Texture2D" uid="uid://bkyt50kmqg146" path="res://assets/tile_assets/Tile Rumput/Hijau ke kuning/Untitled538_20251108161050.png" id="19_pkpsr"]
+[ext_resource type="Texture2D" uid="uid://vkfr038dpbsv" path="res://assets/tile_assets/Tile Rumput/Hijau polos/Untitled538_20251108160102.png" id="20_os1b4"]
+[ext_resource type="Texture2D" uid="uid://bkp0fohs4ttf5" path="res://assets/tile_assets/Tile Rumput/Hijau polos/Untitled538_20251108160112.png" id="21_gn12g"]
+[ext_resource type="Texture2D" uid="uid://0j811xbn5q78" path="res://assets/tile_assets/Tile Rumput/Kuning polos/Untitled538_20251108160040.png" id="22_qdq1q"]
+[ext_resource type="Texture2D" uid="uid://duqtdyhjuaqgr" path="res://assets/tile_assets/Tile Rumput/Kuning polos/Untitled538_20251108161655.png" id="23_5tj82"]
+[ext_resource type="Texture2D" uid="uid://3bb6138x5uij" path="res://assets/tile_assets/Reruntuhan kastil/Untitled544_20251109082223.png" id="24_1barv"]
+[ext_resource type="Texture2D" uid="uid://dqicjxbi1miwu" path="res://assets/tile_assets/Tile Rumput/Merah ke hijau/Untitled540_20251108163346.png" id="25_5luss"]
+[ext_resource type="Texture2D" uid="uid://dlbxsltly7w4d" path="res://assets/tile_assets/Tile Rumput/Merah ke hijau/Untitled540_20251108163349.png" id="26_2oca4"]
+[ext_resource type="Texture2D" uid="uid://c8qcj1guivhag" path="res://assets/tile_assets/Tile Rumput/Merah ke hijau/Untitled540_20251108163921.png" id="27_u7pak"]
+[ext_resource type="Texture2D" uid="uid://xpfqswheaphf" path="res://assets/tile_assets/Tile Rumput/Merah ke hijau/Untitled540_20251108163939.png" id="28_s226s"]
+[ext_resource type="Texture2D" uid="uid://dyfpl4msleorb" path="res://assets/tile_assets/Tile Rumput/Merah ke hijau/Untitled540_20251108170635.png" id="29_mxpes"]
+[ext_resource type="Texture2D" uid="uid://c77mrx4nu15gk" path="res://assets/tile_assets/Tile Rumput/Merah ke hijau/Untitled540_20251108170644.png" id="30_0wr2j"]
+[ext_resource type="Texture2D" uid="uid://c6bk402dgvt81" path="res://assets/tile_assets/Tile Rumput/Merah ke hijau/Untitled540_20251108170653.png" id="31_s2dd0"]
+[ext_resource type="Texture2D" uid="uid://sb67i2aagid0" path="res://assets/tile_assets/Tile Rumput/Merah ke hijau/Untitled540_20251108170701.png" id="32_8urxv"]
+[ext_resource type="Texture2D" uid="uid://cwgv3ibc0ia2v" path="res://assets/tile_assets/Tile Rumput/Merah ke kuning/Untitled540_20251108164848.png" id="33_edfqg"]
+[ext_resource type="Texture2D" uid="uid://crhv1f1fhfcv6" path="res://assets/tile_assets/Tile Rumput/Merah ke kuning/Untitled540_20251108164851.png" id="34_kaup3"]
+[ext_resource type="Texture2D" uid="uid://fljcghbqhltk" path="res://assets/tile_assets/Reruntuhan kastil/Untitled544_20251109083726.png" id="35_ldevb"]
+[ext_resource type="Texture2D" uid="uid://d3sqqmqq6u3w5" path="res://assets/tile_assets/Tile Rumput/Merah ke kuning/Untitled540_20251108165010.png" id="36_u1fh1"]
+[ext_resource type="Texture2D" uid="uid://qqtiywbhhwqq" path="res://assets/tile_assets/Tile Rumput/Merah ke kuning/Untitled540_20251108165014.png" id="37_8e3s8"]
+[ext_resource type="Texture2D" uid="uid://dq88f6woccxl4" path="res://assets/tile_assets/Tile Rumput/Merah ke kuning/Untitled540_20251108165929.png" id="38_yylop"]
+[ext_resource type="Texture2D" uid="uid://cel2cc0ddi1qb" path="res://assets/tile_assets/Tile Rumput/Merah ke kuning/Untitled540_20251108165932.png" id="39_gsowj"]
+[ext_resource type="Texture2D" uid="uid://bgtuv2q5l8ub5" path="res://assets/tile_assets/Tile Rumput/Merah ke kuning/Untitled540_20251108165936.png" id="40_mavx8"]
+[ext_resource type="Texture2D" uid="uid://dk13tlgrarpfp" path="res://assets/tile_assets/Tile Rumput/Merah ke kuning/Untitled540_20251108165939.png" id="41_6hrvn"]
+[ext_resource type="Texture2D" uid="uid://cek4imatndaxa" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled540_20251108163445(1).png" id="42_6ua1n"]
+[ext_resource type="Texture2D" uid="uid://bej2x35ql6t1c" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled540_20251108163445.png" id="43_garvf"]
+[ext_resource type="Texture2D" uid="uid://bq4tq5djdi17h" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled540_20251108164848.png" id="44_uug2c"]
+[ext_resource type="Texture2D" uid="uid://cr5ymj2k422" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled540_20251108164851.png" id="45_l00hj"]
+[ext_resource type="Texture2D" uid="uid://dvwpj2sid3lxf" path="res://assets/tile_assets/Reruntuhan kastil/Untitled551_20251109200738.png" id="46_vghmr"]
+[ext_resource type="Texture2D" uid="uid://ckder2lh7fd43" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled540_20251108165557.png" id="47_gd6s8"]
+[ext_resource type="Texture2D" uid="uid://b5w7v3p7p7ybr" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled541_20251108171436.png" id="48_3k87f"]
+[ext_resource type="Texture2D" uid="uid://dx1nk272fflcw" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled541_20251108171441.png" id="49_h86yu"]
+[ext_resource type="Texture2D" uid="uid://bpm36g3hhu88y" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled541_20251108171446.png" id="50_khrv0"]
+[ext_resource type="Texture2D" uid="uid://d13vda3m37mus" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled541_20251108171913.png" id="51_kt2od"]
+[ext_resource type="Texture2D" uid="uid://bhm0uprxyce5e" path="res://assets/tile_assets/Tile Rumput/Merah polos/Untitled541_20251108171923.png" id="52_bfn5s"]
+[ext_resource type="Texture2D" uid="uid://dsbwp74tfsq0f" path="res://assets/tile_assets/Reruntuhan kastil/Untitled551_20251109200746.png" id="53_aoxfx"]
+[ext_resource type="Texture2D" uid="uid://c16hhl8hcebs8" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071021.png" id="54_ti2ne"]
+[ext_resource type="Texture2D" uid="uid://cwjcus3c56m6q" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071024.png" id="55_uxtkd"]
+[ext_resource type="Texture2D" uid="uid://b5uxwka0x0p8v" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071029.png" id="56_hyxjl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x3aj5"]
 texture = ExtResource("1_mss46")
@@ -16,6 +70,46 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -16, -32, 0, 0, 16, 32, 0)
 0:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ltxs"]
+texture = ExtResource("3_xi2vx")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qei44"]
+texture = ExtResource("4_yq5i0")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i2h0t"]
+texture = ExtResource("5_re3du")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tlbj4"]
+texture = ExtResource("6_6x1hn")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kacsa"]
+texture = ExtResource("7_sxhjt")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6op1b"]
+texture = ExtResource("8_jr18e")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g11j3"]
+texture = ExtResource("9_c1mob")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uly4o"]
+texture = ExtResource("10_jsm2k")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqgq3"]
+texture = ExtResource("11_ydifr")
+texture_region_size = Vector2i(16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vjuaq"]
+texture = ExtResource("12_0rlct")
+texture_region_size = Vector2i(16, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejcbg"]
 texture = ExtResource("2_r647c")
@@ -78,3 +172,5 @@ position = Vector2(-94, -74)
 
 [node name="BrokenPuppet2" parent="." instance=ExtResource("6_r647c")]
 position = Vector2(-46, 8)
+
+[node name="PauseMenu" parent="." instance=ExtResource("11_x3aj5")]
