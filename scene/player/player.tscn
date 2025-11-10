@@ -50,7 +50,7 @@
 [ext_resource type="Texture2D" uid="uid://it7n537h8lfp" path="res://assets/player/run/run_sw.png" id="16_lfqc2"]
 [ext_resource type="Texture2D" uid="uid://d2l7pbo0n1p3l" path="res://assets/player/run/run_w.png" id="17_yw1hm"]
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
-[ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
+[ext_resource type="Script" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
 
 [sub_resource type="Resource" id="Resource_0oa35"]
 script = ExtResource("2_0oa35")
@@ -2184,7 +2184,6 @@ floor_constant_speed = true
 safe_margin = 0.6
 script = ExtResource("1_cm2cf")
 debug_boon_to_add = SubResource("Resource_0oa35")
-debug_add_boon_now = true
 
 [node name="GhostTimer" type="Timer" parent="."]
 wait_time = 0.07

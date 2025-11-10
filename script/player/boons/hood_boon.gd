@@ -57,8 +57,8 @@ func _load_type_3():
 # What Big Eyes: Easier timing
 func _load_type_4():
 	boon_name = "What Big Eyes You Have"
-	boon_description = "Your Perfect Possess timing window is 20% larger."
-	modifier.possesian_timing = 0.05 # (+0.05s)
+	boon_description = "Your Perfect Possess timing window is 40% larger."
+	modifier.possesian_timing = 0.052 # (+0.052s)
 	modifier.set_mode("possesian_timing", "add")
 
 # Picnic Basket Bomb
