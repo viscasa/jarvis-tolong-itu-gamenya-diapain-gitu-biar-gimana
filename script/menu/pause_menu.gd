@@ -8,7 +8,9 @@ func _ready():
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause_game"):
 		_toggle_pause()
-		
+	if get_tree().paused:
+		if event.is_action_pressed("ui_accept"):
+			_toggle_pause()
 func _on_continue_pressed():
 	_toggle_pause()
 	
