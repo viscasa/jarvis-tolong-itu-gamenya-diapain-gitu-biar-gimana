@@ -169,24 +169,23 @@ func get_dash_velocity() -> Vector2:
 # -----------------------------------
 
 # --- TAMBAHKAN FUNGSI BARU INI ---
-# Fungsi ini akan dipanggil oleh sinyal 'body_entered'
 func _on_aoe_body_entered(body) -> void:
-	# Pastikan damage hanya terjadi saat sedang dash
 	if not is_dashing:
 		return
-	
 	if body == player:
-		return # Jangan lukai diri sendiri
-		
-	# Cek apakah body ini sudah pernah kena damage di dash yang sama
+		return
 	if body in damaged_bodies_this_dash:
 		return
 	
-	# Jika body punya method "take_damage", panggil
 	damaged_bodies_this_dash.append(body)
+	
 	var hit_direction = (body.global_position - global_position).normalized()
+	
+	# PERBAIKAN:
+	# 'aoe_damage' sekarang sudah di-update oleh Player.gd
+	# (dari boon "Picnic Basket Bomb")
+	# Kita kirim 'aoe_damage' ini ke AttackManager.
 	attack_manager.attack(body, hit_direction, false, aoe_damage)
-# ---------------------------------
 
 # ... (fungsi _reset dan _add tidak berubah) ...
 func _reset_super_dash_counter() :

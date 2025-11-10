@@ -12,7 +12,8 @@ class_name HomingProjectile
 
 var target: Node2D = null
 var current_direction: Vector2 = Vector2.RIGHT
-
+var chain_count: int = 0
+var bodies_hit: Array = [] # (Untuk mencegah hit ganda)
 func _ready() -> void:
 	add_to_group("player_projectiles")
 	timer.wait_time = lifetime
@@ -56,6 +57,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("player"):
 		return
 	
+	# Mencegah hit ganda pada musuh yang sama
+	if body in bodies_hit:
+		return
+		
 	var enemy_stats : Stats
 	if body is CharacterBody2D :
 		enemy_stats = body.get_node("Stats")
@@ -63,17 +68,34 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		enemy_stats= body.get_owner().get_node("Stats")
 	if !enemy_stats :
 		return
+		
 	var hit_direction = (body.global_position - global_position).normalized()
 	enemy_stats.take_damage(damage, hit_direction)
+	bodies_hit.append(body) # Tandai sudah kena
+	
+	# --- LOGIKA BOON BARU ---
+	
+	# Prioritas 1: Chain Shot
+	if chain_count > 0:
+		chain_count -= 1
+		target = _find_nearest_enemy(bodies_hit) # Cari target baru (kecuali yg sudah kena)
+		if not is_instance_valid(target):
+			queue_free() # Tidak ada target, hancurkan
+		return # Jangan hancurkan, lanjut ke target baru
+
+
+
+	# Jika tidak ada boon, hancurkan
 	queue_free()
 
-func _find_nearest_enemy() -> Node2D:
+# --- PERBAIKAN: Tambahkan 'exclude_list' ---
+func _find_nearest_enemy(exclude_list: Array = []) -> Node2D:
 	var enemies = get_tree().get_nodes_in_group("enemies") 
 	var closest_enemy: Node2D = null
 	var min_dist_sq: float = INF
 	
 	for enemy in enemies:
-		if not is_instance_valid(enemy):
+		if (not is_instance_valid(enemy)) or (enemy in exclude_list):
 			continue
 			
 		var dist_sq = enemy.global_position.distance_squared_to(self.global_position)
