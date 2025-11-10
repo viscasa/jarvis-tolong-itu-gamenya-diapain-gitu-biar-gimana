@@ -18,10 +18,10 @@ func _physics_process(delta):
 	global_position += direction * speed * delta
 
 func _on_area_entered(area):
-	if area is Hurtbox:
+	if area is HurtboxPlayer:
 		if area.get_parent() is Player:
 			
-			var stats_node = area.get_parent().get_node_or_null("Stats")
+			var stats_node = area.get_parent().get_node_or_null("HealthManager")
 			
 			if stats_node:
 				stats_node.take_damage(damage)
