@@ -49,7 +49,10 @@ func _state_chase(delta):
 func _perform_attack():
 	#animated_sprite.play("attack")
 	if not is_instance_valid(player_target): return
-	var dir_to_player = global_position.direction_to(player_target.global_position)
+	var dir_to_player:Vector2 = global_position.direction_to(player_target.global_position)
+	
+	if dir_to_player == Vector2.ZERO :
+		dir_to_player = Vector2.RIGHT
 	
 	if dir_to_player.x != 0:
 		animated_sprite.flip_h = (dir_to_player.x < 0)

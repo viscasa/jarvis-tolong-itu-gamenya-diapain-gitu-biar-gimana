@@ -4,6 +4,12 @@ extends TileMapLayer
 func _ready() -> void:
 	pass
 	fill_surrounding_tiles()
+	fill_surrounding_tiles()
+	fill_surrounding_tiles()
+	fill_surrounding_tiles()
+	fill_surrounding_tiles()
+	fill_surrounding_tiles()
+	
 # Nama fungsi diubah agar lebih deskriptif
 func fill_surrounding_tiles() -> void:
 	

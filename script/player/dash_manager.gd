@@ -19,6 +19,9 @@ var player: CharacterBody2D
 var super_dash: SuperDash
 var pin: Pin 
 @onready var morph_skill: Node2D = $"../SkillManager/MorphSkill"
+@onready var sprite: AnimatedSprite2D = $"../Sprite"
+@onready var ghost_timer: Timer = $"../GhostTimer"
+var ghost_scene = preload("res://scene/skill/dash_ghost.tscn")
 # ---------------------
 
 # ====== PARAM ======
@@ -31,7 +34,7 @@ const COOLDOWN := 1.0
 
 const EXIT_DASH_SPEED := 600.0 * SCALE_UP
 @export var exit_move_time := 0.20
-@export var exit_cycle_time := 0.4
+@export var exit_cycle_time := 0.3
 
 # ... (STATE (DASH) tidak berubah) ...
 var is_dashing: bool = false
@@ -57,6 +60,10 @@ var has_exited_since_last_possession: bool = true
 var auto_exit_possess_lock: bool = false
 var dash_count_max: int = 1
 var dash_counter : int = 0
+
+# --- FLAG BARU UNTUK PHASING ---
+var _is_phasing_dash: bool = false
+# -------------------------------
 
 
 func update_cooldown(delta: float) -> void:
@@ -104,6 +111,24 @@ func start_dash() -> void:
 	if is_exit_moving and not is_exit_weak:
 		_force_end_exit_movement()
 	
+	# --- LOGIKA PENGECEKAN PHASING BARU ---
+	# HAPUS kalkulasi jarak
+	# var dash_distance = DASH_SPEED * dash_move_time
+	
+	# BARU: Putar RayCast ke arah dash
+	# Ini mengasumsikan target_position di-set di editor (cth: (100, 0))
+	player.raycast.rotation = dash_direction.angle()
+	
+	# Paksa update
+	player.phasing_ray.force_raycast_update()
+	
+	# Cek apakah akan menabrak layer 5
+	var can_phase = not player.phasing_ray.is_colliding()
+	
+	# HAPUS reset target_position
+	# player.phasing_ray.target_position = Vector2.ZERO
+	# ------------------------------------
+	
 	dash_counter += 1
 	is_dash_moving = true
 	dash_move_timer = dash_move_time
@@ -112,10 +137,19 @@ func start_dash() -> void:
 	dash_cycle_timer = dash_cycle_time
 	_cooldown_set_for_cycle = false
 	emit_signal("dash_cycle_started")
+	
 	if auto_exit_possess_lock:
-		player.end_invisible()
-	else :
-		player.start_invisible()
+		player.end_invisible() # Ini untuk hurtbox, biarkan
+	elif can_phase:
+		print("Phasing: AMAN")
+		_is_phasing_dash = true
+		player.start_invisible() # Matikan mask 5
+		ghost_timer.start()
+	else:
+		print("Phasing: AKAN NABRAK, dash normal.")
+		_is_phasing_dash = false
+		# JANGAN panggil start_invisible()
+		ghost_timer.start()
 
 func process_dash(delta: float) -> void:
 	if not is_dash_moving:
@@ -138,7 +172,15 @@ func _end_dash_cycle() -> void:
 	if not _cooldown_set_for_cycle and not player.possession_manager.is_possessing:
 		cooldown_timer = COOLDOWN
 		_cooldown_set_for_cycle = true
-	player.end_invisible()
+	
+	# --- MODIFIKASI ---
+	# Hanya panggil end_invisible JIKA kita sedang phasing
+	if _is_phasing_dash:
+		player.end_invisible()
+	_is_phasing_dash = false # Reset flag
+	# ------------------
+	
+	ghost_timer.stop()
 
 func get_dash_speed_factor() -> float:
 	if not is_dash_moving or dash_move_time <= 0.0:
@@ -148,13 +190,11 @@ func get_dash_speed_factor() -> float:
 	return 1.0 - pow(1.0 - progress, 2.0) # ease-out
 
 func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
-	# --- MODIFIKASI: Cek semua skill ---
 	if (super_dash and super_dash.is_active()) or \
 	   (pin and pin.is_active()) or \
 	   (morph_skill and morph_skill.is_active()): # TAMBAHAN
 		print("Cannot ExitDash, skill lain aktif.")
 		return
-	# ---------------------------------
 		
 	is_exit_moving = true
 	is_exit_dashing = true
@@ -164,12 +204,24 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 	exit_dash_direction = (player.get_global_mouse_position() - player.global_position).normalized()
 	current_exit_speed = EXIT_DASH_SPEED * (0.5 if weak else 1.0)
 
+	# --- LOGIKA PENGECEKAN PHASING BARU (untuk Exit Dash) ---
+	# HAPUS kalkulasi jarak
+	# var dash_distance = current_exit_speed * exit_move_time
+	
+	# HAPUS reset target_position
+	# player.phasing_ray.target_position = Vector2.ZERO
+	# ----------------------------------------------------
+
 	if is_auto:
 		auto_exit_possess_lock = true
 		emit_signal("auto_exit_dash_started")
 		is_dashing = true
 	else:
 		emit_signal("exit_dash_manual_started")
+		_is_phasing_dash = false
+		# ------------------
+		
+		ghost_timer.start()
 
 	emit_signal("exit_movement_started")
 	emit_signal("exit_cycle_started")
@@ -198,7 +250,15 @@ func _end_exit_cycle() -> void:
 	is_exit_dashing = false
 	emit_signal("exit_cycle_ended")
 	is_dashing = false
-	player.end_invisible()
+	
+	# --- MODIFIKASI ---
+	# Hanya panggil end_invisible JIKA kita sedang phasing
+	if _is_phasing_dash:
+		player.end_invisible()
+	_is_phasing_dash = false # Reset flag
+	# ------------------
+	
+	ghost_timer.stop()
 
 func _force_end_exit_movement() -> void:
 	if is_exit_moving:
@@ -216,6 +276,7 @@ func get_exit_dash_speed_factor() -> float:
 	return 1.0 - pow(1.0 - progress, 2.0)
 
 func on_possession_started() -> void:
+	ghost_timer.stop()
 	has_exited_since_last_possession = false
 	is_dashing = false
 	is_exit_dashing = false
@@ -226,3 +287,20 @@ func on_possession_started() -> void:
 	dash_cycle_timer = 0.0
 	exit_cycle_timer = 0.0
 	_cooldown_set_for_cycle = true
+	
+	# --- Tambahan Pengaman ---
+	# Pastikan kita tidak 'stuck' phasing jika possession terjadi di tengah dash
+	if _is_phasing_dash:
+		player.end_invisible()
+		_is_phasing_dash = false
+	# -------------------------
+
+func instance_ghost() -> void :
+	var ghost: Sprite2D = ghost_scene.instantiate()
+	get_parent().get_parent().add_child(ghost)
+	
+	ghost.global_position = self.global_position
+	ghost.texture = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+
+func _on_ghost_timer_timeout() -> void:
+	instance_ghost()

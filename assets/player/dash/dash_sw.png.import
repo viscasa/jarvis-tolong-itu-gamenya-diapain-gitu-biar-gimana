@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clmup2di7s62i"
-path="res://.godot/imported/idle_e.png-28a2617d65b8f8583c61e950c41d74c7.ctex"
+uid="uid://cwk6vmlv8f1yk"
+path="res://.godot/imported/dash_sw.png-204d0ce628e6a98deab34fc6f7eb367c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/character/idle_e.png"
-dest_files=["res://.godot/imported/idle_e.png-28a2617d65b8f8583c61e950c41d74c7.ctex"]
+source_file="res://assets/player/dash/dash_sw.png"
+dest_files=["res://.godot/imported/dash_sw.png-204d0ce628e6a98deab34fc6f7eb367c.ctex"]
 
 [params]
 
