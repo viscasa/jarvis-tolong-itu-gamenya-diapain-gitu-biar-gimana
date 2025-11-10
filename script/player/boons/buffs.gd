@@ -2,6 +2,8 @@ extends Resource
 class_name BuffBase
 
 @export_enum("Hood", "Rabbit", "Wizard", "Pig", "Cinderalla") var buff_type: String = "Hood"
+@export var boon_name: String = "Nama Boon"
+@export var boon_description: String = "Deskripsi boon..."
 @export var modifier: PlayerModifier = PlayerModifier.new()
 @export var permanent: bool = true
 @export var duration: float = 0.0

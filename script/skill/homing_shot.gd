@@ -7,6 +7,7 @@ signal homing_shot_dash_ended
 @onready var player: Player = $"../.."
 
 @export var projectile_scene: PackedScene
+@onready var buff_manager: PlayerBuffManager = $"../../BuffManager" # Sesuaikan path
 
 @export_group("Projectile")
 @export var missile_speed : float = 300.0
@@ -28,7 +29,12 @@ func shoot_projectile() -> void:
 	proj.global_position = player.global_position
 	proj.speed = missile_speed
 	proj.turn_rate = missile_turn_rate
-	proj.damage = missile_damage
+	var stats = buff_manager.current_stats
+
+	proj.damage = missile_damage * stats.borrowed_damage
+	
+	# Terapkan "Chain Shot" & "Spectral Spike"
+	proj.chain_count = stats.homing_chain
 	proj.lifetime = missile_lifetime
 	proj.proximity_threshold = missile_proximity_threshold
 	

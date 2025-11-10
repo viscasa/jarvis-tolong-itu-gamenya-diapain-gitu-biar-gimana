@@ -1,50 +1,68 @@
 extends BuffBase
 class_name BuffRabbit
 
-func _init():
-	buff_type = "Rabbit"
-	randomize() 
+enum BoonType { 
+	GRANDMAS_REVENGE, 
+	WOLFS_GRIN, 
+	HUNTERS_HASTE, 
+	WHAT_BIG_EYES, 
+	PICNIC_BASKET 
+}
+@export var boon_type: BoonType = BoonType.GRANDMAS_REVENGE:
+	set(value):
+		boon_type = value
+		_generate_boon() # Panggil ini saat 'boon_type' diubah di Inspector
+# ---------------------------------------------------
 
-	var choice = randi_range(1, 5)
-	match choice:
-		1:
-			_load_type_1()
-		2:
-			_load_type_2()
-		3:
-			_load_type_3()
-		4:
-			_load_type_4()
-		5:
-			_load_type_5()
+func _init():
+	buff_type = "Hood"
+	# Panggil _generate_boon() saat pertama kali dibuat
+	_generate_boon()
+
+func _generate_boon():
+	# Reset modifier & mode setiap kali di-generate
+	modifier = PlayerModifier.new()
+	modifier.op_modes = {}
+	
+	match boon_type:
+		BoonType.GRANDMAS_REVENGE: _load_type_1()
+		BoonType.WOLFS_GRIN: _load_type_2()
+		BoonType.HUNTERS_HASTE: _load_type_3()
+		BoonType.WHAT_BIG_EYES: _load_type_4()
+		BoonType.PICNIC_BASKET: _load_type_5()
 	
 	time_left = duration
-
-
+# Fluffy Tail: + Max HP
 func _load_type_1():
-		modifier.hp = 20                   
-		modifier.set_mode("hp", "add")
+	boon_name = "Fluffy Tail"
+	boon_description = "Permanently increases your Max HP by 40."
+	modifier.hp = 40.0
+	modifier.set_mode("hp", "add")
 
+# Stolen Carrots: + Healing
 func _load_type_2():
-		modifier.dash_duration = 1.1         
-		modifier.set_mode("dash_duration", "multiply")
+	boon_name = "Stolen Carrots"
+	boon_description = "All healing you receive is 30% more effective."
+	modifier.healing_bonus = 1.3
+	modifier.set_mode("healing_bonus", "multiply")
 
+# Quick Getaway: Longer dash
 func _load_type_3():
-	modifier.healing_bonus = 5        
-	modifier.set_mode("healing_bonus", "add")
+	boon_name = "Quick Getaway"
+	boon_description = "Your standard dash distance is increased by 80%."
+	modifier.dash_duration = 1.8
+	modifier.set_mode("dash_duration", "multiply")
 
-
+# Lucky Foot: 20% chance instant Super Dash
 func _load_type_4():
-	modifier.healing_chance = 1.2        
-	modifier.set_mode("healing_chance", "add")
+	boon_name = "Lucky Foot"
+	boon_description = "Each Perfect Possess has a 15% chance to instantly recharge Super Dash."
+	modifier.perfect_possess_super_charge_chance = 0.15
+	modifier.set_mode("perfect_possess_super_charge_chance", "add")
 
-
+# McGregor's Garden: Slow field on exit
 func _load_type_5():
-	if modifier.slow_field==0.0:
-		modifier.slow_field = 100       
-		modifier.set_mode("slow_field", "add")
-	else:
-		modifier.slow_field = 1.2       
-		modifier.set_mode("slow_field", "multiply")
-
-#TODO RUSTY NAIL POISON EFFECT
+	boon_name = "McGregor’s Garden"
+	boon_description = "Exiting a Possess leaves behind a slowing field for 3 seconds."
+	modifier.slow_field = 3.0
+	modifier.set_mode("slow_field", "add")

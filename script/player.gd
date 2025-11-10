@@ -23,48 +23,92 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var possess_area: Area2D = $PossessArea
 @onready var hurt_box_player: HurtboxPlayer = $HurtBoxPlayer
-
-# --- NODE BARU ---
-# ! HARUS DITAMBAH DI EDITOR: Node RayCast2D bernama "PhasingRay"
+@onready var buff_manager: PlayerBuffManager = $BuffManager
+@onready var health_manager: HealthManager = $HealthManager
+@onready var attack_manager: AttackManager = $AttackManager 
+@onready var circle_timing: Node2D = $CircleTiming
 @onready var phasing_ray: RayCast2D = $Raycast/PhasingRay
 @onready var raycast: Node2D = $Raycast
-# -----------------
-
 signal possessed(target)
 
 var is_locked_out := false
+
+# --- VAR ANIMASI BARU ---
+# Menyimpan arah terakhir pemain (dari input atau dash) untuk animasi idle
 var last_move_direction := Vector2.DOWN
 
 
 func _ready() -> void:
 	add_to_group("player")
 	
+	# Setup referensi DashManager
 	dash_manager.player = self
+	
+	# Setup referensi PossessionManager
 	possession_manager.player = self
 	possession_manager.possessed.connect(_on_possessed)
 
+	# --- PENGATURAN REFERENSI SKILL ---
+	# Beri referensi ke SuperDash
 	super_dash.player = self
 	super_dash.dash_manager = dash_manager
+	
+	# Beri referensi ke Pin
 	pin.player = self
 	pin.dash_manager = dash_manager
 	pin.super_dash = super_dash
+	
+	# Beri referensi skill ke DashManager
 	dash_manager.super_dash = super_dash
 	dash_manager.pin = pin
-
-	# --- KONFIGURASI PHASING RAY (BARU) ---
+	
+	buff_manager.buffs_updated.connect(_on_buffs_updated)
+	_on_buffs_updated(buff_manager.base_stats)
+	health_manager.no_health.connect(_on_player_died)
 	if phasing_ray:
-		# Pastikan RayCast HANYA memeriksa layer 5
+		# Pastikan RayCast HANYA memeriksa layer 1
 		phasing_ray.set_collision_mask_value(1, true) 
 		phasing_ray.enabled = true
 	else:
 		print("ERROR: Node $PhasingRay tidak ditemukan di Player! Phasing tidak akan aman.")
-	# --------------------------------
-
+func _on_buffs_updated(new_stats: PlayerModifier):
+	
+	# 1. Terapkan ke HealthManager (Boon "Fluffy Tail", "Rags to Riches")
+	health_manager.max_health = new_stats.hp
+	# (Kita juga harus update health bar jika max HP berubah)
+	health_manager.health_bar.max_value = new_stats.hp
+	health_manager.current_health = min(health_manager.current_health, new_stats.hp)
+	
+	
+	# 3. Terapkan ke DashManager (Boon "Quick Getaway")
+	dash_manager.dash_move_time = new_stats.dash_duration
+	
+	# 4. Terapkan ke SuperDash (Boon "Big Bad Bargain", "Picnic Basket")
+	super_dash.super_dash_recharge_needed = 3 + new_stats.super_dash_cost
+	super_dash.aoe_radius = (50.0 * SCALE_UP) * new_stats.explosion_size
+	super_dash.aoe_damage = 50.0 * new_stats.explosion_damage # (Damage dasar 50)
+	
+	# 5. Terapkan ke CircleTiming (Boon "What Big Eyes...")
+	var base_crit_start = 0.63
+	var base_crit_end = 0.76
+	circle_timing.crit_interval[0] = base_crit_start - (new_stats.possesian_timing / 2.0)
+	circle_timing.crit_interval[1] = base_crit_end + (new_stats.possesian_timing / 2.0)
+	
+	# 6. Terapkan ke Movement (Boon "Hunter's Haste")
+	# (Kita akan modifikasi _process_movement di bawah)
+		
+	print("STATS UPDATED: HP = ", new_stats.hp, ", Dash Cost = ", super_dash.super_dash_recharge_needed)
+func _on_player_died():
+	# (Logika Resurrection/kebangkitan sudah ditangani di HealthManager)
+	print("PLAYER MATI")
+	# (Tambahkan logika game over di sini
+	get_tree().reload_current_scene()
 
 func _physics_process(delta: float) -> void:
 	
 	dash_manager.update_cooldown(delta)
 	
+	# Proses semua skill
 	super_dash.process_super_dash(delta)
 	pin._process(delta) 
 	morph_skill._process(delta) 
@@ -89,7 +133,10 @@ func _physics_process(delta: float) -> void:
 		_process_movement(delta)
 	# --- AKHIR PENGATURAN VELOCITY ---
 
+	# --- LOGIKA ANIMASI BARU ---
+	# Panggil state machine animasi sebelum bergerak
 	_update_animation_state()
+	# --- AKHIR LOGIKA ANIMASI ---
 
 	move_and_slide()
 
@@ -140,7 +187,8 @@ func _set_morph_dash_velocity():
 	velocity.y = vel.y / Y_MUL_DASH
 
 func _process_movement(delta: float) -> void:
-	if super_dash.is_active() or morph_skill.is_active(): 
+	# Pastikan kita tidak bergerak jika ada skill dash aktif
+	if super_dash.is_active() or morph_skill.is_active(): # TAMBAHAN
 		velocity = Vector2.ZERO
 		return
 
@@ -148,14 +196,17 @@ func _process_movement(delta: float) -> void:
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
-	
+	var current_speed = buff_manager.current_stats.move_speed
+	if buff_manager.current_stats.frenzy_duration > 0:
+		current_speed *= 1.5 # +50% move speed
+	# Update arah terakhir berdasarkan input
 	if input_vector.length() > 0.0:
 		last_move_direction = input_vector.normalized()
 	
 	var target_velocity = Vector2.ZERO
 	if input_vector.length() > 0.0:
-		target_velocity.x = input_vector.normalized().x * SPEED
-		target_velocity.y = input_vector.normalized().y * SPEED / Y_MUL
+		target_velocity.x = input_vector.normalized().x * current_speed
+		target_velocity.y = input_vector.normalized().y * current_speed / Y_MUL
 	velocity = velocity.move_toward(target_velocity, ACCELERATION * delta)
 
 func can_start_possession() -> bool:
@@ -176,7 +227,7 @@ func handle_global_inputs() -> void:
 	elif Input.is_action_just_pressed("pin") and not possession_manager.is_possessing:
 		if can_start_possession():
 			skill_manager.use_pin()
-	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: 
+	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: # TAMBAHAN
 		if can_start_possession():
 			skill_manager.use_morph_skill()
 
@@ -195,30 +246,16 @@ func lock_actions_during_weak_exit(duration: float) -> void:
 func morph(name:String) :
 	skill_manager.morph(name)
 
-# KEMBALI NORMAL (TIDAK ASYNC)
 func start_invisible(time:float = 0) :
-	print("invis! start phasing")
-	hurt_box_player.get_node("CollisionShape2D").disabled = true
+	print("invis!")
 	hurt_box_player.set_collision_layer_value(2, false)
-	
-	# Matikan tabrakan dengan layer 5
-	set_collision_mask_value(1, false)
-	
 	if time != 0 :
 		await get_tree().create_timer(time).timeout
-		# Panggil versi normal (TIDAK AWAIT)
 		end_invisible()
 
-# KEMBALI NORMAL (TIDAK ASYNC)
-# HAPUS SEMUA LOGIKA ANTI-SANGKUT DARI SINI
 func end_invisible() :
-	print("berhenti invis! end phasing")
+	print("berhenti invis!")
 	hurt_box_player.set_collision_layer_value(2, true)
-	
-	# Nyalakan lagi mask-nya. Selesai.
-	# Tidak perlu cek 'stuck' karena kita sudah cek di awal.
-	set_collision_mask_value(1, true)
-	
 
 func _update_animation_state() -> void:
 	var anim_prefix = "Idle" 
@@ -290,3 +327,27 @@ func _get_direction_suffix(direction: Vector2) -> String:
 		return "NE"
 	
 	return "S" # Fallback default
+
+@export var debug_boon_to_add: BuffBase = null
+
+@export var debug_add_boon_now: bool = false:
+	set(value):
+		if value == true:
+			if is_instance_valid(debug_boon_to_add):
+				call_deferred("_debug_add_boon", debug_boon_to_add)
+			else:
+				print("DEBUG: Slot 'Debug Boon To Add' masih kosong!")
+		# (Kita tidak set 'false' agar kotak centang tidak langsung mati)
+func _debug_add_boon(boon_res: BuffBase):
+	print("===============================")
+	print("DEBUG: Menambah Boon: ", boon_res.resource_path)
+	
+	# PENTING: Duplikasi resource agar kita tidak mengubah file .tres aslinya
+	var new_boon = boon_res
+	buff_manager.add_buff(new_boon)
+	print("Boon: [", new_boon.buff_type, "] ", new_boon.boon_name)
+	print("Desc: ", new_boon.boon_description)
+	print("--- STATS PLAYER TERBARU ---")
+	print("  HP Max: ", buff_manager.current_stats.hp)
+	print("  DMG Skill Curian: ", buff_manager.current_stats.borrowed_damage)
+	print("===============================")

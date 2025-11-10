@@ -3,15 +3,13 @@ class_name AttackManager
 
 signal critical_circle
 
-@export var base_damage: float = 10.0
-@export var base_defense: float = 2.0
-@export var damage_multiplier: float = 1.0
+@onready var buff_manager: PlayerBuffManager = $"../BuffManager"
 
 var crit_multiplier:float = 2.0
 var enemy_stats:Stats = null
 
 
-func attack(enemy:Node, hit_direction: Vector2,  is_critical: bool, damage:float = get_final_damage()) -> void :
+func attack(enemy:Node, hit_direction: Vector2,  is_critical: bool, damage:float = -1.0) -> void :
 	var enemy_stats
 	if enemy is Scissor :
 		return
@@ -21,13 +19,34 @@ func attack(enemy:Node, hit_direction: Vector2,  is_critical: bool, damage:float
 		enemy_stats= enemy.get_owner().get_node("Stats")
 	if !enemy_stats :
 		return
+
+	# --- PERBAIKAN LOGIKA DAMAGE ---
+	var final_damage = damage
+	if final_damage == -1.0:
+		# Jika 'damage' tidak disediakan (misal dari 'circle_timing'), hitung di sini
+		final_damage = get_final_damage(is_critical) 
+	
+	# Cek Frenzy (Hunter's Haste)
+	if buff_manager.current_stats.frenzy_duration > 0:
+		final_damage *= 1.5 # +50% all damage
+	# -----------------------------
+
 	if is_critical :
-		enemy_stats.take_damage(damage, hit_direction, crit_multiplier)
+		enemy_stats.take_damage(final_damage, hit_direction, crit_multiplier)
 		emit_signal("critical_circle")
 	else :
-		enemy_stats.take_damage(damage, hit_direction)
-
-func get_final_damage() -> float:
-	var final_damage = base_damage * damage_multiplier
+		enemy_stats.take_damage(final_damage, hit_direction)
+func get_final_damage(is_critical: bool = false) -> float:
+	# Dapatkan stat terbaru dari 'otak'
+	var stats = buff_manager.current_stats
 	
-	return final_damage
+	var calculated_damage = stats.base_damage # Ini adalah base damage (default 20.0)
+	
+	if is_critical:
+		# Terapkan boon "Wolf's Grin"
+		calculated_damage *= stats.possess_damage
+	
+	# Terapkan boon 'final_damage' (multiplikatif)
+	calculated_damage *= stats.final_damage
+	
+	return calculated_damage

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="jarvis tolong itu gamenya diapain gitu biar gimana"
-run/main_scene="uid://benoe2kbrdpcf"
+run/main_scene="uid://c36pttr8cmouy"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,7 +20,6 @@ config/icon="res://icon.svg"
 DamageNumber="*res://damage_number.gd"
 RewardManager="*res://script/autoload/reward_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
-PlayerBuffManager="*res://script/player/player_buff_manager.gd"
 
 [dialogic]
 

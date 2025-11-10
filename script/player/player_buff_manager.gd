@@ -1,23 +1,32 @@
 extends Node
-class_name player_buff_manager
+class_name PlayerBuffManager
 
-@export var base_stats: PlayerModifier = PlayerModifier.new() # base stats for player
+@export var base_stats: PlayerModifier = PlayerModifier.new() # Stat dasar player
 var current_stats: PlayerModifier = PlayerModifier.new()
 var list_of_buffs: Array[BuffBase] = []
 
 signal buffs_updated(current_stats: PlayerModifier)
 
 func _ready():
-	# Initialize base stats (example values)
-	base_stats.hp = 100
+	# Inisialisasi stat awal (Anda bisa atur base_stats di Inspector)
 	_calculate_all()
 
 func add_buff(buff: BuffBase):
+	# (Logika Cinderella Anda sudah bagus, kita tambahkan Pig's Feast)
+	
 	if buff.buff_type == "Cinderella":
 		_handle_cinderella_effect(buff)
+		
+	elif buff.buff_type == "Pig" and buff.modifier.ressurection == 9999: # (Contoh ID untuk Pig's Feast)
+		# Ini adalah Pig's Feast (Heal to Full)
+		var player_stats = get_parent().get_node("Stats") # Asumsi Stats di Player
+		player_stats.current_health = player_stats.max_health
+		# Jangan tambahkan ke list, ini efek instan
+	
 	else:
+		# Ini adalah boon stat normal
 		list_of_buffs.append(buff)
-		_calculate_all()
+		_calculate_all() # Hitung ulang stat
 
 func remove_buff(buff_type: String):
 	list_of_buffs = list_of_buffs.filter(func(b): return b.buff_type != buff_type)
@@ -29,65 +38,78 @@ func remove_expired_buffs():
 	if before != list_of_buffs.size():
 		_calculate_all()
 
+# --- PERBAIKAN PENTING DI SINI ---
+# Fungsi ini sekarang menggunakan 'apply_modifier' yang benar
 func _calculate_all():
-	var total_modifier := PlayerModifier.new()
+	# 1. Mulai dengan stat dasar murni
+	var new_stats = base_stats 
+	
+	# 2. Tumpuk (apply) setiap buff satu per satu
 	for buff in list_of_buffs:
-		total_modifier = total_modifier.add(buff.modifier)
-	current_stats = base_stats.add(total_modifier)
+		new_stats = new_stats.apply_modifier(buff.modifier)
+		
+	# 3. Simpan hasilnya
+	current_stats = new_stats
+	
+	# 4. Beri tahu 'Player' (dan skrip lain) bahwa stat sudah berubah
 	emit_signal("buffs_updated", current_stats)
+# ---------------------------------
 
 func _process(delta: float) -> void:
+	# (Ini untuk boon non-permanen seperti 'Hunter's Haste')
 	for buff in list_of_buffs:
 		buff.update(delta)
 	remove_expired_buffs()
 	
+# (Sisa fungsi Anda: _create_random_buff, _handle_cinderella_effect, dll.)
+# ...
 func _create_random_buff(exclude: Array[String] = []) -> BuffBase:
 	var pool = [BuffRabbit, BuffHood, BuffWizard, BuffPig]
-	# Filter out excluded buff types
 	pool = pool.filter(func(buff_class): return buff_class.new().buff_type not in exclude)
-	
 	if pool.is_empty():
 		return BuffBase.new()
-
 	var chosen_boon = pool[randi_range(0, pool.size() - 1)]
 	return chosen_boon.new()
 
 func _handle_cinderella_effect(buff: BuffCinderella):
 	match buff.effect_id:
 		1:
-			_trade_and_gain_buffs(1, 3)
+			_trade_and_gain_buffs(1, 2) # (Sesuai ide baru Anda)
 		2:
-			_gain_random_buffs(5)
+			_gain_random_buffs(3) # (Sesuai ide baru Anda)
 		3:
 			_reroll_all_buffs()
-	remove_buff(buff.buff_type)
+		4:
+			_trade_for_specific() # (Glass Slipper)
+		5:
+			_trade_all_for_hp() # (Rags to Riches)
+	
+	# Boon Cinderella adalah instan, langsung hapus
+	# remove_buff(buff.buff_type) # (Hati-hati, ini akan menghapus SEMUA buff Cinderella)
+	_calculate_all() # Hitung ulang setelah selesai
 
 func _trade_and_gain_buffs(trade_count: int, gain_count: int):
-	# Remove random existing buff(s)
 	for i in range(trade_count):
 		if list_of_buffs.size() > 0:
 			var idx = randi_range(0, list_of_buffs.size() - 1)
 			list_of_buffs.remove_at(idx)
-
-	# Add random new ones
-	for i in range(gain_count):
-		var new_buff = _create_random_buff()
-		list_of_buffs.append(new_buff)
-
-	_calculate_all()
+	_gain_random_buffs(gain_count) # Panggil fungsi di bawah
 
 func _gain_random_buffs(amount: int):
 	for i in range(amount):
 		list_of_buffs.append(_create_random_buff())
-	_calculate_all()
+	# (Jangan panggil _calculate_all() di sini, panggil di 'add_buff' saja)
 
 func _reroll_all_buffs():
 	var new_buff_count = list_of_buffs.size()
 	list_of_buffs.clear()
-
-	# Maybe give some random fresh buffs
-	
 	for i in range(new_buff_count):
 		list_of_buffs.append(_create_random_buff())
 
-	_calculate_all()
+func _trade_for_specific():
+	# (Logika untuk 'Glass Slipper')
+	pass
+
+func _trade_all_for_hp():
+	# (Logika untuk 'Rags to Riches')
+	pass
