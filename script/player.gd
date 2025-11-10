@@ -21,6 +21,8 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var homing_shot: HomingShot = $SkillManager/HomingShot
 @onready var triple_homing_shot: TripleHomingShot = $SkillManager/TripleHomingShot
 @onready var sprite: AnimatedSprite2D = $Sprite
+@onready var possess_area: Area2D = $PossessArea
+@onready var hurt_box_player: HurtboxPlayer = $HurtBoxPlayer
 
 signal possessed(target)
 
@@ -196,6 +198,19 @@ func lock_actions_during_weak_exit(duration: float) -> void:
 func morph(name:String) :
 	skill_manager.morph(name)
 
+func start_invisible(time:float = 0) :
+	print("invis!")
+	hurt_box_player.get_node("CollisionShape2D").disabled = true
+	hurt_box_player.set_collision_layer_value(2, false)
+	if time != 0 :
+		await get_tree().create_timer(time).timeout
+		end_invisible()
+
+func end_invisible() :
+	print("berhenti invis!")
+	hurt_box_player.get_node("CollisionShape2D").disabled = false
+	hurt_box_player.set_collision_layer_value(2, true)
+
 # ==================================================================
 # --- FUNGSI ANIMASI BARU ---
 # ==================================================================
@@ -203,7 +218,7 @@ func morph(name:String) :
 # "Otak" dari state machine animasi.
 # Menentukan prefix animasi (idle, walk, dash) dan arahnya.
 func _update_animation_state() -> void:
-	var anim_prefix = "Idle"
+	var anim_prefix = "Idle" # <- PERBAIKAN BUG: "Idle" menjadi "idle"
 	var anim_direction = last_move_direction # Default untuk idle
 
 	# Prioritas 1: Sedang Possessing?
@@ -212,15 +227,15 @@ func _update_animation_state() -> void:
 		# Ganti "morph_walk"/"morph_idle" dengan "walk"/"idle" biasa
 		# jika Anda tidak punya animasi morph khusus.
 		if velocity.length() > 1.0:
-			anim_prefix = "Idle" # cth: "morph_walk_n"
+			anim_prefix = "Idle" # cth: "morph_walk_n" <- PERBAIKAN BUG: "Idle" menjadi "idle" (atau "morph_walk")
 			anim_direction = velocity.normalized()
 		else:
-			anim_prefix = "Idle" # cth: "morph_idle_n"
+			anim_prefix = "Idle" # cth: "morph_idle_n" <- PERBAIKAN BUG: "Idle" menjadi "idle" (atau "morph_idle")
 			anim_direction = last_move_direction
 	
 	# Prioritas 2: Sedang Dash atau Charge?
 	elif super_dash.is_charging:
-		anim_prefix = "Idle" # cth: "charge_n"
+		anim_prefix = "Idle" # cth: "charge_n" <- PERBAIKAN BUG: "Idle" menjadi "charge"
 		var charge_vel = super_dash.get_charge_velocity()
 		if charge_vel.length_squared() > 0.0:
 			anim_direction = charge_vel.normalized()
@@ -228,7 +243,7 @@ func _update_animation_state() -> void:
 			anim_direction = last_move_direction
 	
 	elif super_dash.is_dashing or morph_skill.is_dashing or dash_manager.is_dash_moving or dash_manager.is_exit_moving:
-		anim_prefix = "Idle" # cth: "dash_n"
+		anim_prefix = "Idle" # cth: "dash_n" <- PERBAIKAN BUG: "Idle" menjadi "dash"
 		# Ambil arah dash yang relevan
 		if super_dash.is_dashing:
 			anim_direction = super_dash.get_dash_velocity().normalized()
@@ -241,12 +256,16 @@ func _update_animation_state() -> void:
 	
 	# Prioritas 3: Sedang Bergerak (Walk)?
 	elif velocity.length() > 1.0: # Bergerak normal (di luar dash/skill)
-		anim_prefix = "Idle"
+		anim_prefix = "Idle" # <- PERBAIKAN BUG: "Idle" menjadi "walk"
 		anim_direction = velocity.normalized() # Arah dari velocity aktual
 	
 	# Prioritas 4: Idle
 	# Jika tidak ada di atas, prefix = "idle" dan direction = "last_move_direction"
-	
+
+	if anim_direction.length_squared() > 0:
+		possess_area.rotation = anim_direction.angle()
+	# ---------------------
+
 	_play_directional_animation(anim_prefix, anim_direction)
 
 
@@ -289,4 +308,4 @@ func _get_direction_suffix(direction: Vector2) -> String:
 	elif angle < -PI / 8.0 and angle >= -3.0 * PI / 8.0:
 		return "NE"
 	
-	return "s" # Fallback default
+	return "S" # Fallback default

@@ -71,8 +71,7 @@ func update_cooldown(delta: float) -> void:
 	if is_exit_dashing:
 		exit_cycle_timer -= delta
 		if exit_cycle_timer <= 0.0:
-			is_exit_dashing = false
-			emit_signal("exit_cycle_ended")
+			_end_exit_cycle()
 			auto_exit_possess_lock = false
 
 func can_dash() -> bool:
@@ -113,6 +112,10 @@ func start_dash() -> void:
 	dash_cycle_timer = dash_cycle_time
 	_cooldown_set_for_cycle = false
 	emit_signal("dash_cycle_started")
+	if auto_exit_possess_lock:
+		player.end_invisible()
+	else :
+		player.start_invisible()
 
 func process_dash(delta: float) -> void:
 	if not is_dash_moving:
@@ -135,6 +138,7 @@ func _end_dash_cycle() -> void:
 	if not _cooldown_set_for_cycle and not player.possession_manager.is_possessing:
 		cooldown_timer = COOLDOWN
 		_cooldown_set_for_cycle = true
+	player.end_invisible()
 
 func get_dash_speed_factor() -> float:
 	if not is_dash_moving or dash_move_time <= 0.0:
@@ -194,6 +198,7 @@ func _end_exit_cycle() -> void:
 	is_exit_dashing = false
 	emit_signal("exit_cycle_ended")
 	is_dashing = false
+	player.end_invisible()
 
 func _force_end_exit_movement() -> void:
 	if is_exit_moving:
