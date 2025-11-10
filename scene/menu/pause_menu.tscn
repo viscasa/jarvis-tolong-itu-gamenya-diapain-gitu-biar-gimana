@@ -3,6 +3,21 @@
 [ext_resource type="Script" uid="uid://bi0sp176gvjmr" path="res://script/menu/pause_menu.gd" id="1_upqr3"]
 [ext_resource type="PackedScene" uid="uid://cqket0i1delga" path="res://scene/menu/sound_slider.tscn" id="2_upqr3"]
 
+[sub_resource type="Animation" id="Animation_f8nhd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_upqr3"]
 resource_name = "pause"
 length = 0.2
@@ -17,21 +32,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_f8nhd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bd44k"]
@@ -74,6 +74,7 @@ offset_left = 533.0
 offset_top = 404.0
 offset_right = 612.0
 offset_bottom = 435.0
+focus_mode = 0
 text = "Continue"
 
 [node name="Master" type="Label" parent="."]
