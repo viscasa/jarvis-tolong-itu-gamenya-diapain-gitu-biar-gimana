@@ -7,8 +7,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sf0qu"]
 size = Vector2(8, 8)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6x8c6"]
-resource_local_to_scene = true
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_02fdu"]
+radius = 7.0
+height = 34.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_02fdu"]
 animations = [{
@@ -27,6 +28,9 @@ size = Vector2(24.041632, 24.041632)
 
 [node name="BrokenPuppet" instance=ExtResource("1_b13j0")]
 script = ExtResource("2_02fdu")
+lunge_speed = 150.0
+lunge_duration = 0.2
+attack_offset = 20.0
 move_speed = 60.0
 
 [node name="CollisionShape2D" parent="." index="0"]
@@ -34,7 +38,9 @@ scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_sf0qu")
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-shape = SubResource("CircleShape2D_6x8c6")
+position = Vector2(-4.7683716e-07, 1.9073486e-06)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_02fdu")
 
 [node name="AnimatedSprite2D" parent="." index="3"]
 scale = Vector2(0.05315615, 0.049469966)
