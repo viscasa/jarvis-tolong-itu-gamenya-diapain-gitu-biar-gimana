@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://b28onaqdnjytk"]
+
+[ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_06050"]
+[ext_resource type="Script" uid="uid://c67eesrels53n" path="res://script/hostile/wolf.gd" id="2_kdeku"]
+[ext_resource type="Texture2D" uid="uid://q2i3jtwq541v" path="res://assets/temp/wowo.jpg" id="3_s65gn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s65gn"]
+resource_local_to_scene = true
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tujma"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obxat"]
+resource_local_to_scene = true
+size = Vector2(24.041632, 24.041632)
+
+[node name="Wolf" instance=ExtResource("1_06050")]
+script = ExtResource("2_kdeku")
+dash_speed = 400.0
+charge_time = 0.5
+dash_duration = 0.3
+attack_range = 80.0
+
+[node name="Wowo" type="Sprite2D" parent="." index="0"]
+modulate = Color(0.14901961, 1, 1, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_s65gn")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_s65gn")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_tujma")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_obxat")

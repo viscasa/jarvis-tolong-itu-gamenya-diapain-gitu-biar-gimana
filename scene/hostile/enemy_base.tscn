@@ -1,0 +1,200 @@
+[gd_scene load_steps=14 format=3 uid="uid://bke8ohgi88a3k"]
+
+[ext_resource type="Script" uid="uid://dbuhl7tojgto2" path="res://script/hostile/enemy_base.gd" id="1_0dq4w"]
+[ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="2_54ojy"]
+[ext_resource type="Script" uid="uid://dsj462rg05pel" path="res://script/components/hit_box.gd" id="3_7ijlw"]
+[ext_resource type="Script" uid="uid://dtffxjfmsjwuw" path="res://script/components/hurt_box.gd" id="4_vhfx3"]
+[ext_resource type="Texture2D" uid="uid://cp511vlvuylir" path="res://assets/temp/White-Circle-PNG.png" id="5_roat0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54ojy"]
+resource_local_to_scene = true
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_roat0"]
+radius = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_roat0"]
+resource_local_to_scene = true
+size = Vector2(24.041632, 24.041632)
+
+[sub_resource type="Animation" id="Animation_hfhxk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox/Circle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/Circle/CircleTimer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.039129253, 0.039129253)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox/Circle:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rkmeh"]
+resource_name = "fade_out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox/Circle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_732fb"]
+resource_name = "shrink_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox/Circle/CircleTimer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.024, 0.024), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/Circle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox/Circle:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pisg7"]
+_data = {
+&"RESET": SubResource("Animation_hfhxk"),
+&"fade_out": SubResource("Animation_rkmeh"),
+&"shrink_in": SubResource("Animation_732fb")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhfx3"]
+bg_color = Color(0.98749274, 0, 0.25822866, 1)
+
+[node name="EnemyBase" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 4
+script = ExtResource("1_0dq4w")
+body_radius = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_54ojy")
+
+[node name="Stats" type="Node2D" parent="." node_paths=PackedStringArray("health_bar")]
+script = ExtResource("2_54ojy")
+health_bar = NodePath("../HealthBar")
+metadata/_custom_type_script = "uid://cnxvknb5bqxce"
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_7ijlw")
+metadata/_custom_type_script = "uid://dsj462rg05pel"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_roat0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("4_vhfx3")
+metadata/_custom_type_script = "uid://dtffxjfmsjwuw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_roat0")
+
+[node name="Circle" type="Node2D" parent="Hurtbox"]
+visible = false
+z_index = 3
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="CircleAnimation" type="AnimationPlayer" parent="Hurtbox/Circle"]
+root_node = NodePath("../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_pisg7")
+}
+
+[node name="CircleTimer" type="Sprite2D" parent="Hurtbox/Circle"]
+position = Vector2(4.768372e-07, -9.536744e-07)
+rotation = -3.1415925
+scale = Vector2(0.039129253, 0.039129253)
+texture = ExtResource("5_roat0")
+
+[node name="Reference" type="Sprite2D" parent="Hurtbox/Circle"]
+position = Vector2(4.768372e-07, -9.536744e-07)
+rotation = -3.1415925
+scale = Vector2(0.0071148607, 0.0071148607)
+texture = ExtResource("5_roat0")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -9.0
+offset_top = -26.0
+offset_right = 9.0
+offset_bottom = -22.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_vhfx3")
+show_percentage = false
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="DamageNumberOrigin" type="Node2D" parent="."]
+position = Vector2(0, -27)
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 0.2
