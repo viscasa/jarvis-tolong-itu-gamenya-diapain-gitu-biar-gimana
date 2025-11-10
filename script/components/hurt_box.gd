@@ -44,7 +44,8 @@ func _on_area_entered(area):
 		
 		if stats_node:
 			# 3. Panggil fungsi 'take_damage' di Stats dan kirim damage-nya
-			stats_node.take_damage(area.damage)
+			var hit_direction = (get_parent().global_position - area.global_position).normalized()
+			stats_node.take_damage(area.damage, hit_direction)
 		else:
 			print("ERROR: " + get_parent().name + " tidak punya node Stats!")
 

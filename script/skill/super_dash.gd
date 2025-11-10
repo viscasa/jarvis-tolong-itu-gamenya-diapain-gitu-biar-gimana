@@ -184,7 +184,7 @@ func _on_aoe_body_entered(body) -> void:
 	
 	# Jika body punya method "take_damage", panggil
 	damaged_bodies_this_dash.append(body)
-	attack_manager.attack(body, false, aoe_damage)
+	attack_manager.attack(body, body.global_position - global_position, false, aoe_damage)
 # ---------------------------------
 
 # ... (fungsi _reset dan _add tidak berubah) ...

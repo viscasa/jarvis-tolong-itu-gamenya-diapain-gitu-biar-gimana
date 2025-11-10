@@ -11,7 +11,7 @@ var crit_multiplier:float = 2.0
 var enemy_stats:Stats = null
 
 
-func attack(enemy:Node, is_critical: bool, damage:float = get_final_damage()) -> void :
+func attack(enemy:Node, hit_direction: Vector2,  is_critical: bool, damage:float = get_final_damage()) -> void :
 	var enemy_stats
 	if enemy is Scissor :
 		return
@@ -22,10 +22,10 @@ func attack(enemy:Node, is_critical: bool, damage:float = get_final_damage()) ->
 	if !enemy_stats :
 		return
 	if is_critical :
-		enemy_stats.take_damage(damage, crit_multiplier)
+		enemy_stats.take_damage(damage, hit_direction, crit_multiplier)
 		emit_signal("critical_circle")
 	else :
-		enemy_stats.take_damage(damage)
+		enemy_stats.take_damage(damage, hit_direction)
 
 func get_final_damage() -> float:
 	var final_damage = base_damage * damage_multiplier

@@ -3,6 +3,7 @@ class_name Stats
 
 signal health_changed(current_health, max_health)
 signal no_health() 
+signal was_hit(hit_direction: Vector2)
 
 @export var max_health: float = 100.0
 @export var base_damage: float = 10.0
@@ -25,7 +26,7 @@ func _ready():
 	current_health = max_health
 
 
-func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
+func take_damage(damage_amount: float, hit_direction: Vector2,  crit_multiplier: float = 1.0):
 	if is_death :
 		return
 	var final_damage = damage_amount*crit_multiplier - base_defense
@@ -40,7 +41,7 @@ func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
 	current_health -= final_damage
 	health_bar.value = current_health
 	print(get_parent().name + " takes " + str(final_damage) + " damage. Health: " + str(current_health))
-
+	was_hit.emit(hit_direction)
 func get_final_damage() -> float:
 	var final_damage = base_damage * damage_multiplier
 	

@@ -53,7 +53,7 @@ func _on_enemy_died():
 	enemies_remaining_in_wave -= 1
 	if enemies_remaining_in_wave <= 0:
 		current_wave_index += 1
-		_start_wave(current_wave_index)
+		call_deferred("_start_wave", current_wave_index)
 
 func _on_all_waves_cleared():
 	print("room cleared")

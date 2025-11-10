@@ -12,13 +12,15 @@ class_name EnemyBase
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var nav_agent: NavigationAgent2D = $NavAgent
+@onready var knockback_timer: Timer = $KnockbackTimer
 @export var body_radius := 10
 @export var update_rate := 0.35
 enum State { CHASE, ATTACK, POSSESSED, DEAD }
 var current_state: State = State.CHASE 
 var player_target: Node2D = null 
 var _time_since_update := 0.0
-
+var is_in_knockback: bool = false
+@export var knockback_strength: float = 200.0
 func _ready():
 	add_to_group("enemies")
 	health_bar.max_value = stats.max_health
@@ -95,6 +97,9 @@ func _update_target_position():
 
 
 func _state_chase(delta):
+	if is_in_knockback:
+		var requested_velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		return
 	if not is_instance_valid(player_target):
 		nav_agent.set_velocity(Vector2.ZERO) 
 		return
@@ -120,6 +125,9 @@ func _state_chase(delta):
 		animated_sprite.flip_h = (requested_velocity.x < 0)
 		
 func _state_attack(delta):
+	if is_in_knockback:
+		var requested_velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		return
 	var requested_velocity = velocity.lerp(Vector2.ZERO, 15.0 * delta)
 	nav_agent.set_velocity(requested_velocity)
 	
@@ -132,6 +140,8 @@ func connect_signals():
 	stats.no_health.connect(_on_death)
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
 	nav_agent.velocity_computed.connect(_on_nav_agent_velocity_computed)
+	stats.was_hit.connect(_on_was_hit)
+	knockback_timer.timeout.connect(_on_knockback_timeout)	
 func on_possessed():
 	current_state = State.POSSESSED
 	velocity = Vector2.ZERO
@@ -167,3 +177,17 @@ func _on_attack_timer_timeout() -> void:
 
 func _on_nav_agent_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
+	
+	
+func _on_was_hit(direction: Vector2):
+	if current_state == State.ATTACK or is_in_knockback:	
+		return
+
+	is_in_knockback = true
+	nav_agent.avoidance_enabled = false
+	velocity = direction * knockback_strength 
+	knockback_timer.start()
+
+func _on_knockback_timeout():
+	is_in_knockback = false
+	nav_agent.avoidance_enabled = true
