@@ -11,7 +11,7 @@ class_name PlayerModifier
 # --- STATS POSSESS & SKILL CURIAN ---
 @export var borrowed_damage: float = 1.0 # (Grandma's Revenge)
 @export var possess_damage: float = 1.0 # (Wolf's Grin)
-@export var possesian_timing: float = 4.0 # (What Big Eyes...)
+@export var possesian_timing: float = 0 # (What Big Eyes...)
 @export var borrowed_skill_duration: float = 12.0
 @export var skill_echo_chance: float = 0.0 # (Arcane Echo)
 @export var heal_on_miss: float = 0.0 # (House of Straw)
@@ -19,7 +19,7 @@ class_name PlayerModifier
 
 # --- STATS SUPER DASH (EXPLOSION) ---
 @export var explosion_size: float = 1.0 #Multiplicative
-@export var explosion_damage: float = 20.0
+@export var explosion_damage: float = 1.0
 @export var super_dash_cost: int = 0 # (Big Bad Bargain)
 @export var perfect_possess_super_charge_chance: float = 0.0 # (Lucky Foot)
 
