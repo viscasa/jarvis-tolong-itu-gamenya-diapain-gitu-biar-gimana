@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://l31l1m5mycnv"]
+[gd_scene load_steps=13 format=4 uid="uid://l31l1m5mycnv"]
 
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_6rk7x"]
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="2_ohnom"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="4_0ryd4"]
 [ext_resource type="PackedScene" uid="uid://7xvfxcypiid7" path="res://scene/hostile/geppetto/geppetto.tscn" id="5_l811l"]
 [ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="6_1w48m"]
+[ext_resource type="PackedScene" uid="uid://yvfty5mbnbc8" path="res://scene/menu/pause_menu.tscn" id="7_ohnom"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6t8t0"]
 texture = ExtResource("1_6rk7x")
@@ -174,3 +175,5 @@ position = Vector2(99, 65)
 position = Vector2(149, 90)
 
 [node name="PuppetContainer" type="Node2D" parent="."]
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_ohnom")]
