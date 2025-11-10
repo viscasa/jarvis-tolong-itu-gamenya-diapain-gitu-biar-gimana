@@ -24,45 +24,47 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var possess_area: Area2D = $PossessArea
 @onready var hurt_box_player: HurtboxPlayer = $HurtBoxPlayer
 
+# --- NODE BARU ---
+# ! HARUS DITAMBAH DI EDITOR: Node RayCast2D bernama "PhasingRay"
+@onready var phasing_ray: RayCast2D = $Raycast/PhasingRay
+@onready var raycast: Node2D = $Raycast
+# -----------------
+
 signal possessed(target)
 
 var is_locked_out := false
-
-# --- VAR ANIMASI BARU ---
-# Menyimpan arah terakhir pemain (dari input atau dash) untuk animasi idle
 var last_move_direction := Vector2.DOWN
 
 
 func _ready() -> void:
 	add_to_group("player")
 	
-	# Setup referensi DashManager
 	dash_manager.player = self
-	
-	# Setup referensi PossessionManager
 	possession_manager.player = self
 	possession_manager.possessed.connect(_on_possessed)
 
-	# --- PENGATURAN REFERENSI SKILL ---
-	# Beri referensi ke SuperDash
 	super_dash.player = self
 	super_dash.dash_manager = dash_manager
-	
-	# Beri referensi ke Pin
 	pin.player = self
 	pin.dash_manager = dash_manager
 	pin.super_dash = super_dash
-	
-	# Beri referensi skill ke DashManager
 	dash_manager.super_dash = super_dash
 	dash_manager.pin = pin
+
+	# --- KONFIGURASI PHASING RAY (BARU) ---
+	if phasing_ray:
+		# Pastikan RayCast HANYA memeriksa layer 5
+		phasing_ray.set_collision_mask_value(1, true) 
+		phasing_ray.enabled = true
+	else:
+		print("ERROR: Node $PhasingRay tidak ditemukan di Player! Phasing tidak akan aman.")
+	# --------------------------------
 
 
 func _physics_process(delta: float) -> void:
 	
 	dash_manager.update_cooldown(delta)
 	
-	# Proses semua skill
 	super_dash.process_super_dash(delta)
 	pin._process(delta) 
 	morph_skill._process(delta) 
@@ -87,10 +89,7 @@ func _physics_process(delta: float) -> void:
 		_process_movement(delta)
 	# --- AKHIR PENGATURAN VELOCITY ---
 
-	# --- LOGIKA ANIMASI BARU ---
-	# Panggil state machine animasi sebelum bergerak
 	_update_animation_state()
-	# --- AKHIR LOGIKA ANIMASI ---
 
 	move_and_slide()
 
@@ -141,8 +140,7 @@ func _set_morph_dash_velocity():
 	velocity.y = vel.y / Y_MUL_DASH
 
 func _process_movement(delta: float) -> void:
-	# Pastikan kita tidak bergerak jika ada skill dash aktif
-	if super_dash.is_active() or morph_skill.is_active(): # TAMBAHAN
+	if super_dash.is_active() or morph_skill.is_active(): 
 		velocity = Vector2.ZERO
 		return
 
@@ -151,7 +149,6 @@ func _process_movement(delta: float) -> void:
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
 	
-	# Update arah terakhir berdasarkan input
 	if input_vector.length() > 0.0:
 		last_move_direction = input_vector.normalized()
 	
@@ -179,7 +176,7 @@ func handle_global_inputs() -> void:
 	elif Input.is_action_just_pressed("pin") and not possession_manager.is_possessing:
 		if can_start_possession():
 			skill_manager.use_pin()
-	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: # TAMBAHAN
+	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: 
 		if can_start_possession():
 			skill_manager.use_morph_skill()
 
@@ -198,98 +195,82 @@ func lock_actions_during_weak_exit(duration: float) -> void:
 func morph(name:String) :
 	skill_manager.morph(name)
 
+# KEMBALI NORMAL (TIDAK ASYNC)
 func start_invisible(time:float = 0) :
-	print("invis!")
+	print("invis! start phasing")
 	hurt_box_player.get_node("CollisionShape2D").disabled = true
 	hurt_box_player.set_collision_layer_value(2, false)
+	
+	# Matikan tabrakan dengan layer 5
+	set_collision_mask_value(1, false)
+	
 	if time != 0 :
 		await get_tree().create_timer(time).timeout
+		# Panggil versi normal (TIDAK AWAIT)
 		end_invisible()
 
+# KEMBALI NORMAL (TIDAK ASYNC)
+# HAPUS SEMUA LOGIKA ANTI-SANGKUT DARI SINI
 func end_invisible() :
-	print("berhenti invis!")
-	hurt_box_player.get_node("CollisionShape2D").disabled = false
+	print("berhenti invis! end phasing")
 	hurt_box_player.set_collision_layer_value(2, true)
+	
+	# Nyalakan lagi mask-nya. Selesai.
+	# Tidak perlu cek 'stuck' karena kita sudah cek di awal.
+	set_collision_mask_value(1, true)
+	
 
-# ==================================================================
-# --- FUNGSI ANIMASI BARU ---
-# ==================================================================
-
-# "Otak" dari state machine animasi.
-# Menentukan prefix animasi (idle, walk, dash) dan arahnya.
 func _update_animation_state() -> void:
-	var anim_prefix = "Idle" # <- PERBAIKAN BUG: "Idle" menjadi "idle"
-	var anim_direction = last_move_direction # Default untuk idle
+	var anim_prefix = "Idle" 
+	var anim_direction = last_move_direction 
 
-	# Prioritas 1: Sedang Possessing?
 	if possession_manager.is_possessing:
-		# ASUMSI: Saat possessing, player pakai animasi "morph".
-		# Ganti "morph_walk"/"morph_idle" dengan "walk"/"idle" biasa
-		# jika Anda tidak punya animasi morph khusus.
 		if velocity.length() > 1.0:
-			anim_prefix = "Idle" # cth: "morph_walk_n" <- PERBAIKAN BUG: "Idle" menjadi "idle" (atau "morph_walk")
+			anim_prefix = "Idle" 
 			anim_direction = velocity.normalized()
 		else:
-			anim_prefix = "Idle" # cth: "morph_idle_n" <- PERBAIKAN BUG: "Idle" menjadi "idle" (atau "morph_idle")
+			anim_prefix = "Idle" 
 			anim_direction = last_move_direction
 	
-	# Prioritas 2: Sedang Dash atau Charge?
 	elif super_dash.is_charging:
-		anim_prefix = "Idle" # cth: "charge_n" <- PERBAIKAN BUG: "Idle" menjadi "charge"
+		anim_prefix = "Charge" 
 		var charge_vel = super_dash.get_charge_velocity()
 		if charge_vel.length_squared() > 0.0:
-			anim_direction = charge_vel.normalized()
+			anim_direction = charge_vel.normalized()*-1
 		else:
-			anim_direction = last_move_direction
+			anim_direction = last_move_direction*-1
 	
 	elif super_dash.is_dashing or morph_skill.is_dashing or dash_manager.is_dash_moving or dash_manager.is_exit_moving:
-		anim_prefix = "Idle" # cth: "dash_n" <- PERBAIKAN BUG: "Idle" menjadi "dash"
-		# Ambil arah dash yang relevan
+		anim_prefix = "Dash"
 		if super_dash.is_dashing:
 			anim_direction = super_dash.get_dash_velocity().normalized()
 		elif morph_skill.is_dashing:
 			anim_direction = morph_skill.get_dash_velocity().normalized()
 		elif dash_manager.is_dash_moving:
 			anim_direction = dash_manager.dash_direction
-		else: # exit_moving
+		else: 
 			anim_direction = dash_manager.exit_dash_direction
 	
-	# Prioritas 3: Sedang Bergerak (Walk)?
-	elif velocity.length() > 1.0: # Bergerak normal (di luar dash/skill)
-		anim_prefix = "Idle" # <- PERBAIKAN BUG: "Idle" menjadi "walk"
-		anim_direction = velocity.normalized() # Arah dari velocity aktual
+	elif velocity.length() > 1.0: 
+		anim_prefix = "Run" 
+		anim_direction = velocity.normalized() 
 	
-	# Prioritas 4: Idle
-	# Jika tidak ada di atas, prefix = "idle" dan direction = "last_move_direction"
-
 	if anim_direction.length_squared() > 0:
 		possess_area.rotation = anim_direction.angle()
-	# ---------------------
 
 	_play_directional_animation(anim_prefix, anim_direction)
 
 
-# Memutar animasi berdasarkan prefix (cth: "idle") dan arah (Vector2).
 func _play_directional_animation(prefix: String, direction: Vector2) -> void:
-	# Dapatkan akhiran 8 arah (n, ne, e, se, s, sw, w, nw)
 	var suffix := _get_direction_suffix(direction)
 	var anim_name = "%s_%s" % [prefix, suffix]
 	
-	# Hanya putar animasi jika berbeda dengan yang sekarang
-	# Ini mencegah animasi di-reset setiap frame
 	if sprite.animation != anim_name:
 		sprite.play(anim_name)
 
 
-# Mengubah Vector2 menjadi salah satu dari 8 akhiran arah.
 func _get_direction_suffix(direction: Vector2) -> String:
-	# Arah 0 radian di Godot adalah KANAN (1, 0)
-	# PI/2 adalah BAWAH (0, 1)
-	# -PI/2 adalah ATAS (0, -1)
 	var angle = direction.angle()
-	
-	# Cek 8 irisan lingkaran (masing-masing PI/4 atau 45 derajat)
-	# Kita geser sedikit (PI/8) agar "e" (kanan) ada di tengah irisan 0
 	
 	if abs(angle) <= PI / 8.0:
 		return "E"
