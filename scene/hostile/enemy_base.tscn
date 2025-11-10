@@ -10,8 +10,8 @@
 resource_local_to_scene = true
 size = Vector2(8, 8)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vhfx3"]
-resource_local_to_scene = true
+[sub_resource type="CircleShape2D" id="CircleShape2D_roat0"]
+radius = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_roat0"]
 resource_local_to_scene = true
@@ -136,12 +136,13 @@ health_bar = NodePath("../HealthBar")
 metadata/_custom_type_script = "uid://cnxvknb5bqxce"
 
 [node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("3_7ijlw")
 metadata/_custom_type_script = "uid://dsj462rg05pel"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -25)
-shape = SubResource("CircleShape2D_vhfx3")
+shape = SubResource("CircleShape2D_roat0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true

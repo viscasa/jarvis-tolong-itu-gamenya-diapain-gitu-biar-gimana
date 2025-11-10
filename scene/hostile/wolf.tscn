@@ -22,16 +22,17 @@ charge_time = 0.5
 dash_duration = 0.3
 attack_range = 80.0
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="Wowo" type="Sprite2D" parent="." index="0"]
+modulate = Color(0.14901961, 1, 1, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_s65gn")
+
+[node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_s65gn")
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, 0)
 shape = SubResource("CircleShape2D_tujma")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_obxat")
-
-[node name="Wowo" type="Sprite2D" parent="." index="6"]
-modulate = Color(0.14901961, 1, 1, 1)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_s65gn")
