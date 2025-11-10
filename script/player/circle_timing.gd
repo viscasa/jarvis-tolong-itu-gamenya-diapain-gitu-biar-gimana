@@ -52,7 +52,7 @@ func _on_exit() -> void:
 		
 	if time>=crit_interval[0] and time <= crit_interval[1]  :
 		is_critical = true
-		health_manager.heal()
+		health_manager.heal(health_manager.heal_amount)
 		player.morph(enemy.name)
 		
 		# --- [BOON "LUCKY FOOT"] ---

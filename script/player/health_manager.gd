@@ -55,7 +55,6 @@ func heal(amount: float):
 	DamageNumber.display_number(final_heal, damage_number_origin, Color.GREEN, true)
 	health_bar.value = current_health
 	print("Player healed for ", final_heal)
-	# (Tampilkan 'healing number' di sini jika mau)
 # ------------------------------------
 func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
 	# Jika damage_amount negatif, itu adalah HEAL

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene load_steps=298 format=3 uid="uid://d36d70p2syni3"]
-=======
-[gd_scene load_steps=327 format=3 uid="uid://d36d70p2syni3"]
->>>>>>> 73a8be5a648fce927c48025d216fc90e718e6a4b
+[gd_scene load_steps=330 format=3 uid="uid://b3u7tweqyptsp"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Script" uid="uid://clbe16ihsu5x3" path="res://script/player/boons/rabbit_boon.gd" id="2_0oa35"]
@@ -2242,10 +2238,6 @@ pin_scene = ExtResource("8_qjg4s")
 [node name="MorphSkill" type="Node2D" parent="SkillManager"]
 y_sort_enabled = true
 script = ExtResource("9_oen5c")
-color_homing = Color(1, 1, 1, 1)
-color_triple_homing = Color(1, 1, 1, 1)
-color_wolf_dash = Color(1, 1, 1, 1)
-color_slash = Color(1, 1, 1, 1)
 
 [node name="HomingShot" type="Node2D" parent="SkillManager"]
 y_sort_enabled = true

@@ -751,6 +751,8 @@ y_sort_enabled = true
 script = ExtResource("1_6ar0q")
 player_scene = ExtResource("2_3xw8e")
 
+[node name="Player" parent="." instance=ExtResource("2_3xw8e")]
+
 [node name="Ground" type="TileMapLayer" parent="."]
 z_index = -2
 y_sort_enabled = true
