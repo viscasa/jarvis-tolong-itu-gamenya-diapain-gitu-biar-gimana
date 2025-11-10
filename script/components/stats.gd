@@ -35,7 +35,7 @@ func take_damage(damage_amount: float, hit_direction: Vector2,  crit_multiplier:
 		final_damage = 1
 	
 	if crit_multiplier > 1.0:
-		DamageNumber.display_number(final_damage, damage_number_origin, Color.RED)
+		DamageNumber.display_number(final_damage, damage_number_origin, Color.YELLOW)
 	else :
 		DamageNumber.display_number(final_damage, damage_number_origin, Color.WHITE)
 	current_health -= final_damage

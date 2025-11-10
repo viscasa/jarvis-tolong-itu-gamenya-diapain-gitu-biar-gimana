@@ -34,7 +34,7 @@ const COOLDOWN := 1.0
 
 const EXIT_DASH_SPEED := 600.0 * SCALE_UP
 @export var exit_move_time := 0.20
-@export var exit_cycle_time := 0.3
+@export var exit_cycle_time := 0.25
 
 # ... (STATE (DASH) tidak berubah) ...
 var is_dashing: bool = false
@@ -129,6 +129,7 @@ func start_dash() -> void:
 	# player.phasing_ray.target_position = Vector2.ZERO
 	# ------------------------------------
 	
+	print_stack()
 	dash_counter += 1
 	is_dash_moving = true
 	dash_move_timer = dash_move_time
@@ -141,14 +142,14 @@ func start_dash() -> void:
 	if auto_exit_possess_lock:
 		player.end_invisible() # Ini untuk hurtbox, biarkan
 	elif can_phase:
-		print("Phasing: AMAN")
 		_is_phasing_dash = true
 		player.start_invisible() # Matikan mask 5
+		ghost_timer.wait_time = 0.07
 		ghost_timer.start()
 	else:
-		print("Phasing: AKAN NABRAK, dash normal.")
 		_is_phasing_dash = false
 		# JANGAN panggil start_invisible()
+		ghost_timer.wait_time = 0.07
 		ghost_timer.start()
 
 func process_dash(delta: float) -> void:
@@ -181,6 +182,7 @@ func _end_dash_cycle() -> void:
 	# ------------------
 	
 	ghost_timer.stop()
+	print_stack()
 
 func get_dash_speed_factor() -> float:
 	if not is_dash_moving or dash_move_time <= 0.0:
@@ -203,15 +205,26 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 	exit_cycle_timer = exit_cycle_time
 	exit_dash_direction = (player.get_global_mouse_position() - player.global_position).normalized()
 	current_exit_speed = EXIT_DASH_SPEED * (0.5 if weak else 1.0)
-
-	# --- LOGIKA PENGECEKAN PHASING BARU (untuk Exit Dash) ---
-	# HAPUS kalkulasi jarak
-	# var dash_distance = current_exit_speed * exit_move_time
 	
-	# HAPUS reset target_position
-	# player.phasing_ray.target_position = Vector2.ZERO
-	# ----------------------------------------------------
-
+	var mouse_pos = player.get_global_mouse_position()
+	dash_direction = (mouse_pos - player.global_position).normalized()
+	player.raycast.rotation = dash_direction.angle()
+	player.phasing_ray.force_raycast_update()
+	var can_phase = not player.phasing_ray.is_colliding()
+	
+	if auto_exit_possess_lock:
+		player.end_invisible() # Ini untuk hurtbox, biarkan
+	elif can_phase:
+		_is_phasing_dash = true
+		player.start_invisible() # Matikan mask 5
+		ghost_timer.wait_time = 0.07
+		ghost_timer.start()
+	else:
+		_is_phasing_dash = false
+		player.end_invisible()
+		ghost_timer.wait_time = 0.07
+		ghost_timer.start()
+	
 	if is_auto:
 		auto_exit_possess_lock = true
 		emit_signal("auto_exit_dash_started")
@@ -219,9 +232,9 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 	else:
 		emit_signal("exit_dash_manual_started")
 		_is_phasing_dash = false
-		# ------------------
-		
+		ghost_timer.wait_time = 0.07
 		ghost_timer.start()
+		print_debug()
 
 	emit_signal("exit_movement_started")
 	emit_signal("exit_cycle_started")
@@ -249,15 +262,11 @@ func _end_exit_cycle() -> void:
 		return
 	is_exit_dashing = false
 	emit_signal("exit_cycle_ended")
-	is_dashing = false
 	
-	# --- MODIFIKASI ---
-	# Hanya panggil end_invisible JIKA kita sedang phasing
-	if _is_phasing_dash:
-		player.end_invisible()
+	player.end_invisible()
 	_is_phasing_dash = false # Reset flag
-	# ------------------
 	
+	if is_dashing: return
 	ghost_timer.stop()
 
 func _force_end_exit_movement() -> void:

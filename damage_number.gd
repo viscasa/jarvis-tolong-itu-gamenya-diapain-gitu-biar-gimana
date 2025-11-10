@@ -1,20 +1,23 @@
 extends Node
 
 var randomize_x_interval : Array = [-20,20]
-var randomize_y_interval : Array = [-20,0]
+var randomize_y_interval : Array = [-10,0]
 
-func display_number(value: int, damage_number_origin: Node2D, color: Color = Color.WHITE):
+func display_number(value: int, damage_number_origin: Node2D, color: Color = Color.WHITE, is_heal: bool = false):
 	var number = Label.new()
 	
 	number.position = Vector2(randf_range(randomize_x_interval[0],randomize_x_interval[1]), randf_range(randomize_y_interval[0],randomize_y_interval[1]))
-	number.text = str(value)
+	if is_heal :
+		number.text = "+"+str(value)
+	else :
+		number.text = str(value)
 	number.z_index = 5
 	number.label_settings = LabelSettings.new()
 	
 	number.label_settings.font_color = color
-	number.label_settings.font_size = 10
+	number.label_settings.font_size = 15
 	number.label_settings.outline_color = "#000"
-	number.label_settings.outline_size = 1
+	number.label_settings.outline_size = 3
 	
 	damage_number_origin.add_child(number)
 	

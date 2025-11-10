@@ -36,12 +36,15 @@ var is_locked_out := false
 # --- VAR ANIMASI BARU ---
 # Menyimpan arah terakhir pemain (dari input atau dash) untuk animasi idle
 var last_move_direction := Vector2.DOWN
+var is_throwing_pin := false
+var is_throwing_pin_first := true
 
 
 func _ready() -> void:
 	add_to_group("player")
 	
-	# Setup referensi DashManager
+	sprite.animation_finished.connect(_on_animation_finished) # <-- TAMBAHAN: Hubungkan sinyal
+	
 	dash_manager.player = self
 	
 	# Setup referensi PossessionManager
@@ -224,10 +227,33 @@ func handle_global_inputs() -> void:
 		if can_start_possession():
 			dash_manager.start_dash()
 	
+	# --- MODIFIKASI UNTUK ANIMASI PIN ---
 	elif Input.is_action_just_pressed("pin") and not possession_manager.is_possessing:
 		if can_start_possession():
-			skill_manager.use_pin()
-	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: # TAMBAHAN
+			
+			# Cek apakah kita sudah dalam animasi
+			if is_throwing_pin:
+				return # Jangan lakukan apa-apa jika animasi sedang main
+			
+			# Duplikat pengecekan dari pin.gd untuk tahu apakah pin BISA dilempar.
+			var can_throw_pin = true
+			if pin.reload_timer > 0.0:
+				can_throw_pin = false
+			if pin.current_pins <= 0:
+				can_throw_pin = false
+			if dash_manager.is_dashing or dash_manager.is_dash_moving or \
+			dash_manager.is_exit_dashing or dash_manager.is_exit_moving or \
+			super_dash.is_active() or morph_skill.is_active():
+				can_throw_pin = false
+			
+			if can_throw_pin:
+				is_throwing_pin = true # <-- Mulai animasi
+				skill_manager.use_pin() # <-- Lakukan aksi
+			
+			# Baris asli: skill_manager.use_pin() (dipindahkan ke dalam if can_throw_pin)
+	# --- AKHIR MODIFIKASI PIN ---
+			
+	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: 
 		if can_start_possession():
 			skill_manager.use_morph_skill()
 
@@ -243,8 +269,8 @@ func lock_actions_during_weak_exit(duration: float) -> void:
 	is_locked_out = false
 	print("🔓 Lockout ended")
 
-func morph(name:String) :
-	skill_manager.morph(name)
+func morph(_name:String) :
+	skill_manager.morph(_name)
 
 func start_invisible(time:float = 0) :
 	print("invis!")
@@ -261,7 +287,17 @@ func _update_animation_state() -> void:
 	var anim_prefix = "Idle" 
 	var anim_direction = last_move_direction 
 
-	if possession_manager.is_possessing:
+	# --- TAMBAHAN: Pengecekan Animasi Pin ---
+	# Ini harus jadi prioritas di atas state lain.
+	if is_throwing_pin:
+		if !is_throwing_pin_first :
+			return
+		is_throwing_pin_first = false
+		anim_prefix = "Cast" # Asumsi nama animasinya "Pin_E", "Pin_S", dll.
+		anim_direction = last_move_direction # Gunakan arah terakhir
+	# --- AKHIR TAMBAHAN ---
+	
+	elif possession_manager.is_possessing: # <-- Perhatikan ini menjadi 'elif'
 		if velocity.length() > 1.0:
 			anim_prefix = "Idle" 
 			anim_direction = velocity.normalized()
@@ -351,3 +387,13 @@ func _debug_add_boon(boon_res: BuffBase):
 	print("  HP Max: ", buff_manager.current_stats.hp)
 	print("  DMG Skill Curian: ", buff_manager.current_stats.borrowed_damage)
 	print("===============================")
+
+
+# --- TAMBAHAN: Callback untuk sinyal animation_finished ---
+func _on_animation_finished() -> void:
+	# Jika kita dalam status 'is_throwing_pin' dan animasinya selesai,
+	# kembalikan status ke false agar animasi idle/run bisa diputar.
+	if is_throwing_pin:
+		is_throwing_pin_first = true
+		is_throwing_pin = false
+# --- AKHIR TAMBAHAN ---

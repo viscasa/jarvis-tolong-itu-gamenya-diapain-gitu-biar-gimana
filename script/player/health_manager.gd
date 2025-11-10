@@ -21,6 +21,7 @@ signal resurrected # Sinyal baru untuk UI
 
 @export var base_defense: float = 2.0
 @export var health_bar : ProgressBar
+@export var heal_amount : float = 10.0
 @onready var damage_number_origin: Node2D = $"../DamageNumberOrigin"
 
 # --- TAMBAHKAN REFERENSI BUFFMANAGER ---
@@ -43,8 +44,6 @@ var current_health: float:
 func _ready():
 	current_health = max_health
 
-# --- TAMBAHKAN FUNGSI HEAL BARU ---
-# (Untuk "Stolen Carrots" dan "Pig's Feast")
 func heal(amount: float):
 	# Ambil stat terbaru
 	var stats = buff_manager.current_stats
@@ -53,10 +52,11 @@ func heal(amount: float):
 	var final_heal = amount * stats.healing_bonus
 	
 	current_health += final_heal
+	DamageNumber.display_number(final_heal, damage_number_origin, Color.GREEN, true)
+	health_bar.value = current_health
 	print("Player healed for ", final_heal)
 	# (Tampilkan 'healing number' di sini jika mau)
 # ------------------------------------
-
 func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
 	# Jika damage_amount negatif, itu adalah HEAL
 	if damage_amount < 0:
@@ -71,7 +71,7 @@ func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
 	if crit_multiplier > 1.0:
 		DamageNumber.display_number(final_damage, damage_number_origin, Color.RED)
 	else :
-		DamageNumber.display_number(final_damage, damage_number_origin, Color.WHITE)
+		DamageNumber.display_number(final_damage, damage_number_origin, Color.RED)
 	current_health -= final_damage
 	health_bar.value = current_health
 
