@@ -1,12 +1,14 @@
 extends CharacterBody2D
 class_name Player
 
-const SPEED = 150.0
-const Y_MUL = 1.5
-const ACCELERATION = 600.0
+const SCALE_UP = 1.7
+const SPEED = 150.0 * SCALE_UP
+const Y_MUL = 2
+const Y_MUL_DASH = 1.7
+const ACCELERATION = 600.0 * SCALE_UP
 
-const DASH_SPEED = 600.0 
-const EXIT_DASH_SPEED = 120.0
+const DASH_SPEED = 600.0  * SCALE_UP
+const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 
 @onready var dash_manager: DashManager = $DashManager
 @onready var possession_manager: PossessionManager = $PossessionManager
@@ -18,10 +20,16 @@ const EXIT_DASH_SPEED = 120.0
 @onready var morph_skill: Node2D = $SkillManager/MorphSkill
 @onready var homing_shot: HomingShot = $SkillManager/HomingShot
 @onready var triple_homing_shot: TripleHomingShot = $SkillManager/TripleHomingShot
+@onready var sprite: AnimatedSprite2D = $Sprite
 
 signal possessed(target)
 
 var is_locked_out := false
+
+# --- VAR ANIMASI BARU ---
+# Menyimpan arah terakhir pemain (dari input atau dash) untuk animasi idle
+var last_move_direction := Vector2.DOWN
+
 
 func _ready() -> void:
 	add_to_group("player")
@@ -77,6 +85,11 @@ func _physics_process(delta: float) -> void:
 		_process_movement(delta)
 	# --- AKHIR PENGATURAN VELOCITY ---
 
+	# --- LOGIKA ANIMASI BARU ---
+	# Panggil state machine animasi sebelum bergerak
+	_update_animation_state()
+	# --- AKHIR LOGIKA ANIMASI ---
+
 	move_and_slide()
 
 	# Proses logika akhir dash
@@ -93,29 +106,37 @@ func _set_dash_velocity():
 	var speed_factor = dash_manager.get_dash_speed_factor()
 	var current_dash_speed = DASH_SPEED * speed_factor
 	velocity.x = dash_manager.dash_direction.x * current_dash_speed
-	velocity.y = dash_manager.dash_direction.y * current_dash_speed / Y_MUL
+	velocity.y = dash_manager.dash_direction.y * current_dash_speed / Y_MUL_DASH
+	last_move_direction = dash_manager.dash_direction # Update arah terakhir
 
 func _set_exit_dash_velocity():
 	var speed_factor = dash_manager.get_exit_dash_speed_factor()
 	var base_exit_speed = dash_manager.current_exit_speed
 	var current_speed = base_exit_speed * speed_factor
 	velocity.x = dash_manager.exit_dash_direction.x * current_speed
-	velocity.y = dash_manager.exit_dash_direction.y * current_speed / Y_MUL
+	velocity.y = dash_manager.exit_dash_direction.y * current_speed / Y_MUL_DASH
+	last_move_direction = dash_manager.exit_dash_direction # Update arah terakhir
 
 func _set_super_dash_charge_velocity():
 	var vel = super_dash.get_charge_velocity()
+	if vel.length_squared() > 0.0:
+		last_move_direction = vel.normalized() # Update arah terakhir
 	velocity.x = vel.x
-	velocity.y = vel.y / Y_MUL
+	velocity.y = vel.y / Y_MUL_DASH
 
 func _set_super_dash_move_velocity():
 	var vel = super_dash.get_dash_velocity()
+	if vel.length_squared() > 0.0:
+		last_move_direction = vel.normalized() # Update arah terakhir
 	velocity.x = vel.x
-	velocity.y = vel.y / Y_MUL
+	velocity.y = vel.y / Y_MUL_DASH
 
 func _set_morph_dash_velocity():
 	var vel = morph_skill.get_dash_velocity()
+	if vel.length_squared() > 0.0:
+		last_move_direction = vel.normalized() # Update arah terakhir
 	velocity.x = vel.x
-	velocity.y = vel.y / Y_MUL
+	velocity.y = vel.y / Y_MUL_DASH
 
 func _process_movement(delta: float) -> void:
 	# Pastikan kita tidak bergerak jika ada skill dash aktif
@@ -127,6 +148,11 @@ func _process_movement(delta: float) -> void:
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
+	
+	# Update arah terakhir berdasarkan input
+	if input_vector.length() > 0.0:
+		last_move_direction = input_vector.normalized()
+	
 	var target_velocity = Vector2.ZERO
 	if input_vector.length() > 0.0:
 		target_velocity.x = input_vector.normalized().x * SPEED
@@ -169,3 +195,98 @@ func lock_actions_during_weak_exit(duration: float) -> void:
 
 func morph(name:String) :
 	skill_manager.morph(name)
+
+# ==================================================================
+# --- FUNGSI ANIMASI BARU ---
+# ==================================================================
+
+# "Otak" dari state machine animasi.
+# Menentukan prefix animasi (idle, walk, dash) dan arahnya.
+func _update_animation_state() -> void:
+	var anim_prefix = "Idle"
+	var anim_direction = last_move_direction # Default untuk idle
+
+	# Prioritas 1: Sedang Possessing?
+	if possession_manager.is_possessing:
+		# ASUMSI: Saat possessing, player pakai animasi "morph".
+		# Ganti "morph_walk"/"morph_idle" dengan "walk"/"idle" biasa
+		# jika Anda tidak punya animasi morph khusus.
+		if velocity.length() > 1.0:
+			anim_prefix = "Idle" # cth: "morph_walk_n"
+			anim_direction = velocity.normalized()
+		else:
+			anim_prefix = "Idle" # cth: "morph_idle_n"
+			anim_direction = last_move_direction
+	
+	# Prioritas 2: Sedang Dash atau Charge?
+	elif super_dash.is_charging:
+		anim_prefix = "Idle" # cth: "charge_n"
+		var charge_vel = super_dash.get_charge_velocity()
+		if charge_vel.length_squared() > 0.0:
+			anim_direction = charge_vel.normalized()
+		else:
+			anim_direction = last_move_direction
+	
+	elif super_dash.is_dashing or morph_skill.is_dashing or dash_manager.is_dash_moving or dash_manager.is_exit_moving:
+		anim_prefix = "Idle" # cth: "dash_n"
+		# Ambil arah dash yang relevan
+		if super_dash.is_dashing:
+			anim_direction = super_dash.get_dash_velocity().normalized()
+		elif morph_skill.is_dashing:
+			anim_direction = morph_skill.get_dash_velocity().normalized()
+		elif dash_manager.is_dash_moving:
+			anim_direction = dash_manager.dash_direction
+		else: # exit_moving
+			anim_direction = dash_manager.exit_dash_direction
+	
+	# Prioritas 3: Sedang Bergerak (Walk)?
+	elif velocity.length() > 1.0: # Bergerak normal (di luar dash/skill)
+		anim_prefix = "Idle"
+		anim_direction = velocity.normalized() # Arah dari velocity aktual
+	
+	# Prioritas 4: Idle
+	# Jika tidak ada di atas, prefix = "idle" dan direction = "last_move_direction"
+	
+	_play_directional_animation(anim_prefix, anim_direction)
+
+
+# Memutar animasi berdasarkan prefix (cth: "idle") dan arah (Vector2).
+func _play_directional_animation(prefix: String, direction: Vector2) -> void:
+	# Dapatkan akhiran 8 arah (n, ne, e, se, s, sw, w, nw)
+	var suffix := _get_direction_suffix(direction)
+	var anim_name = "%s_%s" % [prefix, suffix]
+	
+	# Hanya putar animasi jika berbeda dengan yang sekarang
+	# Ini mencegah animasi di-reset setiap frame
+	if sprite.animation != anim_name:
+		sprite.play(anim_name)
+
+
+# Mengubah Vector2 menjadi salah satu dari 8 akhiran arah.
+func _get_direction_suffix(direction: Vector2) -> String:
+	# Arah 0 radian di Godot adalah KANAN (1, 0)
+	# PI/2 adalah BAWAH (0, 1)
+	# -PI/2 adalah ATAS (0, -1)
+	var angle = direction.angle()
+	
+	# Cek 8 irisan lingkaran (masing-masing PI/4 atau 45 derajat)
+	# Kita geser sedikit (PI/8) agar "e" (kanan) ada di tengah irisan 0
+	
+	if abs(angle) <= PI / 8.0:
+		return "E"
+	elif angle > PI / 8.0 and angle <= 3.0 * PI / 8.0:
+		return "SE"
+	elif angle > 3.0 * PI / 8.0 and angle <= 5.0 * PI / 8.0:
+		return "S"
+	elif angle > 5.0 * PI / 8.0 and angle <= 7.0 * PI / 8.0:
+		return "SW"
+	elif abs(angle) > 7.0 * PI / 8.0:
+		return "W"
+	elif angle < -5.0 * PI / 8.0 and angle >= -7.0 * PI / 8.0:
+		return "NW"
+	elif angle < -3.0 * PI / 8.0 and angle >= -5.0 * PI / 8.0:
+		return "N"
+	elif angle < -PI / 8.0 and angle >= -3.0 * PI / 8.0:
+		return "NE"
+	
+	return "s" # Fallback default

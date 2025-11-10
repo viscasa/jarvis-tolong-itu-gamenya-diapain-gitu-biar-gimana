@@ -3,7 +3,9 @@ extends Node2D
 signal morph_dash_ended
 signal morph_dash_started
 
-@export var dash_speed: float = 350
+const SCALE_UP = 1.7
+
+@export var dash_speed: float = 350 * SCALE_UP
 @export var dash_move_time: float = 0.15
 @export var cooldown: float = 1
 @export var wolf_dash_count: int = 2
