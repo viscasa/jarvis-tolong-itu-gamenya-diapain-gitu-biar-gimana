@@ -22,13 +22,14 @@ var pin: Pin
 # ---------------------
 
 # ====== PARAM ======
-const DASH_SPEED := 600.0
+const SCALE_UP = 1.7
+const DASH_SPEED := 600.0 * SCALE_UP
 @export var dash_move_time := 0.20
 @export var dash_cycle_time := 0.3
 
 const COOLDOWN := 1.0
 
-const EXIT_DASH_SPEED := 600.0
+const EXIT_DASH_SPEED := 600.0 * SCALE_UP
 @export var exit_move_time := 0.20
 @export var exit_cycle_time := 0.4
 

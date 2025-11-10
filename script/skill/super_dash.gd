@@ -10,12 +10,13 @@ signal rechare_counter_changed
 @onready var attack_manager: AttackManager = $"../../AttackManager"
 
 # ... (export var tidak berubah) ...
+const SCALE_UP = 1.7
 @export var charge_time := 0.15
-@export var charge_speed := 250.0
-@export var dash_speed := 1500.0
-@export var max_dash_distance := 200.0
-@export var stop_friction_factor := 0.1
-@export var aoe_radius := 50.0
+@export var charge_speed := 250.0 * SCALE_UP
+@export var dash_speed := 1500.0 * SCALE_UP
+@export var max_dash_distance := 200.0 * SCALE_UP
+@export var stop_friction_factor := 0.1 * SCALE_UP
+@export var aoe_radius := 50.0 * SCALE_UP
 @export var aoe_damage := 50.0
 @export var super_dash_max : int = 1
 @export var super_dash_counter : int = 1

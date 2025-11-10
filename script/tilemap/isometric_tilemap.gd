@@ -13,4 +13,4 @@ func fill_surrounding_tiles() -> void:
 		var neighboring_tiles := get_surrounding_cells(filled_tile)
 		for neighbor: Vector2i in neighboring_tiles:
 			if get_cell_source_id(neighbor) == -1:
-				set_cell(neighbor,2,Vector2i.ZERO)
+				set_cell(neighbor,0,Vector2i.ZERO)
