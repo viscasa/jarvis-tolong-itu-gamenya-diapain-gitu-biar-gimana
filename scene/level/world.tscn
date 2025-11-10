@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://benoe2kbrdpcf"]
+[gd_scene load_steps=17 format=4 uid="uid://benoe2kbrdpcf"]
 
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="1_d3gj4"]
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_jul5o"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bmy8uiudeygmw" path="res://scene/hostile/dash_shooting_enemy.tscn" id="8_jul5o"]
 [ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="9_mss46"]
 [ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="10_r647c"]
+[ext_resource type="PackedScene" uid="uid://yvfty5mbnbc8" path="res://scene/menu/pause_menu.tscn" id="11_x3aj5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r647c"]
 texture = ExtResource("1_jul5o")
@@ -124,3 +125,5 @@ position = Vector2(-94, -74)
 
 [node name="BrokenPuppet2" parent="." instance=ExtResource("6_r647c")]
 position = Vector2(-46, 8)
+
+[node name="PauseMenu" parent="." instance=ExtResource("11_x3aj5")]
