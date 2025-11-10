@@ -91,11 +91,8 @@ func _state_attack(delta):
 			if dash_timer <= 0:
 				dash_timer = dash_duration
 				wolf_attack_state = WolfAttackState.DASHBACK
-				if self and hitbox_shape:
-					hitbox_shape.disabled = true
 					
 		WolfAttackState.DASHBACK:
-			print("dashback")
 			target_velocity = -dash_direction * dash_speed
 			velocity = target_velocity 
 			dash_timer -= delta
