@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 DamageNumber="*res://damage_number.gd"
 RewardManager="*res://script/autoload/reward_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+AudioManager="*res://scene/audio/world_audio_manager.tscn"
 
 [dialogic]
 
