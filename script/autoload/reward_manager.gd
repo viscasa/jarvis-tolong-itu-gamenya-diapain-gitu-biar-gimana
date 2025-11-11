@@ -7,23 +7,28 @@ var reward_database: Dictionary = {
 	"cinderella": {
 		"icon": "res://assets/temp/0f93f5d0b8f66f7070cb88e3c2922be7.jpg",
 		"boon_folder_path": "res://script/player/boons/cinderella/",
+		"name": "Conspicuous Cinderella"
 	},
 	"red_riding_hood": {
 		"icon": "res://assets/temp/download.png",
-		"boon_folder_path": "res://script/player/boons/hood/"
+		"boon_folder_path": "res://script/player/boons/hood/",
+		"name": "Vengeful Red Riding Hood"
 	},
 	#TODO icon beneran
 	"rabbit": { 
 		"icon": "res://icon.svg",
-		"boon_folder_path": "res://script/player/boons/rabbit/"
+		"boon_folder_path": "res://script/player/boons/rabbit/",
+		"name": "Mischievous Peter Rabbit"
 	},
 	"wizard": {
 		"icon": "res://icon.svg",
-		"boon_folder_path": "res://script/player/boons/wizard/"
+		"boon_folder_path": "res://script/player/boons/wizard/",
+		"name": "Wise Wizard of the West"
 	},
 	"pig": {
 		"icon": "res://icon.svg",
-		"boon_folder_path": "res://script/player/boons/pig/"
+		"boon_folder_path": "res://script/player/boons/pig/",
+		"name": "Bountiful Piggies"
 	}
 }
 

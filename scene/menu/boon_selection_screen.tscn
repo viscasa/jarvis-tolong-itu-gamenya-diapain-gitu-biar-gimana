@@ -23,9 +23,9 @@ grow_vertical = 2
 size_flags_horizontal = 4
 
 [node name="ChoiceContainer" type="VBoxContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(500, 450)
+custom_minimum_size = Vector2(500, 350)
 layout_mode = 2
-theme_override_constants/separation = 70
+theme_override_constants/separation = 25
 alignment = 1
 
 [node name="BoonChoiceButton" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
@@ -44,5 +44,12 @@ offset_right = 204.0
 offset_bottom = 550.0
 focus_mode = 0
 text = "Skip"
+
+[node name="BoonGiverName" type="Label" parent="."]
+offset_left = 115.0
+offset_top = 90.0
+offset_right = 259.0
+offset_bottom = 113.0
+text = "Vengeful Red Riding Hood"
 
 [connection signal="pressed" from="SkipButton" to="." method="_on_skip_button_pressed"]

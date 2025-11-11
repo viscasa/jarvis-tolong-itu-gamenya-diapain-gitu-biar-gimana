@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var choice_container: VBoxContainer = $CenterContainer/ChoiceContainer
+@onready var boon_giver_name: Label = $BoonGiverName
 
 var player_buff_manager: PlayerBuffManager
 func _ready():
@@ -10,6 +11,7 @@ func _ready():
 		player_buff_manager = player.get_node("BuffManager")
 # Dipanggil oleh BoonPickup.gd
 func show_boon_choices(boon_giver_id: String):
+	boon_giver_name.text = RewardManager.get_reward_data(boon_giver_id).name
 	RewardManager.showing_reward_screen = true
 	# 1. Minta boon yang SUDAH DIFILTER (anti-duplikat)
 	var boon_choices = RewardManager.get_boon_choices(boon_giver_id, 3)
