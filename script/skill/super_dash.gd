@@ -8,6 +8,10 @@ signal super_dash_movement_ended # Sinyal ini aktif saat AOE terjadi
 signal rechare_counter_changed
 
 @onready var attack_manager: AttackManager = $"../../AttackManager"
+@onready var thunder: Line2D = $"../Thunder"
+@onready var sprite: AnimatedSprite2D = $"../../Sprite"
+@onready var ghost_timer_super_dash: Timer = $"../../GhostTimerSuperDash"
+var ghost_scene = preload("res://scene/skill/dash_ghost.tscn")
 
 # ... (export var tidak berubah) ...
 const SCALE_UP = 1.7
@@ -108,6 +112,10 @@ func process_super_dash(delta: float) -> void:
 func _start_dash_movement() -> void:
 	is_charging = false
 	is_dashing = true
+	thunder.clear_points()
+	ghost_timer_super_dash.start()
+	thunder.add_point(player.global_position)
+	thunder.anim_vanish()
 	
 	# ... (perhitungan dash_move_timer tidak berubah) ...
 	if dash_speed <= 0.0:
@@ -141,9 +149,12 @@ func _end_dash_movement() -> void:
 	# Matikan AOE setelah dash selesai
 	aoe_shape.disabled = true
 	aoe_area.monitoring = false
+	ghost_timer_super_dash.stop()
 	# --------------------
 	
 	emit_signal("super_dash_movement_ended")
+	
+	thunder.add_point(player.global_position + 0.3*(player.global_position-thunder.get_point_position(0)))
 	
 	# --- HAPUS INI ---
 	# _do_aoe_damage() # Kita tidak lagi memanggil AOE di akhir
@@ -204,3 +215,14 @@ func _process_recharge_counter() -> void :
 func _add_counter() :
 	super_dash_recharge_counter += 1
 	emit_signal("rechare_counter_changed")
+
+func instance_ghost(color : Color = Color.WHITE) -> void :
+	var ghost: Sprite2D = ghost_scene.instantiate()
+	ghost.color = color
+	get_tree().root.add_child(ghost)
+	
+	ghost.global_position = self.global_position
+	ghost.texture = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+
+func _on_ghost_timer_super_dash_timeout() -> void:
+	instance_ghost()
