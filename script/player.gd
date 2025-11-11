@@ -275,6 +275,7 @@ func morph(_name:String) :
 func start_invisible(time:float = 0) :
 	print("invis!")
 	hurt_box_player.set_collision_layer_value(2, false)
+	set_collision_mask_value(1, false)
 	if time != 0 :
 		await get_tree().create_timer(time).timeout
 		end_invisible()
@@ -282,6 +283,7 @@ func start_invisible(time:float = 0) :
 func end_invisible() :
 	print("berhenti invis!")
 	hurt_box_player.set_collision_layer_value(2, true)
+	set_collision_mask_value(1, true)
 
 func _update_animation_state() -> void:
 	var anim_prefix = "Idle" 
