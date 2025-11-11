@@ -1,6 +1,7 @@
-[gd_scene load_steps=267 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=268 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
+[ext_resource type="Texture2D" uid="uid://dd635oemhyspp" path="res://assets/particle/shadow1.png" id="2_2rx5w"]
 [ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
 [ext_resource type="Texture2D" uid="uid://vsl2x1n0glx4" path="res://assets/player/cast/cast_e.png" id="2_nrjwp"]
 [ext_resource type="Texture2D" uid="uid://c3ignf8uxrhyu" path="res://assets/player/dash/dash_e.png" id="2_xwoaf"]
@@ -1745,10 +1746,14 @@ wait_time = 0.07
 [node name="GhostTimerSuperDash" type="Timer" parent="."]
 wait_time = 0.00999999999999999
 
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("2_2rx5w")
+
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_k0kj3")
-animation = &"Cast_W"
+animation = &"Idle_E"
 
 [node name="Raycast" type="Node2D" parent="."]
 position = Vector2(0, 15)
@@ -1810,7 +1815,6 @@ projectile_scene = ExtResource("14_sc4n2")
 slash_speed = 400.0
 
 [node name="Thunder" parent="SkillManager" instance=ExtResource("47_2rx5w")]
-position = Vector2(0.03466797, 0.5640259)
 
 [node name="AttackManager" type="Node2D" parent="."]
 y_sort_enabled = true

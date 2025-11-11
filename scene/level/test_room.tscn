@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://c36pttr8cmouy"]
+[gd_scene load_steps=8 format=4 uid="uid://c36pttr8cmouy"]
 
 [ext_resource type="PackedScene" uid="uid://yncml2ptnko7" path="res://scene/level/room.tscn" id="1_62bwq"]
 [ext_resource type="Script" uid="uid://b8chfmlwj0vn0" path="res://script/level/enemy_spawn_point.gd" id="2_lvruv"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cu64rfxjwm0yf" path="res://scene/level/boon_pickup.tscn" id="3_mk6ml"]
 [ext_resource type="Texture2D" uid="uid://dsbwp74tfsq0f" path="res://assets/tile_assets/Reruntuhan kastil/Untitled551_20251109200746.png" id="4_6i1gy"]
 [ext_resource type="Texture2D" uid="uid://dvwpj2sid3lxf" path="res://assets/tile_assets/Reruntuhan kastil/Untitled551_20251109200738.png" id="5_mk6ml"]
+[ext_resource type="PackedScene" uid="uid://ug8pl1hfgn37" path="res://scene/background/parallax_cloud.tscn" id="7_7cetr"]
 
 [node name="TestRoom" node_paths=PackedStringArray("boon_pickup") instance=ExtResource("1_62bwq")]
 boon_pickup = NodePath("BoonPickup")
@@ -44,3 +45,8 @@ offset = Vector2(-32, -85)
 
 [node name="BoonPickup" parent="." index="10" instance=ExtResource("3_mk6ml")]
 position = Vector2(0, 76)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="11"]
+layer = -100
+
+[node name="Parallax2D" parent="CanvasLayer" index="0" instance=ExtResource("7_7cetr")]
