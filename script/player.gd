@@ -200,8 +200,7 @@ func _process_movement(delta: float) -> void:
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
 	var current_speed = buff_manager.current_stats.move_speed
-	if buff_manager.current_stats.frenzy_duration > 0:
-		current_speed *= 1.5 # +50% move speed
+	
 	# Update arah terakhir berdasarkan input
 	if input_vector.length() > 0.0:
 		last_move_direction = input_vector.normalized()

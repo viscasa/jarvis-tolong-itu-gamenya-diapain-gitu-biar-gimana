@@ -4,12 +4,17 @@ class_name PlayerBuffManager
 @export var base_stats: PlayerModifier = PlayerModifier.new() # Stat dasar player
 var current_stats: PlayerModifier = PlayerModifier.new()
 var list_of_buffs: Array[BuffBase] = []
-
+var frenzy_kill_count: int = 0
+var frenzy_timer: Timer
 signal buffs_updated(current_stats: PlayerModifier)
 
 func _ready():
-	# Inisialisasi stat awal (Anda bisa atur base_stats di Inspector)
 	_calculate_all()
+	frenzy_timer = Timer.new()
+	frenzy_timer.wait_time = 5.0 
+	frenzy_timer.one_shot = true
+	frenzy_timer.timeout.connect(_on_frenzy_timer_timeout)
+	add_child(frenzy_timer)
 
 func add_buff(buff: BuffBase):
 	# (Logika Cinderella Anda sudah bagus, kita tambahkan Pig's Feast)
@@ -41,27 +46,26 @@ func remove_expired_buffs():
 # --- PERBAIKAN PENTING DI SINI ---
 # Fungsi ini sekarang menggunakan 'apply_modifier' yang benar
 func _calculate_all():
-	# 1. Mulai dengan stat dasar murni
 	var new_stats = base_stats 
 	
-	# 2. Tumpuk (apply) setiap buff satu per satu
 	for buff in list_of_buffs:
 		new_stats = new_stats.apply_modifier(buff.modifier)
 		
-	# 3. Simpan hasilnya
 	current_stats = new_stats
 	
-	# 4. Beri tahu 'Player' (dan skrip lain) bahwa stat sudah berubah
 	emit_signal("buffs_updated", current_stats)
 # ---------------------------------
 
 func _process(delta: float) -> void:
-	# (Ini untuk boon non-permanen seperti 'Hunter's Haste')
+	var needs_recalc = false
 	for buff in list_of_buffs:
-		buff.update(delta)
-	remove_expired_buffs()
+		if not buff.permanent:
+			buff.update(delta)
+			if buff.time_left == 0:
+				needs_recalc = true # Tandai untuk dihapus
 	
-# (Sisa fungsi Anda: _create_random_buff, _handle_cinderella_effect, dll.)
+	if needs_recalc:
+		remove_expired_buffs()
 # ...
 func _create_random_buff(exclude: Array[String] = []) -> BuffBase:
 	var pool = [BuffRabbit, BuffHood, BuffWizard, BuffPig]
@@ -113,3 +117,42 @@ func _trade_for_specific():
 func _trade_all_for_hp():
 	# (Logika untuk 'Rags to Riches')
 	pass
+
+func _on_enemy_killed():
+	if current_stats.frenzy_duration == 0.0:
+		return
+		
+	for buff in list_of_buffs:
+		if buff.buff_type == "FrenzyActive":
+			buff.time_left = current_stats.frenzy_duration
+			return 
+
+	if frenzy_timer.is_stopped():
+		frenzy_kill_count = 0
+		frenzy_timer.start()
+
+	frenzy_kill_count += 1
+	print("Frenzy kill count: ", frenzy_kill_count)
+	
+	if frenzy_kill_count >= 3:
+		print("HUNTER'S HASTE! FRENZY DIAKTIFKAN!")
+		frenzy_timer.stop()
+		frenzy_kill_count = 0
+		
+		var frenzy_buff = BuffBase.new()
+		frenzy_buff.buff_type = "FrenzyActive" 
+		frenzy_buff.permanent = false
+		frenzy_buff.duration = current_stats.frenzy_duration 
+		frenzy_buff.time_left = current_stats.frenzy_duration
+		
+		frenzy_buff.modifier.move_speed = 1.5
+		frenzy_buff.modifier.set_mode("move_speed", "multiply")
+		frenzy_buff.modifier.final_damage = 1.5
+		frenzy_buff.modifier.set_mode("final_damage", "multiply")
+		
+		list_of_buffs.append(frenzy_buff)
+		_calculate_all() 
+
+func _on_frenzy_timer_timeout():
+	print("Frenzy timer timeout. Reset kill count.")
+	frenzy_kill_count = 0
