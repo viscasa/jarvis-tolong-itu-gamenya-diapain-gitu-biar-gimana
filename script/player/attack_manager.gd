@@ -27,8 +27,6 @@ func attack(enemy:Node, hit_direction: Vector2,  is_critical: bool, damage:float
 		final_damage = get_final_damage(is_critical) 
 	
 	# Cek Frenzy (Hunter's Haste)
-	if buff_manager.current_stats.frenzy_duration > 0:
-		final_damage *= 1.5 # +50% all damage
 	# -----------------------------
 
 	if is_critical :

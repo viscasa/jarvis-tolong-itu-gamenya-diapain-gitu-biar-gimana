@@ -168,6 +168,11 @@ func _on_death():
 		#$Hurtbox/CollisionShape2D.disabled = true
 	#
 	#await animated_sprite.animation_finished
+	var player = player_target #
+	if is_instance_valid(player):
+		var buff_manager = player.get_node_or_null("BuffManager")
+		if is_instance_valid(buff_manager):
+			buff_manager._on_enemy_killed()
 	queue_free()
 
 func _on_attack_timer_timeout() -> void:

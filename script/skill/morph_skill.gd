@@ -25,7 +25,7 @@ const SCALE_UP = 1.7
 @onready var slash_shot: SlashShot = $"../SlashShot"
 @onready var sprite: AnimatedSprite2D = $"../../Sprite"
 @onready var ghost_timer_morph: Timer = $"../../GhostTimerMorph"
-
+@onready var buff_manager: PlayerBuffManager = $"../../BuffManager"
 var ghost_scene = preload("res://scene/skill/dash_ghost.tscn")
 
 var is_dashing: bool = false
@@ -65,7 +65,12 @@ func is_active() -> bool:
 func _end_dash_movement() -> void:
 	# ... (Tidak ada perubahan di _end_dash_movement)
 	is_dashing = false
-	
+	var stats = buff_manager.current_stats
+	# Cek apakah ini dash Wolf DAN boon-nya aktif
+	if current_wolf_dashes > 0 and stats.wolf_dash_invincible > 0:
+		print("Langkah Ethereal: Kebal berakhir")
+		player.end_invisible() # Matikan kebal
+		
 	if current_wolf_dashes > 0:
 		current_wolf_dashes -= 1 
 		
@@ -161,6 +166,10 @@ func _start_dash_internal():
 	   (wolf_dash_count == 0 and current_wolf_dashes == 1):
 		cooldown_timer = cooldown
 	
+	var stats = buff_manager.current_stats
+	if current_wolf_dashes > 0 and stats.wolf_dash_invincible > 0:
+		print("Langkah Ethereal: Kebal dimulai")
+		player.start_invisible(0)
 	ghost_timer_morph.start()
 	emit_signal("morph_dash_started")
 

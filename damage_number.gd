@@ -3,11 +3,13 @@ extends Node
 var randomize_x_interval : Array = [-20,20]
 var randomize_y_interval : Array = [-10,0]
 
-func display_number(value: int, damage_number_origin: Node2D, color: Color = Color.WHITE, is_heal: bool = false):
+func display_number(value: Variant, damage_number_origin: Node2D, color: Color = Color.WHITE, is_heal: bool = false):
 	var number = Label.new()
 	
 	number.position = Vector2(randf_range(randomize_x_interval[0],randomize_x_interval[1]), randf_range(randomize_y_interval[0],randomize_y_interval[1]))
-	if is_heal :
+	if value is String:
+		number.text = value
+	elif is_heal :
 		number.text = "+"+str(value)
 	else :
 		number.text = str(value)

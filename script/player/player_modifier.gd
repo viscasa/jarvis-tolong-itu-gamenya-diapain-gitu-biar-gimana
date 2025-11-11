@@ -32,13 +32,13 @@ class_name PlayerModifier
 @export var homing_pierce: int = 0 # (Spectral Spike)
 @export var homing_chain: int = 0 # (Chain Shot)
 @export var slash_aoe: float = 1.0 # (Master's Cut)
-@export var wolf_dash_explosion_damage: float = 0.0 # (Howling Gale)
+@export var wolf_dash_invincible: int = 0 # (Boon "Ethereal Stride")
 
 # --- STATS SURVIVAL & UTILITAS ---
 @export var healing_bonus: float = 1.0 
 @export var healing_bonus_exit: float = 0.0
 @export var healing_chance: float = 0.1 #Multiplacative
-@export var slow_field: float = 0.0 # (McGregor's Garden)
+@export var evasion_chance: float = 0.0 
 @export var ressurection: int = 0 # (House of Brick)
 @export var reroll_charges: int = 0
 @export var frenzy_duration: float = 0.0 # (Hunter's Haste)
