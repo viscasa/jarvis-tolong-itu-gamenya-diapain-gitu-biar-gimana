@@ -25,13 +25,12 @@ metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
 [node name="EnemySpawner5" type="Marker2D" parent="WaveSpawners/Wave1" index="1"]
 position = Vector2(249, 86)
 script = ExtResource("2_lvruv")
-ENEMY_TYPE = 2
+ENEMY_TYPE = 1
 metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
 
 [node name="EnemySpawner6" type="Marker2D" parent="WaveSpawners/Wave1" index="2"]
 position = Vector2(249, 86)
 script = ExtResource("2_lvruv")
-ENEMY_TYPE = 2
 metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
 
 [node name="Wave2" type="Node2D" parent="WaveSpawners" index="1"]

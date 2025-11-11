@@ -41,12 +41,11 @@ func _load_type_1():
 	modifier.slash_aoe = 2
 	modifier.set_mode("slash_aoe", "multiply")
 
-# Howling Gale: Wolf Dash explodes
-func _load_type_2():
-	boon_name = "Howling Gale"
-	boon_description = "Your stolen skill 'Wolf Dash' explodes at the end of each dash."
-	modifier.wolf_dash_explosion_damage = 20.0 # (Explosion damage)
-	modifier.set_mode("wolf_dash_explosion_damage", "add")
+func _load_type_2(): #
+	boon_name = "Ethereal Stride"
+	boon_description = "Your stolen Wolf Dash now grants full invincibility for its entire duration."
+	modifier.wolf_dash_invincible = 1 
+	modifier.set_mode("wolf_dash_invincible", "add")
 
 # Arcane Echo: Double-cast chance
 func _load_type_3():

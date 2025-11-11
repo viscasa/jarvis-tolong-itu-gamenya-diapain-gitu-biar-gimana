@@ -1,7 +1,7 @@
 [gd_scene load_steps=333 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
-[ext_resource type="Script" uid="uid://clbe16ihsu5x3" path="res://script/player/boons/rabbit_boon.gd" id="2_2rx5w"]
+[ext_resource type="Script" uid="uid://bbblhenvfrwdq" path="res://script/player/boons/wizard_boon.gd" id="2_2rx5w"]
 [ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
 [ext_resource type="Texture2D" uid="uid://vsl2x1n0glx4" path="res://assets/player/cast/cast_e.png" id="2_nrjwp"]
 [ext_resource type="Texture2D" uid="uid://c3ignf8uxrhyu" path="res://assets/player/dash/dash_e.png" id="2_xwoaf"]
@@ -55,8 +55,8 @@
 
 [sub_resource type="Resource" id="Resource_i4afv"]
 script = ExtResource("2_2rx5w")
-boon_type = 4
-metadata/_custom_type_script = "uid://clbe16ihsu5x3"
+boon_type = 1
+metadata/_custom_type_script = "uid://bbblhenvfrwdq"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymral"]
 atlas = ExtResource("2_nrjwp")
