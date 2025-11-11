@@ -58,15 +58,21 @@ func _load_type_3():
 	modifier.set_mode("hp", "multiply")
 	modifier.borrowed_damage = 1.3
 	modifier.possess_damage = 1.3
+	modifier.explosion_damage = 1.3
 	modifier.set_mode("possess_damage", "multiply")
 	modifier.set_mode("borrowed_damage", "multiply")
+	modifier.set_mode("explosion_damage", "multiply")
 
 # House of Straw: Possess weaker, heal on miss
 func _load_type_4():
 	boon_name = "House of Straw"
-	boon_description = "'Perfect Possess' deals -50% damage, but missing still heals you slightly."
-	modifier.possess_damage = 0.5
+	boon_description = "All skills deals -30% damage, but missing still heals you slightly."
+	modifier.borrowed_damage = 0.7
+	modifier.possess_damage = 0.7
+	modifier.explosion_damage = 0.7
 	modifier.set_mode("possess_damage", "multiply")
+	modifier.set_mode("borrowed_damage", "multiply")
+	modifier.set_mode("explosion_damage", "multiply")
 	modifier.heal_on_miss = 5.0 # (Heals 5 HP)
 	modifier.set_mode("heal_on_miss", "add")
 

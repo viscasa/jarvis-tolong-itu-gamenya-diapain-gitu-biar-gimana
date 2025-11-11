@@ -1,4 +1,4 @@
-[gd_scene load_steps=330 format=3 uid="uid://b3u7tweqyptsp"]
+[gd_scene load_steps=331 format=3 uid="uid://b3u7tweqyptsp"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
@@ -52,9 +52,9 @@
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
 [ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
 
-[sub_resource type="Resource" id="Resource_2rx5w"]
+[sub_resource type="Resource" id="Resource_qehiv"]
 script = ExtResource("2_qehiv")
-boon_type = 2
+boon_type = 4
 metadata/_custom_type_script = "uid://bbblhenvfrwdq"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymral"]
@@ -2175,6 +2175,9 @@ radius = 23.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txlge"]
 bg_color = Color(0.98749274, 0, 0.25822866, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qehiv"]
+bg_color = Color(0.76240367, 0.7624037, 0.7624035, 1)
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 2
@@ -2183,7 +2186,8 @@ wall_min_slide_angle = 1.5707964
 floor_constant_speed = true
 safe_margin = 0.6
 script = ExtResource("1_cm2cf")
-debug_boon_to_add = SubResource("Resource_2rx5w")
+debug_boon_to_add = SubResource("Resource_qehiv")
+debug_add_boon_now = true
 
 [node name="GhostTimer" type="Timer" parent="."]
 wait_time = 0.07
@@ -2309,6 +2313,20 @@ offset_top = -31.0
 offset_right = 10.0
 offset_bottom = -27.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_txlge")
+value = 100.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="ShieldBar" type="ProgressBar" parent="HealthBar"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_qehiv")
+value = 10.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
