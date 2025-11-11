@@ -38,7 +38,7 @@ class_name PlayerModifier
 @export var healing_bonus: float = 1.0 
 @export var healing_bonus_exit: float = 0.0
 @export var healing_chance: float = 0.1 #Multiplacative
-@export var slow_field: float = 0.0 # (McGregor's Garden)
+@export var evasion_chance: float = 0.0 
 @export var ressurection: int = 0 # (House of Brick)
 @export var reroll_charges: int = 0
 @export var frenzy_duration: float = 0.0 # (Hunter's Haste)

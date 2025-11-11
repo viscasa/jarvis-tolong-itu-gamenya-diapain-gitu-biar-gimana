@@ -60,9 +60,8 @@ func _load_type_4():
 	modifier.perfect_possess_super_charge_chance = 0.15
 	modifier.set_mode("perfect_possess_super_charge_chance", "add")
 
-# McGregor's Garden: Slow field on exit
 func _load_type_5():
-	boon_name = "McGregor’s Garden"
-	boon_description = "Exiting a Possess leaves behind a slowing field for 3 seconds."
-	modifier.slow_field = 3.0
-	modifier.set_mode("slow_field", "add")
+	boon_name = "Soft Fur" 
+	boon_description = "Grants a 20% chance to evade all incoming damage."
+	modifier.evasion_chance = 0.2
+	modifier.set_mode("evasion_chance", "add") 

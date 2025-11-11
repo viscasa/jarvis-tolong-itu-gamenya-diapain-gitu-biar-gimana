@@ -67,7 +67,11 @@ func heal(amount: float):
 	print("Player healed for ", final_heal)
 # ------------------------------------
 func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
-	# Jika damage_amount negatif, itu adalah HEAL
+	var stats = buff_manager.current_stats
+	if randf() < stats.evasion_chance:
+		print("EVASION! Serangan dihindari.")
+		DamageNumber.display_number("MISS", damage_number_origin, Color.WHITE)
+		return # <-- Langsung keluar, tidak menerima damage
 	if damage_amount < 0:
 		heal(-damage_amount)
 		return
