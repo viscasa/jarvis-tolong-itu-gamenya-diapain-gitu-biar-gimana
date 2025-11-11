@@ -216,7 +216,7 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 		player.end_invisible() # Ini untuk hurtbox, biarkan
 	elif can_phase:
 		_is_phasing_dash = true
-		player.start_invisible() # Matikan mask 5
+		player.start_invisible()
 		ghost_timer.wait_time = 0.07
 		ghost_timer.start()
 	else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=331 format=3 uid="uid://b3u7tweqyptsp"]
+[gd_scene load_steps=331 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
@@ -51,6 +51,7 @@
 [ext_resource type="Texture2D" uid="uid://d2l7pbo0n1p3l" path="res://assets/player/run/run_w.png" id="17_yw1hm"]
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
 [ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
+[ext_resource type="PackedScene" uid="uid://buh1lj7tdd2r3" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
 
 [sub_resource type="Resource" id="Resource_qehiv"]
 script = ExtResource("2_qehiv")
@@ -2167,7 +2168,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqqa"]
-size = Vector2(33.941124, 24.042084)
+size = Vector2(33.941124, 42.02104)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_04bvi"]
 radius = 23.0
@@ -2194,6 +2195,9 @@ wait_time = 0.07
 
 [node name="GhostTimerMorph" type="Timer" parent="."]
 wait_time = 0.07
+
+[node name="GhostTimerSuperDash" type="Timer" parent="."]
+wait_time = 0.009999999999999998
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
@@ -2261,6 +2265,9 @@ script = ExtResource("13_5g408")
 projectile_scene = ExtResource("14_sc4n2")
 slash_speed = 400.0
 
+[node name="Thunder" parent="SkillManager" instance=ExtResource("47_2rx5w")]
+position = Vector2(0.03466797, 0.5640259)
+
 [node name="AttackManager" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("5_hfhxk")
@@ -2280,7 +2287,7 @@ y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PossessArea"]
 y_sort_enabled = true
-position = Vector2(30, 0)
+position = Vector2(21.01052, -3.929426e-07)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_ajqqa")
 
@@ -2335,3 +2342,4 @@ script = ExtResource("26_04bvi")
 
 [connection signal="timeout" from="GhostTimer" to="DashManager" method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="GhostTimerMorph" to="SkillManager/MorphSkill" method="_on_ghost_timer_morph_timeout"]
+[connection signal="timeout" from="GhostTimerSuperDash" to="SkillManager/SuperDash" method="_on_ghost_timer_super_dash_timeout"]
