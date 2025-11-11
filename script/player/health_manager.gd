@@ -23,7 +23,7 @@ var max_shield_amount: float = 0.0
 			health_bar.max_value = max_health
 			health_bar.value = current_health
 		if shield_bar:
-			shield_bar.max_value = max_health
+			shield_bar.max_value = max_health + 10
 			shield_bar.value = current_health
 		_update_ui()
 @export var base_defense: float = 2.0
@@ -110,14 +110,13 @@ func _try_resurrect():
 	emit_signal("resurrected")
 func add_shield(amount: float):
 	current_shield = amount
-	max_shield_amount = amount # 
-	
+	max_shield_amount = amount 
 	print("SHIELD DITAMBAH: ", current_shield)
 	emit_signal("shield_changed", current_shield, max_shield_amount) 
 	
 	shield_timer.wait_time = 5.0 
 	shield_timer.start()
-
+	_update_ui()
 func _on_shield_timer_timeout():
 	# Waktu habis, hapus semua shield
 	print("Astral Shield habis.")
@@ -125,9 +124,14 @@ func _on_shield_timer_timeout():
 	max_shield_amount = 0.0 # Reset juga max-nya
 	# Sinyal perubahan shield untuk UI
 	emit_signal("shield_changed", current_shield, max_shield_amount)
+	_update_ui()
 
 func _update_ui():
 	if health_bar:
 		health_bar.value = current_health
 	if shield_bar:
+		print(current_shield)
 		shield_bar.value = current_health + current_shield
+		print("shield bar value:")
+		print(shield_bar.value)
+		print(health_bar.value)
