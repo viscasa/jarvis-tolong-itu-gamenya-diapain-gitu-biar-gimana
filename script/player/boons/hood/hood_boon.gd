@@ -37,6 +37,7 @@ func _generate_boon():
 func _load_type_1():
 	boon_name = "Grandma’s Revenge"
 	boon_description = "Your stolen skills deal 50% more damage."
+	boon_icon = load("res://icon.svg")
 	modifier.borrowed_damage = 1.5
 	modifier.set_mode("borrowed_damage", "multiply")
 
@@ -44,6 +45,7 @@ func _load_type_1():
 func _load_type_2():
 	boon_name = "Wolf’s Grin"
 	boon_description = "Your Perfect Possess attacks deal 50% more damage."
+	boon_icon = load("res://icon.svg")
 	modifier.possess_damage = 1.5
 	modifier.set_mode("possess_damage", "multiply")
 
@@ -51,6 +53,7 @@ func _load_type_2():
 func _load_type_3():
 	boon_name = "Hunter’s Haste"
 	boon_description = "Killing 3 enemies within 5 seconds triggers FRENZY."
+	boon_icon = load("res://icon.svg")
 	modifier.frenzy_duration = 6
 	modifier.set_mode("frenzy_duration", "add")
 
@@ -58,6 +61,7 @@ func _load_type_3():
 func _load_type_4():
 	boon_name = "What Big Eyes You Have"
 	boon_description = "Your Perfect Possess timing window is 40% larger."
+	boon_icon = load("res://icon.svg")
 	modifier.possesian_timing = 0.052 # (+0.052s)
 	modifier.set_mode("possesian_timing", "add")
 
@@ -66,6 +70,7 @@ func _load_type_5():
 	boon_name = "Picnic Basket Bomb"
 	boon_description = "Your Super Dash has 25% larger area and deals 25% more damage."
 	modifier.explosion_size = 1.25
+	boon_icon = load("res://icon.svg")
 	modifier.set_mode("explosion_size", "multiply")
 	modifier.explosion_damage = 1.25
 	modifier.set_mode("explosion_damage", "multiply")

@@ -40,12 +40,16 @@ func _load_type_1():
 	boon_description = "Your stolen skill 'Slash' has 100% larger range."
 	modifier.slash_aoe = 2
 	modifier.set_mode("slash_aoe", "multiply")
+	boon_icon = load("res://icon.svg")
+
 
 func _load_type_2(): #
 	boon_name = "Ethereal Stride"
 	boon_description = "Your stolen Wolf Dash now grants full invincibility for its entire duration."
 	modifier.wolf_dash_invincible = 1 
 	modifier.set_mode("wolf_dash_invincible", "add")
+	boon_icon = load("res://icon.svg")
+
 
 # Arcane Echo: Double-cast chance
 func _load_type_3():
@@ -53,6 +57,7 @@ func _load_type_3():
 	boon_description = "Your stolen shooting skills have twice the bullets."
 	modifier.bullet_multiplier = 2
 	modifier.set_mode("bullet_multiplier", "multiply")
+	boon_icon = load("res://icon.svg")
 
 # Chain Shot: Homing bounces
 func _load_type_4():
@@ -60,6 +65,7 @@ func _load_type_4():
 	boon_description = "Your stolen skill 'Homming Bullets' now bounces to one nearby enemy."
 	modifier.homing_chain = 1
 	modifier.set_mode("homing_chain", "add")
+	boon_icon = load("res://icon.svg")
 
 # Astral Shield: Gain shield when casting
 func _load_type_5():
@@ -67,3 +73,4 @@ func _load_type_5():
 	boon_description = "Each time you use a stolen skill, gain a small shield for 5 seconds."
 	modifier.shield_on_skill_use = 10.0 # (10 HP shield)
 	modifier.set_mode("shield_on_skill_use", "add")
+	boon_icon = load("res://icon.svg")

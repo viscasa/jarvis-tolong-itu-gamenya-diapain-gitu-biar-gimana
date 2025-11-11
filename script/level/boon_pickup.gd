@@ -31,20 +31,16 @@ func _on_body_entered(body):
 	if body is Player:
 		print("Membuka UI Pilihan Boon untuk: ", boon_giver_id)
 
-		# 1. Pause game
 		get_tree().paused = true
 
-		# 2. Buat instance UI
 		var ui_screen = selection_screen_scene.instantiate()
 
-		# 3. Beri tahu UI boon apa yang harus ditampilkan
 		get_tree().root.add_child(ui_screen)
 		ui_screen.show_boon_choices(boon_giver_id)
 
-		# 4. Tampilkan UI
 
-		# 5. Hancurkan objek pickup ini
 
 func _on_got_buff():
+	print("got buff")
 	boon_giver_icon.hide()
 	got_buff = true

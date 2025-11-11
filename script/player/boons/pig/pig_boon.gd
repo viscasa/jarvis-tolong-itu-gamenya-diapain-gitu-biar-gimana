@@ -40,6 +40,7 @@ func _load_type_1():
 	boon_description = "Gain one Resurrection. Revive with 50% HP."
 	modifier.ressurection = 1
 	modifier.set_mode("ressurection", "add")
+	boon_icon = load("res://icon.svg")
 
 # Pig's Feast: Heal to full
 func _load_type_2():
@@ -49,6 +50,7 @@ func _load_type_2():
 	modifier.ressurection = 9999 # (Code for 'Pig’s Feast')
 	permanent = false
 	duration = 0.1
+	boon_icon = load("res://icon.svg")
 
 # House of Sticks: HP reduced, damage increased
 func _load_type_3():
@@ -62,6 +64,7 @@ func _load_type_3():
 	modifier.set_mode("possess_damage", "multiply")
 	modifier.set_mode("borrowed_damage", "multiply")
 	modifier.set_mode("explosion_damage", "multiply")
+	boon_icon = load("res://icon.svg")
 
 # House of Straw: Possess weaker, heal on miss
 func _load_type_4():
@@ -75,6 +78,7 @@ func _load_type_4():
 	modifier.set_mode("explosion_damage", "multiply")
 	modifier.heal_on_miss = 5.0 # (Heals 5 HP)
 	modifier.set_mode("heal_on_miss", "add")
+	boon_icon = load("res://icon.svg")
 
 # Big Bad Bargain: Lower damage, cheaper Super Dash
 func _load_type_5():
@@ -84,3 +88,4 @@ func _load_type_5():
 	modifier.set_mode("borrowed_damage", "multiply")
 	modifier.super_dash_cost = -1 # (3 - 1 = 2)
 	modifier.set_mode("super_dash_cost", "add")
+	boon_icon = load("res://icon.svg")
