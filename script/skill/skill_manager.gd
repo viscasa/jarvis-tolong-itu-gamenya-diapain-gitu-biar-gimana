@@ -9,7 +9,7 @@ class_name SkillManager
 @onready var possession_manager: PossessionManager = $"../PossessionManager"
 @onready var dash_manager: DashManager = $"../DashManager"
 @onready var morph_skill: Node2D = $MorphSkill
-
+signal stolen_skill_used # signal untuk kasih shield
 var homing_shot_ready : bool = false
 var triple_homing_shot_ready : bool = false
 var wolf_morph_ready : bool = false
@@ -24,6 +24,7 @@ func use_morph_skill() -> void:
 		triple_homing_shot_ready = false
 		wolf_morph_ready = false
 		slash_shot_ready = false
+		emit_signal("stolen_skill_used")
 
 func use_pin() -> void:
 	pin.throw_pin()

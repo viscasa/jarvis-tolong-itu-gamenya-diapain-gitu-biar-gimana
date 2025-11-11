@@ -1,9 +1,9 @@
-[gd_scene load_steps=331 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=333 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
-[ext_resource type="Script" uid="uid://clbe16ihsu5x3" path="res://script/player/boons/rabbit_boon.gd" id="2_0oa35"]
 [ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
 [ext_resource type="Texture2D" uid="uid://vsl2x1n0glx4" path="res://assets/player/cast/cast_e.png" id="2_nrjwp"]
+[ext_resource type="Script" uid="uid://bbblhenvfrwdq" path="res://script/player/boons/wizard_boon.gd" id="2_qehiv"]
 [ext_resource type="Texture2D" uid="uid://c3ignf8uxrhyu" path="res://assets/player/dash/dash_e.png" id="2_xwoaf"]
 [ext_resource type="Texture2D" uid="uid://cqapiuwv0omy6" path="res://assets/player/dash/dash_n.png" id="3_8yg4a"]
 [ext_resource type="Texture2D" uid="uid://2rkinw1mfbpt" path="res://assets/player/cast/cast_n.png" id="3_mwak4"]
@@ -50,13 +50,13 @@
 [ext_resource type="Texture2D" uid="uid://it7n537h8lfp" path="res://assets/player/run/run_sw.png" id="16_lfqc2"]
 [ext_resource type="Texture2D" uid="uid://d2l7pbo0n1p3l" path="res://assets/player/run/run_w.png" id="17_yw1hm"]
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
-[ext_resource type="Script" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
-[ext_resource type="PackedScene" uid="uid://buh1lj7tdd2r3" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
+[ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
+[ext_resource type="PackedScene" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
 
-[sub_resource type="Resource" id="Resource_0oa35"]
-script = ExtResource("2_0oa35")
-boon_type = 2
-metadata/_custom_type_script = "uid://clbe16ihsu5x3"
+[sub_resource type="Resource" id="Resource_qehiv"]
+script = ExtResource("2_qehiv")
+boon_type = 4
+metadata/_custom_type_script = "uid://bbblhenvfrwdq"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymral"]
 atlas = ExtResource("2_nrjwp")
@@ -2176,6 +2176,11 @@ radius = 23.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txlge"]
 bg_color = Color(0.98749274, 0, 0.25822866, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2rx5w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qehiv"]
+bg_color = Color(0.76240367, 0.7624037, 0.7624035, 1)
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 2
@@ -2184,7 +2189,8 @@ wall_min_slide_angle = 1.5707964
 floor_constant_speed = true
 safe_margin = 0.6
 script = ExtResource("1_cm2cf")
-debug_boon_to_add = SubResource("Resource_0oa35")
+debug_boon_to_add = SubResource("Resource_qehiv")
+debug_add_boon_now = true
 
 [node name="GhostTimer" type="Timer" parent="."]
 wait_time = 0.07
@@ -2193,7 +2199,7 @@ wait_time = 0.07
 wait_time = 0.07
 
 [node name="GhostTimerSuperDash" type="Timer" parent="."]
-wait_time = 0.009999999999999998
+wait_time = 0.00999999999999999
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
@@ -2316,6 +2322,22 @@ offset_top = -31.0
 offset_right = 10.0
 offset_bottom = -27.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_txlge")
+value = 100.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="ShieldBar" type="ProgressBar" parent="HealthBar"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.1111112
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_2rx5w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qehiv")
+max_value = 110.0
+value = 100.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 

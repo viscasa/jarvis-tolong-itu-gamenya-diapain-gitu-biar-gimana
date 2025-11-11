@@ -41,6 +41,7 @@ var is_throwing_pin_first := true
 
 
 func _ready() -> void:
+	
 	add_to_group("player")
 	
 	sprite.animation_finished.connect(_on_animation_finished) # <-- TAMBAHAN: Hubungkan sinyal
@@ -68,6 +69,8 @@ func _ready() -> void:
 	buff_manager.buffs_updated.connect(_on_buffs_updated)
 	_on_buffs_updated(buff_manager.base_stats)
 	health_manager.no_health.connect(_on_player_died)
+	skill_manager.stolen_skill_used.connect(_on_stolen_skill_used)
+	
 	if phasing_ray:
 		# Pastikan RayCast HANYA memeriksa layer 1
 		phasing_ray.set_collision_mask_value(1, true) 
@@ -79,9 +82,6 @@ func _on_buffs_updated(new_stats: PlayerModifier):
 	# 1. Terapkan ke HealthManager (Boon "Fluffy Tail", "Rags to Riches")
 	health_manager.max_health = new_stats.hp
 	# (Kita juga harus update health bar jika max HP berubah)
-	health_manager.health_bar.max_value = new_stats.hp
-	health_manager.current_health = min(health_manager.current_health, new_stats.hp)
-	
 	
 	# 3. Terapkan ke DashManager (Boon "Quick Getaway")
 	dash_manager.dash_move_time = new_stats.dash_duration
@@ -399,3 +399,13 @@ func _on_animation_finished() -> void:
 		is_throwing_pin_first = true
 		is_throwing_pin = false
 # --- AKHIR TAMBAHAN ---
+
+func _on_stolen_skill_used():
+	# Ambil stat terbaru
+	var stats = buff_manager.current_stats
+	
+	# Cek boon "Astral Shield"
+	if stats.shield_on_skill_use > 0:
+		print("ASTRAL SHIELD!")
+		# Suruh HealthManager membuat shield
+		health_manager.add_shield(stats.shield_on_skill_use)

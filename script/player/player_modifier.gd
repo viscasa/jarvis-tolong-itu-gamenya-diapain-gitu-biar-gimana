@@ -13,7 +13,7 @@ class_name PlayerModifier
 @export var possess_damage: float = 1.0 # (Wolf's Grin)
 @export var possesian_timing: float = 0 # (What Big Eyes...)
 @export var borrowed_skill_duration: float = 12.0
-@export var skill_echo_chance: float = 0.0 # (Arcane Echo)
+@export var bullet_multiplier: int = 1 # (arcane echo)
 @export var heal_on_miss: float = 0.0 # (House of Straw)
 @export var shield_on_skill_use: float = 0.0 # (Astral Shield)
 
@@ -35,7 +35,7 @@ class_name PlayerModifier
 @export var wolf_dash_explosion_damage: float = 0.0 # (Howling Gale)
 
 # --- STATS SURVIVAL & UTILITAS ---
-@export var healing_bonus: float = 10.0 
+@export var healing_bonus: float = 1.0 
 @export var healing_bonus_exit: float = 0.0
 @export var healing_chance: float = 0.1 #Multiplacative
 @export var slow_field: float = 0.0 # (McGregor's Garden)

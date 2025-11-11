@@ -7,7 +7,7 @@ signal was_hit(hit_direction: Vector2)
 
 @export var max_health: float = 100.0
 @export var base_damage: float = 10.0
-@export var base_defense: float = 2.0
+@export var base_defense: float = 0.0
 @export var health_bar : ProgressBar
 @export var damage_multiplier: float = 1.0
 @onready var damage_number_origin: Node2D = $"../DamageNumberOrigin"
