@@ -36,3 +36,13 @@ layout_mode = 2
 
 [node name="BoonChoiceButton3" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
 layout_mode = 2
+
+[node name="SkipButton" type="Button" parent="."]
+offset_left = 130.0
+offset_top = 502.0
+offset_right = 204.0
+offset_bottom = 550.0
+focus_mode = 0
+text = "Skip"
+
+[connection signal="pressed" from="SkipButton" to="." method="_on_skip_button_pressed"]

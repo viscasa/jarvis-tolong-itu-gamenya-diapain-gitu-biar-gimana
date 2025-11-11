@@ -21,7 +21,6 @@ func _ready():
 	waves = wave_spawners.get_children()
 	_lock_all_doors()
 	_start_wave(current_wave_index)
-	_spawn_reward()
 
 func _start_wave(index: int):
 	print("wave " + str(index))
@@ -70,7 +69,7 @@ func _spawn_reward():
 			
 	
 	boon_pickup.set_boon_giver_id(reward_id_to_spawn)
-	boon_pickup.show()
+	
 	RewardManager.next_reward_id = ""
 
 func _lock_all_doors():

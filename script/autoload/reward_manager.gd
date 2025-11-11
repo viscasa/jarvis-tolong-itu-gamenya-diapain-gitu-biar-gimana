@@ -1,11 +1,12 @@
 extends Node
 
 var next_reward_id: String = "pig"
-
+signal got_buff
+var showing_reward_screen := false
 var reward_database: Dictionary = {
 	"cinderella": {
 		"icon": "res://assets/temp/0f93f5d0b8f66f7070cb88e3c2922be7.jpg",
-		"boon_folder_path": "res://script/player/boons/cinderella/"
+		"boon_folder_path": "res://script/player/boons/cinderella/",
 	},
 	"red_riding_hood": {
 		"icon": "res://assets/temp/download.png",

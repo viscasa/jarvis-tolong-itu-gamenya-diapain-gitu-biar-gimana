@@ -6,6 +6,8 @@ func _ready():
 	continue_button.pressed.connect(_on_continue_pressed)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if (RewardManager.showing_reward_screen):
+		return
 	if event.is_action_pressed("pause_game"):
 		_toggle_pause()
 	if get_tree().paused:

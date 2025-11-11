@@ -3,15 +3,14 @@ extends CanvasLayer
 @onready var choice_container: VBoxContainer = $CenterContainer/ChoiceContainer
 
 var player_buff_manager: PlayerBuffManager
-
 func _ready():
 	# (Cari BuffManager player)
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
 		player_buff_manager = player.get_node("BuffManager")
-
 # Dipanggil oleh BoonPickup.gd
 func show_boon_choices(boon_giver_id: String):
+	RewardManager.showing_reward_screen = true
 	# 1. Minta boon yang SUDAH DIFILTER (anti-duplikat)
 	var boon_choices = RewardManager.get_boon_choices(boon_giver_id, 3)
 	
@@ -37,9 +36,14 @@ func show_boon_choices(boon_giver_id: String):
 func _on_boon_selected(boon: BuffBase):
 	if player_buff_manager:
 		player_buff_manager.add_buff(boon) # (duplicate() tidak perlu jika load())
-	
 	_close_ui()
 
 func _close_ui():
 	get_tree().paused = false
 	queue_free()
+	RewardManager.emit_signal("got_buff")
+	RewardManager.showing_reward_screen = false
+
+
+func _on_skip_button_pressed() -> void:
+	_close_ui()

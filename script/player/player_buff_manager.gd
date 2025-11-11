@@ -79,15 +79,15 @@ func _create_random_buff(exclude: Array[String] = []) -> BuffBase:
 func _handle_cinderella_effect(buff: BuffCinderella):
 	match buff.effect_id:
 		1:
-			_trade_and_gain_buffs(1, 2) # (Sesuai ide baru Anda)
+			_trade_and_gain_buffs(1, 3) # (Sesuai ide baru Anda)
 		2:
-			_trade_for_specific() # (Glass Slipper)
+			_trade_all_for_evasion()
 		3:
 			_reroll_all_buffs()
 		4:
 			_trade_all_for_hp() # (Rags to Riches)
 		5:
-			_gain_random_buffs(3) # (Sesuai ide baru Anda)
+			_gain_random_buffs(2) # (Sesuai ide baru Anda)
 	
 	# Boon Cinderella adalah instan, langsung hapus
 	# remove_buff(buff.buff_type) # (Hati-hati, ini akan menghapus SEMUA buff Cinderella)
@@ -132,17 +132,7 @@ func _reroll_all_buffs():
 		list_of_buffs.append(new_boon)
 		print("  Boon baru: ", new_boon.boon_name)
 
-func _trade_for_specific():
-	print("--- CINDERELLA: Glass Slipper! ---")
-	if list_of_buffs.size() > 0:
-		var idx = randi_range(0, list_of_buffs.size() - 1)
-		var removed_boon = list_of_buffs.pop_at(idx)
-		print("  Boon dihapus: ", removed_boon.boon_name)
-	
-	# TODO: Tampilkan UI Pemilihan Giver
-	print("LOGIKA 'GLASS SLIPPER' BELUM DIBUAT (PERLU UI). Memberi 1 boon acak...")
-	_gain_random_buffs(1)
-	pass
+
 	
 
 func _trade_all_for_hp():
@@ -152,7 +142,6 @@ func _trade_all_for_hp():
 	
 	if boon_count == 0:
 		print("...Tidak ada boon untuk ditukar. Dapat +5 HP sebagai hiburan.")
-		base_stats.hp += 5 # (Hadiah hiburan)
 	else:
 		print("Menukar %s boon untuk HP..." % boon_count)
 		
@@ -248,3 +237,25 @@ func _get_random_buffs_from_pool(amount: int, pool: Array[BuffBase]) -> Array[Bu
 		chosen_boons.append(available_pool[i])
 		
 	return chosen_boons
+func _trade_all_for_evasion():
+	
+	print("--- CINDERELLA: Baju Pesta Tak Terlihat! ---")
+	
+	# 1. Hitung jumlah boon yang akan ditukar
+	var boon_count = list_of_buffs.size()
+	
+	if boon_count == 0:
+		print("...Tidak ada boon untuk ditukar. Dapat +2% Evasion hiburan.")
+	else:
+		print("Menukar %s boon untuk Evasion..." % boon_count)
+		
+		# 2. Hapus semua boon
+		list_of_buffs.clear()
+		
+		# 3. Hitung Evasion yang didapat (5% per boon)
+		var evasion_gain = float(boon_count) * 0.05
+		
+		# 4. Tambahkan ke BASE STATS
+		base_stats.evasion_chance += evasion_gain
+			
+	print("Evasion Chance permanen baru: ", base_stats.evasion_chance)
