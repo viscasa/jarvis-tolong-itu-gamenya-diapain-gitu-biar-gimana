@@ -7,6 +7,7 @@ class_name BuffBase
 @export var modifier: PlayerModifier = PlayerModifier.new()
 @export var permanent: bool = true
 @export var duration: float = 0.0
+@export var boon_icon: Texture
 var time_left: float = 0.0
 
 func _init():

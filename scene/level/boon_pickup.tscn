@@ -25,6 +25,7 @@ texture = ExtResource("2_lng1f")
 offset = Vector2(-3, -38)
 
 [node name="Sprite2" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(0, -1)
 texture = ExtResource("3_k54js")
 offset = Vector2(0, -6)
@@ -36,3 +37,7 @@ offset = Vector2(0, -6)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-1, -5.75)
 shape = SubResource("RectangleShape2D_k54js")
+
+[node name="BoonGiverIcon" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -57.5)

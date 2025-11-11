@@ -6,8 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nt4bv"]
 
 [node name="Door" type="Area2D"]
+collision_mask = 2
 script = ExtResource("1_nt4bv")
-next_scene_path = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 

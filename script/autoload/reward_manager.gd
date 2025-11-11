@@ -1,28 +1,34 @@
 extends Node
 
 var next_reward_id: String = "pig"
-
+signal got_buff
+var showing_reward_screen := false
 var reward_database: Dictionary = {
 	"cinderella": {
 		"icon": "res://assets/temp/0f93f5d0b8f66f7070cb88e3c2922be7.jpg",
-		"boon_folder_path": "res://script/player/boons/cinderella/"
+		"boon_folder_path": "res://script/player/boons/cinderella/",
+		"name": "Conspicuous Cinderella"
 	},
 	"red_riding_hood": {
 		"icon": "res://assets/temp/download.png",
-		"boon_folder_path": "res://script/player/boons/hood/"
+		"boon_folder_path": "res://script/player/boons/hood/",
+		"name": "Vengeful Red Riding Hood"
 	},
 	#TODO icon beneran
 	"rabbit": { 
 		"icon": "res://icon.svg",
-		"boon_folder_path": "res://script/player/boons/rabbit/"
+		"boon_folder_path": "res://script/player/boons/rabbit/",
+		"name": "Mischievous Peter Rabbit"
 	},
 	"wizard": {
 		"icon": "res://icon.svg",
-		"boon_folder_path": "res://script/player/boons/wizard/"
+		"boon_folder_path": "res://script/player/boons/wizard/",
+		"name": "Wise Wizard of the West"
 	},
 	"pig": {
 		"icon": "res://icon.svg",
-		"boon_folder_path": "res://script/player/boons/pig/"
+		"boon_folder_path": "res://script/player/boons/pig/",
+		"name": "Bountiful Piggies"
 	}
 }
 
@@ -47,6 +53,20 @@ func get_reward_data(id: String):
 	return null
 
 func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
+	if boon_giver_id == "cinderella":
+		var cinderella_choices: Array[BuffBase] = []
+		var chosen_effect_ids: Array[int] = [] 
+		
+		for i in range(amount):
+			var boon = BuffCinderella.new()
+			
+			while boon.effect_id in chosen_effect_ids:
+				print("Cinderella duplicate found (ID: %s). Re-rolling..." % boon.effect_id)
+				boon = BuffCinderella.new()
+			chosen_effect_ids.append(boon.effect_id)
+			cinderella_choices.append(boon)
+			
+		return cinderella_choices
 	var giver_data = get_reward_data(boon_giver_id)
 	if not giver_data or not giver_data.has("boon_folder_path"):
 		print("ERROR: Boon Giver ID tidak valid: ", boon_giver_id)

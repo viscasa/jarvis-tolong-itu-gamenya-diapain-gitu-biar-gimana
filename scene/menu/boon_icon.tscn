@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhvms7y1xdwit"]
+
+[ext_resource type="Texture2D" uid="uid://bg03qyy06fgbo" path="res://icon.svg" id="1_3jak4"]
+[ext_resource type="Script" uid="uid://dxovoa6skaepj" path="res://script/menu/boon_icon.gd" id="2_u0fhd"]
+
+[node name="BoonIcon" type="TextureButton"]
+custom_minimum_size = Vector2(48, 48)
+offset_right = 48.0
+offset_bottom = 48.0
+texture_normal = ExtResource("1_3jak4")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_u0fhd")

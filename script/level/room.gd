@@ -2,7 +2,6 @@ extends Node2D
 class_name Room
 
 
-@export var player_scene: PackedScene
 @export var reward_scene: PackedScene
 @onready var wave_spawners: Node2D = $WaveSpawners
 @onready var enemy_container: Node = $EnemyContainer
@@ -20,12 +19,8 @@ var waves: Array[Node]
 
 func _ready():
 	waves = wave_spawners.get_children()
-	var player = player_scene.instantiate()
-	player.global_position = player_spawn_position.global_position
-	add_child(player)
 	_lock_all_doors()
 	_start_wave(current_wave_index)
-	_spawn_reward()
 
 func _start_wave(index: int):
 	print("wave " + str(index))

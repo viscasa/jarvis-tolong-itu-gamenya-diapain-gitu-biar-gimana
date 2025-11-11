@@ -13,10 +13,10 @@ func _init():
 	match effect_id:
 		1: # Midnight Bargain
 			boon_name = "Midnight Bargain"
-			boon_description = "Remove 1 random boon and gain 2 new random boons."
+			boon_description = "Remove 1 random boon and gain 3 new random boons."
 		2: # Glass Slipper
-			boon_name = "Glass Slipper"
-			boon_description = "Remove 1 random boon and gain 1 boon from a chosen Giver."
+			boon_name = "The Invisible Gown"
+			boon_description = "Remove all your current boons. Gain +5% permanent Evasion for each boon removed."
 		3: # Fairy Godmother’s Wish
 			boon_name = "Fairy Godmother’s Wish"
 			boon_description = "Reroll all of your current boons."
@@ -25,7 +25,7 @@ func _init():
 			boon_description = "Remove all current boons and gain +30 Max HP for each boon removed."
 		5: # Royal Ball
 			boon_name = "Royal Ball"
-			boon_description = "Instantly gain 3 random new boons."
+			boon_description = "Instantly gain 2 random new boons."
 	
 	duration = 0.1 # Instant effect, processed and removed immediately
 	time_left = duration

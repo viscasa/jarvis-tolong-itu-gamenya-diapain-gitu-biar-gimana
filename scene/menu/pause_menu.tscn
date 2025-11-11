@@ -71,35 +71,35 @@ color = Color(0.44291076, 0.44291076, 0.44291073, 0.4392157)
 
 [node name="ContinueButton" type="Button" parent="."]
 offset_left = 533.0
-offset_top = 404.0
+offset_top = 559.0
 offset_right = 612.0
-offset_bottom = 435.0
+offset_bottom = 590.0
 focus_mode = 0
 text = "Continue"
 
 [node name="Master" type="Label" parent="."]
 offset_left = 545.0
-offset_top = 112.0
-offset_right = 591.0
-offset_bottom = 135.0
+offset_top = 365.0
+offset_right = 600.0
+offset_bottom = 388.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Master"
 horizontal_alignment = 1
 
 [node name="Music" type="Label" parent="."]
 offset_left = 545.0
-offset_top = 178.0
+offset_top = 431.0
 offset_right = 600.0
-offset_bottom = 201.0
+offset_bottom = 454.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Music"
 horizontal_alignment = 1
 
 [node name="Music2" type="Label" parent="."]
 offset_left = 545.0
-offset_top = 239.0
+offset_top = 492.0
 offset_right = 600.0
-offset_bottom = 262.0
+offset_bottom = 515.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "SFX"
 horizontal_alignment = 1
@@ -110,13 +110,50 @@ libraries = {
 }
 
 [node name="MusicSlider" parent="." instance=ExtResource("2_upqr3")]
+offset_top = 457.0
+offset_bottom = 473.0
 
 [node name="MasterSlider" parent="." instance=ExtResource("2_upqr3")]
-offset_top = 146.0
-offset_bottom = 162.0
+offset_top = 399.0
+offset_bottom = 415.0
 bus_name = "Master"
 
 [node name="SFXSlider" parent="." instance=ExtResource("2_upqr3")]
-offset_top = 262.0
-offset_bottom = 278.0
+offset_top = 515.0
+offset_bottom = 531.0
 bus_name = "SFX"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 204.0
+offset_top = 93.0
+offset_right = 937.0
+offset_bottom = 349.0
+theme_override_constants/separation = 30
+
+[node name="BoonGrid" type="GridContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(320, 250)
+layout_mode = 2
+theme_override_constants/h_separation = 20
+columns = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BoonNameLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fluffy Tail"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+
+[node name="BoonDescLabel" type="Label" parent="HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Fluffy Tail"

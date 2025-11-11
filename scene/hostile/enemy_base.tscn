@@ -190,6 +190,7 @@ show_percentage = false
 
 [node name="NavAgent" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
+simplify_path = true
 avoidance_enabled = true
 debug_enabled = true
 

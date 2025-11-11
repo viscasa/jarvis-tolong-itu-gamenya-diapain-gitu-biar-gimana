@@ -1,17 +1,17 @@
 extends CanvasLayer
 
 @onready var choice_container: VBoxContainer = $CenterContainer/ChoiceContainer
+@onready var boon_giver_name: Label = $BoonGiverName
 
 var player_buff_manager: PlayerBuffManager
-
 func _ready():
 	# (Cari BuffManager player)
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
 		player_buff_manager = player.get_node("BuffManager")
-
 # Dipanggil oleh BoonPickup.gd
 func show_boon_choices(boon_giver_id: String):
+	RewardManager.showing_reward_screen = true
 	# 1. Minta boon yang SUDAH DIFILTER (anti-duplikat)
 	var boon_choices = RewardManager.get_boon_choices(boon_giver_id, 3)
 	
@@ -25,6 +25,7 @@ func show_boon_choices(boon_giver_id: String):
 		_close_ui()
 		return
 		
+	boon_giver_name.text = RewardManager.get_reward_data(boon_giver_id).name
 	# Sembunyikan tombol yang tidak terpakai
 	for i in range(buttons.size()):
 		if i < boon_choices.size():
@@ -37,9 +38,15 @@ func show_boon_choices(boon_giver_id: String):
 func _on_boon_selected(boon: BuffBase):
 	if player_buff_manager:
 		player_buff_manager.add_buff(boon) # (duplicate() tidak perlu jika load())
-	
+	RewardManager.emit_signal("got_buff")
 	_close_ui()
 
 func _close_ui():
 	get_tree().paused = false
 	queue_free()
+	RewardManager.showing_reward_screen = false
+
+
+func _on_skip_button_pressed() -> void:
+	RewardManager.emit_signal("got_buff")
+	_close_ui()
