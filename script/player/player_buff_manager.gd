@@ -31,6 +31,7 @@ func add_buff(buff: BuffBase):
 	else:
 		# Ini adalah boon stat normal
 		list_of_buffs.append(buff)
+		RewardManager.register_boon_as_collected(buff)
 		_calculate_all() # Hitung ulang stat
 
 func remove_buff(buff_type: String):
@@ -93,16 +94,21 @@ func _handle_cinderella_effect(buff: BuffCinderella):
 	_calculate_all() # Hitung ulang setelah selesai
 
 func _trade_and_gain_buffs(trade_count: int, gain_count: int):
+	print("CINDERELLA: Midnight Bargain! Menukar %s boon..." % trade_count)
 	for i in range(trade_count):
 		if list_of_buffs.size() > 0:
 			var idx = randi_range(0, list_of_buffs.size() - 1)
-			list_of_buffs.remove_at(idx)
+			var removed_boon = list_of_buffs.pop_at(idx)
+			print("Boon dihapus: ", removed_boon.boon_name)
+			
 	_gain_random_buffs(gain_count) # Panggil fungsi di bawah
 
 func _gain_random_buffs(amount: int):
+	print("CINDERELLA: Mendapat %s boon baru!" % amount)
 	for i in range(amount):
-		list_of_buffs.append(_create_random_buff())
-	# (Jangan panggil _calculate_all() di sini, panggil di 'add_buff' saja)
+		var new_boon = _create_random_buff(["Cinderella"])
+		list_of_buffs.append(new_boon)
+		RewardManager.register_boon_as_collected(new_boon)
 
 func _reroll_all_buffs():
 	var new_buff_count = list_of_buffs.size()
@@ -111,12 +117,40 @@ func _reroll_all_buffs():
 		list_of_buffs.append(_create_random_buff())
 
 func _trade_for_specific():
-	# (Logika untuk 'Glass Slipper')
+	print("CINDERELLA: Glass Slipper!")
+	# 1. Hapus 1 boon acak
+	if list_of_buffs.size() > 0:
+		var idx = randi_range(0, list_of_buffs.size() - 1)
+		list_of_buffs.remove_at(idx)
+	
+	# 2. TODO: Tampilkan UI Pemilihan Giver
+	#    Ini adalah bagian yang rumit karena memerlukan UI.
+	#    Untuk sekarang, kita buat dia memberi 1 boon acak (sebagai fallback).
+	print("LOGIKA 'GLASS SLIPPER' BELUM DIBUAT (PERLU UI). Memberi 1 boon acak...")
+	_gain_random_buffs(1)
+	
 	pass
-
 func _trade_all_for_hp():
-	# (Logika untuk 'Rags to Riches')
-	pass
+	print("CINDERELLA: Rags to Riches!")
+	var boon_count = list_of_buffs.size()
+	
+	if boon_count == 0:
+		print("...Tidak ada boon untuk ditukar. Dapat +5 HP sebagai hiburan.")
+		base_stats.hp += 5 # (Hadiah hiburan)
+	else:
+		print("Menukar %s boon untuk HP..." % boon_count)
+		
+		list_of_buffs.clear()
+		
+		var hp_gain = boon_count * 30
+		
+		base_stats.hp += hp_gain
+		
+		var health_manager = get_parent().get_node("HealthManager")
+		if is_instance_valid(health_manager):
+			health_manager.heal(hp_gain)
+			
+	print("HP Max baru: ", base_stats.hp)
 
 func _on_enemy_killed():
 	if current_stats.frenzy_duration == 0.0:

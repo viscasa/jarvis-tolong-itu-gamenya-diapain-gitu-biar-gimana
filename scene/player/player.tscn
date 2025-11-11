@@ -1,7 +1,6 @@
-[gd_scene load_steps=333 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=331 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
-[ext_resource type="Script" uid="uid://bbblhenvfrwdq" path="res://script/player/boons/wizard_boon.gd" id="2_2rx5w"]
 [ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
 [ext_resource type="Texture2D" uid="uid://vsl2x1n0glx4" path="res://assets/player/cast/cast_e.png" id="2_nrjwp"]
 [ext_resource type="Texture2D" uid="uid://c3ignf8uxrhyu" path="res://assets/player/dash/dash_e.png" id="2_xwoaf"]
@@ -52,11 +51,6 @@
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
 [ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
 [ext_resource type="PackedScene" uid="uid://buh1lj7tdd2r3" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
-
-[sub_resource type="Resource" id="Resource_i4afv"]
-script = ExtResource("2_2rx5w")
-boon_type = 1
-metadata/_custom_type_script = "uid://bbblhenvfrwdq"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymral"]
 atlas = ExtResource("2_nrjwp")
@@ -2189,8 +2183,6 @@ wall_min_slide_angle = 1.5707964
 floor_constant_speed = true
 safe_margin = 0.6
 script = ExtResource("1_cm2cf")
-debug_boon_to_add = SubResource("Resource_i4afv")
-debug_add_boon_now = true
 
 [node name="GhostTimer" type="Timer" parent="."]
 wait_time = 0.07

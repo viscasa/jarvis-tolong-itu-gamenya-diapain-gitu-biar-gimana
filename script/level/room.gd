@@ -10,7 +10,7 @@ class_name Room
 @onready var reward_spawn_position: Marker2D = $RewardSpawnPosition
 @onready var wave_spawner: Node2D = $WaveSpawners
 @onready var door_container: Node2D = $DoorContainer
-
+@export var boon_pickup: Area2D
 var current_wave_index: int = 0
 var enemies_remaining_in_wave: int = 0
 var is_cleared: bool = false
@@ -21,11 +21,11 @@ var waves: Array[Node]
 func _ready():
 	waves = wave_spawners.get_children()
 	var player = player_scene.instantiate()
-	add_child(player)
 	player.global_position = player_spawn_position.global_position
+	add_child(player)
 	_lock_all_doors()
 	_start_wave(current_wave_index)
-
+	_spawn_reward()
 
 func _start_wave(index: int):
 	print("wave " + str(index))
@@ -63,12 +63,19 @@ func _on_all_waves_cleared():
 
 
 func _spawn_reward():
-	if not reward_scene:
+	var reward_id_to_spawn = RewardManager.next_reward_id
+	if reward_id_to_spawn == "":
+		print("Tidak ada hadiah yang dijadwalkan untuk ruangan ini (Room 1).")
 		return
 
-	var reward = reward_scene.instantiate()
-	add_child(reward)
-	reward.global_position = reward_spawn_position.global_position
+	if not boon_pickup:
+		print("ERROR: 'Boon Pickup Scene' belum di-set di Room.gd Inspector!")
+		return
+			
+	
+	boon_pickup.set_boon_giver_id(reward_id_to_spawn)
+	
+	RewardManager.next_reward_id = ""
 
 func _lock_all_doors():
 	for door in door_container.get_children():

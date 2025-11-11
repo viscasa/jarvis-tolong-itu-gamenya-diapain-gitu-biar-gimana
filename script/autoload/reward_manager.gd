@@ -1,19 +1,40 @@
 extends Node
 
-var next_reward_id: String = ""
+var next_reward_id: String = "pig"
 
 var reward_database: Dictionary = {
 	"cinderella": {
-		#TODO: buat scene masing masing boon
-		#"scene": preload("res://Rewards/BoonCinderella.tscn"),
-		"icon": "res://assets/temp/0f93f5d0b8f66f7070cb88e3c2922be7.jpg"
+		"icon": "res://assets/temp/0f93f5d0b8f66f7070cb88e3c2922be7.jpg",
+		"boon_folder_path": "res://script/player/boons/cinderella/"
 	},
 	"red_riding_hood": {
-		"icon": "res://assets/temp/download.png"
-		#"scene": 
+		"icon": "res://assets/temp/download.png",
+		"boon_folder_path": "res://script/player/boons/hood/"
 	},
-	#TODO semua boon
+	#TODO icon beneran
+	"rabbit": { 
+		"icon": "res://icon.svg",
+		"boon_folder_path": "res://script/player/boons/rabbit/"
+	},
+	"wizard": {
+		"icon": "res://icon.svg",
+		"boon_folder_path": "res://script/player/boons/wizard/"
+	},
+	"pig": {
+		"icon": "res://icon.svg",
+		"boon_folder_path": "res://script/player/boons/pig/"
+	}
 }
+
+var collected_boon_paths: Array[String] = []
+
+func register_boon_as_collected(boon: BuffBase):
+	if boon.resource_path and not boon.resource_path in collected_boon_paths:
+		collected_boon_paths.append(boon.resource_path)
+		print("Boon dikoleksi: ", boon.resource_path)
+
+func reset_collected_boons():
+	collected_boon_paths.clear()
 
 func get_random_reward_choices(amount: int):
 	var all_rewards = reward_database.keys()
@@ -23,4 +44,35 @@ func get_random_reward_choices(amount: int):
 func get_reward_data(id: String):
 	if reward_database.has(id):
 		return reward_database[id]
-	return null 
+	return null
+
+func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
+	var giver_data = get_reward_data(boon_giver_id)
+	if not giver_data or not giver_data.has("boon_folder_path"):
+		print("ERROR: Boon Giver ID tidak valid: ", boon_giver_id)
+		return []
+
+	var boon_folder_path = giver_data.boon_folder_path
+	var available_boons: Array[BuffBase] = []
+
+	var dir = DirAccess.open(boon_folder_path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		
+		while file_name != "":
+			if file_name.ends_with(".tres"):
+				var full_path = boon_folder_path + file_name
+				
+				if not full_path in collected_boon_paths:
+					var boon_res = load(full_path)
+					if boon_res:
+						available_boons.append(boon_res)
+						
+			file_name = dir.get_next()
+	else:
+		print("ERROR: Tidak bisa membuka folder boon: ", boon_folder_path)
+
+	available_boons.shuffle()
+	
+	return available_boons.slice(0, amount)

@@ -3,20 +3,20 @@ class_name BuffPig
 
 
 enum BoonType { 
-	GRANDMAS_REVENGE, 
-	WOLFS_GRIN, 
-	HUNTERS_HASTE, 
-	WHAT_BIG_EYES, 
-	PICNIC_BASKET 
+	HOUSE_OF_BRICK,
+	PIGS_FEAST,
+	HOUSE_OF_STICKS,
+	HOUSE_OF_STRAW,
+	BIG_BAD_BARGAIN
 }
-@export var boon_type: BoonType = BoonType.GRANDMAS_REVENGE:
+@export var boon_type: BoonType = BoonType.HOUSE_OF_BRICK:
 	set(value):
 		boon_type = value
 		_generate_boon() # Panggil ini saat 'boon_type' diubah di Inspector
 # ---------------------------------------------------
 
 func _init():
-	buff_type = "Hood"
+	buff_type = "Pig"
 	# Panggil _generate_boon() saat pertama kali dibuat
 	_generate_boon()
 
@@ -26,11 +26,11 @@ func _generate_boon():
 	modifier.op_modes = {}
 	
 	match boon_type:
-		BoonType.GRANDMAS_REVENGE: _load_type_1()
-		BoonType.WOLFS_GRIN: _load_type_2()
-		BoonType.HUNTERS_HASTE: _load_type_3()
-		BoonType.WHAT_BIG_EYES: _load_type_4()
-		BoonType.PICNIC_BASKET: _load_type_5()
+		BoonType.HOUSE_OF_BRICK: _load_type_1()
+		BoonType.PIGS_FEAST: _load_type_2()
+		BoonType.HOUSE_OF_STICKS: _load_type_3()
+		BoonType.HOUSE_OF_STRAW: _load_type_4()
+		BoonType.BIG_BAD_BARGAIN: _load_type_5()
 	
 	time_left = duration
 
