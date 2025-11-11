@@ -47,6 +47,20 @@ func get_reward_data(id: String):
 	return null
 
 func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
+	if boon_giver_id == "cinderella":
+		var cinderella_choices: Array[BuffBase] = []
+		var chosen_effect_ids: Array[int] = [] 
+		
+		for i in range(amount):
+			var boon = BuffCinderella.new()
+			
+			while boon.effect_id in chosen_effect_ids:
+				print("Cinderella duplicate found (ID: %s). Re-rolling..." % boon.effect_id)
+				boon = BuffCinderella.new()
+			chosen_effect_ids.append(boon.effect_id)
+			cinderella_choices.append(boon)
+			
+		return cinderella_choices
 	var giver_data = get_reward_data(boon_giver_id)
 	if not giver_data or not giver_data.has("boon_folder_path"):
 		print("ERROR: Boon Giver ID tidak valid: ", boon_giver_id)

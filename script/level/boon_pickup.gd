@@ -6,6 +6,7 @@ var boon_giver_id: String = ""
 var selection_screen_scene = preload("res://scene/menu/boon_selection_screen.tscn")
 @onready var sprite_1: Sprite2D = $Sprite1
 @onready var sprite_2: Sprite2D = $Sprite2
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 func _ready():
 	if (sprite == 0):
@@ -15,10 +16,8 @@ func _ready():
 		sprite_1.hide()
 		sprite_2.show()
 	body_entered.connect(_on_body_entered)
-
 func set_boon_giver_id(id: String):
 	boon_giver_id = id
-
 func _on_body_entered(body):
 	if body is Player:
 		print("Membuka UI Pilihan Boon untuk: ", boon_giver_id)

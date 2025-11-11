@@ -29,6 +29,7 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var circle_timing: Node2D = $CircleTiming
 @onready var phasing_ray: RayCast2D = $Raycast/PhasingRay
 @onready var raycast: Node2D = $Raycast
+@onready var camera: Camera2D = $Camera2D
 signal possessed(target)
 
 var is_locked_out := false
@@ -101,7 +102,7 @@ func _on_buffs_updated(new_stats: PlayerModifier):
 	# (Kita akan modifikasi _process_movement di bawah)
 		
 	print("STATS UPDATED: HP = ", new_stats.hp, ", Dash Cost = ", super_dash.super_dash_recharge_needed)
-func _on_player_died():
+func _on_player_died(): #TODO
 	# (Logika Resurrection/kebangkitan sudah ditangani di HealthManager)
 	print("PLAYER MATI")
 	# (Tambahkan logika game over di sini

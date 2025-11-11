@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dvwpj2sid3lxf" path="res://assets/tile_assets/Reruntuhan kastil/Untitled551_20251109200738.png" id="5_mk6ml"]
 
 [node name="TestRoom" node_paths=PackedStringArray("boon_pickup") instance=ExtResource("1_62bwq")]
-process_mode = 3
 boon_pickup = NodePath("BoonPickup")
 
 [node name="Ground" parent="." index="0"]
@@ -22,16 +21,26 @@ position = Vector2(-208, 182)
 [node name="EnemySpawner4" type="Marker2D" parent="WaveSpawners/Wave1" index="0"]
 position = Vector2(249, 86)
 script = ExtResource("2_lvruv")
-ENEMY_TYPE = 2
+ENEMY_TYPE = 1
+metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
+
+[node name="EnemySpawner5" type="Marker2D" parent="WaveSpawners/Wave1" index="1"]
+position = Vector2(249, 86)
+script = ExtResource("2_lvruv")
+ENEMY_TYPE = 1
+metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
+
+[node name="EnemySpawner6" type="Marker2D" parent="WaveSpawners/Wave1" index="2"]
+position = Vector2(249, 86)
+script = ExtResource("2_lvruv")
+ENEMY_TYPE = 1
 metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
 
 [node name="Door" parent="DoorContainer" index="0" instance=ExtResource("2_rsrfk")]
 position = Vector2(-223, 2)
-next_scene_path = ""
 
 [node name="Door2" parent="DoorContainer" index="1" instance=ExtResource("2_rsrfk")]
 position = Vector2(217, -27)
-next_scene_path = ""
 
 [node name="Pillar" type="Sprite2D" parent="." index="8"]
 y_sort_enabled = true

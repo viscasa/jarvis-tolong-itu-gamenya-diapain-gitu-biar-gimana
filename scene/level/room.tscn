@@ -764,6 +764,8 @@ tile_set = SubResource("TileSet_x430p")
 [node name="PlayerSpawnPosition" type="Marker2D" parent="."]
 y_sort_enabled = true
 
+[node name="Player" parent="PlayerSpawnPosition" instance=ExtResource("2_3xw8e")]
+
 [node name="RewardSpawnPosition" type="Marker2D" parent="."]
 y_sort_enabled = true
 

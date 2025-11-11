@@ -24,7 +24,7 @@ func add_buff(buff: BuffBase):
 		
 	elif buff.buff_type == "Pig" and buff.modifier.ressurection == 9999: # (Contoh ID untuk Pig's Feast)
 		# Ini adalah Pig's Feast (Heal to Full)
-		var player_stats = get_parent().get_node("Stats") # Asumsi Stats di Player
+		var player_stats = get_parent().get_node("HealthManager") # Asumsi Stats di Player
 		player_stats.current_health = player_stats.max_health
 		# Jangan tambahkan ke list, ini efek instan
 	
@@ -81,57 +81,73 @@ func _handle_cinderella_effect(buff: BuffCinderella):
 		1:
 			_trade_and_gain_buffs(1, 2) # (Sesuai ide baru Anda)
 		2:
-			_gain_random_buffs(3) # (Sesuai ide baru Anda)
+			_trade_for_specific() # (Glass Slipper)
 		3:
 			_reroll_all_buffs()
 		4:
-			_trade_for_specific() # (Glass Slipper)
-		5:
 			_trade_all_for_hp() # (Rags to Riches)
+		5:
+			_gain_random_buffs(3) # (Sesuai ide baru Anda)
 	
 	# Boon Cinderella adalah instan, langsung hapus
 	# remove_buff(buff.buff_type) # (Hati-hati, ini akan menghapus SEMUA buff Cinderella)
-	_calculate_all() # Hitung ulang setelah selesai
+	_calculate_all() 
 
 func _trade_and_gain_buffs(trade_count: int, gain_count: int):
-	print("CINDERELLA: Midnight Bargain! Menukar %s boon..." % trade_count)
+	print("--- CINDERELLA: Midnight Bargain! ---")
+	print("Menukar %s boon acak..." % trade_count)
 	for i in range(trade_count):
 		if list_of_buffs.size() > 0:
 			var idx = randi_range(0, list_of_buffs.size() - 1)
 			var removed_boon = list_of_buffs.pop_at(idx)
-			print("Boon dihapus: ", removed_boon.boon_name)
+			print("  Boon dihapus: ", removed_boon.boon_name)
 			
 	_gain_random_buffs(gain_count) # Panggil fungsi di bawah
 
 func _gain_random_buffs(amount: int):
-	print("CINDERELLA: Mendapat %s boon baru!" % amount)
-	for i in range(amount):
-		var new_boon = _create_random_buff(["Cinderella"])
+	print("Mendapat %s boon baru!" % amount)
+	var pool = _get_full_boon_pool(["Cinderella"])
+	var new_boons = _get_random_buffs_from_pool(amount, pool)
+	
+	if new_boons.is_empty():
+		print("... Tidak ada boon baru yang tersedia!")
+		return
+	for new_boon in new_boons:
 		list_of_buffs.append(new_boon)
 		RewardManager.register_boon_as_collected(new_boon)
+		print("  Boon didapat: ", new_boon.boon_name)
 
 func _reroll_all_buffs():
+	print("--- CINDERELLA: Fairy Godmother’s Wish! ---")
 	var new_buff_count = list_of_buffs.size()
-	list_of_buffs.clear()
-	for i in range(new_buff_count):
-		list_of_buffs.append(_create_random_buff())
+	print("Menghapus %s boon dan menggantinya..." % new_buff_count)
+	list_of_buffs.clear() # Hapus semua
+	
+	# Buat pool baru
+	var pool = _get_full_boon_pool(["Cinderella"])
+	var new_boons = _get_random_buffs_from_pool(new_buff_count, pool)
+
+	# Tambahkan boon baru
+	for new_boon in new_boons:
+		list_of_buffs.append(new_boon)
+		print("  Boon baru: ", new_boon.boon_name)
 
 func _trade_for_specific():
-	print("CINDERELLA: Glass Slipper!")
-	# 1. Hapus 1 boon acak
+	print("--- CINDERELLA: Glass Slipper! ---")
 	if list_of_buffs.size() > 0:
 		var idx = randi_range(0, list_of_buffs.size() - 1)
-		list_of_buffs.remove_at(idx)
+		var removed_boon = list_of_buffs.pop_at(idx)
+		print("  Boon dihapus: ", removed_boon.boon_name)
 	
-	# 2. TODO: Tampilkan UI Pemilihan Giver
-	#    Ini adalah bagian yang rumit karena memerlukan UI.
-	#    Untuk sekarang, kita buat dia memberi 1 boon acak (sebagai fallback).
+	# TODO: Tampilkan UI Pemilihan Giver
 	print("LOGIKA 'GLASS SLIPPER' BELUM DIBUAT (PERLU UI). Memberi 1 boon acak...")
 	_gain_random_buffs(1)
-	
 	pass
+	
+
 func _trade_all_for_hp():
-	print("CINDERELLA: Rags to Riches!")
+	print("--- CINDERELLA: Rags to Riches! ---")
+	# 1. Hitung jumlah boon yang akan ditukar
 	var boon_count = list_of_buffs.size()
 	
 	if boon_count == 0:
@@ -140,12 +156,17 @@ func _trade_all_for_hp():
 	else:
 		print("Menukar %s boon untuk HP..." % boon_count)
 		
+		# 2. Hapus semua boon
 		list_of_buffs.clear()
 		
-		var hp_gain = boon_count * 30
+		# 3. Hitung HP yang didapat
+		var hp_gain = boon_count * 2 # (+2 Max HP per boon)
 		
+		# 4. Tambahkan ke BASE STATS
+		# (PENTING: Kita modifikasi 'base_stats', bukan 'current_stats')
 		base_stats.hp += hp_gain
 		
+		# 5. Langsung heal player sejumlah HP yang didapat
 		var health_manager = get_parent().get_node("HealthManager")
 		if is_instance_valid(health_manager):
 			health_manager.heal(hp_gain)
@@ -190,3 +211,40 @@ func _on_enemy_killed():
 func _on_frenzy_timer_timeout():
 	print("Frenzy timer timeout. Reset kill count.")
 	frenzy_kill_count = 0
+
+func _get_full_boon_pool(exclude_givers: Array[String] = []) -> Array[BuffBase]:
+	var full_pool: Array[BuffBase] = []
+	
+	var giver_pool = [BuffRabbit, BuffHood, BuffWizard, BuffPig]
+	giver_pool = giver_pool.filter(func(buff_class): return buff_class.new().buff_type not in exclude_givers)
+	
+	for giver_class in giver_pool:
+		for i in 5:
+			var boon = giver_class.new()
+			boon.boon_type = i 
+			boon._generate_boon() 
+			full_pool.append(boon)
+			
+	return full_pool
+
+func _get_random_buffs_from_pool(amount: int, pool: Array[BuffBase]) -> Array[BuffBase]:
+	var chosen_boons: Array[BuffBase] = []
+	
+	# Filter boon yang sudah dimiliki dari pool
+	var available_pool = []
+	var collected_names = []
+	for buff in list_of_buffs:
+		collected_names.append(buff.boon_name)
+		
+	for boon in pool:
+		if not boon.boon_name in collected_names:
+			available_pool.append(boon)
+			
+	# Acak pool yang tersedia
+	available_pool.shuffle()
+	
+	# Ambil 'amount'
+	for i in range(min(amount, available_pool.size())):
+		chosen_boons.append(available_pool[i])
+		
+	return chosen_boons
