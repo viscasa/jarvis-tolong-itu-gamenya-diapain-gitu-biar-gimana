@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BuffPig" load_steps=2 format=3 uid="uid://dcl4xilfnfwqf"]
+
+[ext_resource type="Script" uid="uid://ck60wmow0xss7" path="res://script/player/boons/pig/pig_boon.gd" id="1_p8axc"]
+
+[resource]
+script = ExtResource("1_p8axc")
+boon_type = 3
+buff_type = "Pig"
+metadata/_custom_type_script = "uid://ck60wmow0xss7"

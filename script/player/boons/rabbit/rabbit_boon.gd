@@ -2,20 +2,20 @@ extends BuffBase
 class_name BuffRabbit
 
 enum BoonType { 
-	GRANDMAS_REVENGE, 
-	WOLFS_GRIN, 
-	HUNTERS_HASTE, 
-	WHAT_BIG_EYES, 
-	PICNIC_BASKET 
+	FLUFFY_TAIL, 
+	STOLEN_CARROTS, 
+	QUICK_GETAWAY, 
+	LUCKY_FOOT, 
+	SOFT_FUR,
 }
-@export var boon_type: BoonType = BoonType.GRANDMAS_REVENGE:
+@export var boon_type: BoonType = BoonType.FLUFFY_TAIL:
 	set(value):
 		boon_type = value
 		_generate_boon() # Panggil ini saat 'boon_type' diubah di Inspector
 # ---------------------------------------------------
 
 func _init():
-	buff_type = "Hood"
+	buff_type = "Rabbit"
 	# Panggil _generate_boon() saat pertama kali dibuat
 	_generate_boon()
 
@@ -25,11 +25,11 @@ func _generate_boon():
 	modifier.op_modes = {}
 	
 	match boon_type:
-		BoonType.GRANDMAS_REVENGE: _load_type_1()
-		BoonType.WOLFS_GRIN: _load_type_2()
-		BoonType.HUNTERS_HASTE: _load_type_3()
-		BoonType.WHAT_BIG_EYES: _load_type_4()
-		BoonType.PICNIC_BASKET: _load_type_5()
+		BoonType.FLUFFY_TAIL: _load_type_1()
+		BoonType.STOLEN_CARROTS: _load_type_2()
+		BoonType.QUICK_GETAWAY: _load_type_3()
+		BoonType.LUCKY_FOOT: _load_type_4()
+		BoonType.SOFT_FUR: _load_type_5()
 	
 	time_left = duration
 # Fluffy Tail: + Max HP

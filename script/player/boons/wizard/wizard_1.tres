@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BuffWizard" load_steps=2 format=3 uid="uid://dxnvmbuggn2gk"]
+
+[ext_resource type="Script" uid="uid://bbblhenvfrwdq" path="res://script/player/boons/wizard/wizard_boon.gd" id="1_aa6qg"]
+
+[resource]
+script = ExtResource("1_aa6qg")
+buff_type = "Wizard"
+metadata/_custom_type_script = "uid://bbblhenvfrwdq"

@@ -1,7 +1,7 @@
 [gd_scene load_steps=167 format=3 uid="uid://yncml2ptnko7"]
 
 [ext_resource type="Script" uid="uid://do6lcn32wdt8o" path="res://script/level/room.gd" id="1_6ar0q"]
-[ext_resource type="PackedScene" uid="uid://b3u7tweqyptsp" path="res://scene/player/player.tscn" id="2_3xw8e"]
+[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="2_3xw8e"]
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="2_cupyr"]
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="3_3xw8e"]
 [ext_resource type="Texture2D" uid="uid://qmbf804desic" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0192.png" id="4_7pugk"]

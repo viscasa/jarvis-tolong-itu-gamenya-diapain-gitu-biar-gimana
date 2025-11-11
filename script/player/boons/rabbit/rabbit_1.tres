@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BuffRabbit" load_steps=2 format=3 uid="uid://dw47hg6khpn3i"]
+
+[ext_resource type="Script" uid="uid://clbe16ihsu5x3" path="res://script/player/boons/rabbit/rabbit_boon.gd" id="1_h7a17"]
+
+[resource]
+script = ExtResource("1_h7a17")
+buff_type = "Rabbit"
+metadata/_custom_type_script = "uid://clbe16ihsu5x3"

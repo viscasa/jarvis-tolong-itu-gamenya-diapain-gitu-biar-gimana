@@ -365,29 +365,7 @@ func _get_direction_suffix(direction: Vector2) -> String:
 	
 	return "S" # Fallback default
 
-@export var debug_boon_to_add: BuffBase = null
 
-@export var debug_add_boon_now: bool = false:
-	set(value):
-		if value == true:
-			if is_instance_valid(debug_boon_to_add):
-				call_deferred("_debug_add_boon", debug_boon_to_add)
-			else:
-				print("DEBUG: Slot 'Debug Boon To Add' masih kosong!")
-		# (Kita tidak set 'false' agar kotak centang tidak langsung mati)
-func _debug_add_boon(boon_res: BuffBase):
-	print("===============================")
-	print("DEBUG: Menambah Boon: ", boon_res.resource_path)
-	
-	# PENTING: Duplikasi resource agar kita tidak mengubah file .tres aslinya
-	var new_boon = boon_res
-	buff_manager.add_buff(new_boon)
-	print("Boon: [", new_boon.buff_type, "] ", new_boon.boon_name)
-	print("Desc: ", new_boon.boon_description)
-	print("--- STATS PLAYER TERBARU ---")
-	print("  HP Max: ", buff_manager.current_stats.hp)
-	print("  DMG Skill Curian: ", buff_manager.current_stats.borrowed_damage)
-	print("===============================")
 
 
 # --- TAMBAHAN: Callback untuk sinyal animation_finished ---
@@ -400,11 +378,8 @@ func _on_animation_finished() -> void:
 # --- AKHIR TAMBAHAN ---
 
 func _on_stolen_skill_used():
-	# Ambil stat terbaru
 	var stats = buff_manager.current_stats
 	
-	# Cek boon "Astral Shield"
 	if stats.shield_on_skill_use > 0:
 		print("ASTRAL SHIELD!")
-		# Suruh HealthManager membuat shield
 		health_manager.add_shield(stats.shield_on_skill_use)

@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5wke8t1fi4wv"]
+
+[ext_resource type="PackedScene" uid="uid://e3ps8cueughe" path="res://scene/menu/boon_choice_button.tscn" id="1_grxvn"]
+[ext_resource type="Script" uid="uid://c2bcy0ag3r6yv" path="res://script/menu/boon_selection_screen.gd" id="1_iw46c"]
+
+[node name="BoonSelectionScreen" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_iw46c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 88.0
+offset_top = 76.0
+offset_right = 1086.0
+offset_bottom = 565.0
+color = Color(0, 0, 0, 0.3372549)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="ChoiceContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(500, 450)
+layout_mode = 2
+theme_override_constants/separation = 70
+alignment = 1
+
+[node name="BoonChoiceButton" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
+layout_mode = 2
+
+[node name="BoonChoiceButton2" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
+layout_mode = 2
+
+[node name="BoonChoiceButton3" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
+layout_mode = 2

@@ -3,20 +3,20 @@ class_name BuffWizard
 
 
 enum BoonType { 
-	GRANDMAS_REVENGE, 
-	WOLFS_GRIN, 
-	HUNTERS_HASTE, 
-	WHAT_BIG_EYES, 
-	PICNIC_BASKET 
+	MASTERS_CUT, 
+	ETHEREAL_STRIDE, 
+	ARCANE_ECHO, 
+	CHAIN_SHOT, 
+	ASTRAL_SHIELD 
 }
-@export var boon_type: BoonType = BoonType.GRANDMAS_REVENGE:
+@export var boon_type: BoonType = BoonType.MASTERS_CUT:
 	set(value):
 		boon_type = value
 		_generate_boon() # Panggil ini saat 'boon_type' diubah di Inspector
 # ---------------------------------------------------
 
 func _init():
-	buff_type = "Hood"
+	buff_type = "Wizard"
 	# Panggil _generate_boon() saat pertama kali dibuat
 	_generate_boon()
 
@@ -26,11 +26,11 @@ func _generate_boon():
 	modifier.op_modes = {}
 	
 	match boon_type:
-		BoonType.GRANDMAS_REVENGE: _load_type_1()
-		BoonType.WOLFS_GRIN: _load_type_2()
-		BoonType.HUNTERS_HASTE: _load_type_3()
-		BoonType.WHAT_BIG_EYES: _load_type_4()
-		BoonType.PICNIC_BASKET: _load_type_5()
+		BoonType.MASTERS_CUT: _load_type_1()
+		BoonType.ETHEREAL_STRIDE: _load_type_2()
+		BoonType.ARCANE_ECHO: _load_type_3()
+		BoonType.CHAIN_SHOT: _load_type_4()
+		BoonType.ASTRAL_SHIELD: _load_type_5()
 	
 	time_left = duration
 
