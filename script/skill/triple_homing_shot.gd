@@ -37,13 +37,17 @@ func shoot_projectiles() -> void:
 	_fire_one_projectile(initial_dir.rotated(-spread_angle), stats) # Kiri
 	_fire_one_projectile(initial_dir.rotated(spread_angle), stats) # Kanan
 	
-	# --- Terapkan Boon "Arcane Echo" ---
-	if randf() < stats.skill_echo_chance: # (Jika 25%)
-		print("ARCANE ECHO! (Triple Shot)")
-		# Tembakkan 3 peluru lagi
-		_fire_one_projectile(initial_dir.rotated(0.1), stats)
-		_fire_one_projectile(initial_dir.rotated(-spread_angle + 0.1), stats)
-		_fire_one_projectile(initial_dir.rotated(spread_angle + 0.1), stats)
+	# Dapatkan jumlah peluru dari boon
+	var bullet_multiplier = stats.bullet_multiplier
+	
+	# Loop berdasarkan 'bullet_multiplier'
+	for i in range(bullet_multiplier):
+		# Beri sedikit offset acak untuk 'echo'
+		var offset_angle = 0.1 * i
+		
+		_fire_one_projectile(initial_dir.rotated(offset_angle), stats) # Lurus
+		_fire_one_projectile(initial_dir.rotated(-spread_angle + offset_angle), stats) # Kiri
+		_fire_one_projectile(initial_dir.rotated(spread_angle + offset_angle), stats) # Kanan
 
 # --- PERBAIKAN: Fungsi ini perlu 'stats' ---
 func _fire_one_projectile(direction: Vector2, stats: PlayerModifier):

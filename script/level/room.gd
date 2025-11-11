@@ -42,9 +42,12 @@ func _start_wave(index: int):
 	if enemies_remaining_in_wave == 0:
 		_on_enemy_died() 
 		return
-
+	
+	var id = 0
 	for spawner: EnemySpawner in enemy_spawner:
 		var enemy = spawner.spawn_enemy()
+		enemy.name += str(id)
+		id += 1
 		enemy_container.add_child(enemy)
 		enemy.global_position = spawner.global_position
 		enemy.stats.no_health.connect(_on_enemy_died)

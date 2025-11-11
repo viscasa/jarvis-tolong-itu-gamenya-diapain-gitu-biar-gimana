@@ -1,9 +1,9 @@
 [gd_scene load_steps=330 format=3 uid="uid://b3u7tweqyptsp"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
-[ext_resource type="Script" uid="uid://clbe16ihsu5x3" path="res://script/player/boons/rabbit_boon.gd" id="2_0oa35"]
 [ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
 [ext_resource type="Texture2D" uid="uid://vsl2x1n0glx4" path="res://assets/player/cast/cast_e.png" id="2_nrjwp"]
+[ext_resource type="Script" uid="uid://bbblhenvfrwdq" path="res://script/player/boons/wizard_boon.gd" id="2_qehiv"]
 [ext_resource type="Texture2D" uid="uid://c3ignf8uxrhyu" path="res://assets/player/dash/dash_e.png" id="2_xwoaf"]
 [ext_resource type="Texture2D" uid="uid://cqapiuwv0omy6" path="res://assets/player/dash/dash_n.png" id="3_8yg4a"]
 [ext_resource type="Texture2D" uid="uid://2rkinw1mfbpt" path="res://assets/player/cast/cast_n.png" id="3_mwak4"]
@@ -50,12 +50,12 @@
 [ext_resource type="Texture2D" uid="uid://it7n537h8lfp" path="res://assets/player/run/run_sw.png" id="16_lfqc2"]
 [ext_resource type="Texture2D" uid="uid://d2l7pbo0n1p3l" path="res://assets/player/run/run_w.png" id="17_yw1hm"]
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
-[ext_resource type="Script" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
+[ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
 
-[sub_resource type="Resource" id="Resource_0oa35"]
-script = ExtResource("2_0oa35")
+[sub_resource type="Resource" id="Resource_2rx5w"]
+script = ExtResource("2_qehiv")
 boon_type = 2
-metadata/_custom_type_script = "uid://clbe16ihsu5x3"
+metadata/_custom_type_script = "uid://bbblhenvfrwdq"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymral"]
 atlas = ExtResource("2_nrjwp")
@@ -2183,7 +2183,7 @@ wall_min_slide_angle = 1.5707964
 floor_constant_speed = true
 safe_margin = 0.6
 script = ExtResource("1_cm2cf")
-debug_boon_to_add = SubResource("Resource_0oa35")
+debug_boon_to_add = SubResource("Resource_2rx5w")
 
 [node name="GhostTimer" type="Timer" parent="."]
 wait_time = 0.07

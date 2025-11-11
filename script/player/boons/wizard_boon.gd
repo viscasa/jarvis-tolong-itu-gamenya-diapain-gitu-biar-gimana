@@ -51,9 +51,9 @@ func _load_type_2():
 # Arcane Echo: Double-cast chance
 func _load_type_3():
 	boon_name = "Arcane Echo"
-	boon_description = "Your stolen skills have a 25% chance to trigger twice."
-	modifier.skill_echo_chance = 0.25
-	modifier.set_mode("skill_echo_chance", "add")
+	boon_description = "Your stolen shooting skills have twice the bullets."
+	modifier.bullet_multiplier = 2
+	modifier.set_mode("bullet_multiplier", "multiply")
 
 # Chain Shot: Homing bounces
 func _load_type_4():
