@@ -43,7 +43,3 @@ func _state_attack(delta):
 	var requested_velocity = velocity.lerp(target_velocity, 15.0 * delta)
 	nav_agent.set_velocity(requested_velocity)
 	
-	if is_instance_valid(player_target):
-		var direction_to_player = sign(player_target.global_position.x - global_position.x)
-		if direction_to_player != 0:
-			animated_sprite.flip_h = direction_to_player < 0

@@ -10,7 +10,24 @@ enum AttackSubState { RELOADING, WANDERING }
 var _attack_sub_state: AttackSubState = AttackSubState.RELOADING
 var _attack_state_timer: float = 0.0
 var _wander_target_pos: Vector2 = Vector2.ZERO
-
+@onready var west: Marker2D = $BulletPosition/West
+@onready var south_west: Marker2D = $BulletPosition/SouthWest
+@onready var east: Marker2D = $BulletPosition/East
+@onready var south_east: Marker2D = $BulletPosition/SouthEast
+@onready var north_east: Marker2D = $BulletPosition/NorthEast
+@onready var north_west: Marker2D = $BulletPosition/NorthWest
+@onready var south: Marker2D = $BulletPosition/South
+@onready var north: Marker2D = $BulletPosition/North
+@onready var bullet_spawn_points: Dictionary = {
+	"N": $BulletPosition/North,
+	"NE": $BulletPosition/NorthEast,
+	"E": $BulletPosition/East,
+	"SE": $BulletPosition/SouthEast,
+	"S": $BulletPosition/South,
+	"SW": $BulletPosition/SouthWest,
+	"W": $BulletPosition/West,
+	"NW": $BulletPosition/NorthWest
+}
 
 func _state_chase(delta):
 	if is_in_knockback:
@@ -42,36 +59,38 @@ func _state_chase(delta):
 	
 	nav_agent.set_velocity(requested_velocity)
 	
-	if velocity.x != 0:
-		animated_sprite.flip_h = (velocity.x < 0)
 
 
 func _perform_attack():
-	#animated_sprite.play("attack")
 	if not is_instance_valid(player_target): return
 	var dir_to_player:Vector2 = global_position.direction_to(player_target.global_position)
-	
 	if dir_to_player == Vector2.ZERO :
 		dir_to_player = Vector2.RIGHT
 	
-	if dir_to_player.x != 0:
-		animated_sprite.flip_h = (dir_to_player.x < 0)
+	last_move_direction = dir_to_player
+	is_attacking = true
+
+	var direction_suffix = _get_direction_suffix(dir_to_player)
+	var spawn_marker = bullet_spawn_points.get(direction_suffix)
+	#await animated_sprite.animation_finished	
+	if not is_instance_valid(spawn_marker):
+		print("ERROR: Marker %s tidak ditemukan!" % direction_suffix)
+		spawn_marker = self # Fallback: spawn di tengah musuh
 	
 	if projectile_scene:
 		var proj = projectile_scene.instantiate()
 		get_parent().add_child(proj)
-		proj.global_position = global_position
+		proj.global_position = spawn_marker.global_position # Gunakan posisi Marker
 		proj.direction = dir_to_player
 		proj.damage = stats.get_final_damage()
 	else:
 		print("ERROR: Projectile Scene belum di-set di " + name)
 	
-	# 2. Mulai fase "Reload" (diam)
 	_attack_sub_state = AttackSubState.RELOADING
 	_attack_state_timer = reload_time
 
-
 func _state_attack(delta):
+
 	if is_in_knockback:
 		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
 		return
@@ -106,5 +125,10 @@ func _pick_new_wander_target():
 
 func _on_attack_timer_timeout():
 	super._on_attack_timer_timeout() 
-	
 	_attack_sub_state = AttackSubState.RELOADING
+
+func _physics_process(delta):
+	if is_attacking:
+		velocity = Vector2.ZERO
+	super._physics_process(delta)
+		

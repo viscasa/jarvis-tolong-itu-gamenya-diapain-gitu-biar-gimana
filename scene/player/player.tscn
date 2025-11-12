@@ -1,6 +1,7 @@
-[gd_scene load_steps=331 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=332 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
+[ext_resource type="Texture2D" uid="uid://lx1gcjbg2od5" path="res://assets/shadow1.png" id="2_2rx5w"]
 [ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
 [ext_resource type="Texture2D" uid="uid://vsl2x1n0glx4" path="res://assets/player/cast/cast_e.png" id="2_nrjwp"]
 [ext_resource type="Texture2D" uid="uid://c3ignf8uxrhyu" path="res://assets/player/dash/dash_e.png" id="2_xwoaf"]
@@ -2184,6 +2185,13 @@ floor_constant_speed = true
 safe_margin = 0.6
 script = ExtResource("1_cm2cf")
 
+[node name="Shadow" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 15)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_2rx5w")
+offset = Vector2(0, -20)
+
 [node name="GhostTimer" type="Timer" parent="."]
 wait_time = 0.07
 
@@ -2196,9 +2204,7 @@ wait_time = 0.00999999999999999
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_k0kj3")
-animation = &"Cast_W"
-frame = 2
-frame_progress = 1.0
+animation = &"Charge_E"
 
 [node name="Raycast" type="Node2D" parent="."]
 position = Vector2(0, 15)
@@ -2309,6 +2315,7 @@ drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 1
 offset_left = -8.0
 offset_top = -31.0
 offset_right = 10.0
@@ -2320,6 +2327,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ShieldBar" type="ProgressBar" parent="HealthBar"]
 show_behind_parent = true
+z_index = 1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.1111112

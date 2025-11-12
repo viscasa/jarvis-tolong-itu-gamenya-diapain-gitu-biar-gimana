@@ -6,13 +6,14 @@ class_name EnemyBase
 @export var attack_cooldown: float = 1.5 
 
 @onready var stats: Stats = $Stats
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: Hitbox = $Hitbox
 @onready var hitbox_shape: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var nav_agent: NavigationAgent2D = $NavAgent
 @onready var knockback_timer: Timer = $KnockbackTimer
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 @export var body_radius := 10
 @export var update_rate := 0.35
 enum State { CHASE, ATTACK, POSSESSED, DEAD }
@@ -21,6 +22,8 @@ var player_target: Node2D = null
 var _time_since_update := 0.0
 var is_in_knockback: bool = false
 @export var knockback_strength: float = 200.0
+var last_move_direction := Vector2.DOWN # Arah default
+var is_attacking: bool = false
 func _ready():
 	add_to_group("enemies")
 	health_bar.max_value = stats.max_health
@@ -85,7 +88,7 @@ func _physics_process(delta):
 			if distance_to_player > attack_range * 1.2:
 				current_state = State.CHASE
 				_update_target_position()  
-			
+	_update_animation_state()
 	move_and_slide()
 
 func _update_target_position():
@@ -121,8 +124,7 @@ func _state_chase(delta):
 	
 	nav_agent.set_velocity(requested_velocity)
 	
-	if requested_velocity.x != 0:
-		animated_sprite.flip_h = (requested_velocity.x < 0)
+
 		
 func _state_attack(delta):
 	if is_in_knockback:
@@ -131,17 +133,15 @@ func _state_attack(delta):
 	var requested_velocity = velocity.lerp(Vector2.ZERO, 15.0 * delta)
 	nav_agent.set_velocity(requested_velocity)
 	
-	if is_instance_valid(player_target):
-		var direction_to_player = sign(player_target.global_position.x - global_position.x)
-		if direction_to_player != 0:
-			animated_sprite.flip_h = direction_to_player < 0
+
 
 func connect_signals():
 	stats.no_health.connect(_on_death)
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
 	nav_agent.velocity_computed.connect(_on_nav_agent_velocity_computed)
 	stats.was_hit.connect(_on_was_hit)
-	knockback_timer.timeout.connect(_on_knockback_timeout)	
+	knockback_timer.timeout.connect(_on_knockback_timeout)
+	animated_sprite.animation_finished.connect(_on_animation_finished)
 func on_possessed():
 	current_state = State.POSSESSED
 	velocity = Vector2.ZERO
@@ -151,9 +151,16 @@ func on_released():
 	_update_target_position()
 
 func _perform_attack():
+	if is_instance_valid(player_target):
+		last_move_direction = global_position.direction_to(player_target.global_position)
+	
+	is_attacking = true
+	_update_animation_state()
+	
+	await get_tree().create_timer(0.2).timeout
+	
 	hitbox.damage = stats.get_final_damage()
 	hitbox_shape.disabled = false
-	
 	await get_tree().create_timer(0.2).timeout
 	
 	if self and hitbox_shape:
@@ -196,3 +203,69 @@ func _on_was_hit(direction: Vector2):
 func _on_knockback_timeout():
 	is_in_knockback = false
 	nav_agent.avoidance_enabled = true
+	
+func _on_animation_finished() -> void:
+	if is_attacking:
+		is_attacking = false # Reset flag
+
+# "Otak" animasi
+func _update_animation_state() -> void:
+	var anim_prefix = "IDLE" # Default
+	var anim_direction = last_move_direction # Default
+
+	# Prioritas 1: Sedang Menyerang?
+	if is_attacking:
+		anim_prefix = "ATTACK"
+		# (Gunakan 'last_move_direction' yang sudah di-set di _perform_attack)
+		
+	# Prioritas 2: Sedang Bergerak (Walk)?
+	elif velocity.length() > 1.0: 
+		anim_prefix = "WALK" # (Ganti dari "Run" ke "WALK" sesuai nama Anda)
+		anim_direction = velocity.normalized()
+		last_move_direction = anim_direction # Simpan arah gerak terakhir
+	
+	# Prioritas 3: Idle
+	# (Jika tidak ada di atas, prefix = "IDLE" dan direction = "last_move_direction")
+
+	_play_directional_animation(anim_prefix, anim_direction)
+
+
+# Memutar animasi berdasarkan prefix (cth: "IDLE") dan arah (Vector2).
+func _play_directional_animation(prefix: String, direction: Vector2) -> void:
+	var suffix := _get_direction_suffix(direction)
+	var anim_name = "%s_%s" % [prefix, suffix]
+	
+	# Cek keamanan jika animasi tidak ada
+	if not animated_sprite.sprite_frames.has_animation(anim_name):
+		# Fallback ke arah Selatan (S)
+		anim_name = "%s_S" % prefix
+		if not animated_sprite.sprite_frames.has_animation(anim_name):
+			print("ERROR: Animasi %s_S tidak ditemukan!" % prefix)
+			return
+	
+	if animated_sprite.animation != anim_name:
+		animated_sprite.play(anim_name)
+
+
+# Mengubah Vector2 menjadi salah satu dari 8 akhiran arah (N, NE, E, SE, S, SW, W, NW)
+func _get_direction_suffix(direction: Vector2) -> String:
+	var angle = direction.angle()
+	
+	if abs(angle) <= PI / 8.0:
+		return "E"
+	elif angle > PI / 8.0 and angle <= 3.0 * PI / 8.0:
+		return "SE"
+	elif angle > 3.0 * PI / 8.0 and angle <= 5.0 * PI / 8.0:
+		return "S"
+	elif angle > 5.0 * PI / 8.0 and angle <= 7.0 * PI / 8.0:
+		return "SW"
+	elif abs(angle) > 7.0 * PI / 8.0:
+		return "W"
+	elif angle < -5.0 * PI / 8.0 and angle >= -7.0 * PI / 8.0:
+		return "NW"
+	elif angle < -3.0 * PI / 8.0 and angle >= -5.0 * PI / 8.0:
+		return "N"
+	elif angle < -PI / 8.0 and angle >= -3.0 * PI / 8.0:
+		return "NE"
+	
+	return "S" # Fallback default
