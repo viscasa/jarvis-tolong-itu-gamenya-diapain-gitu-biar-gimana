@@ -106,11 +106,17 @@ func _state_attack(delta):
 func _update_animation_state() -> void:
 	var anim_prefix = "IDLE"
 	var anim_direction = last_move_direction
-
-	if is_attacking:
+	
+	if is_stunned:
+		anim_prefix = "STUNNED"
+	
+	elif current_state == State.POSSESSED:
+		anim_prefix = "IDLE" 
+	
+	elif is_attacking:
 		match wolf_attack_state:
 			WolfAttackState.CHARGING:
-				anim_prefix = "ATTACK"
+				anim_prefix = "ATTACK" 
 			WolfAttackState.DASHING:
 				anim_prefix = "ATTACK" 
 			WolfAttackState.DASHBACK:
@@ -125,7 +131,6 @@ func _update_animation_state() -> void:
 		anim_direction = velocity.normalized()
 		last_move_direction = anim_direction
 	
-
 	_play_directional_animation(anim_prefix, anim_direction)
 	
 func _on_attack_timer_timeout():

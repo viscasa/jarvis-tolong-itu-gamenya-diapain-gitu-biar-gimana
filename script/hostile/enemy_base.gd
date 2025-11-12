@@ -24,6 +24,7 @@ var is_in_knockback: bool = false
 @export var knockback_strength: float = 200.0
 var last_move_direction := Vector2.DOWN # Arah default
 var is_attacking: bool = false
+var is_stunned: bool = false
 func _ready():
 	add_to_group("enemies")
 	health_bar.max_value = stats.max_health
@@ -56,12 +57,12 @@ func _setup_navigation():
 		nav_agent.target_position = player_target.global_position
 
 func _physics_process(delta):
-	if current_state == State.DEAD or current_state == State.POSSESSED:
+	if current_state == State.DEAD:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
 		
-	if not is_instance_valid(player_target):
+	if not is_instance_valid(player_target) and current_state != State.POSSESSED:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
@@ -88,6 +89,8 @@ func _physics_process(delta):
 			if distance_to_player > attack_range * 1.2:
 				current_state = State.CHASE
 				_update_target_position()  
+		State.POSSESSED:
+			_state_possessed(delta)
 	_update_animation_state()
 	move_and_slide()
 
@@ -145,7 +148,10 @@ func connect_signals():
 func on_possessed():
 	current_state = State.POSSESSED
 	velocity = Vector2.ZERO
-
+	is_stunned = true
+	
+	if is_instance_valid(player_target):
+		last_move_direction = global_position.direction_to(player_target.global_position)
 func on_released():
 	current_state = State.CHASE
 	_update_target_position()
@@ -207,14 +213,16 @@ func _on_knockback_timeout():
 func _on_animation_finished() -> void:
 	if is_attacking:
 		is_attacking = false # Reset flag
-
+	if is_stunned:
+		is_stunned = false
 # "Otak" animasi
 func _update_animation_state() -> void:
 	var anim_prefix = "IDLE" # Default
 	var anim_direction = last_move_direction # Default
 
-	# Prioritas 1: Sedang Menyerang?
-	if is_attacking:
+	if is_stunned:
+		anim_prefix = "STUNNED"
+	elif is_attacking:
 		anim_prefix = "ATTACK"
 		# (Gunakan 'last_move_direction' yang sudah di-set di _perform_attack)
 		
@@ -234,7 +242,6 @@ func _update_animation_state() -> void:
 func _play_directional_animation(prefix: String, direction: Vector2) -> void:
 	var suffix := _get_direction_suffix(direction)
 	var anim_name = "%s_%s" % [prefix, suffix]
-	
 	# Cek keamanan jika animasi tidak ada
 	if not animated_sprite.sprite_frames.has_animation(anim_name):
 		# Fallback ke arah Selatan (S)
@@ -269,3 +276,13 @@ func _get_direction_suffix(direction: Vector2) -> String:
 		return "NE"
 	
 	return "S" # Fallback default
+	
+func _state_possessed(delta):
+	is_stunned = true
+	hitbox_shape.disabled = true
+	if is_in_knockback:
+		var requested_velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		nav_agent.set_velocity(requested_velocity)
+		return
+	var requested_velocity = velocity.lerp(Vector2.ZERO, 15.0 * delta)
+	nav_agent.set_velocity(requested_velocity)
