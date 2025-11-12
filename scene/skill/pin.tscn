@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://mf4miuiyvjap"]
+[gd_scene load_steps=13 format=3 uid="uid://mf4miuiyvjap"]
 
 [ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_edaoq"]
 [ext_resource type="Script" uid="uid://bf4w4g3bsw2y2" path="res://script/skill/throwpin.gd" id="1_faepl"]
 [ext_resource type="Texture2D" uid="uid://cd5g81qk03h0j" path="res://assets/temp/needle.png" id="3_1fijh"]
+[ext_resource type="Shader" uid="uid://b1nwb5p0bjv5i" path="res://shader/blink.gdshader" id="3_faepl"]
 [ext_resource type="Shader" uid="uid://qrxdv11j80a2" path="res://shader/dissolve.gdshader" id="3_ov0ir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fijh"]
@@ -11,6 +12,12 @@ size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ov0ir"]
 resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bi258"]
+resource_local_to_scene = true
+shader = ExtResource("3_faepl")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_faepl"]
 resource_local_to_scene = true
@@ -45,14 +52,15 @@ shape = SubResource("RectangleShape2D_1fijh")
 [node name="Stats" parent="." index="1"]
 max_health = 1.0
 base_damage = 0.0
-base_defense = 0.0
 
 [node name="Hitbox" parent="." index="2"]
-collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CircleShape2D_ov0ir")
+
+[node name="AnimatedSprite2D" parent="." index="3"]
+material = SubResource("ShaderMaterial_bi258")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_faepl")

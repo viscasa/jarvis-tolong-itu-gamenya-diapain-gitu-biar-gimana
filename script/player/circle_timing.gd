@@ -5,7 +5,7 @@ extends Node2D
 var possession_manager: PossessionManager
 var dash_manager: DashManager
 var attack_manager: AttackManager
-
+signal exit_missed
 # --- TAMBAHKAN/UBAH REFERENSI INI ---
 var buff_manager: PlayerBuffManager
 var super_dash: SuperDash
@@ -68,6 +68,7 @@ func _on_exit() -> void:
 			print("HOUSE OF STRAW HEAL!")
 			# Panggil fungsi 'heal' yang baru kita buat
 			player_health.heal(stats.heal_on_miss)
+			emit_signal("exit_missed")
 		# ------------------------------------
 
 	var player_dash_direction = dash_manager.exit_dash_direction
