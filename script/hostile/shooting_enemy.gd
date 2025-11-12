@@ -79,9 +79,9 @@ func _perform_attack():
 	
 	if projectile_scene:
 		var proj = projectile_scene.instantiate()
+		proj.direction = dir_to_player
 		get_parent().add_child(proj)
 		proj.global_position = spawn_marker.global_position # Gunakan posisi Marker
-		proj.direction = dir_to_player
 		proj.damage = stats.get_final_damage()
 	else:
 		print("ERROR: Projectile Scene belum di-set di " + name)

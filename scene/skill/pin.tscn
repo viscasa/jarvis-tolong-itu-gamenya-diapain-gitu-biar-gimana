@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://mf4miuiyvjap"]
+[gd_scene load_steps=20 format=3 uid="uid://mf4miuiyvjap"]
 
 [ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_edaoq"]
 [ext_resource type="Script" uid="uid://bf4w4g3bsw2y2" path="res://script/skill/throwpin.gd" id="1_faepl"]
-[ext_resource type="Texture2D" uid="uid://cd5g81qk03h0j" path="res://assets/temp/needle.png" id="3_1fijh"]
-[ext_resource type="Shader" uid="uid://b1nwb5p0bjv5i" path="res://shader/blink.gdshader" id="3_faepl"]
-[ext_resource type="Shader" uid="uid://qrxdv11j80a2" path="res://shader/dissolve.gdshader" id="3_ov0ir"]
+[ext_resource type="Shader" uid="uid://b1nwb5p0bjv5i" path="res://shader/blink.gdshader" id="3_bi258"]
+[ext_resource type="Texture2D" uid="uid://bhp2p13voctjk" path="res://assets/player/skill/nail_drope_01_sheet.png" id="4_c1opv"]
+[ext_resource type="Texture2D" uid="uid://we6s5pjrox5v" path="res://assets/particle/dissolve.tres" id="4_faepl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fijh"]
 resource_local_to_scene = true
@@ -13,36 +13,97 @@ size = Vector2(8, 8)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ov0ir"]
 resource_local_to_scene = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bi258"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ff8fp"]
 resource_local_to_scene = true
-shader = ExtResource("3_faepl")
+shader = ExtResource("3_bi258")
 shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
+shader_parameter/percentage = 0.999999977648
+shader_parameter/burn_texture = ExtResource("4_faepl")
+shader_parameter/layer_1 = Color(0.21176471, 0.21176471, 0.19215687, 1)
+shader_parameter/size_1 = 0.05
+shader_parameter/layer_2 = Color(1, 1, 1, 1)
+shader_parameter/size_2 = 0.05
+shader_parameter/layer_3 = Color(0, 0, 0, 1)
+shader_parameter/size_3 = 0.05
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfwwu"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(60, 0, 64, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjuvd"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(124, 0, 64, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4awb"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(188, 0, 64, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhtx5"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(252, 0, 64, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6gtm"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(316, 0, 64, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ru547"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(380, 0, 64, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7f0qm"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(444, 0, 64, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvg2n"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(508, 0, 64, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ohvj"]
+atlas = ExtResource("4_c1opv")
+region = Rect2(572, 0, 64, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_swogk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfwwu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjuvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4awb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhtx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6gtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ru547")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7f0qm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvg2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ohvj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_faepl"]
 resource_local_to_scene = true
 size = Vector2(24.041632, 24.041632)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ov0ir"]
-noise_type = 3
-frequency = 0.032
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_faepl"]
-noise = SubResource("FastNoiseLite_ov0ir")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_faepl"]
-resource_local_to_scene = true
-shader = ExtResource("3_ov0ir")
-shader_parameter/percentage = 1.0
-shader_parameter/burn_texture = SubResource("NoiseTexture2D_faepl")
-shader_parameter/layer_1 = Color(0.2, 0.2, 0.2, 1)
-shader_parameter/size_1 = 0.05
-shader_parameter/layer_2 = Color(1, 1, 1, 1)
-shader_parameter/size_2 = 0.05
-shader_parameter/layer_3 = Color(0.6307149, 0.42017165, 0.41775924, 1)
-shader_parameter/size_3 = 0.05
-
 [node name="Pin" instance=ExtResource("1_edaoq")]
+z_index = -1
 collision_mask = 0
 script = ExtResource("1_faepl")
 
@@ -60,15 +121,15 @@ collision_mask = 0
 shape = SubResource("CircleShape2D_ov0ir")
 
 [node name="AnimatedSprite2D" parent="." index="3"]
-material = SubResource("ShaderMaterial_bi258")
+material = SubResource("ShaderMaterial_ff8fp")
+position = Vector2(-4, -28)
+sprite_frames = SubResource("SpriteFrames_swogk")
+autoplay = "default"
+frame = 8
+frame_progress = 1.0
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_faepl")
-
-[node name="Needle" type="Sprite2D" parent="." index="9"]
-material = SubResource("ShaderMaterial_faepl")
-scale = Vector2(0.027522935, 0.027522936)
-texture = ExtResource("3_1fijh")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="player_auto_exit" from="Hurtbox" to="." method="_on_hurtbox_player_auto_exit"]

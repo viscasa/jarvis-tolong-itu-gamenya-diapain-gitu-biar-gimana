@@ -12,6 +12,8 @@ var is_possessing: bool = false
 var possessed_target: Node = null
 var possession_timer: Timer = null
 var auto_weak_exit_time: float = 0.76
+@onready var posses_effect: AnimatedSprite2D = $"../PossesEffect"
+@onready var sprite: AnimatedSprite2D = $"../Sprite"
 
 func possess(target: Node) -> void:
 	# ⛔ blokir bila habis auto-exit dan lock masih aktif
@@ -34,6 +36,8 @@ func possess(target: Node) -> void:
 	player.velocity = Vector2.ZERO
 	emit_signal("possessed", possessed_target)
 	AudioManager.start_sfx(self, "res://assets/audio/gets in.wav", [3.5, 4], -1)
+	posses_effect.play("posses")
+	sprite.hide()
 	player.dash_manager.on_possession_started()
 	if possessed_target.get_parent().has_method("on_possessed"):
 		possessed_target.get_parent().on_possessed()
@@ -61,6 +65,7 @@ func _on_auto_exit() -> void:
 func release_possession() -> void:
 	if possessed_target and possessed_target.get_parent() and possessed_target.get_parent().has_method("on_released"):
 		possessed_target.get_parent().on_released()
+	sprite.show()
 	is_possessing = false
 	possessed_target = null
 		

@@ -383,6 +383,9 @@ func _get_direction_suffix(direction: Vector2) -> String:
 func _on_animation_finished() -> void:
 	# Jika kita dalam status 'is_throwing_pin' dan animasinya selesai,
 	# kembalikan status ke false agar animasi idle/run bisa diputar.
+	if sprite.animation.begins_with("Cast") :
+		is_throwing_pin_first = true
+		is_throwing_pin = false
 	if is_throwing_pin:
 		is_throwing_pin_first = true
 		is_throwing_pin = false

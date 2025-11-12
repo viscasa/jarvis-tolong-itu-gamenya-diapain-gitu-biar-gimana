@@ -7,6 +7,7 @@ signal player_auto_exit
 var cooldown_possessed:float = 1.5
 @onready var circle: Node2D = $Circle
 @onready var circle_animation: AnimationPlayer = $Circle/CircleAnimation
+@onready var posses_effect: AnimatedSprite2D = $"../PossesEffect"
 
 func _ready():
 	area_entered.connect(_on_area_entered)
@@ -50,6 +51,7 @@ func _on_area_entered(area):
 			print("ERROR: " + get_parent().name + " tidak punya node Stats!")
 
 func auto_exit() -> void:
+	posses_effect.play("out")
 	emit_signal("player_auto_exit")
 	circle_animation.stop()
 	circle_animation.play("shrink_in")
@@ -59,6 +61,7 @@ func auto_exit() -> void:
 	await circle_animation.animation_finished
 
 func exit() -> void:
+	posses_effect.play("out")
 	circle_animation.play("fade_out")
 	await circle_animation.animation_finished
 
