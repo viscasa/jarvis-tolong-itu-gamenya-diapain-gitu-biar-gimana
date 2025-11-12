@@ -36,6 +36,7 @@ func _generate_boon():
 
 # Master's Cut: Slash range increases
 func _load_type_1():
+	icon_id = 21
 	boon_name = "Master’s Cut"
 	boon_description = "Your stolen skill 'Slash' has 100% larger range."
 	modifier.slash_aoe = 2
@@ -44,6 +45,7 @@ func _load_type_1():
 
 
 func _load_type_2(): #
+	icon_id = 22
 	boon_name = "Ethereal Stride"
 	boon_description = "Your stolen Wolf Dash now grants full invincibility for its entire duration."
 	modifier.wolf_dash_invincible = 1 
@@ -53,6 +55,7 @@ func _load_type_2(): #
 
 # Arcane Echo: Double-cast chance
 func _load_type_3():
+	icon_id = 23
 	boon_name = "Arcane Echo"
 	boon_description = "Your stolen shooting skills have twice the bullets."
 	modifier.bullet_multiplier = 2
@@ -61,6 +64,7 @@ func _load_type_3():
 
 # Chain Shot: Homing bounces
 func _load_type_4():
+	icon_id = 24
 	boon_name = "Chain Shot"
 	boon_description = "Your stolen skill 'Homming Bullets' now bounces to one nearby enemy."
 	modifier.homing_chain = 1
@@ -69,6 +73,7 @@ func _load_type_4():
 
 # Astral Shield: Gain shield when casting
 func _load_type_5():
+	icon_id = 25
 	boon_name = "Astral Shield"
 	boon_description = "Each time you use a stolen skill, gain a small shield for 5 seconds."
 	modifier.shield_on_skill_use = 10.0 # (10 HP shield)

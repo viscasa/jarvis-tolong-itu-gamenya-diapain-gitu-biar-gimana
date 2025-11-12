@@ -42,6 +42,13 @@ resource_local_to_scene = true
 shader = ExtResource("4_v4euv")
 shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
+shader_parameter/percentage = 1.0
+shader_parameter/layer_1 = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/size_1 = 0.05
+shader_parameter/layer_2 = Color(1, 0, 0, 1)
+shader_parameter/size_2 = 0.05
+shader_parameter/layer_3 = Color(1, 0.5, 0, 1)
+shader_parameter/size_3 = 0.05
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0ly0"]
 atlas = ExtResource("5_ng5gh")
@@ -1456,6 +1463,9 @@ attack_range = 150.0
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_s042g")
 
+[node name="Stats" parent="." index="1"]
+max_health = 70.0
+
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CircleShape2D_fgfec")
 
@@ -1472,17 +1482,11 @@ shape = SubResource("RectangleShape2D_k2one")
 offset_top = -49.0
 offset_bottom = -45.0
 
-[node name="HealthBar" parent="." index="6"]
-offset_top = -49.0
-offset_bottom = -45.0
-
-
-
-[node name="DashCheckLeft" type="RayCast2D" parent="." index="9"]
-target_position = Vector2(60, 0)
-
 [node name="DashCheckRight" type="RayCast2D" parent="." index="9"]
 target_position = Vector2(-60, 0)
+
+[node name="DashCheckLeft" type="RayCast2D" parent="." index="10"]
+target_position = Vector2(60, 0)
 
 [node name="Shadow" type="Sprite2D" parent="." index="12"]
 z_index = -1

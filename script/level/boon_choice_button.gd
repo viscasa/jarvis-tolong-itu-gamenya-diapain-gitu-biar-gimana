@@ -2,8 +2,9 @@ extends Button
 
 var held_boon: BuffBase = null # Boon .tres yang dipegang
 
-@onready var name_label: Label = $VBoxContainer/NameLabel
-@onready var desc_label: Label = $VBoxContainer/DescriptionLabel
+@onready var name_label: Label = $NameLabel
+@onready var desc_label: Label = $DescriptionLabel
+@onready var boon_icon_texture: Node2D = $BoonIconTexture
 
 func _ready():
 	pressed.connect(_on_pressed)

@@ -8,6 +8,7 @@ class_name BuffBase
 @export var permanent: bool = true
 @export var duration: float = 0.0
 @export var boon_icon: Texture
+@export var icon_id := 1
 var time_left: float = 0.0
 
 func _init():

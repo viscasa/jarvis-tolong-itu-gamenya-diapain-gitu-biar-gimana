@@ -1,7 +1,7 @@
 [gd_scene load_steps=88 format=3 uid="uid://cu64rfxjwm0yf"]
 
 [ext_resource type="Script" uid="uid://bfyvq33ecmnj5" path="res://script/level/boon_pickup.gd" id="1_aldpv"]
-[ext_resource type="Shader" path="res://highlight.gdshader" id="2_k54js"]
+[ext_resource type="Shader" uid="uid://c5ny03ci6hwme" path="res://highlight.gdshader" id="2_k54js"]
 [ext_resource type="Texture2D" uid="uid://dkluvjr1wimi4" path="res://assets/tile_assets/reward_1.png" id="2_lng1f"]
 [ext_resource type="Texture2D" uid="uid://c3ghi7unrnujr" path="res://assets/tile_assets/reward_2.png" id="3_k54js"]
 [ext_resource type="Texture2D" uid="uid://d3ll74dbmsiyv" path="res://assets/boon_giver_icon/cinderella_icon.png" id="5_ee5ta"]

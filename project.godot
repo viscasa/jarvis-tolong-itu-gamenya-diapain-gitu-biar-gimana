@@ -48,6 +48,11 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 [global_group]
 
 pin=""
+player=""
+
+[gui]
+
+theme/custom_font="uid://dgtq0lu2e5wr6"
 
 [input]
 
