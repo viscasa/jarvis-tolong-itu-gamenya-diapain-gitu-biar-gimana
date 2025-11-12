@@ -1,6 +1,7 @@
-[gd_scene load_steps=86 format=3 uid="uid://cu64rfxjwm0yf"]
+[gd_scene load_steps=8 format=3 uid="uid://cu64rfxjwm0yf"]
 
 [ext_resource type="Script" uid="uid://bfyvq33ecmnj5" path="res://script/level/boon_pickup.gd" id="1_aldpv"]
+[ext_resource type="Shader" uid="uid://c5ny03ci6hwme" path="res://highlight.gdshader" id="2_k54js"]
 [ext_resource type="Texture2D" uid="uid://dkluvjr1wimi4" path="res://assets/tile_assets/reward_1.png" id="2_lng1f"]
 [ext_resource type="Texture2D" uid="uid://c3ghi7unrnujr" path="res://assets/tile_assets/reward_2.png" id="3_k54js"]
 [ext_resource type="Texture2D" uid="uid://d3ll74dbmsiyv" path="res://assets/boon_giver_icon/cinderella_icon.png" id="5_ee5ta"]
@@ -11,6 +12,13 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lng1f"]
 size = Vector2(47.5, 42.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ee5ta"]
+shader = ExtResource("2_k54js")
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/frequency = 2.000000095
+shader_parameter/highlight_speed = 2.000000095
+shader_parameter/highlight_width = 15.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k54js"]
 size = Vector2(38, 23.5)
@@ -554,12 +562,14 @@ position = Vector2(-0.25, -7.75)
 shape = SubResource("RectangleShape2D_lng1f")
 
 [node name="Sprite1" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ee5ta")
 position = Vector2(4, -1)
 texture = ExtResource("2_lng1f")
 offset = Vector2(-3, -38)
 
 [node name="Sprite2" type="Sprite2D" parent="."]
 visible = false
+material = SubResource("ShaderMaterial_ee5ta")
 position = Vector2(0, -1)
 texture = ExtResource("3_k54js")
 offset = Vector2(0, -6)

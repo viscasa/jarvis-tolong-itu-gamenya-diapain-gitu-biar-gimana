@@ -53,8 +53,8 @@
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
 [ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
 [ext_resource type="PackedScene" uid="uid://buh1lj7tdd2r3" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
-[ext_resource type="Script" path="res://script/ui/damage_overlay.gd" id="54_4fvns"]
-[ext_resource type="Shader" path="res://shader/hit_overlay.gdshader" id="54_sxxrj"]
+[ext_resource type="Script" uid="uid://cu5nkhvl2dyij" path="res://script/ui/damage_overlay.gd" id="54_4fvns"]
+[ext_resource type="Shader" uid="uid://86l84p8mcfsh" path="res://shader/hit_overlay.gdshader" id="54_sxxrj"]
 [ext_resource type="PackedScene" uid="uid://deukhj1qgjpwo" path="res://scene/combo_ui.tscn" id="56_kosee"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxxrj"]
