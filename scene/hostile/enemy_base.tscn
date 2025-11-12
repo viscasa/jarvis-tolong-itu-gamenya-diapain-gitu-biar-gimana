@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bke8ohgi88a3k"]
+[gd_scene load_steps=15 format=3 uid="uid://bke8ohgi88a3k"]
 
 [ext_resource type="Script" uid="uid://dbuhl7tojgto2" path="res://script/hostile/enemy_base.gd" id="1_0dq4w"]
 [ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="2_54ojy"]
@@ -12,6 +12,8 @@ size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_roat0"]
 radius = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_roat0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_roat0"]
 resource_local_to_scene = true
@@ -146,6 +148,7 @@ shape = SubResource("CircleShape2D_roat0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_roat0")
 
 [node name="AttackTimer" type="Timer" parent="."]
 
@@ -192,7 +195,6 @@ show_percentage = false
 path_postprocessing = 1
 simplify_path = true
 avoidance_enabled = true
-debug_enabled = true
 
 [node name="DamageNumberOrigin" type="Node2D" parent="."]
 position = Vector2(0, -27)
