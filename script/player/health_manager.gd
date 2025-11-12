@@ -9,6 +9,7 @@ var shield_timer: Timer
 signal shield_changed(current_shield, max_shield)
 signal player_was_hit(hit_direction: Vector2)
 var max_shield_amount: float = 0.0
+@onready var damage_overlay: CanvasLayer = $"../DamageOverlay"
 @onready var shield_bar: ProgressBar = $"../HealthBar/ShieldBar"
 @onready var sprite: AnimatedSprite2D = $"../Sprite"
 @export var max_health: float = 100.0:
@@ -80,6 +81,8 @@ func take_damage(damage_amount: float, crit_multiplier: float = 1.0, is_melee :=
 		return
 	if is_melee:
 		player_was_hit.emit(dir)
+	if damage_overlay:
+		damage_overlay.flash()
 	var tween = get_tree().create_tween()
 	tween.tween_method(set_shader_blink_intensity, 1.0, 0.0, 0.3)
 	var final_damage = damage_amount*crit_multiplier - base_defense

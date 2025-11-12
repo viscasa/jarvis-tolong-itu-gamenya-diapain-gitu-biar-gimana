@@ -39,6 +39,7 @@ Vector2i(1, 0): {
 }
 
 [node name="WorldAudioManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_qwkrf")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
