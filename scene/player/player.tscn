@@ -1,4 +1,4 @@
-[gd_scene load_steps=286 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=290 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://lx1gcjbg2od5" path="res://assets/shadow1.png" id="2_2rx5w"]
@@ -55,8 +55,8 @@
 [ext_resource type="Texture2D" uid="uid://b6b3hu5g6wb3w" path="res://assets/player/skill/burst_out.png" id="36_4fvns"]
 [ext_resource type="Texture2D" uid="uid://ckbg71qnjmn2b" path="res://assets/player/skill/possess.png" id="37_kosee"]
 [ext_resource type="PackedScene" uid="uid://buh1lj7tdd2r3" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
-[ext_resource type="Script" uid="uid://cu5nkhvl2dyij" path="res://script/ui/damage_overlay.gd" id="54_4fvns"]
-[ext_resource type="Shader" uid="uid://86l84p8mcfsh" path="res://shader/hit_overlay.gdshader" id="54_sxxrj"]
+[ext_resource type="Script" path="res://script/ui/damage_overlay.gd" id="54_4fvns"]
+[ext_resource type="Shader" path="res://shader/hit_overlay.gdshader" id="54_sxxrj"]
 [ext_resource type="PackedScene" uid="uid://deukhj1qgjpwo" path="res://scene/combo_ui.tscn" id="56_kosee"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxxrj"]
@@ -1999,6 +1999,7 @@ drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
 z_index = 1
 offset_left = -8.0
 offset_top = -31.0
@@ -2017,6 +2018,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.1111112
 anchor_bottom = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_2rx5w")
