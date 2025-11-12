@@ -10,6 +10,8 @@ var selection_screen_scene = preload("res://scene/menu/boon_selection_screen.tsc
 @onready var boon_giver_icon: Sprite2D = $BoonGiverIcon
 var got_buff := false
 func _ready():
+	var sprite_material = sprite_1.material
+	sprite_material.set_shader_parameter("frequency", 0.0)
 	if (sprite == 0):
 		sprite_1.show()
 		sprite_2.hide()
@@ -20,11 +22,13 @@ func _ready():
 	RewardManager.got_buff.connect(_on_got_buff)
 	
 func set_boon_giver_id(id: String):
+	var sprite_material = sprite_1.material
 	boon_giver_id = id
 	var reward_data = RewardManager.get_reward_data(id)
 	boon_giver_icon.texture = load(reward_data.icon)
 	boon_giver_icon.show()
-	
+	sprite_material.set_shader_parameter("frequency", 2.0)
+
 func _on_body_entered(body):
 	if got_buff:
 		return
@@ -41,6 +45,7 @@ func _on_body_entered(body):
 
 
 func _on_got_buff():
-	print("got buff")
+	var sprite_material = sprite_1.material
+	sprite_material.set_shader_parameter("frequency", 0.0)
 	boon_giver_icon.hide()
 	got_buff = true

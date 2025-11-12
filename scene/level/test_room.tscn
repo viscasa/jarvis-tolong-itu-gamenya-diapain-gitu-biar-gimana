@@ -22,7 +22,7 @@ position = Vector2(-208, 182)
 [node name="EnemySpawner6" type="Marker2D" parent="WaveSpawners/Wave1" index="0"]
 position = Vector2(249, 86)
 script = ExtResource("2_lvruv")
-ENEMY_TYPE = 2
+ENEMY_TYPE = 3
 metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
 
 [node name="Pillar" type="Sprite2D" parent="." index="8"]
