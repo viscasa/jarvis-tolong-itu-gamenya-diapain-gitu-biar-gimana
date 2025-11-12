@@ -23,6 +23,7 @@ func _ready():
 	_start_wave(current_wave_index)
 
 func _start_wave(index: int):
+	AudioManager.change_bgm_to_combat()
 	print("wave " + str(index))
 	if index >= waves.size():
 		_on_all_waves_cleared()
@@ -51,6 +52,7 @@ func _on_enemy_died():
 		call_deferred("_start_wave", current_wave_index)
 
 func _on_all_waves_cleared():
+	AudioManager.change_bgm_to_calm()
 	print("room cleared")
 	is_cleared = true
 	_spawn_reward()

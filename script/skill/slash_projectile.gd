@@ -2,9 +2,9 @@ extends CharacterBody2D
 class_name SlashProjectile
 
 # Variabel ini akan di-set oleh SlashShot.gd
-var speed: float = 600.0
+var speed: float = 1000
 var damage: float = 25.0
-var lifetime: float = 0.25
+var lifetime: float = 0.7
 var direction: Vector2 = Vector2.RIGHT
 
 @onready var timer: Timer = $Timer

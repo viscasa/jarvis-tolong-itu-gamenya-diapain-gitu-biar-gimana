@@ -1,9 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://yncml2ptnko7"]
+[gd_scene load_steps=14 format=3 uid="uid://yncml2ptnko7"]
 
 [ext_resource type="Script" uid="uid://do6lcn32wdt8o" path="res://script/level/room.gd" id="1_6ar0q"]
 [ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="2_3xw8e"]
 [ext_resource type="Texture2D" uid="uid://bcwptdwa2gjmm" path="res://assets/tile_assets/tilemap2.png" id="3_cupyr"]
+[ext_resource type="Texture2D" uid="uid://crree2q0ufg3s" path="res://assets/tile_assets/blank.png" id="4_ib65q"]
+[ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="5_7j0h5"]
 [ext_resource type="PackedScene" uid="uid://yvfty5mbnbc8" path="res://scene/menu/pause_menu.tscn" id="6_3xw8e"]
+[ext_resource type="PackedScene" uid="uid://bgaglybpdid6m" path="res://scene/player/player_ui.tscn" id="6_7pugk"]
+[ext_resource type="PackedScene" uid="uid://ug8pl1hfgn37" path="res://scene/background/parallax_cloud.tscn" id="7_7pugk"]
 [ext_resource type="Texture2D" uid="uid://dx4ncdgvarqr6" path="res://assets/tile_assets/tilemap.png" id="58_rtw3q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bocdx"]
@@ -413,143 +417,6 @@ texture_region_size = Vector2i(64, 64)
 5:9/0 = 0
 6:9/0 = 0
 7:9/0 = 0
-0:10/0 = 0
-1:10/0 = 0
-2:10/0 = 0
-3:10/0 = 0
-4:10/0 = 0
-5:10/0 = 0
-6:10/0 = 0
-7:10/0 = 0
-19:10/0 = 0
-0:11/0 = 0
-1:11/0 = 0
-2:11/0 = 0
-3:11/0 = 0
-4:11/0 = 0
-5:11/0 = 0
-6:11/0 = 0
-7:11/0 = 0
-19:11/0 = 0
-0:12/0 = 0
-4:12/0 = 0
-5:12/0 = 0
-6:12/0 = 0
-7:12/0 = 0
-13:12/0 = 0
-14:12/0 = 0
-15:12/0 = 0
-16:12/0 = 0
-17:12/0 = 0
-18:12/0 = 0
-19:12/0 = 0
-0:13/0 = 0
-4:13/0 = 0
-5:13/0 = 0
-6:13/0 = 0
-7:13/0 = 0
-13:13/0 = 0
-14:13/0 = 0
-15:13/0 = 0
-16:13/0 = 0
-17:13/0 = 0
-18:13/0 = 0
-19:13/0 = 0
-0:14/0 = 0
-1:14/0 = 0
-2:14/0 = 0
-3:14/0 = 0
-4:14/0 = 0
-5:14/0 = 0
-6:14/0 = 0
-7:14/0 = 0
-13:14/0 = 0
-14:14/0 = 0
-15:14/0 = 0
-16:14/0 = 0
-17:14/0 = 0
-18:14/0 = 0
-19:14/0 = 0
-0:15/0 = 0
-1:15/0 = 0
-2:15/0 = 0
-3:15/0 = 0
-4:15/0 = 0
-5:15/0 = 0
-6:15/0 = 0
-7:15/0 = 0
-13:15/0 = 0
-14:15/0 = 0
-15:15/0 = 0
-16:15/0 = 0
-17:15/0 = 0
-18:15/0 = 0
-19:15/0 = 0
-0:16/0 = 0
-1:16/0 = 0
-2:16/0 = 0
-3:16/0 = 0
-4:16/0 = 0
-5:16/0 = 0
-6:16/0 = 0
-7:16/0 = 0
-11:16/0 = 0
-15:16/0 = 0
-16:16/0 = 0
-17:16/0 = 0
-18:16/0 = 0
-19:16/0 = 0
-0:17/0 = 0
-1:17/0 = 0
-2:17/0 = 0
-3:17/0 = 0
-4:17/0 = 0
-5:17/0 = 0
-6:17/0 = 0
-7:17/0 = 0
-11:17/0 = 0
-12:17/0 = 0
-13:17/0 = 0
-14:17/0 = 0
-15:17/0 = 0
-16:17/0 = 0
-17:17/0 = 0
-18:17/0 = 0
-19:17/0 = 0
-0:18/0 = 0
-1:18/0 = 0
-2:18/0 = 0
-3:18/0 = 0
-4:18/0 = 0
-5:18/0 = 0
-6:18/0 = 0
-7:18/0 = 0
-11:18/0 = 0
-12:18/0 = 0
-13:18/0 = 0
-14:18/0 = 0
-15:18/0 = 0
-16:18/0 = 0
-17:18/0 = 0
-18:18/0 = 0
-19:18/0 = 0
-0:19/0 = 0
-1:19/0 = 0
-2:19/0 = 0
-3:19/0 = 0
-4:19/0 = 0
-5:19/0 = 0
-6:19/0 = 0
-7:19/0 = 0
-11:19/0 = 0
-12:19/0 = 0
-13:19/0 = 0
-14:19/0 = 0
-15:19/0 = 0
-16:19/0 = 0
-17:19/0 = 0
-18:19/0 = 0
-19:19/0 = 0
 11:8/size_in_atlas = Vector2i(1, 2)
 11:8/0 = 0
 12:8/size_in_atlas = Vector2i(1, 2)
@@ -604,6 +471,12 @@ texture_region_size = Vector2i(64, 64)
 15:0/0/y_sort_origin = 25
 15:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30.789486, 25.6579, -6.997612, 43.385178, -29.856468, 60.17944, -59.712933, 43.385178)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5pks2"]
+texture = ExtResource("4_ib65q")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -16, -32, 0, 0, 16, 32, 0)
+
 [sub_resource type="TileSet" id="TileSet_c6qtm"]
 tile_shape = 1
 tile_size = Vector2i(64, 32)
@@ -619,6 +492,7 @@ terrain_set_2/terrain_0/name = "GreenRed"
 terrain_set_2/terrain_0/color = Color(0.43133852, 0.3936311, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_bocdx")
 sources/1 = SubResource("TileSetAtlasSource_3xw8e")
+sources/3 = SubResource("TileSetAtlasSource_5pks2")
 
 [node name="Room" type="Node2D"]
 y_sort_enabled = true
@@ -628,6 +502,7 @@ script = ExtResource("1_6ar0q")
 z_index = -2
 tile_set = SubResource("TileSet_c6qtm")
 navigation_enabled = false
+script = ExtResource("5_7j0h5")
 
 [node name="Object1" type="TileMapLayer" parent="."]
 z_index = -2
@@ -659,3 +534,9 @@ y_sort_enabled = true
 [node name="PauseMenu" parent="." instance=ExtResource("6_3xw8e")]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+
+[node name="PlayerUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_7pugk")]
+player = NodePath("../PlayerSpawnPosition/Player")
+
+[node name="Parallax2D" parent="." instance=ExtResource("7_7pugk")]
+layer = -10

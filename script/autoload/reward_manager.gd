@@ -79,7 +79,7 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 	var dir = DirAccess.open(boon_folder_path)
 	if dir:
 		dir.list_dir_begin()
-		var file_name = dir.get_next()
+		var file_name = dir.get_next().trim_suffix(".remap")
 		
 		while file_name != "":
 			if file_name.ends_with(".tres"):
@@ -90,7 +90,7 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 					if boon_res:
 						available_boons.append(boon_res)
 						
-			file_name = dir.get_next()
+			file_name = dir.get_next().trim_suffix(".remap")
 	else:
 		print("ERROR: Tidak bisa membuka folder boon: ", boon_folder_path)
 
