@@ -33,6 +33,7 @@ func possess(target: Node) -> void:
 	player.global_position = possessed_target.global_position
 	player.velocity = Vector2.ZERO
 	emit_signal("possessed", possessed_target)
+	AudioManager.start_sfx(self, "res://assets/audio/gets in.wav", [3.5, 4], -1)
 	player.dash_manager.on_possession_started()
 	if possessed_target.get_parent().has_method("on_possessed"):
 		possessed_target.get_parent().on_possessed()

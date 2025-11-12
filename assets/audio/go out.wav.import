@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://hrt5801b6f14"
+path="res://.godot/imported/go out.wav-ea3e1faa4f7d2607b53f61ac68a53456.sample"
+
+[deps]
+
+source_file="res://assets/audio/go out.wav"
+dest_files=["res://.godot/imported/go out.wav-ea3e1faa4f7d2607b53f61ac68a53456.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

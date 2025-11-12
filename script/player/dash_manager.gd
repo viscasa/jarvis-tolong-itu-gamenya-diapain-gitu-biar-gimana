@@ -129,7 +129,6 @@ func start_dash() -> void:
 	# player.phasing_ray.target_position = Vector2.ZERO
 	# ------------------------------------
 	
-	print_stack()
 	dash_counter += 1
 	is_dash_moving = true
 	dash_move_timer = dash_move_time
@@ -138,6 +137,7 @@ func start_dash() -> void:
 	dash_cycle_timer = dash_cycle_time
 	_cooldown_set_for_cycle = false
 	emit_signal("dash_cycle_started")
+	AudioManager.start_sfx(self, "res://assets/audio/dash.wav", [2, 3], 0, 0.1)
 	
 	if auto_exit_possess_lock:
 		player.end_invisible() # Ini untuk hurtbox, biarkan
@@ -225,16 +225,17 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 		ghost_timer.wait_time = 0.07
 		ghost_timer.start()
 	
+	AudioManager.start_sfx(self, "res://assets/audio/go out.wav", [0.9, 1.1], 0)
 	if is_auto:
 		auto_exit_possess_lock = true
 		emit_signal("auto_exit_dash_started")
 		is_dashing = true
 	else:
 		emit_signal("exit_dash_manual_started")
+		AudioManager.start_sfx(self, "res://assets/audio/dash.wav", [2, 3], 0, 0.1)
 		_is_phasing_dash = false
 		ghost_timer.wait_time = 0.07
 		ghost_timer.start()
-		print_debug()
 
 	emit_signal("exit_movement_started")
 	emit_signal("exit_cycle_started")
