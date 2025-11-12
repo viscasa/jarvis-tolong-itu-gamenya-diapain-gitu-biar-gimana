@@ -68,6 +68,7 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 			
 		return cinderella_choices
 	var giver_data = get_reward_data(boon_giver_id)
+
 	if not giver_data or not giver_data.has("boon_folder_path"):
 		print("ERROR: Boon Giver ID tidak valid: ", boon_giver_id)
 		return []

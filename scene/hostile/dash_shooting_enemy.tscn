@@ -1449,6 +1449,7 @@ reposition_distance = 60.0
 shotgun_spread_angle = 0.3
 dash_speed = 200.0
 dash_duration = 0.2
+attack_pause_duration = 0.3
 move_speed = 60.0
 attack_range = 150.0
 
@@ -1467,7 +1468,17 @@ animation = &"ATTACK_E"
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_k2one")
 
-[node name="DashCheckLeft" type="RayCast2D" parent="." index="8"]
+[node name="HealthBar" parent="." index="6"]
+offset_top = -49.0
+offset_bottom = -45.0
+
+[node name="HealthBar" parent="." index="6"]
+offset_top = -49.0
+offset_bottom = -45.0
+
+
+
+[node name="DashCheckLeft" type="RayCast2D" parent="." index="9"]
 target_position = Vector2(60, 0)
 
 [node name="DashCheckRight" type="RayCast2D" parent="." index="9"]
