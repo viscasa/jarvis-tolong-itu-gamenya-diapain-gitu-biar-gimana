@@ -23,6 +23,7 @@ reposition_distance = 60.0
 shotgun_spread_angle = 0.3
 dash_speed = 200.0
 dash_duration = 0.2
+attack_pause_duration = 0.3
 move_speed = 60.0
 attack_range = 150.0
 
@@ -35,10 +36,15 @@ shape = SubResource("CircleShape2D_fgfec")
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_k2one")
 
-[node name="Wowo" type="Sprite2D" parent="." index="8"]
-modulate = Color(0, 0, 1, 1)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_xhmb2")
+[node name="HealthBar" parent="." index="6"]
+offset_top = -49.0
+offset_bottom = -45.0
+
+[node name="HealthBar" parent="." index="6"]
+offset_top = -49.0
+offset_bottom = -45.0
+
+
 
 [node name="DashCheckLeft" type="RayCast2D" parent="." index="9"]
 target_position = Vector2(60, 0)
