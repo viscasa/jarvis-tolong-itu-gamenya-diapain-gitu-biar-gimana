@@ -1,0 +1,237 @@
+[gd_scene load_steps=29 format=3 uid="uid://ynqo1h8r21li"]
+
+[ext_resource type="Script" uid="uid://d2bwj0tpyb48a" path="res://script/boon_icon_texture.gd" id="1_xufv1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bye6p"]
+load_path = "res://.godot/imported/icons.png-9638851efbee5517d4b4cd55f414e20f.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xufv1"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(65, 150, 86, 90)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bbo3k"]
+load_path = "res://.godot/imported/icons.png-9638851efbee5517d4b4cd55f414e20f.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gij13"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bbo3k")
+region = Rect2(69, 302, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1g6x1"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(71, 466, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjgw7"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(75, 618, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xaur"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(76, 778, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkr8i"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(224, 153, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5lbr"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(228, 305, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eamq8"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(230, 469, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncnyp"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(234, 621, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ers25"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(235, 781, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1ote"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(391, 149, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htedo"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(395, 301, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe4k1"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(397, 465, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hchn4"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(401, 617, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ooier"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(402, 777, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7geb"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(560, 144, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3wm4"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(564, 296, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gpps"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(566, 460, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8fv8"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(570, 612, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6s6j"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(571, 772, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gna54"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(727, 149, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjoag"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(731, 301, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8h28k"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(733, 465, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a78c3"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(737, 617, 86, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jthha"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_bye6p")
+region = Rect2(738, 777, 86, 90)
+
+[node name="BoonIconTexture" type="Node2D"]
+script = ExtResource("1_xufv1")
+
+[node name="1" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_xufv1")
+
+[node name="2" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_gij13")
+
+[node name="3" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_1g6x1")
+
+[node name="4" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_wjgw7")
+
+[node name="5" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_8xaur")
+
+[node name="6" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_dkr8i")
+
+[node name="7" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_d5lbr")
+
+[node name="8" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_eamq8")
+
+[node name="9" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_ncnyp")
+
+[node name="10" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_ers25")
+
+[node name="11" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_a1ote")
+
+[node name="12" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_htedo")
+
+[node name="13" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_oe4k1")
+
+[node name="14" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_hchn4")
+
+[node name="15" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_ooier")
+
+[node name="16" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_w7geb")
+
+[node name="17" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_s3wm4")
+
+[node name="18" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_6gpps")
+
+[node name="19" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_b8fv8")
+
+[node name="20" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_n6s6j")
+
+[node name="21" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_gna54")
+
+[node name="22" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_mjoag")
+
+[node name="23" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_8h28k")
+
+[node name="24" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_a78c3")
+
+[node name="25" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_jthha")

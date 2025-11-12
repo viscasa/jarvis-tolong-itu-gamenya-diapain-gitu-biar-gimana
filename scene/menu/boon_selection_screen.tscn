@@ -1,23 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5wke8t1fi4wv"]
+[gd_scene load_steps=9 format=3 uid="uid://c5wke8t1fi4wv"]
 
 [ext_resource type="PackedScene" uid="uid://e3ps8cueughe" path="res://scene/menu/boon_choice_button.tscn" id="1_grxvn"]
 [ext_resource type="Script" uid="uid://c2bcy0ag3r6yv" path="res://script/menu/boon_selection_screen.gd" id="1_iw46c"]
+[ext_resource type="Texture2D" uid="uid://0te0jfqgjdum" path="res://assets/rubymlbb.png" id="3_1bfnn"]
+[ext_resource type="Texture2D" uid="uid://dm7trsqqv7buc" path="res://assets/Peter.png" id="4_jitjh"]
+[ext_resource type="Texture2D" uid="uid://y0rhss2uffp2" path="res://assets/3pigs.png" id="5_mnupk"]
+[ext_resource type="Texture2D" uid="uid://dr6g33v65ch8u" path="res://assets/WWoTW.png" id="6_3djov"]
+[ext_resource type="Texture2D" uid="uid://c36uhe7yx03jl" path="res://assets/Cinderella.png" id="7_jitjh"]
+[ext_resource type="Texture2D" uid="uid://dnrd3xeeie00n" path="res://assets/BuatDialogue.png" id="8_mnupk"]
 
 [node name="BoonSelectionScreen" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_iw46c")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 88.0
-offset_top = 76.0
-offset_right = 1086.0
-offset_bottom = 565.0
-color = Color(0, 0, 0, 0.3372549)
+[node name="BuatDialogue" type="Sprite2D" parent="."]
+position = Vector2(960, 542)
+texture = ExtResource("8_mnupk")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 388.0
+offset_top = -47.0
+offset_right = 388.0
+offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -25,7 +32,7 @@ size_flags_horizontal = 4
 [node name="ChoiceContainer" type="VBoxContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(500, 350)
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 200
 alignment = 1
 
 [node name="BoonChoiceButton" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
@@ -38,18 +45,36 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="SkipButton" type="Button" parent="."]
-offset_left = 130.0
-offset_top = 502.0
-offset_right = 204.0
-offset_bottom = 550.0
+visible = false
+offset_left = -192.0
+offset_top = 591.0
+offset_right = -118.0
+offset_bottom = 639.0
 focus_mode = 0
 text = "Skip"
 
-[node name="BoonGiverName" type="Label" parent="."]
-offset_left = 115.0
-offset_top = 90.0
-offset_right = 259.0
-offset_bottom = 113.0
-text = "Vengeful Red Riding Hood"
+[node name="Rubymlbb" type="Sprite2D" parent="."]
+position = Vector2(964, 539)
+texture = ExtResource("3_1bfnn")
+
+[node name="Peter" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(963, 546)
+texture = ExtResource("4_jitjh")
+
+[node name="3Pigs" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(961, 542)
+texture = ExtResource("5_mnupk")
+
+[node name="WWoTw" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(962, 544)
+texture = ExtResource("6_3djov")
+
+[node name="Cinderella" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(964, 540)
+texture = ExtResource("7_jitjh")
 
 [connection signal="pressed" from="SkipButton" to="." method="_on_skip_button_pressed"]
