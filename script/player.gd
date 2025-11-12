@@ -31,7 +31,9 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var raycast: Node2D = $Raycast
 @onready var camera: Camera2D = $Camera2D
 signal possessed(target)
-
+@onready var knockback_timer: Timer = $KnockbackTimer
+@export var knockback_strength: float = 300.0
+var is_in_knockback: bool = false
 var is_locked_out := false
 
 # --- VAR ANIMASI BARU ---
@@ -78,6 +80,10 @@ func _ready() -> void:
 		phasing_ray.enabled = true
 	else:
 		print("ERROR: Node $PhasingRay tidak ditemukan di Player! Phasing tidak akan aman.")
+		
+	health_manager.player_was_hit.connect(_on_was_hit)
+	knockback_timer.timeout.connect(_on_knockback_timeout)
+	
 func _on_buffs_updated(new_stats: PlayerModifier):
 	
 	# 1. Terapkan ke HealthManager (Boon "Fluffy Tail", "Rags to Riches")
@@ -109,7 +115,10 @@ func _on_player_died(): #TODO
 	get_tree().reload_current_scene()
 
 func _physics_process(delta: float) -> void:
-	
+	if is_in_knockback:
+		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		move_and_slide()
+		return 
 	dash_manager.update_cooldown(delta)
 	
 	# Proses semua skill
@@ -382,5 +391,15 @@ func _on_stolen_skill_used():
 	var stats = buff_manager.current_stats
 	
 	if stats.shield_on_skill_use > 0:
-		print("ASTRAL SHIELD!")
 		health_manager.add_shield(stats.shield_on_skill_use)
+func _on_was_hit(direction: Vector2):
+	if dash_manager.is_dashing or super_dash.is_dashing or morph_skill.is_dashing:
+		return
+	if is_in_knockback: 
+		return
+	is_in_knockback = true
+	velocity = direction * knockback_strength
+	knockback_timer.start()
+
+func _on_knockback_timeout():
+	is_in_knockback = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=161 format=3 uid="uid://cd8pqdcf40jc3"]
+[gd_scene load_steps=163 format=3 uid="uid://cd8pqdcf40jc3"]
 
 [ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_y3bx4"]
 [ext_resource type="Script" uid="uid://dnj3blru05w53" path="res://script/hostile/shooting_enemy.gd" id="2_0dw0y"]
@@ -27,6 +27,31 @@ size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bk3dr"]
 resource_local_to_scene = true
+
+[sub_resource type="Shader" id="Shader_v1wht"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+uniform vec4 blink_color: source_color;
+uniform float blink_intensity = 0;
+
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	color = mix(color, blink_color, blink_intensity * color.a);
+	COLOR = color;
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t8nl8"]
+resource_local_to_scene = true
+shader = SubResource("Shader_v1wht")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0ly0"]
 atlas = ExtResource("4_v1wht")
@@ -1126,6 +1151,7 @@ shape = SubResource("RectangleShape2D_6nnlf")
 shape = SubResource("CircleShape2D_bk3dr")
 
 [node name="AnimatedSprite2D" parent="." index="3"]
+material = SubResource("ShaderMaterial_t8nl8")
 sprite_frames = SubResource("SpriteFrames_6nnlf")
 animation = &"ATTACK_E"
 frame = 4
@@ -1137,6 +1163,12 @@ shape = SubResource("RectangleShape2D_vt8rj")
 [node name="HealthBar" parent="." index="6"]
 offset_top = -48.0
 offset_bottom = -44.0
+
+[node name="NavAgent" parent="." index="7"]
+path_desired_distance = 80.0
+simplify_path = false
+radius = 80.0
+debug_enabled = true
 
 [node name="Shadow" type="Sprite2D" parent="." index="10"]
 z_index = -1
