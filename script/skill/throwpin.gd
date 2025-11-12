@@ -4,7 +4,7 @@ class_name ThrownPin
 @onready var stats: Stats = $Stats
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var attack_timer: Timer = $AttackTimer # Ini adalah timer "lifetime"
-@onready var needle: Sprite2D = $Needle
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurtbox_collision: CollisionShape2D = $Hurtbox/CollisionShape2D
 @onready var body_collision: CollisionShape2D = $CollisionShape2D
 @onready var hitbox_collision: CollisionShape2D = $Hitbox/CollisionShape2D
@@ -42,7 +42,7 @@ func launch(_direction: Vector2, _speed: float, _distance: float):
 func _ready() -> void:
 	current_state = State.ATTACK
 	add_to_group("enemies")
-	needle.material.set_shader_parameter('percentage', 1.0)
+	animated_sprite_2d.material.set_shader_parameter('percentage', 1.0)
 	health_bar.max_value = stats.max_health
 	health_bar.value = stats.current_health
 	stats.no_health.connect(_on_death)
@@ -110,10 +110,10 @@ func _on_hurtbox_player_possessed() -> void:
 	attack_timer.stop()
 
 func set_percent(percentage: float) -> void:
-	needle.material.set_shader_parameter('percentage', percentage)
+	animated_sprite_2d.material.set_shader_parameter('percentage', percentage)
 
 func tween_percent():
 	var tween = create_tween()
-	tween.tween_method(set_percent, 1.0, 0.0, 1)
+	tween.tween_method(set_percent, 1.0, 0.0, 0.4)
 	await tween.finished
 	queue_free()

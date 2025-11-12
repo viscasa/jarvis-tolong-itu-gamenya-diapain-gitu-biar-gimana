@@ -1,4 +1,4 @@
-[gd_scene load_steps=270 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=286 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://lx1gcjbg2od5" path="res://assets/shadow1.png" id="2_2rx5w"]
@@ -52,12 +52,21 @@
 [ext_resource type="Texture2D" uid="uid://d2l7pbo0n1p3l" path="res://assets/player/run/run_w.png" id="17_yw1hm"]
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
 [ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
+[ext_resource type="Texture2D" uid="uid://b6b3hu5g6wb3w" path="res://assets/player/skill/burst_out.png" id="36_4fvns"]
+[ext_resource type="Texture2D" uid="uid://ckbg71qnjmn2b" path="res://assets/player/skill/possess.png" id="37_kosee"]
 [ext_resource type="PackedScene" uid="uid://buh1lj7tdd2r3" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxxrj"]
 shader = ExtResource("3_i4afv")
 shader_parameter/blink_color = Color(1, 0, 0, 1)
 shader_parameter/blink_intensity = 0.0
+shader_parameter/percentage = 1.0
+shader_parameter/layer_1 = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/size_1 = 0.05
+shader_parameter/layer_2 = Color(1, 0, 0, 1)
+shader_parameter/size_2 = 0.05
+shader_parameter/layer_3 = Color(1, 0.5, 0, 1)
+shader_parameter/size_3 = 0.05
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymral"]
 atlas = ExtResource("2_nrjwp")
@@ -1718,6 +1727,110 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3666m"]
+atlas = ExtResource("36_4fvns")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxdv1"]
+atlas = ExtResource("37_kosee")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3elpu"]
+atlas = ExtResource("37_kosee")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqydq"]
+atlas = ExtResource("37_kosee")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kenlu"]
+atlas = ExtResource("37_kosee")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlu34"]
+atlas = ExtResource("37_kosee")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6h7m"]
+atlas = ExtResource("37_kosee")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6myh"]
+atlas = ExtResource("37_kosee")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkv7q"]
+atlas = ExtResource("37_kosee")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3gcx"]
+atlas = ExtResource("37_kosee")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2d0oa"]
+atlas = ExtResource("37_kosee")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sa03x"]
+atlas = ExtResource("37_kosee")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb0b1"]
+atlas = ExtResource("37_kosee")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wc042"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3666m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxdv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3elpu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqydq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kenlu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlu34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6h7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6myh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkv7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3gcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2d0oa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sa03x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kb0b1")
+}],
+"loop": false,
+"name": &"posses",
+"speed": 22.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqqa"]
@@ -1760,10 +1873,16 @@ wait_time = 0.07
 wait_time = 0.00999999999999999
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_sxxrj")
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_k0kj3")
 animation = &"Idle_E"
+
+[node name="PossesEffect" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_wc042")
+autoplay = "default"
 
 [node name="Raycast" type="Node2D" parent="."]
 position = Vector2(0, 15)

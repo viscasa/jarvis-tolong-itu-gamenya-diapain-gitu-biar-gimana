@@ -41,3 +41,6 @@ shape = SubResource("RectangleShape2D_k54js")
 [node name="BoonGiverIcon" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(0, -57.5)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+affect_navigation_mesh = true

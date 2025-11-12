@@ -17,13 +17,11 @@ texture = ExtResource("1_mss46")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -16, -32, 0, 0, 16, 32, 0)
-0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejcbg"]
 texture = ExtResource("2_r647c")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k5h2i"]
 texture = ExtResource("5_re3du")
@@ -31,7 +29,6 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -16, -32, 0, 0, 16, 32, 0)
 0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(0, -16, -32, 0, 0, 16, 32, 0)
-0:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_k5h2i"]
 tile_shape = 1
