@@ -157,11 +157,11 @@ func _perform_attack():
 	is_attacking = true
 	_update_animation_state()
 	
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	hitbox.damage = stats.get_final_damage()
 	hitbox_shape.disabled = false
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	if self and hitbox_shape:
 		hitbox_shape.disabled = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=192 format=3 uid="uid://bopshekyxove8"]
+[gd_scene load_steps=194 format=3 uid="uid://bopshekyxove8"]
 
 [ext_resource type="PackedScene" uid="uid://bke8ohgi88a3k" path="res://scene/hostile/enemy_base.tscn" id="1_b13j0"]
 [ext_resource type="Script" uid="uid://bk5wwoaco0je8" path="res://script/hostile/broken_puppet.gd" id="2_02fdu"]
@@ -32,8 +32,33 @@
 size = Vector2(8, 8)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_02fdu"]
-radius = 7.0
-height = 34.0
+radius = 18.000002
+height = 58.000004
+
+[sub_resource type="Shader" id="Shader_gdwyp"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+uniform vec4 blink_color: source_color;
+uniform float blink_intensity = 0;
+
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	color = mix(color, blink_color, blink_intensity * color.a);
+	COLOR = color;
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bed1b"]
+resource_local_to_scene = true
+shader = SubResource("Shader_gdwyp")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_amd3h"]
 atlas = ExtResource("3_re1xh")
@@ -67,10 +92,6 @@ region = Rect2(768, 0, 128, 128)
 atlas = ExtResource("3_re1xh")
 region = Rect2(896, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5lkyd"]
-atlas = ExtResource("4_gdwyp")
-region = Rect2(0, 0, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_en5kg"]
 atlas = ExtResource("4_gdwyp")
 region = Rect2(128, 0, 128, 128)
@@ -78,6 +99,10 @@ region = Rect2(128, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_r0wv1"]
 atlas = ExtResource("4_gdwyp")
 region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lkyd"]
+atlas = ExtResource("4_gdwyp")
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jt6vh"]
 atlas = ExtResource("4_gdwyp")
@@ -708,13 +733,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5lkyd")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_en5kg")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_r0wv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lkyd")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jt6vh")
@@ -1286,7 +1311,7 @@ size = Vector2(24.041632, 24.041632)
 script = ExtResource("2_02fdu")
 lunge_speed = 150.0
 lunge_duration = 0.1
-attack_offset = 20.0
+attack_offset = 30.0
 move_speed = 50.0
 attack_range = 70.0
 
@@ -1307,11 +1332,11 @@ rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_02fdu")
 
 [node name="AnimatedSprite2D" parent="." index="4"]
+material = SubResource("ShaderMaterial_bed1b")
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_02fdu")
-animation = &"ATTACK_N"
-frame = 7
-frame_progress = 1.0
+animation = &"ATTACK_E"
+frame = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_02fdu")

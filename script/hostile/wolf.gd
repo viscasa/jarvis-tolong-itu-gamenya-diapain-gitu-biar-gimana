@@ -45,13 +45,12 @@ func _state_chase(delta):
 	if target_velocity == Vector2.ZERO and velocity.length_squared() < 25.0: 
 		velocity = Vector2.ZERO
 	
-	if velocity.x != 0:
-		animated_sprite.flip_h = (velocity.x < 0)
+
 
 func _perform_attack():
 	if wolf_attack_state != WolfAttackState.RECOVERING:
 		return
-
+	is_attacking = true
 	wolf_attack_state = WolfAttackState.CHARGING
 	charge_timer = charge_time
 	#animated_sprite.play("charge") 
@@ -60,9 +59,7 @@ func _perform_attack():
 		dash_direction = global_position.direction_to(player_target.global_position)
 	else:
 		dash_direction = Vector2.RIGHT 
-	
-	if dash_direction.x != 0:
-		animated_sprite.flip_h = (dash_direction.x < 0)
+	last_move_direction = dash_direction
 
 func _state_attack(delta):
 	if is_in_knockback:
@@ -94,6 +91,8 @@ func _state_attack(delta):
 					
 		WolfAttackState.DASHBACK:
 			target_velocity = -dash_direction * dash_speed
+			last_move_direction = -dash_direction
+			
 			velocity = target_velocity 
 			dash_timer -= delta
 			if dash_timer <= 0:
@@ -104,10 +103,34 @@ func _state_attack(delta):
 			target_velocity = Vector2.ZERO
 			velocity = velocity.lerp(target_velocity, 15.0 * delta) 
 			
+func _update_animation_state() -> void:
+	var anim_prefix = "IDLE"
+	var anim_direction = last_move_direction
 
+	if is_attacking:
+		match wolf_attack_state:
+			WolfAttackState.CHARGING:
+				anim_prefix = "ATTACK"
+			WolfAttackState.DASHING:
+				anim_prefix = "ATTACK" 
+			WolfAttackState.DASHBACK:
+				anim_prefix = "WALK"
+			WolfAttackState.RECOVERING:
+				anim_prefix = "IDLE" 
+		
+		anim_direction = last_move_direction 
+	
+	elif velocity.length() > 1.0: 
+		anim_prefix = "WALK"
+		anim_direction = velocity.normalized()
+		last_move_direction = anim_direction
+	
+
+	_play_directional_animation(anim_prefix, anim_direction)
+	
 func _on_attack_timer_timeout():
 	super._on_attack_timer_timeout()
-	
+	is_attacking = false
 	wolf_attack_state = WolfAttackState.RECOVERING
 	
 	if self and hitbox_shape:

@@ -7,9 +7,12 @@ signal resurrected # Sinyal baru untuk UI
 var current_shield: float = 0.0
 var shield_timer: Timer
 signal shield_changed(current_shield, max_shield)
+signal player_was_hit(hit_direction: Vector2)
 var max_shield_amount: float = 0.0
 @onready var shield_bar: ProgressBar = $"../HealthBar/ShieldBar"
+@onready var sprite: AnimatedSprite2D = $"../Sprite"
 @export var max_health: float = 100.0:
+
 	set(value):
 		var old_max = max_health
 		max_health = value
@@ -66,7 +69,7 @@ func heal(amount: float):
 	health_bar.value = current_health
 	print("Player healed for ", final_heal)
 # ------------------------------------
-func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
+func take_damage(damage_amount: float, crit_multiplier: float = 1.0, is_melee := false, dir := Vector2(1.0, 1.0)):
 	var stats = buff_manager.current_stats
 	if randf() < stats.evasion_chance:
 		print("EVASION! Serangan dihindari.")
@@ -75,9 +78,29 @@ func take_damage(damage_amount: float, crit_multiplier: float = 1.0):
 	if damage_amount < 0:
 		heal(-damage_amount)
 		return
-
+	if is_melee:
+		player_was_hit.emit(dir)
+	var tween = get_tree().create_tween()
+	tween.tween_method(set_shader_blink_intensity, 1.0, 0.0, 0.3)
 	var final_damage = damage_amount*crit_multiplier - base_defense
-	
+	var shake_tween = get_tree().create_tween()
+	var shake_amount = 8.0 # Jarak getaran (piksel)
+	var shake_duration = 0.02 # Waktu per getaran
+	var original_pos = sprite.position
+
+	# Goyang ke kanan, kiri, kanan, lalu kembali ke tengah
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(-shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos, shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(-shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos, shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(-shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(sprite, "position", original_pos, shake_duration)
 	if final_damage < 1:
 		final_damage = 1
 	if current_shield > 0:
@@ -139,3 +162,5 @@ func _update_ui():
 		print("shield bar value:")
 		print(shield_bar.value)
 		print(health_bar.value)
+func set_shader_blink_intensity(new_value : float):
+	sprite.material.set_shader_parameter("blink_intensity", new_value)

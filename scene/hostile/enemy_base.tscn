@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bke8ohgi88a3k"]
+[gd_scene load_steps=17 format=3 uid="uid://bke8ohgi88a3k"]
 
 [ext_resource type="Script" uid="uid://dbuhl7tojgto2" path="res://script/hostile/enemy_base.gd" id="1_0dq4w"]
 [ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="2_54ojy"]
 [ext_resource type="Script" uid="uid://dsj462rg05pel" path="res://script/components/hit_box.gd" id="3_7ijlw"]
+[ext_resource type="Shader" uid="uid://b1nwb5p0bjv5i" path="res://shader/blink.gdshader" id="4_35ih3"]
 [ext_resource type="Script" uid="uid://dtffxjfmsjwuw" path="res://script/components/hurt_box.gd" id="4_vhfx3"]
 [ext_resource type="Texture2D" uid="uid://cp511vlvuylir" path="res://assets/temp/White-Circle-PNG.png" id="5_roat0"]
 
@@ -12,6 +13,12 @@ size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_roat0"]
 radius = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_veo01"]
+resource_local_to_scene = true
+shader = ExtResource("4_35ih3")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_roat0"]
 
@@ -148,6 +155,7 @@ shape = SubResource("CircleShape2D_roat0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_veo01")
 sprite_frames = SubResource("SpriteFrames_roat0")
 
 [node name="AttackTimer" type="Timer" parent="."]

@@ -22,8 +22,6 @@ func _perform_attack():
 	hitbox.rotation = lunge_direction.angle() + rad_to_deg(2)
 	hitbox.position = lunge_direction * attack_offset
 	
-	hitbox.damage = stats.get_final_damage()
-	hitbox_shape.disabled = false
 	super._perform_attack()
 
 func _state_attack(delta):

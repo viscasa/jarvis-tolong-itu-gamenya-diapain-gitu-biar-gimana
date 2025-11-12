@@ -11,6 +11,7 @@ signal was_hit(hit_direction: Vector2)
 @export var health_bar : ProgressBar
 @export var damage_multiplier: float = 1.0
 @onready var damage_number_origin: Node2D = $"../DamageNumberOrigin"
+@onready var animated_sprite_2d: AnimatedSprite2D = $"../AnimatedSprite2D"
 var is_death = false
 
 var current_health: float:
@@ -33,6 +34,26 @@ func take_damage(damage_amount: float, hit_direction: Vector2,  crit_multiplier:
 	
 	if final_damage < 1:
 		final_damage = 1
+	var tween = get_tree().create_tween()
+	tween.tween_method(set_shader_blink_intensity, 1.0, 0.0, 0.3)
+	var shake_tween = get_tree().create_tween()
+	var shake_amount = 8.0 # Jarak getaran (piksel)
+	var shake_duration = 0.02 # Waktu per getaran
+	var original_pos = animated_sprite_2d.position
+
+	# Goyang ke kanan, kiri, kanan, lalu kembali ke tengah
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(-shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos, shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(-shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos, shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(-shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
+	shake_tween.tween_property(animated_sprite_2d, "position", original_pos, shake_duration)
 	
 	if crit_multiplier > 1.0:
 		DamageNumber.display_number(final_damage, damage_number_origin, Color.YELLOW)
@@ -42,6 +63,8 @@ func take_damage(damage_amount: float, hit_direction: Vector2,  crit_multiplier:
 	health_bar.value = current_health
 	print(get_parent().name + " takes " + str(final_damage) + " damage. Health: " + str(current_health))
 	was_hit.emit(hit_direction)
+func set_shader_blink_intensity(new_value : float):
+	animated_sprite_2d.material.set_shader_parameter("blink_intensity", new_value)
 func get_final_damage() -> float:
 	var final_damage = base_damage * damage_multiplier
 	
