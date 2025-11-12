@@ -1,4 +1,4 @@
-[gd_scene load_steps=270 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=273 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
 [ext_resource type="Texture2D" uid="uid://lx1gcjbg2od5" path="res://assets/shadow1.png" id="2_2rx5w"]
@@ -53,6 +53,8 @@
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
 [ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
 [ext_resource type="PackedScene" uid="uid://buh1lj7tdd2r3" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
+[ext_resource type="Script" uid="uid://cu5nkhvl2dyij" path="res://script/ui/damage_overlay.gd" id="54_4fvns"]
+[ext_resource type="Shader" uid="uid://86l84p8mcfsh" path="res://shader/hit_overlay.gdshader" id="54_sxxrj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxxrj"]
 shader = ExtResource("3_i4afv")
@@ -1734,6 +1736,10 @@ bg_color = Color(0.98749274, 0, 0.25822866, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qehiv"]
 bg_color = Color(0.76240367, 0.7624037, 0.7624035, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4fvns"]
+shader = ExtResource("54_sxxrj")
+shader_parameter/intensity = 0.0
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 2
@@ -1906,6 +1912,18 @@ script = ExtResource("26_04bvi")
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
+
+[node name="DamageOverlay" type="CanvasLayer" parent="."]
+script = ExtResource("54_4fvns")
+
+[node name="ColorRect" type="ColorRect" parent="DamageOverlay"]
+material = SubResource("ShaderMaterial_4fvns")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6784314, 0, 0, 0)
 
 [connection signal="timeout" from="GhostTimer" to="DashManager" method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="GhostTimerMorph" to="SkillManager/MorphSkill" method="_on_ghost_timer_morph_timeout"]
