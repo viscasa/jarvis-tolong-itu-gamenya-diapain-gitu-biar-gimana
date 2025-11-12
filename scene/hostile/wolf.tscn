@@ -1393,7 +1393,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jt20n")
 }],
-"loop": true,
+"loop": false,
 "name": &"STUNNED_E",
 "speed": 6.0
 }, {
@@ -1416,7 +1416,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mtmxn")
 }],
-"loop": true,
+"loop": false,
 "name": &"STUNNED_N",
 "speed": 5.0
 }, {
@@ -1439,7 +1439,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jiqgw")
 }],
-"loop": true,
+"loop": false,
 "name": &"STUNNED_NE",
 "speed": 5.0
 }, {
@@ -1462,7 +1462,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5r6qt")
 }],
-"loop": true,
+"loop": false,
 "name": &"STUNNED_NW",
 "speed": 5.0
 }, {
@@ -1485,7 +1485,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6hct7")
 }],
-"loop": true,
+"loop": false,
 "name": &"STUNNED_S",
 "speed": 5.0
 }, {
@@ -1508,7 +1508,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k4nld")
 }],
-"loop": true,
+"loop": false,
 "name": &"STUNNED_SE",
 "speed": 5.0
 }, {
@@ -1531,7 +1531,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5anti")
 }],
-"loop": true,
+"loop": false,
 "name": &"STUNNED_SW",
 "speed": 5.0
 }, {
@@ -1554,7 +1554,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_svke8")
 }],
-"loop": true,
+"loop": false,
 "name": &"STUNNED_W",
 "speed": 5.0
 }, {
@@ -1764,9 +1764,7 @@ shape = SubResource("CircleShape2D_tujma")
 material = SubResource("ShaderMaterial_lho47")
 position = Vector2(0, -22)
 sprite_frames = SubResource("SpriteFrames_st8lr")
-animation = &"ATTACK_E"
-frame = 7
-frame_progress = 1.0
+animation = &"STUNNED_W"
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_obxat")

@@ -14,6 +14,7 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var possession_manager: PossessionManager = $PossessionManager
 @onready var skill_manager: Node2D = $SkillManager
 
+
 # Referensi skill di dalam SkillManager
 @onready var super_dash: SuperDash = $SkillManager/SuperDash
 @onready var pin: Pin = $SkillManager/Pin
