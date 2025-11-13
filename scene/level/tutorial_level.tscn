@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://dmm5tbo2jnap5"]
+[gd_scene load_steps=9 format=4 uid="uid://nfb6k3y2ymip"]
 
 [ext_resource type="PackedScene" uid="uid://yncml2ptnko7" path="res://scene/level/room.tscn" id="1_scad7"]
 [ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="2_n7h5c"]
 [ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="3_n7h5c"]
-[ext_resource type="Script" uid="uid://h0tnnc4wy2xh" path="res://script/tutorialdhsfkhjsdf.gd" id="4_te7ks"]
+[ext_resource type="Script" path="res://script/tutorialdhsfkhjsdf.gd" id="4_te7ks"]
 
 [sub_resource type="Shader" id="Shader_n7h5c"]
 resource_local_to_scene = true

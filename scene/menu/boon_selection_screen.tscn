@@ -11,6 +11,7 @@
 
 [node name="BoonSelectionScreen" type="CanvasLayer"]
 process_mode = 3
+layer = 2
 script = ExtResource("1_iw46c")
 
 [node name="BuatDialogue" type="Sprite2D" parent="."]
@@ -22,9 +23,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 388.0
-offset_top = -47.0
+offset_top = 46.0
 offset_right = 388.0
-offset_bottom = -47.0
+offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -32,16 +33,19 @@ size_flags_horizontal = 4
 [node name="ChoiceContainer" type="VBoxContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(500, 350)
 layout_mode = 2
-theme_override_constants/separation = 200
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="BoonChoiceButton" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
+custom_minimum_size = Vector2(693, 325)
 layout_mode = 2
 
 [node name="BoonChoiceButton2" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
+custom_minimum_size = Vector2(693, 325)
 layout_mode = 2
 
 [node name="BoonChoiceButton3" parent="CenterContainer/ChoiceContainer" instance=ExtResource("1_grxvn")]
+custom_minimum_size = Vector2(693, 325)
 layout_mode = 2
 
 [node name="SkipButton" type="Button" parent="."]
@@ -54,6 +58,7 @@ focus_mode = 0
 text = "Skip"
 
 [node name="Rubymlbb" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(964, 539)
 texture = ExtResource("3_1bfnn")
 

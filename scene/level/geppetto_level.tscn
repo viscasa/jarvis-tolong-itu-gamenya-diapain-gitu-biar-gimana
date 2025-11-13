@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cgld5hq0p24bd" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071036.png" id="4_mtnyg"]
 [ext_resource type="Texture2D" uid="uid://bfmmlc6ht55ei" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071041.png" id="5_3vvsb"]
 [ext_resource type="PackedScene" uid="uid://7xvfxcypiid7" path="res://scene/hostile/geppetto/geppetto.tscn" id="5_l811l"]
-[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="6_1w48m"]
+[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player.tscn" id="6_1w48m"]
 [ext_resource type="Texture2D" uid="uid://nfx7nrwi5x5p" path="res://assets/tile_assets/Tile batu/Untitled542_20251109075329.png" id="6_fw1jv"]
 [ext_resource type="Texture2D" uid="uid://y4m5s25dfkwe" path="res://assets/tile_assets/Tile batu/Untitled542_20251109075334.png" id="7_hb460"]
 [ext_resource type="PackedScene" uid="uid://yvfty5mbnbc8" path="res://scene/menu/pause_menu.tscn" id="7_ohnom"]

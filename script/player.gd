@@ -24,7 +24,6 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var possess_area: Area2D = $PossessArea
 @onready var hurt_box_player: HurtboxPlayer = $HurtBoxPlayer
-@onready var buff_manager: PlayerBuffManager = $BuffManager
 @onready var health_manager: HealthManager = $HealthManager
 @onready var attack_manager: AttackManager = $AttackManager 
 @onready var circle_timing: Node2D = $CircleTiming
@@ -70,8 +69,8 @@ func _ready() -> void:
 	dash_manager.super_dash = super_dash
 	dash_manager.pin = pin
 	
-	buff_manager.buffs_updated.connect(_on_buffs_updated)
-	_on_buffs_updated(buff_manager.base_stats)
+	PlayerBuffManager.buffs_updated.connect(_on_buffs_updated)
+	_on_buffs_updated(PlayerBuffManager.base_stats)
 	health_manager.no_health.connect(_on_player_died)
 	skill_manager.stolen_skill_used.connect(_on_stolen_skill_used)
 	
@@ -210,7 +209,7 @@ func _process_movement(delta: float) -> void:
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
-	var current_speed = buff_manager.current_stats.move_speed
+	var current_speed = PlayerBuffManager.current_stats.move_speed
 	
 	# Update arah terakhir berdasarkan input
 	if input_vector.length() > 0.0:
@@ -392,7 +391,7 @@ func _on_animation_finished() -> void:
 # --- AKHIR TAMBAHAN ---
 
 func _on_stolen_skill_used():
-	var stats = buff_manager.current_stats
+	var stats = PlayerBuffManager.current_stats
 	
 	if stats.shield_on_skill_use > 0:
 		health_manager.add_shield(stats.shield_on_skill_use)

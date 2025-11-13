@@ -7,7 +7,6 @@ signal homing_shot_dash_ended
 @onready var player: Player = $"../.."
 
 @export var projectile_scene: PackedScene
-@onready var buff_manager: PlayerBuffManager = $"../../BuffManager" # Sesuaikan path
 
 @export_group("Projectile")
 @export var missile_speed : float = 300.0
@@ -21,7 +20,7 @@ func shoot_projectile() -> void:
 		push_error("HomingShot.gd: projectile_scene belum di-set!")
 		return
 		
-	var stats = buff_manager.current_stats
+	var stats = PlayerBuffManager.current_stats
 
 	var bullet_count = stats.bullet_multiplier
 	

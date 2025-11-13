@@ -137,7 +137,6 @@ region = Rect2(738, 777, 86, 90)
 script = ExtResource("1_xufv1")
 
 [node name="1" type="Sprite2D" parent="."]
-visible = false
 texture = SubResource("AtlasTexture_xufv1")
 
 [node name="2" type="Sprite2D" parent="."]
