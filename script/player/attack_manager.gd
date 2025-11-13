@@ -3,7 +3,6 @@ class_name AttackManager
 
 signal critical_circle
 
-@onready var buff_manager: PlayerBuffManager = $"../BuffManager"
 
 var crit_multiplier:float = 2.0
 var enemy_stats:Stats = null
@@ -36,7 +35,7 @@ func attack(enemy:Node, hit_direction: Vector2,  is_critical: bool, damage:float
 		enemy_stats.take_damage(final_damage, hit_direction)
 func get_final_damage(is_critical: bool = false) -> float:
 	# Dapatkan stat terbaru dari 'otak'
-	var stats = buff_manager.current_stats
+	var stats = PlayerBuffManager.current_stats
 	
 	var calculated_damage = stats.base_damage # Ini adalah base damage (default 20.0)
 	

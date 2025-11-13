@@ -35,11 +35,13 @@ texture = ExtResource("2_2tm14")
 layout_mode = 0
 offset_left = 81.0
 offset_top = -33.0
-offset_right = 474.0
+offset_right = 358.0
 offset_bottom = 30.0
 theme_override_fonts/font = ExtResource("3_tauos")
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 30
 text = "Title"
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="DescriptionLabel" type="Label" parent="."]
 layout_mode = 0
@@ -50,8 +52,9 @@ offset_bottom = 270.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_tauos")
 theme_override_font_sizes/font_size = 30
-text = "Description aaaa"
+text = "DESC"
+autowrap_mode = 3
 
 [node name="BoonIconTexture" parent="." instance=ExtResource("4_8jbkv")]
-position = Vector2(633, 163)
+position = Vector2(633, 172)
 scale = Vector2(2, 2)

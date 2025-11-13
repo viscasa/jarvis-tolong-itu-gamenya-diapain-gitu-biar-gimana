@@ -1,12 +1,12 @@
 [gd_scene load_steps=14 format=3 uid="uid://yncml2ptnko7"]
 
 [ext_resource type="Script" uid="uid://do6lcn32wdt8o" path="res://script/level/room.gd" id="1_6ar0q"]
-[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="2_3xw8e"]
 [ext_resource type="Texture2D" uid="uid://bcwptdwa2gjmm" path="res://assets/tile_assets/tilemap2.png" id="3_cupyr"]
 [ext_resource type="Texture2D" uid="uid://crree2q0ufg3s" path="res://assets/tile_assets/blank.png" id="4_ib65q"]
 [ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="5_7j0h5"]
 [ext_resource type="PackedScene" uid="uid://yvfty5mbnbc8" path="res://scene/menu/pause_menu.tscn" id="6_3xw8e"]
 [ext_resource type="PackedScene" uid="uid://bgaglybpdid6m" path="res://scene/player/player_ui.tscn" id="6_7pugk"]
+[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player.tscn" id="6_ib65q"]
 [ext_resource type="PackedScene" uid="uid://ug8pl1hfgn37" path="res://scene/background/parallax_cloud.tscn" id="7_7pugk"]
 [ext_resource type="Texture2D" uid="uid://dx4ncdgvarqr6" path="res://assets/tile_assets/tilemap.png" id="58_rtw3q"]
 
@@ -517,7 +517,7 @@ navigation_enabled = false
 [node name="PlayerSpawnPosition" type="Marker2D" parent="."]
 y_sort_enabled = true
 
-[node name="Player" parent="PlayerSpawnPosition" instance=ExtResource("2_3xw8e")]
+[node name="Player" parent="PlayerSpawnPosition" instance=ExtResource("6_ib65q")]
 
 [node name="RewardSpawnPosition" type="Marker2D" parent="."]
 y_sort_enabled = true

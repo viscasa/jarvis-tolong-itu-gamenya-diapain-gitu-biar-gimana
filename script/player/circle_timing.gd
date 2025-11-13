@@ -7,7 +7,6 @@ var dash_manager: DashManager
 var attack_manager: AttackManager
 signal exit_missed
 # --- TAMBAHKAN/UBAH REFERENSI INI ---
-var buff_manager: PlayerBuffManager
 var super_dash: SuperDash
 var player_health: HealthManager # Ganti nama dari 'player_stats'
 # ----------------------------------
@@ -24,7 +23,6 @@ func _ready() -> void:
 		attack_manager = player.get_node("AttackManager") as AttackManager
 		
 		# --- PERBAIKAN REFERENSI ---
-		buff_manager = player.get_node("BuffManager") as PlayerBuffManager
 		super_dash = player.get_node("SkillManager/SuperDash") as SuperDash
 		player_health = player.get_node("HealthManager") as HealthManager # Ambil HealthManager
 		# --------------------------
@@ -42,7 +40,7 @@ func _on_exit() -> void:
 		
 	var is_critical:bool = false
 	var time:float = possesion_target.get_current_circle_time()
-	var stats = buff_manager.current_stats # Ambil stat terbaru
+	var stats = PlayerBuffManager.current_stats # Ambil stat terbaru
 	
 	var enemy : Node
 	if possesion_target is CharacterBody2D :

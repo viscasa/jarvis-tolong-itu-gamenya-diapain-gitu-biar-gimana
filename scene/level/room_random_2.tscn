@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://br4s27n02lnqs"]
+[gd_scene load_steps=6 format=4 uid="uid://dlgruj38a4g44"]
 
 [ext_resource type="PackedScene" uid="uid://yncml2ptnko7" path="res://scene/level/room.tscn" id="1_pka41"]
 [ext_resource type="Script" uid="uid://b8chfmlwj0vn0" path="res://script/level/enemy_spawn_point.gd" id="2_7gxdb"]

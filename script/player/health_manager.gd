@@ -36,7 +36,6 @@ var max_shield_amount: float = 0.0
 @onready var damage_number_origin: Node2D = $"../DamageNumberOrigin"
 
 # --- TAMBAHKAN REFERENSI BUFFMANAGER ---
-@onready var buff_manager: PlayerBuffManager = $"../BuffManager"
 
 var current_health: float:
 	set(value):
@@ -46,7 +45,7 @@ var current_health: float:
 		# --- PERBAIKAN LOGIKA KEMATIAN ---
 		if current_health <= 0:
 			# Cek boon "House of Brick"
-			if buff_manager.current_stats.ressurection > 0:
+			if PlayerBuffManager.current_stats.ressurection > 0:
 				_try_resurrect()
 			else:
 				no_health.emit() # Baru benar-benar mati
@@ -57,7 +56,7 @@ func _ready():
 
 func heal(amount: float):
 	# Ambil stat terbaru
-	var stats = buff_manager.current_stats
+	var stats = PlayerBuffManager.current_stats
 	shield_timer = Timer.new()
 	shield_timer.one_shot = true
 	shield_timer.timeout.connect(_on_shield_timer_timeout)
@@ -71,7 +70,7 @@ func heal(amount: float):
 	print("Player healed for ", final_heal)
 # ------------------------------------
 func take_damage(damage_amount: float, crit_multiplier: float = 1.0, is_melee := false, dir := Vector2(1.0, 1.0)):
-	var stats = buff_manager.current_stats
+	var stats = PlayerBuffManager.current_stats
 	if randf() < stats.evasion_chance:
 		print("EVASION! Serangan dihindari.")
 		DamageNumber.display_number("MISS", damage_number_origin, Color.WHITE)
@@ -122,7 +121,7 @@ func take_damage(damage_amount: float, crit_multiplier: float = 1.0, is_melee :=
 
 # --- TAMBAHKAN FUNGSI RESURRECT BARU ---
 func _try_resurrect():
-	var stats = buff_manager.current_stats
+	var stats = PlayerBuffManager.current_stats
 	
 	print("HOUSE OF BRICK! Anda hidup kembali!")
 	
@@ -133,7 +132,7 @@ func _try_resurrect():
 	var res_buff = BuffBase.new()
 	res_buff.modifier.ressurection = -1 # (Kita kurangi 1)
 	res_buff.modifier.set_mode("ressurection", "add")
-	buff_manager.add_buff(res_buff) # Ini akan memicu _calculate_all
+	PlayerBuffManager.add_buff(res_buff) # Ini akan memicu _calculate_all
 	
 	# Hidup kembali dengan 50% HP
 	current_health = max_health * 0.5

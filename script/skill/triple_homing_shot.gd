@@ -15,7 +15,6 @@ signal triple_shot_dash_ended
 @export var missile_damage : float = 15.0
 @export var missile_lifetime : float = 3.0
 @export var missile_proximity_threshold : float = 20.0
-@onready var buff_manager: PlayerBuffManager = $"../../BuffManager" # Sesuaikan path
 @export_range(0.1, 1.0) var spread_angle: float = 1 # Sudut sebar (seperti musuh)
 
 @onready var player: Player = $"../.."
@@ -26,7 +25,7 @@ func shoot_projectiles() -> void:
 		return
 	
 	# --- DAPATKAN STAT TERBARU ---
-	var stats = buff_manager.current_stats
+	var stats = PlayerBuffManager.current_stats
 	
 	var initial_dir = (player.get_global_mouse_position() - player.global_position).normalized()
 	if initial_dir == Vector2.ZERO:

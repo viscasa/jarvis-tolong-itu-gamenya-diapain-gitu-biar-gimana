@@ -9,7 +9,6 @@ class_name SlashShot
 @export var slash_damage: float = 25.0
 @export var slash_speed: float = 600.0
 @export var slash_lifetime: float = 0.25 # Dibuat singkat agar seperti tebasan
-@onready var buff_manager: PlayerBuffManager = $"../../BuffManager"
 
 @onready var player: Player = $"../.."
 
@@ -19,7 +18,7 @@ func execute_shot(direction: Vector2) -> void:
 		return
 	
 	# --- DAPATKAN STAT TERBARU ---
-	var stats = buff_manager.current_stats
+	var stats = PlayerBuffManager.current_stats
 	
 
 	
