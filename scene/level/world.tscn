@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=4 uid="uid://benoe2kbrdpcf"]
 
 [ext_resource type="Texture2D" uid="uid://ckoshyti26sb3" path="res://assets/tile_assets/ground/bebatuan.png" id="1_mss46"]
-[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player/player.tscn" id="2_0hn3o"]
+[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player.tscn" id="2_0hn3o"]
 [ext_resource type="Texture2D" uid="uid://d35ejpembt0qw" path="res://assets/tile_assets/ground/Untitled540_20251108163445.png" id="2_r647c"]
 [ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="3_er4cb"]
 [ext_resource type="Texture2D" uid="uid://bfmmlc6ht55ei" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071041.png" id="5_re3du"]

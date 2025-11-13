@@ -35,9 +35,9 @@ texture = ExtResource("2_wttdg")
 
 [node name="StartButton" type="Button" parent="."]
 offset_left = 664.0
-offset_top = 502.0
+offset_top = 626.0
 offset_right = 1213.0
-offset_bottom = 618.0
+offset_bottom = 742.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/normal = SubResource("StyleBoxEmpty_123lf")
@@ -48,9 +48,9 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_hcpe2")
 
 [node name="ExitButton" type="Button" parent="."]
 offset_left = 660.0
-offset_top = 783.0
+offset_top = 758.0
 offset_right = 1211.0
-offset_bottom = 894.0
+offset_bottom = 869.0
 theme_override_font_sizes/font_size = 128
 theme_override_styles/normal = SubResource("StyleBoxEmpty_uqtd8")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_5jn1p")

@@ -5,13 +5,10 @@ extends CanvasLayer
 @onready var boon_grid: GridContainer = $BoonGrid
 @onready var boon_name_label: Label = $BoonNameLabel
 @onready var boon_desc_label: Label = $BoonDescLabel
-var player_buff_manager: PlayerBuffManager = null
 var boon_icon_scene = preload("res://scene/menu/boon_icon.tscn")
 func _ready():
 	continue_button.pressed.connect(_on_continue_pressed)
 	var player = get_tree().get_first_node_in_group("player")
-	if player and player.has_node("BuffManager"):
-		player_buff_manager = player.get_node("BuffManager")
 	
 	_update_boon_list()
 
@@ -43,13 +40,11 @@ func _toggle_pause():
 		get_tree().paused = false
 
 func _update_boon_list():
-	if not is_instance_valid(player_buff_manager):
-		return
 
 	for child in boon_grid.get_children():
 		child.queue_free()
 
-	var current_boons = player_buff_manager.list_of_buffs
+	var current_boons = PlayerBuffManager.list_of_buffs
 	
 	if current_boons.is_empty():
 		boon_name_label.text = "You have no boons."

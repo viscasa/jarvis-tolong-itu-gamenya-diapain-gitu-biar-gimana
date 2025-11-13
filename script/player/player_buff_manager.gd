@@ -1,5 +1,4 @@
 extends Node
-class_name PlayerBuffManager
 
 @export var base_stats: PlayerModifier = PlayerModifier.new() # Stat dasar player
 var current_stats: PlayerModifier = PlayerModifier.new()
@@ -24,8 +23,11 @@ func add_buff(buff: BuffBase):
 		
 	elif buff.buff_type == "Pig" and buff.modifier.ressurection == 9999: # (Contoh ID untuk Pig's Feast)
 		# Ini adalah Pig's Feast (Heal to Full)
-		var player_stats = get_parent().get_node("HealthManager") # Asumsi Stats di Player
-		player_stats.current_health = player_stats.max_health
+		var player = get_tree().get_first_node_in_group("player")
+		if is_instance_valid(player):
+			var health_manager = player.get_node_or_null("HealthManager")
+			if is_instance_valid(health_manager):
+				health_manager.current_health = health_manager.max_health
 		# Jangan tambahkan ke list, ini efek instan
 	
 	else:
@@ -156,9 +158,11 @@ func _trade_all_for_hp():
 		base_stats.hp += hp_gain
 		
 		# 5. Langsung heal player sejumlah HP yang didapat
-		var health_manager = get_parent().get_node("HealthManager")
-		if is_instance_valid(health_manager):
-			health_manager.heal(hp_gain)
+		var player = get_tree().get_first_node_in_group("player")
+		if is_instance_valid(player):
+			var health_manager = player.get_node_or_null("HealthManager")
+			if is_instance_valid(health_manager):
+				health_manager.heal(hp_gain)
 			
 	print("HP Max baru: ", base_stats.hp)
 

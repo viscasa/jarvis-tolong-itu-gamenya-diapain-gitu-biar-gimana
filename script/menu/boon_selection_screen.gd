@@ -8,12 +8,9 @@ extends CanvasLayer
 @onready var w_wo_tw: Sprite2D = $WWoTw
 @onready var cinderella: Sprite2D = $Cinderella
 
-var player_buff_manager: PlayerBuffManager
 func _ready():
 	# (Cari BuffManager player)
 	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		player_buff_manager = player.get_node("BuffManager")
 # Dipanggil oleh BoonPickup.gd
 func show_boon_choices(boon_giver_id: String):
 	RewardManager.showing_reward_screen = true
@@ -50,8 +47,8 @@ func show_boon_choices(boon_giver_id: String):
 
 # Dipanggil oleh BoonChoiceButton.gd
 func _on_boon_selected(boon: BuffBase):
-	if player_buff_manager:
-		player_buff_manager.add_buff(boon) # (duplicate() tidak perlu jika load())
+	print("got boon a")
+	PlayerBuffManager.add_buff(boon) # (duplicate() tidak perlu jika load())
 	RewardManager.emit_signal("got_buff")
 	_close_ui()
 
