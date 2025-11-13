@@ -35,6 +35,7 @@ func _generate_boon():
 
 # Grandma's Revenge: +50% stolen skill damage
 func _load_type_1():
+	icon_id = 16
 	boon_name = "Grandma’s Revenge"
 	boon_description = "Your stolen skills deal 50% more damage."
 	boon_icon = load("res://icon.svg")
@@ -43,6 +44,7 @@ func _load_type_1():
 
 # Wolf’s Grin: +50% possess damage
 func _load_type_2():
+	icon_id = 17
 	boon_name = "Wolf’s Grin"
 	boon_description = "Your Perfect Possess attacks deal 50% more damage."
 	boon_icon = load("res://icon.svg")
@@ -51,6 +53,7 @@ func _load_type_2():
 
 # Hunter’s Haste: Frenzy
 func _load_type_3():
+	icon_id = 18
 	boon_name = "Hunter’s Haste"
 	boon_description = "Killing 3 enemies within 5 seconds triggers FRENZY."
 	boon_icon = load("res://icon.svg")
@@ -59,6 +62,7 @@ func _load_type_3():
 
 # What Big Eyes: Easier timing
 func _load_type_4():
+	icon_id = 19
 	boon_name = "What Big Eyes You Have"
 	boon_description = "Your Perfect Possess timing window is 40% larger."
 	boon_icon = load("res://icon.svg")
@@ -67,6 +71,7 @@ func _load_type_4():
 
 # Picnic Basket Bomb
 func _load_type_5():
+	icon_id = 20
 	boon_name = "Picnic Basket Bomb"
 	boon_description = "Your Super Dash has 25% larger area and deals 25% more damage."
 	modifier.explosion_size = 1.25

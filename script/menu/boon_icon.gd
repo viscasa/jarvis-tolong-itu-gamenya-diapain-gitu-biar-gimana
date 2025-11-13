@@ -11,7 +11,7 @@ func set_boon_data(boon: BuffBase):
 	held_boon = boon
 
 	if boon.boon_icon:
-		texture_normal = boon.boon_icon
+		texture_normal = texture_normal.atlas
 	else:
 		print("ERROR: Boon '%s' tidak punya ikon!" % boon.boon_name)
 

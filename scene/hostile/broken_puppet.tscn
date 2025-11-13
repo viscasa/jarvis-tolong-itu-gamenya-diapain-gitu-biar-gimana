@@ -1597,6 +1597,10 @@ offset = Vector2(0, -20)
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_sf0qu")
 
+[node name="Stats" parent="." index="2"]
+max_health = 150.0
+base_damage = 20.0
+
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(-4.7683716e-07, 1.9073486e-06)
 rotation = -1.5707964

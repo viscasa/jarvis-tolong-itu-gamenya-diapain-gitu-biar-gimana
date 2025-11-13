@@ -34,6 +34,7 @@ func _generate_boon():
 	time_left = duration
 # Fluffy Tail: + Max HP
 func _load_type_1():
+	icon_id = 11
 	boon_name = "Fluffy Tail"
 	boon_description = "Permanently increases your Max HP by 40."
 	modifier.hp = 40.0
@@ -43,6 +44,7 @@ func _load_type_1():
 
 # Stolen Carrots: + Healing
 func _load_type_2():
+	icon_id = 12
 	boon_name = "Stolen Carrots"
 	boon_description = "All healing you receive is 30% more effective."
 	modifier.healing_bonus = 1.3
@@ -52,6 +54,7 @@ func _load_type_2():
 
 # Quick Getaway: Longer dash
 func _load_type_3():
+	icon_id = 13
 	boon_name = "Quick Getaway"
 	boon_description = "Your standard dash distance is increased by 80%."
 	modifier.dash_duration = 1.8
@@ -61,6 +64,7 @@ func _load_type_3():
 
 # Lucky Foot: 20% chance instant Super Dash
 func _load_type_4():
+	icon_id = 14
 	boon_name = "Lucky Foot"
 	boon_description = "Each Perfect Possess has a 15% chance to instantly recharge Super Dash."
 	modifier.perfect_possess_super_charge_chance = 0.15
@@ -69,6 +73,7 @@ func _load_type_4():
 	
 
 func _load_type_5():
+	icon_id = 15
 	boon_name = "Soft Fur" 
 	boon_description = "Grants a 20% chance to evade all incoming damage."
 	modifier.evasion_chance = 0.2

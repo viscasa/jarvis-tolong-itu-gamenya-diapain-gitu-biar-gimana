@@ -20,6 +20,7 @@ func _ready():
 	_lock_all_doors()
 	_start_wave(current_wave_index)
 	var next_level = LevelManager.get_next_level()
+	print(next_level, RewardManager.next_reward_id)
 	for door in door_container.get_children():
 		door.next_scene_path = next_level
 

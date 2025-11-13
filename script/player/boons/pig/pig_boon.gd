@@ -37,6 +37,8 @@ func _generate_boon():
 # House of Brick: Resurrection
 func _load_type_1():
 	boon_name = "House of Brick"
+	icon_id = 6
+
 	boon_description = "Gain one Resurrection. Revive with 50% HP."
 	modifier.ressurection = 1
 	modifier.set_mode("ressurection", "add")
@@ -45,6 +47,8 @@ func _load_type_1():
 # Pig's Feast: Heal to full
 func _load_type_2():
 	boon_name = "Pig’s Feast"
+	icon_id = 7
+	
 	boon_description = "Fully restore your HP."
 	# Instant effect. Marked with a special code
 	modifier.ressurection = 9999 # (Code for 'Pig’s Feast')
@@ -54,6 +58,8 @@ func _load_type_2():
 
 # House of Sticks: HP reduced, damage increased
 func _load_type_3():
+	icon_id = 8
+	
 	boon_name = "House of Sticks"
 	boon_description = "Max HP -20%, but all your skills deal +30% damage."
 	modifier.hp = 0.8
@@ -68,6 +74,8 @@ func _load_type_3():
 
 # House of Straw: Possess weaker, heal on miss
 func _load_type_4():
+	icon_id = 9
+	
 	boon_name = "House of Straw"
 	boon_description = "All skills deals -30% damage, but missing still heals you slightly."
 	modifier.borrowed_damage = 0.7
@@ -82,6 +90,7 @@ func _load_type_4():
 
 # Big Bad Bargain: Lower damage, cheaper Super Dash
 func _load_type_5():
+	icon_id = 10
 	boon_name = "Big Bad Bargain"
 	boon_description = "Your stolen skills deal -50% damage, but Super Dash now costs only 2 'Perfect Possess'."
 	modifier.borrowed_damage = 0.5

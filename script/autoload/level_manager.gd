@@ -6,9 +6,9 @@ var available_level : Array = [
 ]
 
 var current_level = "res://scene/level/room_random_1.tscn"
-var next_level
 
 func get_next_level() :
 	var path = available_level.pick_random()
+	available_level.erase(path)
 	available_level.append(current_level)
 	return path

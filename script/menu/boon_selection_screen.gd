@@ -1,7 +1,12 @@
 extends CanvasLayer
 
 @onready var choice_container: VBoxContainer = $CenterContainer/ChoiceContainer
-@onready var boon_giver_name: Label = $BoonGiverName
+#@onready var boon_giver_name: Label = $BoonGiverName
+@onready var rubymlbb: Sprite2D = $Rubymlbb
+@onready var peter: Sprite2D = $Peter
+@onready var _3_pigs: Sprite2D = $"3Pigs"
+@onready var w_wo_tw: Sprite2D = $WWoTw
+@onready var cinderella: Sprite2D = $Cinderella
 
 var player_buff_manager: PlayerBuffManager
 func _ready():
@@ -24,8 +29,17 @@ func show_boon_choices(boon_giver_id: String):
 		# (Tampilkan pesan "Sudah Habis" di UI)
 		_close_ui()
 		return
-		
-	boon_giver_name.text = RewardManager.get_reward_data(boon_giver_id).name
+	if boon_giver_id == "cinderella":
+		cinderella.show()
+	elif boon_giver_id == "rabbit":
+		peter.show()
+	elif boon_giver_id == "pig":
+		_3_pigs.show()
+	elif boon_giver_id == "wizard":
+		w_wo_tw.show()
+	else:
+		rubymlbb.show()
+	#boon_giver_name.text = RewardManager.get_reward_data(boon_giver_id).name
 	# Sembunyikan tombol yang tidak terpakai
 	for i in range(buttons.size()):
 		if i < boon_choices.size():
