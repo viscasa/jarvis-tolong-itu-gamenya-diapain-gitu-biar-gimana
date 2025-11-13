@@ -1499,7 +1499,6 @@ offset_bottom = -44.0
 path_desired_distance = 80.0
 simplify_path = false
 radius = 80.0
-debug_enabled = true
 
 [node name="Shadow" type="Sprite2D" parent="." index="10"]
 z_index = -1
