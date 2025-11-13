@@ -14,10 +14,16 @@ class_name PlayerUI
 @onready var icon_puppet_shooter_2: Sprite2D = $IconPuppetShooter2
 @onready var icon_puppet: Sprite2D = $IconPuppet
 
+# --- Indikator Skill Khusus ---
+@onready var super_dash_indicator: AnimatedSprite2D = $SuperDashIndicator
+@onready var pin_label: Label = $PinLabel
+
 # --- Variabel Internal ---
 var health_manager: HealthManager
 var dash_manager: DashManager
 var skill_manager: SkillManager
+var super_dash: SuperDash # <-- BARU
+var pin: Pin # <-- BARU
 
 # Dictionary untuk memetakan nama skill ke node ikonnya
 var skill_icons: Dictionary = {}
@@ -40,6 +46,8 @@ func _ready():
 	health_manager = player.health_manager
 	dash_manager = player.dash_manager
 	skill_manager = player.skill_manager
+	super_dash = player.super_dash # <-- BARU
+	pin = player.pin # <-- BARU
 
 	# 3. Setup koneksi sinyal (Hanya untuk health)
 	if health_manager:
@@ -51,8 +59,18 @@ func _ready():
 	if skill_manager:
 		skill_manager.stolen_skill_used.connect(_on_stolen_skill_used)
 		
-	# 5. Setup ikon-ikon skill
+	# 5. Setup koneksi sinyal untuk Pin
+	if pin:
+		pin.pin_count_changed.connect(_on_pin_count_changed)
+		# Set nilai awal pin label
+		_on_pin_count_changed(pin.current_pins, pin.max_pins)
+	
+	# 6. Setup ikon-ikon skill
 	_setup_morph_icons()
+	
+	# 7. Set frame awal super dash
+	if super_dash_indicator:
+		super_dash_indicator.frame = 0 # Mulai dari frame 0
 
 
 func _process(_delta):
@@ -62,6 +80,9 @@ func _process(_delta):
 	
 	if skill_manager:
 		_update_morph_skill_icons()
+
+	if super_dash: # <-- BARU
+		_update_super_dash_indicator()
 
 # --- 1. LOGIKA HEALTH BAR ---
 
@@ -196,3 +217,42 @@ func _play_jump_tween(icon_node: Sprite2D):
 	tween.chain()
 	tween.set_ease(Tween.EASE_IN) # Jatuh ke bawah
 	tween.tween_property(icon_node, "position:y", original_y, 0.15)
+
+
+# --- 4. LOGIKA PIN LABEL ---
+func _on_pin_count_changed(current: int, max: int):
+	if pin_label:
+		pin_label.text = "%d/%d" % [current, max]
+
+
+# --- 5. LOGIKA SUPER DASH INDIKATOR ---
+func _update_super_dash_indicator():
+	if not super_dash_indicator:
+		return
+	
+	# --- AWAL LOGIKA BARU ---
+	
+	# super_dash_counter == 0 berarti "SIAP DIPAKAI"
+	# super_dash_counter == 1 berarti "SEDANG MENGISI ULANG"
+	var is_ready = (super_dash.super_dash_counter == 0)
+	
+	var target_frame = 0
+	
+	if is_ready:
+		# Dash sudah penuh dan siap dipakai
+		target_frame = 3 # Frame "Penuh"
+	else:
+		# Dash sedang mengisi ulang.
+		# Kita cek progresnya (0, 1, atau 2)
+		var current_charge = super_dash.super_dash_recharge_counter
+		
+		if current_charge == 2:
+			target_frame = 2 # Frame "2/3"
+		elif current_charge == 1:
+			target_frame = 1 # Frame "1/3"
+		else:
+			target_frame = 0 # Frame "Kosong" (baru dipakai)
+			
+	if super_dash_indicator.frame != target_frame:
+		super_dash_indicator.frame = target_frame
+	# --- AKHIR LOGIKA BARU ---

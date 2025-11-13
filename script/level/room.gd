@@ -15,12 +15,14 @@ var enemies_remaining_in_wave: int = 0
 var is_cleared: bool = false
 var waves: Array[Node]
 
-
-
 func _ready():
 	waves = wave_spawners.get_children()
 	_lock_all_doors()
 	_start_wave(current_wave_index)
+	var next_level = LevelManager.get_next_level()
+	print(next_level, RewardManager.next_reward_id)
+	for door in door_container.get_children():
+		door.next_scene_path = next_level
 
 func _start_wave(index: int):
 	AudioManager.change_bgm_to_combat()
@@ -78,6 +80,7 @@ func _lock_all_doors():
 	for door in door_container.get_children():
 		if door is Door:
 			door.lock()
+
 func _unlock_all_doors():
 	var doors = door_container.get_children()
 	if doors.is_empty():
