@@ -14,9 +14,13 @@ func _process(delta: float) -> void:
 	music_current_position = background_music.get_playback_position()
 
 func change_bgm_to_calm() -> void :
+	if (background_music["parameters/switch_to_clip"] == "Calm") :
+		return
 	background_music["parameters/switch_to_clip"] = "Calm"
 
 func change_bgm_to_combat() -> void :
+	if (background_music["parameters/switch_to_clip"] == "Combat") :
+		return
 	background_music["parameters/switch_to_clip"] = "Combat"
 
 func start_sfx(sfx_position:Node, sfx_path:String, pitch_randomizer:Array = [1,1], volume:float = 0, start_at:float = 0) -> void :

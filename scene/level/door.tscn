@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cb71l7tln1sc4" path="res://assets/boon_giver_icon/wizard_icon.png" id="7_0c4ha"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nt4bv"]
+size = Vector2(42, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7j62m"]
 atlas = ExtResource("3_gm8bg")
@@ -548,7 +549,8 @@ script = ExtResource("1_nt4bv")
 
 [node name="RewardIcon" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(0, -18)
+z_index = 2
+position = Vector2(0, -39)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_d7pud")
 
@@ -556,6 +558,7 @@ texture = ExtResource("2_d7pud")
 shape = SubResource("RectangleShape2D_nt4bv")
 
 [node name="Icon" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.93622214, 0.66378546, 7.70092e-07, 1)
 position = Vector2(2.3841858e-07, 2.3841858e-07)
 scale = Vector2(0.15625, 0.15625)

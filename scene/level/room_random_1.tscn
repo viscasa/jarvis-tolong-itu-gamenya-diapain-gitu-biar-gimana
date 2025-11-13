@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://cvsd5nv77naw"]
+[gd_scene load_steps=6 format=4 uid="uid://cvsd5nv77naw"]
 
 [ext_resource type="PackedScene" uid="uid://yncml2ptnko7" path="res://scene/level/room.tscn" id="1_cowkl"]
 [ext_resource type="Script" uid="uid://b8chfmlwj0vn0" path="res://script/level/enemy_spawn_point.gd" id="2_p0vtg"]
+[ext_resource type="PackedScene" uid="uid://n0wsn68c12ku" path="res://scene/level/door.tscn" id="3_h5jlr"]
 [ext_resource type="PackedScene" uid="uid://cu64rfxjwm0yf" path="res://scene/level/boon_pickup.tscn" id="3_qbdna"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_h5jlr"]
@@ -61,6 +62,12 @@ position = Vector2(582, -260)
 script = ExtResource("2_p0vtg")
 ENEMY_TYPE = 2
 metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
+
+[node name="Door" parent="DoorContainer" index="0" instance=ExtResource("3_h5jlr")]
+position = Vector2(473, -479)
+
+[node name="Door2" parent="DoorContainer" index="1" instance=ExtResource("3_h5jlr")]
+position = Vector2(991, -346)
 
 [node name="NavigationRegion2D" parent="." index="9"]
 navigation_polygon = SubResource("NavigationPolygon_h5jlr")
