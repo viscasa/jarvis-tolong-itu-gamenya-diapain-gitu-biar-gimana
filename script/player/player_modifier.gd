@@ -5,7 +5,7 @@ class_name PlayerModifier
 @export var hp: float = 100.0
 @export var dash_range: float = 600.0
 @export var move_speed: float = 200.0
-@export var base_damage: float = 2000.0
+@export var base_damage: float = 20.0
 @export var final_damage: float = 1.0 #Multiplicative
 
 # --- STATS POSSESS & SKILL CURIAN ---
