@@ -2,9 +2,9 @@ extends CanvasLayer
 @onready var continue_button: Button = $ContinueButton
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@onready var boon_grid: GridContainer = $HBoxContainer/BoonGrid
-@onready var boon_name_label: Label = $HBoxContainer/VBoxContainer/BoonNameLabel
-@onready var boon_desc_label: Label = $HBoxContainer/VBoxContainer/Panel/BoonDescLabel
+@onready var boon_grid: GridContainer = $BoonGrid
+@onready var boon_name_label: Label = $BoonNameLabel
+@onready var boon_desc_label: Label = $BoonDescLabel
 var player_buff_manager: PlayerBuffManager = null
 var boon_icon_scene = preload("res://scene/menu/boon_icon.tscn")
 func _ready():

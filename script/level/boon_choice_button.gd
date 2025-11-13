@@ -14,6 +14,7 @@ func set_boon_data(boon: BuffBase):
 	name_label.text = boon.boon_name
 	desc_label.text = boon.boon_description
 	#  set ikon boon di sini #TODO
+	boon_icon_texture.show_icon_no(boon.icon_id)
 
 func _on_pressed():
 	find_parent("BoonSelectionScreen")._on_boon_selected(held_boon)

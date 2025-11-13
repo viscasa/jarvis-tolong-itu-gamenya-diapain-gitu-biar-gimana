@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://m3rkqq0vufss" path="res://assets/BuatMainMenu.png" id="2_wttdg"]
 [ext_resource type="Texture2D" uid="uid://bl5a32jeqrkjj" path="res://assets/button.png" id="3_123lf"]
 [ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="4_1j8a1"]
-[ext_resource type="Texture2D" uid="uid://d02tkly2ee6el" path="res://assets/Illustration2.png" id="5_1j8a1"]
+[ext_resource type="Texture2D" uid="uid://daqkdu1b4pry8" path="res://assets/newlogo.png" id="6_8l8bj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_123lf"]
 
@@ -59,7 +59,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_puw1c")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_4o61b")
 
 [node name="Button" type="Sprite2D" parent="."]
-position = Vector2(1375, 224)
+position = Vector2(1375, 351)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_123lf")
 
@@ -75,7 +75,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button2" type="Sprite2D" parent="."]
-position = Vector2(1374, 502.00003)
+position = Vector2(1378, 476.00003)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_123lf")
 
@@ -90,10 +90,9 @@ text = "EXIT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Illustration2" type="Sprite2D" parent="."]
-position = Vector2(915, 195.00003)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("5_1j8a1")
+[node name="Newlogo" type="Sprite2D" parent="."]
+position = Vector2(960, 543)
+texture = ExtResource("6_8l8bj")
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
