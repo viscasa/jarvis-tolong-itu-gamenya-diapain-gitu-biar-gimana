@@ -119,6 +119,11 @@ func start_dash() -> void:
 	_cooldown_set_for_cycle = false
 	emit_signal("dash_cycle_started")
 	AudioManager.start_sfx(self, "res://assets/audio/dash.wav", [2, 3], 0, 0.1)
+	var _areas = possess_area.get_overlapping_areas()
+	for _area in _areas:
+		if _area is Hurtbox:
+			_area.reset_hurtbox()
+			break
 	
 	if auto_exit_possess_lock:
 		player.end_invisible()
