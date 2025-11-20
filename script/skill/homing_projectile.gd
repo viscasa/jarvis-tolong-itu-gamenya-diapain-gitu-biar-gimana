@@ -13,7 +13,7 @@ class_name HomingProjectile
 var target: Node2D = null
 var current_direction: Vector2 = Vector2.RIGHT
 var chain_count: int = 0
-var bodies_hit: Array = [] # (Untuk mencegah hit ganda)
+var bodies_hit: Array = [] 
 func _ready() -> void:
 	add_to_group("player_projectiles")
 	timer.wait_time = lifetime
@@ -28,17 +28,13 @@ func launch(_initial_direction: Vector2):
 
 func _physics_process(delta: float) -> void:
 	
-	# 1. Update Arah
 	if is_instance_valid(target) and !target.current_state==3:
 		var direction_to_target = (target.global_position - global_position).normalized()
 		var distance_sq_to_target = global_position.distance_squared_to(target.global_position)
 		
-		# Cek: Apakah kita sudah sangat dekat?
 		if distance_sq_to_target < proximity_threshold * proximity_threshold:
-			# Jika ya, JANGAN 'lerp'. Langsung kunci arah ke target.
 			current_direction = direction_to_target
 		else:
-			# Jika masih jauh, gunakan 'lerp' untuk belokan yang mulus
 			current_direction = current_direction.lerp(direction_to_target, turn_rate * delta).normalized()
 	else:
 		if get_tree().get_nodes_in_group("enemies").size() == 0:
@@ -46,18 +42,15 @@ func _physics_process(delta: float) -> void:
 		else :
 			target = _find_nearest_enemy()
 	
-	# 2. Set Velocity dan Rotasi
 	velocity = current_direction * speed
 	rotation = velocity.angle()
 	
-	# 3. Bergerak dan Cek Tabrakan
 	move_and_slide()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("player"):
 		return
 	
-	# Mencegah hit ganda pada musuh yang sama
 	if body in bodies_hit:
 		return
 		
@@ -71,24 +64,18 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		
 	var hit_direction = (body.global_position - global_position).normalized()
 	enemy_stats.take_damage(damage, hit_direction)
-	bodies_hit.append(body) # Tandai sudah kena
-	
-	# --- LOGIKA BOON BARU ---
-	
-	# Prioritas 1: Chain Shot
+	bodies_hit.append(body) 
 	if chain_count > 0:
 		chain_count -= 1
-		target = _find_nearest_enemy(bodies_hit) # Cari target baru (kecuali yg sudah kena)
+		target = _find_nearest_enemy(bodies_hit) 
 		if not is_instance_valid(target):
-			queue_free() # Tidak ada target, hancurkan
-		return # Jangan hancurkan, lanjut ke target baru
+			queue_free()
+		return 
 
 
 
-	# Jika tidak ada boon, hancurkan
 	queue_free()
 
-# --- PERBAIKAN: Tambahkan 'exclude_list' ---
 func _find_nearest_enemy(exclude_list: Array = []) -> Node2D:
 	var enemies = get_tree().get_nodes_in_group("enemies") 
 	var closest_enemy: Node2D = null

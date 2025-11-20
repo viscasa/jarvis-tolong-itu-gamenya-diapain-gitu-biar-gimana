@@ -9,21 +9,14 @@ extends CanvasLayer
 @onready var cinderella: Sprite2D = $Cinderella
 
 func _ready():
-	# (Cari BuffManager player)
 	var player = get_tree().get_first_node_in_group("player")
-# Dipanggil oleh BoonPickup.gd
 func show_boon_choices(boon_giver_id: String):
 	RewardManager.showing_reward_screen = true
-	# 1. Minta boon yang SUDAH DIFILTER (anti-duplikat)
 	var boon_choices = RewardManager.get_boon_choices(boon_giver_id, 3)
 	
-	# 2. Tampilkan boon di tombol-tombol
-	print(choice_container)
 	var buttons = choice_container.get_children()
 	
 	if boon_choices.is_empty():
-		print("Tidak ada boon tersisa dari giver ini!")
-		# (Tampilkan pesan "Sudah Habis" di UI)
 		_close_ui()
 		return
 	if boon_giver_id == "cinderella":
@@ -37,18 +30,15 @@ func show_boon_choices(boon_giver_id: String):
 	else:
 		rubymlbb.show()
 	#boon_giver_name.text = RewardManager.get_reward_data(boon_giver_id).name
-	# Sembunyikan tombol yang tidak terpakai
 	for i in range(buttons.size()):
 		if i < boon_choices.size():
 			buttons[i].set_boon_data(boon_choices[i])
 			buttons[i].show()
 		else:
-			buttons[i].hide() # Sembunyikan jika sisa < 3
+			buttons[i].hide()
 
-# Dipanggil oleh BoonChoiceButton.gd
 func _on_boon_selected(boon: BuffBase):
-	print("got boon a")
-	PlayerBuffManager.add_buff(boon) # (duplicate() tidak perlu jika load())
+	PlayerBuffManager.add_buff(boon)
 	RewardManager.emit_signal("got_buff")
 	_close_ui()
 

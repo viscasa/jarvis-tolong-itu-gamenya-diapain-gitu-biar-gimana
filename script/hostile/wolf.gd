@@ -53,7 +53,6 @@ func _perform_attack():
 	is_attacking = true
 	wolf_attack_state = WolfAttackState.CHARGING
 	charge_timer = charge_time
-	#animated_sprite.play("charge") 
 	
 	if is_instance_valid(player_target):
 		dash_direction = global_position.direction_to(player_target.global_position)

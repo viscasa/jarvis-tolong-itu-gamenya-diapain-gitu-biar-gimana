@@ -36,6 +36,5 @@ func _init():
 			boon_description = "Instantly gain 2 random new boons."
 			icon_id = 5
 	
-	duration = 0.1 # Instant effect, processed and removed immediately
+	duration = 0.1 
 	time_left = duration
-	# -------------------------------------------

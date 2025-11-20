@@ -78,7 +78,7 @@ func _perform_attack():
 		dir_to_player = Vector2.RIGHT
 	
 	last_move_direction = dir_to_player
-	is_attacking = true # (Memicu animasi "ATTACK")
+	is_attacking = true
 
 	var direction_suffix = _get_direction_suffix(dir_to_player)
 	var spawn_marker = bullet_spawn_points.get(direction_suffix)
@@ -96,14 +96,13 @@ func _perform_attack():
 	
 	_pick_dash_direction(dir_to_player) 
 	
-	# GANTI STATE KE 'ATTACKING' (diam), BUKAN 'DASHING'
 	_attack_sub_state = AttackSubState.ATTACKING 
-	_attack_state_timer = attack_pause_duration # Mulai timer jeda
+	_attack_state_timer = attack_pause_duration
 	
 func _fire_projectile(direction: Vector2, spawn_pos): 
 	var proj = projectile_scene.instantiate() 
 	get_parent().add_child(proj) 
-	proj.global_position = spawn_pos # Gunakan posisi Marker
+	proj.global_position = spawn_pos 
 	proj.direction = direction 
 	proj.damage = stats.get_final_damage()
 
@@ -115,19 +114,18 @@ func _state_attack(delta):
 	
 	match _attack_sub_state: 
 		
-		# [STATE BARU]: Diam/Reload setelah menembak
 		AttackSubState.ATTACKING:
 			target_velocity = Vector2.ZERO
 			velocity = velocity.lerp(target_velocity, 15.0 * delta) 
 			
 			_attack_state_timer -= delta
 			if _attack_state_timer <= 0:
-				_attack_sub_state = AttackSubState.DASHING # Lanjut Ngedash
-				_attack_state_timer = dash_duration # Reset timer untuk dash
+				_attack_sub_state = AttackSubState.DASHING 
+				_attack_state_timer = dash_duration
 		
 		AttackSubState.DASHING: 
 			target_velocity = _dash_direction * dash_speed
-			velocity = target_velocity # Dash instan
+			velocity = target_velocity 
 			last_move_direction = _dash_direction
 			_attack_state_timer -= delta 
 			if _attack_state_timer <= 0: 
@@ -177,13 +175,12 @@ func _update_animation_state() -> void:
 	
 	elif is_attacking:
 		match _attack_sub_state:
-			# [BARU]: Saat 'ATTACKING' (diam), mainkan 'ATTACK'
 			AttackSubState.ATTACKING:
 				anim_prefix = "ATTACK" 
 			AttackSubState.DASHING:
-				anim_prefix = "ATTACK" # (Atau "DASH")
+				anim_prefix = "ATTACK"
 			AttackSubState.RECOVERING:
-				anim_prefix = "IDLE" # [PERBAIKAN]: Ganti dari "ATTACK" ke "IDLE"
+				anim_prefix = "IDLE" 
 		
 		anim_direction = last_move_direction
 	

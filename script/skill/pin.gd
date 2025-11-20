@@ -40,16 +40,14 @@ func throw_pin() -> void:
 	if current_pins <= 0:
 		return
 		
-	# --- MODIFIKASI: Cek semua referensi & skill ---
-	if not player or not dash_manager or not super_dash or not homing_shot or not triple_homing_shot: # TAMBAHAN
+	if not player or not dash_manager or not super_dash or not homing_shot or not triple_homing_shot: 
 		push_error("Referensi Pin.gd belum di-set oleh Player!")
 		return
 		
 	if dash_manager.is_dashing or dash_manager.is_dash_moving or \
 	   dash_manager.is_exit_dashing or dash_manager.is_exit_moving or \
-	   super_dash.is_active() or morph_skill.is_active(): # TAMBAHAN
+	   super_dash.is_active() or morph_skill.is_active():
 		return
-	# --- AKHIR MODIFIKASI ---
 		
 	is_throwing = true
 	

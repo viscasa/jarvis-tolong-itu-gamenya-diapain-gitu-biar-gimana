@@ -20,13 +20,11 @@ func _ready():
 	_lock_all_doors()
 	_start_wave(current_wave_index)
 	var next_level = LevelManager.get_next_level()
-	print(next_level, RewardManager.next_reward_id)
 	for door in door_container.get_children():
 		door.next_scene_path = next_level
 
 func _start_wave(index: int):
 	AudioManager.change_bgm_to_combat()
-	print("wave " + str(index))
 	if index >= waves.size():
 		_on_all_waves_cleared()
 		return
@@ -55,7 +53,6 @@ func _on_enemy_died():
 
 func _on_all_waves_cleared():
 	AudioManager.change_bgm_to_calm()
-	print("room cleared")
 	is_cleared = true
 	_spawn_reward()
 	_unlock_all_doors()
@@ -64,11 +61,9 @@ func _on_all_waves_cleared():
 func _spawn_reward():
 	var reward_id_to_spawn = RewardManager.next_reward_id
 	if reward_id_to_spawn == "":
-		print("Tidak ada hadiah yang dijadwalkan untuk ruangan ini (Room 1).")
 		return
 
 	if not boon_pickup:
-		print("ERROR: 'Boon Pickup Scene' belum di-set di Room.gd Inspector!")
 		return
 			
 	

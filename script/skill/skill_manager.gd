@@ -5,7 +5,7 @@ class_name SkillManager
 @onready var pin: Pin = $Pin
 @onready var homing_shot: HomingShot = $HomingShot
 @onready var triple_homing_shot: TripleHomingShot = $TripleHomingShot
-@onready var slash_shot: SlashShot = $SlashShot # <-- TAMBAHAN
+@onready var slash_shot: SlashShot = $SlashShot 
 @onready var possession_manager: PossessionManager = $"../PossessionManager"
 @onready var dash_manager: DashManager = $"../DashManager"
 @onready var morph_skill: Node2D = $MorphSkill
@@ -13,7 +13,7 @@ signal stolen_skill_used # signal untuk kasih shield
 var homing_shot_ready : bool = false
 var triple_homing_shot_ready : bool = false
 var wolf_morph_ready : bool = false
-var slash_shot_ready : bool = false # <-- TAMBAHAN
+var slash_shot_ready : bool = false 
 
 func start_or_return_super_dash() :
 	super_dash.start_super_dash()
@@ -36,7 +36,6 @@ func is_dashing() -> bool :
 	return dash_manager.is_dashing
 
 func is_casting_skill() -> bool :
-	# 'morph_skill.is_active()' sudah mencakup semua skill dash, jadi tidak perlu diubah
 	return super_dash.is_active() or pin.is_active() or morph_skill.is_active()
 
 func add_pin() :

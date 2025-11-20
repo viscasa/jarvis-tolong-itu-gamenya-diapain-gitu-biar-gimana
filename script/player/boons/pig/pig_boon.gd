@@ -12,16 +12,13 @@ enum BoonType {
 @export var boon_type: BoonType = BoonType.HOUSE_OF_BRICK:
 	set(value):
 		boon_type = value
-		_generate_boon() # Panggil ini saat 'boon_type' diubah di Inspector
-# ---------------------------------------------------
+		_generate_boon() 
 
 func _init():
 	buff_type = "Pig"
-	# Panggil _generate_boon() saat pertama kali dibuat
 	_generate_boon()
 
 func _generate_boon():
-	# Reset modifier & mode setiap kali di-generate
 	modifier = PlayerModifier.new()
 	modifier.op_modes = {}
 	
@@ -34,7 +31,6 @@ func _generate_boon():
 	
 	time_left = duration
 
-# House of Brick: Resurrection
 func _load_type_1():
 	boon_name = "House of Brick"
 	icon_id = 6
@@ -50,8 +46,7 @@ func _load_type_2():
 	icon_id = 7
 	
 	boon_description = "Fully restore your HP."
-	# Instant effect. Marked with a special code
-	modifier.ressurection = 9999 # (Code for 'Pig’s Feast')
+	modifier.ressurection = 9999 
 	permanent = false
 	duration = 0.1
 	boon_icon = load("res://icon.svg")

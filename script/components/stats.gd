@@ -37,11 +37,10 @@ func take_damage(damage_amount: float, hit_direction: Vector2,  crit_multiplier:
 	var tween = get_tree().create_tween()
 	tween.tween_method(set_shader_blink_intensity, 1.0, 0.0, 0.3)
 	var shake_tween = get_tree().create_tween()
-	var shake_amount = 8.0 # Jarak getaran (piksel)
-	var shake_duration = 0.02 # Waktu per getaran
+	var shake_amount = 8.0 
+	var shake_duration = 0.02
 	var original_pos = animated_sprite_2d.position
 
-	# Goyang ke kanan, kiri, kanan, lalu kembali ke tengah
 	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
 	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(-shake_amount, 0), shake_duration)
 	shake_tween.tween_property(animated_sprite_2d, "position", original_pos + Vector2(shake_amount, 0), shake_duration)
@@ -69,11 +68,3 @@ func get_final_damage() -> float:
 	var final_damage = base_damage * damage_multiplier
 	
 	return final_damage
-
-#func add_buff(buff: BuffResource):
-	#active_buffs.append(buff)
-	## TODO: 
-	## ...
-#
-#func remove_buff(buff: BuffResource):
-	#active_buffs.erase(buff)

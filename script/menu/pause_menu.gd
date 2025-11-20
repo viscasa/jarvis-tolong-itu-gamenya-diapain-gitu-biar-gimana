@@ -60,7 +60,6 @@ func _update_boon_list():
 		
 		boon_grid.add_child(icon)
 
-# Callback saat ikon di-hover
 func _on_boon_icon_hovered(boon_data: BuffBase):
 	boon_name_label.text = boon_data.boon_name
 	boon_desc_label.text = boon_data.boon_description

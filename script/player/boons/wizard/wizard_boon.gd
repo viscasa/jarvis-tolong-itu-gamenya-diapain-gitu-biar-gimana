@@ -12,16 +12,13 @@ enum BoonType {
 @export var boon_type: BoonType = BoonType.MASTERS_CUT:
 	set(value):
 		boon_type = value
-		_generate_boon() # Panggil ini saat 'boon_type' diubah di Inspector
-# ---------------------------------------------------
+		_generate_boon() 
 
 func _init():
 	buff_type = "Wizard"
-	# Panggil _generate_boon() saat pertama kali dibuat
 	_generate_boon()
 
 func _generate_boon():
-	# Reset modifier & mode setiap kali di-generate
 	modifier = PlayerModifier.new()
 	modifier.op_modes = {}
 	
