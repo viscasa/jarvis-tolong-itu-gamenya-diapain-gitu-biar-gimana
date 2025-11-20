@@ -25,6 +25,12 @@ func show_character():
 
 func hide_character():
 	character_animations.play_backwards("character_fade_in")
+	await character_animations.animation_finished
+	cinderella.hide()
+	ruby.hide()
+	_3_pigs.hide()
+	isolde.hide()
+	peter.hide()
 
 func _on_dialogic_signal(arg: String):
 	match arg:

@@ -1,6 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
+	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
 	AudioManager.change_bgm_to_calm()
 
 
