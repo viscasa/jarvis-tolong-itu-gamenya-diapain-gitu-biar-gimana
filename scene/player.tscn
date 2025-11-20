@@ -1990,12 +1990,6 @@ position = Vector2(0, -33)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 15)
 zoom = Vector2(1.5, 1.5)
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.1
-drag_top_margin = 0.1
-drag_right_margin = 0.1
-drag_bottom_margin = 0.1
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 visible = false
@@ -2046,6 +2040,11 @@ color = Color(0.6784314, 0, 0, 0)
 
 [node name="ComboUI" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("57_x2dav")]
 health_manager = NodePath("../HealthManager")
+
+[node name="Indicator" type="Node2D" parent="."]
+
+[node name="arrow" type="Polygon2D" parent="Indicator"]
+polygon = PackedVector2Array(51, 0, 51, 0, 59, 1, 58, 3, 63, 0, 58, -3, 59, -1)
 
 [connection signal="timeout" from="GhostTimer" to="DashManager" method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="GhostTimerMorph" to="SkillManager/MorphSkill" method="_on_ghost_timer_morph_timeout"]
