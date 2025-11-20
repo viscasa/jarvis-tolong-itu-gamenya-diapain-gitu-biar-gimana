@@ -1,0 +1,7 @@
+set {currently_talking} = "peter"
+[signal arg="show_character"]
+if {random_dialog} == 1.0:
+	peter: Not one for breaking rules ey? it's a first or uh second for everyone.
+
+else:
+	peter: I’ll lend you a little mischief. Don’t waste it being serious.

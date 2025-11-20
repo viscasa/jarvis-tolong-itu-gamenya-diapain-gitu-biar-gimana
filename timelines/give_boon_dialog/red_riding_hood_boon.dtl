@@ -1,0 +1,9 @@
+set {currently_talking} = "ruby"
+[signal arg="show_character"]
+if {random_dialog} == 1.0:
+	ruby: Careful out there, puppet. Wolves like you get eaten slow.
+elif {random_dialog} == 2.0:
+	ruby: The puppets have gone awry, seems like that father of yours tinker with more than he could carve, off you go then.
+
+else:
+	ruby: For erm... a stature of yourself you've got a bit of fight huh? then join the hunt, and let's protect these woods, shall we?

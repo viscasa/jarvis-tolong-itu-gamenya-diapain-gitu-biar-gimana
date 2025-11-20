@@ -1,0 +1,9 @@
+set {currently_talking} = "cinderella"
+[signal arg="show_character"]
+if {random_dialog} == 1.0:
+	cinderella: Ah if it isn't little P! seems your father ought to be careful of his wishes, trust me I would know.
+elif {random_dialog} == 2.0:
+	cinderella: In a hurry? time is something not one can afford to waste after all, now off you go, these nights aren't cheap in that matter.
+
+else:
+	cinderella: A touch of grace, a flicker of light — even in the mud, you'll still be alright!

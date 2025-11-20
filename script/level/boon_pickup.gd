@@ -1,4 +1,3 @@
-@tool
 extends Area2D
 
 var boon_giver_id: String = ""
