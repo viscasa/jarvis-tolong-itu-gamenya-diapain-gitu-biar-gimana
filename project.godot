@@ -23,19 +23,77 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 AudioManager="*res://scene/audio/world_audio_manager.tscn"
 LevelManager="*res://script/autoload/level_manager.gd"
 PlayerBuffManager="*res://script/player/player_buff_manager.gd"
+DialogCharacter="*res://scene/dialog_character.tscn"
 
 [dialogic]
 
 directories/dch_directory={
+"3pigs": "res://timelines/3pigs.dch",
+"brick": "res://timelines/brick.dch",
+"cinderella": "res://timelines/cinderella.dch",
+"isolde": "res://timelines/isolde.dch",
+"peter": "res://timelines/peter.dch",
 "pinnocio": "res://timelines/pinnocio.dch",
+"ruby": "res://timelines/ruby.dch",
+"stick": "res://timelines/stick.dch",
+"straw": "res://timelines/straw.dch",
 "unit_test_character": "res://Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
-"test": "res://timelines/test.dtl"
+"cinderella_boon": "res://timelines/give_boon_dialog/cinderella_boon.dtl",
+"pig_boon": "res://timelines/give_boon_dialog/pig_boon.dtl",
+"rabbit_boon": "res://timelines/give_boon_dialog/rabbit_boon.dtl",
+"red_riding_hood_boon": "res://timelines/give_boon_dialog/red_riding_hood_boon.dtl",
+"test": "res://timelines/test.dtl",
+"wizard_boon": "res://timelines/give_boon_dialog/wizard_boon.dtl"
 }
 layout/style_list=["res://timelines/custom_style.tres"]
 layout/default_style="res://timelines/custom_style.tres"
 glossary/default_case_sensitive=true
+extensions_folder="res://addons/dialogic_additions"
+text/letter_speed=0.02
+text/initial_text_reveal_skippable=true
+text/text_reveal_skip_delay=0.1
+text/advance_delay=0.1
+text/autoadvance_per_character_delay=0.1
+text/autoadvance_ignored_characters_enabled=true
+audio/max_channels=4.0
+animations/join_default_length=0.5
+animations/join_default_wait=true
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/cross_fade_default_length=0.5
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+save/autosave_delay=60.0
+save/encryption_on_exports_only=true
+text/autopauses={}
+variables={
+"currently_talking": "cinderella",
+"random_dialog": 2
+}
+layout/style_directory={
+"": "res://timelines/custom_style.tres",
+"custom_style": "res://timelines/custom_style.tres"
+}
+audio/channel_defaults={
+"": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": false,
+"volume": 0.0
+},
+"music": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": true,
+"volume": 0.0
+}
+}
+text/input_action="dialogic_default_action"
+layout/end_behaviour=0
 
 [display]
 

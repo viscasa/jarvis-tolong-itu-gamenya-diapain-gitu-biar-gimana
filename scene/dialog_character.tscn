@@ -1,0 +1,132 @@
+[gd_scene load_steps=12 format=3 uid="uid://cvaket35ufltm"]
+
+[ext_resource type="Script" uid="uid://dyey6oxymswxw" path="res://script/autoload/dialog_character.gd" id="1_pnuwd"]
+[ext_resource type="Shader" uid="uid://dkvx1y1bj4lgf" path="res://shader/dialog.gdshader" id="2_nfwpa"]
+[ext_resource type="Texture2D" uid="uid://0te0jfqgjdum" path="res://assets/rubymlbb.png" id="3_klmoj"]
+[ext_resource type="Texture2D" uid="uid://dm7trsqqv7buc" path="res://assets/Peter.png" id="4_4c587"]
+[ext_resource type="Texture2D" uid="uid://y0rhss2uffp2" path="res://assets/3pigs.png" id="5_u6a41"]
+[ext_resource type="Texture2D" uid="uid://dr6g33v65ch8u" path="res://assets/WWoTW.png" id="6_10wsw"]
+[ext_resource type="Texture2D" uid="uid://c36uhe7yx03jl" path="res://assets/Cinderella.png" id="7_aqpf8"]
+
+[sub_resource type="Animation" id="Animation_dind8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Characters:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Characters:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gtv5x"]
+resource_name = "character_fade_in"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Characters:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Characters:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-321, 0), Vector2(-4, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y4d71"]
+_data = {
+&"RESET": SubResource("Animation_dind8"),
+&"character_fade_in": SubResource("Animation_gtv5x")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qg48y"]
+shader = ExtResource("2_nfwpa")
+shader_parameter/progress = 1.0
+shader_parameter/opacity = 0.0
+shader_parameter/wipe_angle = 45.0
+shader_parameter/cover_color = Color(0, 0, 0, 1)
+shader_parameter/ink_frequency = 65.0
+shader_parameter/ink_amplitude = 0.045
+shader_parameter/ink_distortion = 1.8
+shader_parameter/noise_strength = 0.055
+shader_parameter/noise_scale = 1.8
+shader_parameter/edge_sharpness = 0.018
+shader_parameter/edge_glow_width = 0.042
+shader_parameter/edge_glow_intensity = 0.22
+shader_parameter/edge_glow_color = Color(1, 0.92, 0.7, 1)
+shader_parameter/dark_glow_intensity = 0.12
+shader_parameter/dark_glow_color = Color(0.8, 0.65, 0.4, 1)
+
+[node name="DialogCharacter" type="CanvasLayer"]
+process_mode = 3
+layer = 3
+script = ExtResource("1_pnuwd")
+
+[node name="CharacterAnimations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_y4d71")
+}
+
+[node name="Characters" type="Node2D" parent="."]
+material = SubResource("ShaderMaterial_qg48y")
+position = Vector2(-4, 0)
+
+[node name="Ruby" type="Sprite2D" parent="Characters"]
+visible = false
+use_parent_material = true
+position = Vector2(964, 539)
+texture = ExtResource("3_klmoj")
+
+[node name="Peter" type="Sprite2D" parent="Characters"]
+visible = false
+use_parent_material = true
+position = Vector2(964, 539)
+texture = ExtResource("4_4c587")
+
+[node name="3Pigs" type="Sprite2D" parent="Characters"]
+visible = false
+use_parent_material = true
+position = Vector2(964, 539)
+texture = ExtResource("5_u6a41")
+
+[node name="Isolde" type="Sprite2D" parent="Characters"]
+visible = false
+use_parent_material = true
+position = Vector2(964, 539)
+texture = ExtResource("6_10wsw")
+
+[node name="Cinderella" type="Sprite2D" parent="Characters"]
+visible = false
+use_parent_material = true
+position = Vector2(964, 540)
+texture = ExtResource("7_aqpf8")

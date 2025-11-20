@@ -2,11 +2,7 @@ extends CanvasLayer
 
 @onready var choice_container: VBoxContainer = $CenterContainer/ChoiceContainer
 #@onready var boon_giver_name: Label = $BoonGiverName
-@onready var rubymlbb: Sprite2D = $Rubymlbb
-@onready var peter: Sprite2D = $Peter
-@onready var _3_pigs: Sprite2D = $"3Pigs"
-@onready var w_wo_tw: Sprite2D = $WWoTw
-@onready var cinderella: Sprite2D = $Cinderella
+
 
 func _ready():
 	# (Cari BuffManager player)
@@ -26,16 +22,23 @@ func show_boon_choices(boon_giver_id: String):
 		# (Tampilkan pesan "Sudah Habis" di UI)
 		_close_ui()
 		return
+		
+	var layout_node = null
+	Dialogic.VAR.random_dialog = randi() % 3 + 1
 	if boon_giver_id == "cinderella":
-		cinderella.show()
+		layout_node = Dialogic.start("cinderella_boon")
 	elif boon_giver_id == "rabbit":
-		peter.show()
+		layout_node = Dialogic.start("rabbit_boon")
 	elif boon_giver_id == "pig":
-		_3_pigs.show()
+		layout_node = Dialogic.start("pig_boon")
 	elif boon_giver_id == "wizard":
-		w_wo_tw.show()
+		layout_node = Dialogic.start("wizard_boon")
 	else:
-		rubymlbb.show()
+		layout_node = Dialogic.start("red_riding_hood_boon")
+	
+	if layout_node:
+		layout_node.process_mode = Node.PROCESS_MODE_ALWAYS
+		
 	#boon_giver_name.text = RewardManager.get_reward_data(boon_giver_id).name
 	# Sembunyikan tombol yang tidak terpakai
 	for i in range(buttons.size()):
@@ -50,6 +53,7 @@ func _on_boon_selected(boon: BuffBase):
 	print("got boon a")
 	PlayerBuffManager.add_buff(boon) # (duplicate() tidak perlu jika load())
 	RewardManager.emit_signal("got_buff")
+	DialogCharacter.hide_character()
 	_close_ui()
 
 func _close_ui():

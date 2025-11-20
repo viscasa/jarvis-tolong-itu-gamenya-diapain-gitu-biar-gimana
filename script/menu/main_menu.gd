@@ -1,6 +1,7 @@
 extends Node2D
 
 
+	
 func _on_start_button_pressed() -> void:
 	pass
 	#TODO ganti ke path scene tutorial/prolog

@@ -14,6 +14,9 @@ var animation_new_text: AnimationsNewText
 var full_clear := true
 
 
+
+@onready var box_material: ShaderMaterial = %DialogTextPanel.material
+
 func get_text_panel() -> PanelContainer:
 	return %DialogTextPanel
 
@@ -47,7 +50,7 @@ func _on_textbox_show() -> void:
 			play("textbox_fade_up")
 	if not animation_finished.is_connected(Callable(animation_system, &'animation_finished')):
 		animation_finished.connect(Callable(animation_system, &'animation_finished'), CONNECT_ONE_SHOT)
-
+	#show_dialog_box()
 
 func _on_textbox_hide() -> void:
 	if animation_out == AnimationsOut.NONE:
@@ -63,7 +66,7 @@ func _on_textbox_hide() -> void:
 
 	if not animation_finished.is_connected(Callable(animation_system, &'animation_finished')):
 		animation_finished.connect(Callable(animation_system, &'animation_finished'), CONNECT_ONE_SHOT)
-
+	#hide_dialog_box()
 
 func _on_about_to_show_text(info:Dictionary) -> void:
 	full_clear = !info.append

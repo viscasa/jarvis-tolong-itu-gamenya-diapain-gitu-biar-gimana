@@ -16,7 +16,7 @@ size = Vector2(47.5, 42.5)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ee5ta"]
 shader = ExtResource("2_k54js")
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
-shader_parameter/frequency = 0.0
+shader_parameter/frequency = 1.0000000475
 shader_parameter/highlight_speed = 2.000000095
 shader_parameter/highlight_width = 15.0
 
