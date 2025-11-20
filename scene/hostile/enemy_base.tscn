@@ -343,6 +343,7 @@ sprite_frames = SubResource("SpriteFrames_roat0")
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
 script = ExtResource("4_vhfx3")
 metadata/_custom_type_script = "uid://dtffxjfmsjwuw"
 
