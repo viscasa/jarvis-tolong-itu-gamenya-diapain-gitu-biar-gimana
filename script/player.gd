@@ -29,6 +29,7 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var phasing_ray: RayCast2D = $Raycast/PhasingRay
 @onready var raycast: Node2D = $Raycast
 @onready var camera: Camera2D = $Camera2D
+@onready var indicator: Node2D = $Indicator
 signal possessed(target)
 @onready var knockback_timer: Timer = $KnockbackTimer
 @export var knockback_strength: float = 300.0
@@ -92,6 +93,7 @@ func _on_player_died(): #TODO
 	get_tree().reload_current_scene()
 
 func _physics_process(delta: float) -> void:
+	indicator.look_at(get_global_mouse_position())
 	if is_in_knockback:
 		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
 		move_and_slide()
