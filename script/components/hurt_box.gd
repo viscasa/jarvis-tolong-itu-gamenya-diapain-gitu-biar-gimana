@@ -37,14 +37,10 @@ func _on_area_entered(area):
 		set_collision_layer_value(1,true)
 		set_collision_mask_value(1,true)
 		
-	# 1. Cek apakah yang masuk adalah sebuah Hitbox
 	if area is Hitbox:
-		# 2. Cari node 'Stats' yang seharusnya ada di parent kita
-		# (Struktur: Player/Hurtbox dan Player/Stats)
 		var stats_node = get_parent().get_node_or_null("Stats")
 		
 		if stats_node:
-			# 3. Panggil fungsi 'take_damage' di Stats dan kirim damage-nya
 			var hit_direction = (get_parent().global_position - area.global_position).normalized()
 			stats_node.take_damage(area.damage, hit_direction)
 		else:
@@ -67,3 +63,7 @@ func exit() -> void:
 
 func get_current_circle_time() -> float:
 	return circle_animation.current_animation_position
+
+func reset_hurtbox():
+	monitoring=false
+	monitoring=true

@@ -1,6 +1,6 @@
 extends Button
 
-var held_boon: BuffBase = null # Boon .tres yang dipegang
+var held_boon: BuffBase = null 
 
 @onready var name_label: Label = $NameLabel
 @onready var desc_label: Label = $DescriptionLabel
@@ -13,7 +13,6 @@ func set_boon_data(boon: BuffBase):
 	held_boon = boon
 	name_label.text = boon.boon_name
 	desc_label.text = boon.boon_description
-	#  set ikon boon di sini #TODO
 	boon_icon_texture.show_icon_no(boon.icon_id)
 
 func _on_pressed():

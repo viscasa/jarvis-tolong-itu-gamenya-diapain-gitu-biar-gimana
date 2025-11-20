@@ -1,7 +1,6 @@
 extends CharacterBody2D
 class_name SlashProjectile
 
-# Variabel ini akan di-set oleh SlashShot.gd
 var speed: float = 1000
 var damage: float = 25.0
 var lifetime: float = 0.7
@@ -9,7 +8,6 @@ var direction: Vector2 = Vector2.RIGHT
 
 @onready var timer: Timer = $Timer
 
-# Array untuk melacak musuh yang sudah terkena tebasan ini
 var bodies_hit: Array = []
 
 func _ready() -> void:
@@ -19,10 +17,9 @@ func _ready() -> void:
 
 func launch(_initial_direction: Vector2):
 	direction = _initial_direction.normalized()
-	rotation = direction.angle() # Arahkan visual tebasan
+	rotation = direction.angle() 
 
 func _physics_process(delta: float) -> void:
-	# Bergerak lurus ke depan
 	global_position += direction * speed * delta
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -39,4 +36,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 	var hit_direction = (body.global_position - global_position).normalized()
 	enemy_stats.take_damage(damage, hit_direction)
-	bodies_hit.append(body) # Tandai sudah kena
+	bodies_hit.append(body) 

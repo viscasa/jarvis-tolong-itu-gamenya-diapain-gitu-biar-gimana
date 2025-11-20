@@ -3,7 +3,7 @@ class_name ThrownPin
 
 @onready var stats: Stats = $Stats
 @onready var health_bar: ProgressBar = $HealthBar
-@onready var attack_timer: Timer = $AttackTimer # Ini adalah timer "lifetime"
+@onready var attack_timer: Timer = $AttackTimer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurtbox_collision: CollisionShape2D = $Hurtbox/CollisionShape2D
 @onready var body_collision: CollisionShape2D = $CollisionShape2D
@@ -15,28 +15,22 @@ var speed: float = 0.0
 var direction: Vector2 = Vector2.ZERO
 var distance_to_travel: float = 0.0
 var damage: float = 10.0
-var duration: float = 3 # Ini adalah lifetime total
+var duration: float = 3
 
-# --- TAMBAHKAN VARIABLE BARU ---
-var travel_timer: float = 0.0 # Ini adalah timer "movement"
+var travel_timer: float = 0.0 
 
-# Fungsi ini dipanggil oleh Pin.gd
 func launch(_direction: Vector2, _speed: float, _distance: float):
 	direction = _direction
 	speed = _speed
 	distance_to_travel = _distance
 	
-	# --- UBAH LOGIKA LAUNCH ---
-	# Hitung berapa lama waktu yang dibutuhkan untuk bergerak
 	if speed > 0.0:
 		travel_timer = distance_to_travel / speed
 	else:
 		travel_timer = 0.0
 		
-	# Set velocity AWAL
 	velocity = direction * speed
 	
-	# Mulai timer LIFETIME (ini terpisah dari timer gerak)
 	attack_timer.start(duration)
 
 func _ready() -> void:
@@ -49,33 +43,25 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	# --- LOGIKA MOVEMENT BARU ---
 	if travel_timer > 0.0:
-		# Jika masih ada waktu untuk bergerak
 		travel_timer -= delta
 		
-		# Panggil move_and_slide()
-		# Velocity sudah di-set di launch()
 		move_and_slide()
 		
-		# Cek apakah baru saja menabrak sesuatu
 		if get_slide_collision_count() > 0:
-			_stop_movement() # Berhenti karena menabrak
+			_stop_movement()
 		
-		# Cek apakah waktu tempuh habis
 		elif travel_timer <= 0.0:
-			_stop_movement() # Berhenti karena jarak maks tercapai
+			_stop_movement()
 			
 	else:
-		# Jika sudah berhenti, pastikan velocity 0
 		velocity = Vector2.ZERO
-		move_and_slide() # Panggil move_and_slide agar tetap di tempat
+		move_and_slide() 
 
-# --- GANTI NAMA FUNGSI ---
 func _stop_movement() -> void:
 	travel_timer = 0.0
-	speed = 0.0 # Hentikan pergerakan
-	velocity = Vector2.ZERO # Hentikan velocity
+	speed = 0.0 
+	velocity = Vector2.ZERO 
 
 func _on_death():
 	current_state = State.DEAD
@@ -88,17 +74,9 @@ func _on_death():
 		player.get_node("SkillManager").add_pin()
 	
 	set_physics_process(false)
-	#$CollisionShape2D.disabled = true
-	#if $Hurtbox: 
-		#$Hurtbox/CollisionShape2D.disabled = true
-	#
-	#await animated_sprite.animation_finished
-	
-	# Cek jika player masih ada sebelum panggil morph
 	tween_percent()
 
 func _on_attack_timer_timeout() -> void:
-	# Timer lifetime habis, panggil _on_death()
 	hurtbox_collision.disabled = true
 	body_collision.disabled = true
 	_on_death()

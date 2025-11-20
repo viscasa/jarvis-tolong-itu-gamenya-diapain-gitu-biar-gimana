@@ -15,7 +15,6 @@ func _on_body_entered(body: Node) -> void:
 	var allowed := false
 	allowed = dm.is_dashing or dm.is_exit_dashing
 
-	# ⛔ jangan possess kalau baru auto-exit dan masih terkunci
 	if allowed and not dm.auto_exit_possess_lock:
 		set_collision_layer_value(1,false)
 		set_collision_mask_value(1,false)

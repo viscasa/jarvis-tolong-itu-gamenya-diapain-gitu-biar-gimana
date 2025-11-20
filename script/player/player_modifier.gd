@@ -6,7 +6,7 @@ class_name PlayerModifier
 @export var dash_range: float = 600.0
 @export var move_speed: float = 200.0
 @export var base_damage: float = 20.0
-@export var final_damage: float = 1.0 #Multiplicative
+@export var final_damage: float = 1.0
 
 # --- STATS POSSESS & SKILL CURIAN ---
 @export var borrowed_damage: float = 1.0 # (Grandma's Revenge)
@@ -18,7 +18,7 @@ class_name PlayerModifier
 @export var shield_on_skill_use: float = 0.0 # (Astral Shield)
 
 # --- STATS SUPER DASH (EXPLOSION) ---
-@export var explosion_size: float = 1.0 #Multiplicative
+@export var explosion_size: float = 1.0
 @export var explosion_damage: float = 1.0
 @export var super_dash_cost: int = 0 # (Big Bad Bargain)
 @export var perfect_possess_super_charge_chance: float = 0.0 # (Lucky Foot)
@@ -44,7 +44,6 @@ class_name PlayerModifier
 @export var frenzy_duration: float = 0.0 # (Hunter's Haste)
 
 
-# Dictionary untuk menyimpan mode operasi ("add" or "multiply")
 var op_modes := {}
 
 func set_mode(stat_name: String, mode: String):
@@ -55,40 +54,29 @@ func set_mode(stat_name: String, mode: String):
 		push_warning("Invalid mode '%s' for stat '%s'" % [mode, stat_name])
 
 
-# -----------------------------------------------------------------
 func apply_modifier(other: PlayerModifier) -> PlayerModifier:
-	# 1. Buat 'result' baru yang merupakan SALINAN dari 'self'
 	var result := PlayerModifier.new()
 	for key in get_property_list():
 		var name = key.name
-		# Lewati dictionary op_modes, kita hanya salin stat
 		if name == "op_modes":
 			continue
 		
-		# Salin nilai stat saat ini
 		if typeof(result.get(name)) in [TYPE_FLOAT, TYPE_INT]:
 			result.set(name, self.get(name))
 
-	# 2. Terapkan 'other' (boon) ke 'result'
-	# Kita HANYA loop 'op_modes' dari boon, 
-	# karena itu adalah daftar stat yang ingin diubah
 	for stat_name in other.op_modes:
-		# Keamanan jika ada typo nama stat
 		if (not stat_name in result):
 			push_warning("Stat '%s' tidak ditemukan di PlayerModifier!" % stat_name)
 			continue
 			
-		# Ambil nilai-nilainya
-		var base_val = result.get(stat_name)    # (Stat 'result' saat ini)
-		var other_val = other.get(stat_name)   # (Nilai dari boon)
-		var mode = other.op_modes[stat_name] # ("add" atau "multiply")
+		var base_val = result.get(stat_name)   
+		var other_val = other.get(stat_name)   
+		var mode = other.op_modes[stat_name] 
 
-		# Terapkan
 		match mode:
 			"add":
 				result.set(stat_name, base_val + other_val)
 			"multiply":
 				result.set(stat_name, base_val * other_val)
 	
-	# 3. Kembalikan stat baru yang sudah dihitung
 	return result

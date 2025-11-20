@@ -14,7 +14,6 @@ var reward_database: Dictionary = {
 		"boon_folder_path": "res://script/player/boons/hood/",
 		"name": "Vengeful Red Riding Hood"
 	},
-	#TODO icon beneran
 	"rabbit": { 
 		"icon": "res://icon.svg",
 		"boon_folder_path": "res://script/player/boons/rabbit/",
@@ -37,7 +36,6 @@ var collected_boon_paths: Array[String] = []
 func register_boon_as_collected(boon: BuffBase):
 	if boon.resource_path and not boon.resource_path in collected_boon_paths:
 		collected_boon_paths.append(boon.resource_path)
-		print("Boon dikoleksi: ", boon.resource_path)
 
 func reset_collected_boons():
 	collected_boon_paths.clear()
@@ -61,7 +59,6 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 			var boon = BuffCinderella.new()
 			
 			while boon.effect_id in chosen_effect_ids:
-				print("Cinderella duplicate found (ID: %s). Re-rolling..." % boon.effect_id)
 				boon = BuffCinderella.new()
 			chosen_effect_ids.append(boon.effect_id)
 			cinderella_choices.append(boon)
@@ -70,7 +67,6 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 	var giver_data = get_reward_data(boon_giver_id)
 
 	if not giver_data or not giver_data.has("boon_folder_path"):
-		print("ERROR: Boon Giver ID tidak valid: ", boon_giver_id)
 		return []
 
 	var boon_folder_path = giver_data.boon_folder_path
@@ -91,8 +87,6 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 						available_boons.append(boon_res)
 						
 			file_name = dir.get_next().trim_suffix(".remap")
-	else:
-		print("ERROR: Tidak bisa membuka folder boon: ", boon_folder_path)
 
 	available_boons.shuffle()
 	

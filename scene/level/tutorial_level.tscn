@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=4 uid="uid://nfb6k3y2ymip"]
 
 [ext_resource type="PackedScene" uid="uid://yncml2ptnko7" path="res://scene/level/room.tscn" id="1_scad7"]
-[ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="2_n7h5c"]
 [ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="3_n7h5c"]
-[ext_resource type="Script" path="res://script/tutorialdhsfkhjsdf.gd" id="4_te7ks"]
+[ext_resource type="Script" uid="uid://h0tnnc4wy2xh" path="res://script/tutorialdhsfkhjsdf.gd" id="4_te7ks"]
+[ext_resource type="Script" uid="uid://04pxw75e5exq" path="res://script/level/tutorial_todo.gd" id="4_ucgp2"]
 
 [sub_resource type="Shader" id="Shader_n7h5c"]
 resource_local_to_scene = true
@@ -48,51 +48,7 @@ tile_map_data = PackedByteArray("AAD//wEAAAAAAAkAAAAAAAAAAAAAAAkAAAAAAP//AAAAAAk
 [node name="Object2" parent="." index="2"]
 tile_map_data = PackedByteArray("AAAEAPv/AAAIAAgAAAAFAOn/AAAIAAgAAAABAPL/AAAGAAgAAAAJAPP/AAAHAAgAAAAIAPr/AAACAAkAAAADAO7/AAADAAkAAAAIAOf/AAACAAAAAAAJAOj/AAADAAAAAAA=")
 
-[node name="Label" type="Label" parent="." index="12"]
-z_index = 1
-offset_left = 38.0
-offset_top = -67.0
-offset_right = 268.0
-offset_bottom = -30.0
-theme_override_fonts/font = ExtResource("2_n7h5c")
-theme_override_font_sizes/font_size = 22
-text = "left click / space to dash"
-
-[node name="Label2" type="Label" parent="." index="13"]
-z_index = 1
-offset_left = -230.0
-offset_top = -224.0
-offset_right = 251.0
-offset_bottom = -140.0
-theme_override_fonts/font = ExtResource("2_n7h5c")
-theme_override_font_sizes/font_size = 22
-text = "left click when the circle is perfect,
-after 3 perfect you can super dash with right click"
-horizontal_alignment = 1
-
-[node name="Label3" type="Label" parent="." index="14"]
-z_index = 1
-offset_left = 281.0
-offset_top = -110.0
-offset_right = 896.0
-offset_bottom = -64.0
-theme_override_fonts/font = ExtResource("2_n7h5c")
-theme_override_font_sizes/font_size = 22
-text = "you can also morph the enemy's skill with shift"
-horizontal_alignment = 1
-
-[node name="Label4" type="Label" parent="." index="15"]
-z_index = 1
-offset_left = 181.0
-offset_top = -313.0
-offset_right = 749.0
-offset_bottom = -229.0
-theme_override_fonts/font = ExtResource("2_n7h5c")
-theme_override_font_sizes/font_size = 22
-text = "press e to cast pin that you can use to posses"
-horizontal_alignment = 1
-
-[node name="BrokenPuppet" parent="." index="16" instance=ExtResource("3_n7h5c")]
+[node name="BrokenPuppet" parent="." index="12" instance=ExtResource("3_n7h5c")]
 position = Vector2(359, -200)
 
 [node name="Stats" parent="BrokenPuppet" index="2"]
@@ -105,13 +61,29 @@ material = SubResource("ShaderMaterial_te7ks")
 [node name="CollisionShape2D" parent="BrokenPuppet/Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_ucgp2")
 
-[node name="Area2D" type="Area2D" parent="." index="17"]
+[node name="Area2D" type="Area2D" parent="." index="13"]
 position = Vector2(608, -352)
 collision_mask = 7
 script = ExtResource("4_te7ks")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 shape = SubResource("CircleShape2D_ucgp2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="14"]
+
+[node name="Control" type="Control" parent="CanvasLayer" index="0"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control" index="0"]
+layout_mode = 0
+offset_right = 445.0
+offset_bottom = 172.0
+script = ExtResource("4_ucgp2")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 

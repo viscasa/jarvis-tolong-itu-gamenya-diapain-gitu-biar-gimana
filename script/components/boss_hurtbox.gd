@@ -6,5 +6,3 @@ func _on_area_entered(area):
 		
 		if stats_node:
 			stats_node.take_damage(area.damage)
-		else:
-			print("ERROR: " + get_parent().name + " tidak punya node Stats!")

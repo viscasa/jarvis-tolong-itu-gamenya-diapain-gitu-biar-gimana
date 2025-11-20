@@ -15,7 +15,6 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var skill_manager: Node2D = $SkillManager
 
 
-# Referensi skill di dalam SkillManager
 @onready var super_dash: SuperDash = $SkillManager/SuperDash
 @onready var pin: Pin = $SkillManager/Pin
 @onready var morph_skill: Node2D = $SkillManager/MorphSkill
@@ -30,14 +29,12 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var phasing_ray: RayCast2D = $Raycast/PhasingRay
 @onready var raycast: Node2D = $Raycast
 @onready var camera: Camera2D = $Camera2D
+@onready var indicator: Node2D = $Indicator
 signal possessed(target)
 @onready var knockback_timer: Timer = $KnockbackTimer
 @export var knockback_strength: float = 300.0
 var is_in_knockback: bool = false
 var is_locked_out := false
-
-# --- VAR ANIMASI BARU ---
-# Menyimpan arah terakhir pemain (dari input atau dash) untuk animasi idle
 var last_move_direction := Vector2.DOWN
 var is_throwing_pin := false
 var is_throwing_pin_first := true
@@ -47,25 +44,20 @@ func _ready() -> void:
 	
 	add_to_group("player")
 	
-	sprite.animation_finished.connect(_on_animation_finished) # <-- TAMBAHAN: Hubungkan sinyal
+	sprite.animation_finished.connect(_on_animation_finished) 
 	
 	dash_manager.player = self
 	
-	# Setup referensi PossessionManager
 	possession_manager.player = self
 	possession_manager.possessed.connect(_on_possessed)
 
-	# --- PENGATURAN REFERENSI SKILL ---
-	# Beri referensi ke SuperDash
 	super_dash.player = self
 	super_dash.dash_manager = dash_manager
 	
-	# Beri referensi ke Pin
 	pin.player = self
 	pin.dash_manager = dash_manager
 	pin.super_dash = super_dash
 	
-	# Beri referensi skill ke DashManager
 	dash_manager.super_dash = super_dash
 	dash_manager.pin = pin
 	
@@ -75,53 +67,39 @@ func _ready() -> void:
 	skill_manager.stolen_skill_used.connect(_on_stolen_skill_used)
 	
 	if phasing_ray:
-		# Pastikan RayCast HANYA memeriksa layer 1
 		phasing_ray.set_collision_mask_value(1, true) 
 		phasing_ray.enabled = true
-	else:
-		print("ERROR: Node $PhasingRay tidak ditemukan di Player! Phasing tidak akan aman.")
 		
 	health_manager.player_was_hit.connect(_on_was_hit)
 	knockback_timer.timeout.connect(_on_knockback_timeout)
 	
 func _on_buffs_updated(new_stats: PlayerModifier):
 	
-	# 1. Terapkan ke HealthManager (Boon "Fluffy Tail", "Rags to Riches")
 	health_manager.max_health = new_stats.hp
-	# (Kita juga harus update health bar jika max HP berubah)
 	
-	# 3. Terapkan ke DashManager (Boon "Quick Getaway")
 	dash_manager.dash_move_time = new_stats.dash_duration
 	
-	# 4. Terapkan ke SuperDash (Boon "Big Bad Bargain", "Picnic Basket")
 	super_dash.super_dash_recharge_needed = 3 + new_stats.super_dash_cost
 	super_dash.aoe_radius = (50.0 * SCALE_UP) * new_stats.explosion_size
 	super_dash.aoe_damage = 50.0 * new_stats.explosion_damage # (Damage dasar 50)
 	
-	# 5. Terapkan ke CircleTiming (Boon "What Big Eyes...")
 	var base_crit_start = 0.63
 	var base_crit_end = 0.76
 	circle_timing.crit_interval[0] = base_crit_start - (new_stats.possesian_timing / 2.0)
 	circle_timing.crit_interval[1] = base_crit_end + (new_stats.possesian_timing / 2.0)
 	
-	# 6. Terapkan ke Movement (Boon "Hunter's Haste")
-	# (Kita akan modifikasi _process_movement di bawah)
 		
-	print("STATS UPDATED: HP = ", new_stats.hp, ", Dash Cost = ", super_dash.super_dash_recharge_needed)
 func _on_player_died(): #TODO
-	# (Logika Resurrection/kebangkitan sudah ditangani di HealthManager)
-	print("PLAYER MATI")
-	# (Tambahkan logika game over di sini
 	get_tree().reload_current_scene()
 
 func _physics_process(delta: float) -> void:
+	indicator.look_at(get_global_mouse_position())
 	if is_in_knockback:
 		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
 		move_and_slide()
 		return 
 	dash_manager.update_cooldown(delta)
 	
-	# Proses semua skill
 	super_dash.process_super_dash(delta)
 	pin._process(delta) 
 	morph_skill._process(delta) 
@@ -129,7 +107,6 @@ func _physics_process(delta: float) -> void:
 	if not is_locked_out:
 		handle_global_inputs()
 
-	# --- PENGATURAN VELOCITY ---
 	if possession_manager.is_possessing:
 		possession_manager.process_possession(delta)
 	elif super_dash.is_charging:
@@ -144,16 +121,11 @@ func _physics_process(delta: float) -> void:
 		_set_morph_dash_velocity()
 	else:
 		_process_movement(delta)
-	# --- AKHIR PENGATURAN VELOCITY ---
 
-	# --- LOGIKA ANIMASI BARU ---
-	# Panggil state machine animasi sebelum bergerak
 	_update_animation_state()
-	# --- AKHIR LOGIKA ANIMASI ---
 
 	move_and_slide()
 
-	# Proses logika akhir dash
 	if dash_manager.is_dash_moving:
 		dash_manager.process_dash(delta)
 		if not dash_manager.is_dash_moving:
@@ -168,7 +140,7 @@ func _set_dash_velocity():
 	var current_dash_speed = DASH_SPEED * speed_factor
 	velocity.x = dash_manager.dash_direction.x * current_dash_speed
 	velocity.y = dash_manager.dash_direction.y * current_dash_speed / Y_MUL_DASH
-	last_move_direction = dash_manager.dash_direction # Update arah terakhir
+	last_move_direction = dash_manager.dash_direction 
 
 func _set_exit_dash_velocity():
 	var speed_factor = dash_manager.get_exit_dash_speed_factor()
@@ -176,32 +148,31 @@ func _set_exit_dash_velocity():
 	var current_speed = base_exit_speed * speed_factor
 	velocity.x = dash_manager.exit_dash_direction.x * current_speed
 	velocity.y = dash_manager.exit_dash_direction.y * current_speed / Y_MUL_DASH
-	last_move_direction = dash_manager.exit_dash_direction # Update arah terakhir
+	last_move_direction = dash_manager.exit_dash_direction 
 
 func _set_super_dash_charge_velocity():
 	var vel = super_dash.get_charge_velocity()
 	if vel.length_squared() > 0.0:
-		last_move_direction = vel.normalized() # Update arah terakhir
+		last_move_direction = vel.normalized()
 	velocity.x = vel.x
 	velocity.y = vel.y / Y_MUL_DASH
 
 func _set_super_dash_move_velocity():
 	var vel = super_dash.get_dash_velocity()
 	if vel.length_squared() > 0.0:
-		last_move_direction = vel.normalized() # Update arah terakhir
+		last_move_direction = vel.normalized()
 	velocity.x = vel.x
 	velocity.y = vel.y / Y_MUL_DASH
 
 func _set_morph_dash_velocity():
 	var vel = morph_skill.get_dash_velocity()
 	if vel.length_squared() > 0.0:
-		last_move_direction = vel.normalized() # Update arah terakhir
+		last_move_direction = vel.normalized()
 	velocity.x = vel.x
 	velocity.y = vel.y / Y_MUL_DASH
 
 func _process_movement(delta: float) -> void:
-	# Pastikan kita tidak bergerak jika ada skill dash aktif
-	if super_dash.is_active() or morph_skill.is_active(): # TAMBAHAN
+	if super_dash.is_active() or morph_skill.is_active():
 		velocity = Vector2.ZERO
 		return
 
@@ -211,7 +182,6 @@ func _process_movement(delta: float) -> void:
 	)
 	var current_speed = PlayerBuffManager.current_stats.move_speed
 	
-	# Update arah terakhir berdasarkan input
 	if input_vector.length() > 0.0:
 		last_move_direction = input_vector.normalized()
 	
@@ -223,7 +193,6 @@ func _process_movement(delta: float) -> void:
 
 func can_start_possession() -> bool:
 	if dash_manager.must_exit_before_possession and not dash_manager.has_exited_since_last_possession:
-		print("⚠ You must Exit Dash before another possession.")
 		return false
 	return true
 
@@ -236,15 +205,12 @@ func handle_global_inputs() -> void:
 		if can_start_possession():
 			dash_manager.start_dash()
 	
-	# --- MODIFIKASI UNTUK ANIMASI PIN ---
 	elif Input.is_action_just_pressed("pin") and not possession_manager.is_possessing:
 		if can_start_possession():
 			
-			# Cek apakah kita sudah dalam animasi
 			if is_throwing_pin:
-				return # Jangan lakukan apa-apa jika animasi sedang main
+				return 
 			
-			# Duplikat pengecekan dari pin.gd untuk tahu apakah pin BISA dilempar.
 			var can_throw_pin = true
 			if pin.reload_timer > 0.0:
 				can_throw_pin = false
@@ -256,11 +222,9 @@ func handle_global_inputs() -> void:
 				can_throw_pin = false
 			
 			if can_throw_pin:
-				is_throwing_pin = true # <-- Mulai animasi
-				skill_manager.use_pin() # <-- Lakukan aksi
+				is_throwing_pin = true 
+				skill_manager.use_pin()
 			
-			# Baris asli: skill_manager.use_pin() (dipindahkan ke dalam if can_throw_pin)
-	# --- AKHIR MODIFIKASI PIN ---
 			
 	elif Input.is_action_just_pressed("morph_skill") and not possession_manager.is_possessing: 
 		if can_start_possession():
@@ -273,42 +237,39 @@ func lock_actions_during_weak_exit(duration: float) -> void:
 	if is_locked_out:
 		return
 	is_locked_out = true
-	print("🔒 Locked out for %.2f seconds" % duration)
 	await get_tree().create_timer(duration).timeout
 	is_locked_out = false
-	print("🔓 Lockout ended")
 
 func morph(_name:String) :
 	skill_manager.morph(_name)
 
 func start_invisible(time:float = 0) :
-	print("invis!")
-	hurt_box_player.set_collision_layer_value(2, false)
+	immune_damage(true)
 	set_collision_mask_value(1, false)
 	if time != 0 :
 		await get_tree().create_timer(time).timeout
 		end_invisible()
 
 func end_invisible() :
-	print("berhenti invis!")
+	immune_damage(false)
 	hurt_box_player.set_collision_layer_value(2, true)
 	set_collision_mask_value(1, true)
+	
+func immune_damage(flag:bool) :
+	hurt_box_player.set_collision_layer_value(2, !flag)
 
 func _update_animation_state() -> void:
 	var anim_prefix = "Idle" 
 	var anim_direction = last_move_direction 
 
-	# --- TAMBAHAN: Pengecekan Animasi Pin ---
-	# Ini harus jadi prioritas di atas state lain.
 	if is_throwing_pin:
 		if !is_throwing_pin_first :
 			return
 		is_throwing_pin_first = false
-		anim_prefix = "Cast" # Asumsi nama animasinya "Pin_E", "Pin_S", dll.
-		anim_direction = last_move_direction # Gunakan arah terakhir
-	# --- AKHIR TAMBAHAN ---
+		anim_prefix = "Cast" 
+		anim_direction = last_move_direction
 	
-	elif possession_manager.is_possessing: # <-- Perhatikan ini menjadi 'elif'
+	elif possession_manager.is_possessing:
 		if velocity.length() > 1.0:
 			anim_prefix = "Idle" 
 			anim_direction = velocity.normalized()
@@ -373,22 +334,18 @@ func _get_direction_suffix(direction: Vector2) -> String:
 	elif angle < -PI / 8.0 and angle >= -3.0 * PI / 8.0:
 		return "NE"
 	
-	return "S" # Fallback default
+	return "S"
 
 
 
 
-# --- TAMBAHAN: Callback untuk sinyal animation_finished ---
 func _on_animation_finished() -> void:
-	# Jika kita dalam status 'is_throwing_pin' dan animasinya selesai,
-	# kembalikan status ke false agar animasi idle/run bisa diputar.
 	if sprite.animation.begins_with("Cast") :
 		is_throwing_pin_first = true
 		is_throwing_pin = false
 	if is_throwing_pin:
 		is_throwing_pin_first = true
 		is_throwing_pin = false
-# --- AKHIR TAMBAHAN ---
 
 func _on_stolen_skill_used():
 	var stats = PlayerBuffManager.current_stats
