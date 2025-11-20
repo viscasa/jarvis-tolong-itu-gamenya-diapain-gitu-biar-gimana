@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://deukhj1qgjpwo"]
+
+[ext_resource type="Script" uid="uid://cq258h4qf1cm8" path="res://script/ui/combo_ui.gd" id="1_lxy33"]
+
+[node name="ComboUI" type="CanvasLayer"]
+script = ExtResource("1_lxy33")
+
+[node name="ComboLabel" type="Label" parent="."]
+offset_left = 1313.0
+offset_top = 458.0
+offset_right = 1720.0
+offset_bottom = 568.0
+pivot_offset = Vector2(203, 55)
+theme_override_font_sizes/font_size = 80
+text = "CHAIN x10"
+horizontal_alignment = 1
+
+[node name="ResetTimer" type="Timer" parent="."]
+wait_time = 0.76
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="TimerBar" type="ProgressBar" parent="."]
+offset_left = 1369.0
+offset_top = 577.0
+offset_right = 1671.0
+offset_bottom = 604.0
+pivot_offset = Vector2(151, 13)
+show_percentage = false

@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://c36pttr8cmouy"]
+
+[ext_resource type="PackedScene" uid="uid://yncml2ptnko7" path="res://scene/level/room.tscn" id="1_62bwq"]
+[ext_resource type="Script" uid="uid://b8chfmlwj0vn0" path="res://script/level/enemy_spawn_point.gd" id="2_lvruv"]
+[ext_resource type="PackedScene" uid="uid://n0wsn68c12ku" path="res://scene/level/door.tscn" id="2_rsrfk"]
+[ext_resource type="PackedScene" uid="uid://cu64rfxjwm0yf" path="res://scene/level/boon_pickup.tscn" id="3_mk6ml"]
+[ext_resource type="Texture2D" uid="uid://dsbwp74tfsq0f" path="res://assets/tile_assets/Reruntuhan kastil/Untitled551_20251109200746.png" id="4_6i1gy"]
+[ext_resource type="Texture2D" uid="uid://dvwpj2sid3lxf" path="res://assets/tile_assets/Reruntuhan kastil/Untitled551_20251109200738.png" id="5_mk6ml"]
+
+[node name="TestRoom" node_paths=PackedStringArray("boon_pickup") instance=ExtResource("1_62bwq")]
+boon_pickup = NodePath("BoonPickup")
+
+[node name="PlayerSpawnPosition" parent="." index="3"]
+position = Vector2(-208, 182)
+
+[node name="Wave1" type="Node2D" parent="WaveSpawners" index="0"]
+
+[node name="EnemySpawner8" type="Marker2D" parent="WaveSpawners/Wave1" index="0"]
+position = Vector2(249, 86)
+script = ExtResource("2_lvruv")
+ENEMY_TYPE = 3
+metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
+
+[node name="Door" parent="DoorContainer" index="0" instance=ExtResource("2_rsrfk")]
+position = Vector2(-223, 2)
+
+[node name="Door2" parent="DoorContainer" index="1" instance=ExtResource("2_rsrfk")]
+position = Vector2(217, -27)
+
+[node name="Pillar" type="Sprite2D" parent="." index="8"]
+y_sort_enabled = true
+position = Vector2(-286, 102)
+texture = ExtResource("4_6i1gy")
+offset = Vector2(30, -50)
+
+[node name="Pillar2" type="Sprite2D" parent="." index="9"]
+y_sort_enabled = true
+position = Vector2(-224, 137)
+texture = ExtResource("5_mk6ml")
+offset = Vector2(-32, -85)
+
+[node name="BoonPickup" parent="." index="10" instance=ExtResource("3_mk6ml")]
+position = Vector2(0, 76)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="11"]
+layer = -100

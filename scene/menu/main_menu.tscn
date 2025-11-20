@@ -1,0 +1,136 @@
+[gd_scene load_steps=21 format=3 uid="uid://pvq68uf7nkk2"]
+
+[ext_resource type="Script" uid="uid://f4waonwkuvjv" path="res://script/menu/main_menu.gd" id="1_5tvlq"]
+[ext_resource type="Texture2D" uid="uid://m3rkqq0vufss" path="res://assets/BuatMainMenu.png" id="2_wttdg"]
+[ext_resource type="Texture2D" uid="uid://bl5a32jeqrkjj" path="res://assets/button.png" id="3_123lf"]
+[ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="4_1j8a1"]
+[ext_resource type="Texture2D" uid="uid://daqkdu1b4pry8" path="res://assets/newlogo.png" id="6_8l8bj"]
+[ext_resource type="Texture2D" uid="uid://d1iu7xhw2qpug" path="res://assets/temp/ELR_FallLeaf.png" id="6_kwj1b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_123lf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1j8a1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8l8bj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kwj1b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcpe2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uqtd8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jn1p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h8o4p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_puw1c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4o61b"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hcpe2"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_uqtd8"]
+offsets = PackedFloat32Array(0, 0.16993465, 0.8202614, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5jn1p"]
+gradient = SubResource("Gradient_uqtd8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1j8a1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(960, 540, 1)
+angle_min = 1.0728835e-05
+angle_max = 50.00001
+initial_velocity_min = 80.0
+initial_velocity_max = 160.0
+gravity = Vector3(0, 10, 0)
+scale_min = 2.5
+scale_max = 3.5
+color_ramp = SubResource("GradientTexture1D_5jn1p")
+anim_offset_max = 1.0
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_5tvlq")
+
+[node name="BuatMainMenu" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("2_wttdg")
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 664.0
+offset_top = 626.0
+offset_right = 1213.0
+offset_bottom = 742.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_123lf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1j8a1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8l8bj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kwj1b")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hcpe2")
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 660.0
+offset_top = 758.0
+offset_right = 1211.0
+offset_bottom = 869.0
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uqtd8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_5jn1p")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h8o4p")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_puw1c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4o61b")
+
+[node name="Button" type="Sprite2D" parent="."]
+position = Vector2(1375, 351)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_123lf")
+
+[node name="START" type="Label" parent="Button"]
+offset_left = -432.6667
+offset_top = 190.66667
+offset_right = -148.66666
+offset_bottom = 254.0
+theme_override_fonts/font = ExtResource("4_1j8a1")
+theme_override_font_sizes/font_size = 40
+text = "START"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Sprite2D" parent="."]
+position = Vector2(1378, 476.00003)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_123lf")
+
+[node name="EXIT" type="Label" parent="Button2"]
+offset_left = -432.66666
+offset_top = 190.66667
+offset_right = -148.66666
+offset_bottom = 254.0
+theme_override_fonts/font = ExtResource("4_1j8a1")
+theme_override_font_sizes/font_size = 40
+text = "EXIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Newlogo" type="Sprite2D" parent="."]
+position = Vector2(960, 543)
+texture = ExtResource("6_8l8bj")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_hcpe2")
+position = Vector2(772, 540)
+amount = 100
+amount_ratio = 0.2
+texture = ExtResource("6_kwj1b")
+lifetime = 3.0
+visibility_rect = Rect2(-960, -540, 1920, 1080)
+process_material = SubResource("ParticleProcessMaterial_1j8a1")
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

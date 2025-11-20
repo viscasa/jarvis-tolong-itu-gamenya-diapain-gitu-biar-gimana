@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://5w8qgjwca2lk"]
+
+[ext_resource type="Shader" uid="uid://cn4uip83wlncw" path="res://shader/solid_color.gdshader" id="1_antoi"]
+[ext_resource type="Texture2D" uid="uid://bg03qyy06fgbo" path="res://icon.svg" id="1_woym1"]
+[ext_resource type="Script" uid="uid://b7qk8gvn0uthn" path="res://script/skill/dash_ghost.gd" id="2_antoi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4cney"]
+resource_local_to_scene = true
+shader = ExtResource("1_antoi")
+shader_parameter/custom_color = Color(1, 1, 1, 1)
+
+[node name="DashGhost" type="Sprite2D"]
+material = SubResource("ShaderMaterial_4cney")
+texture = ExtResource("1_woym1")
+script = ExtResource("2_antoi")
+color = Color(1, 1, 1, 1)

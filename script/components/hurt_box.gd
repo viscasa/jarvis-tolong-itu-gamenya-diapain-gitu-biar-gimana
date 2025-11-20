@@ -1,15 +1,21 @@
 extends Area2D
 class_name Hurtbox
 
+signal player_possessed
+signal player_auto_exit
+
 var cooldown_possessed:float = 1.5
 @onready var circle: Node2D = $Circle
 @onready var circle_animation: AnimationPlayer = $Circle/CircleAnimation
+@onready var posses_effect: AnimatedSprite2D = $"../PossesEffect"
 
 func _ready():
 	area_entered.connect(_on_area_entered)
 	connect("body_entered", Callable(self, "_on_body_entered"))
 
 func _on_area_entered(area):
+	if !circle :
+		return
 	if not area.get_parent() is Player:
 		return
 	var player = area.get_parent()
@@ -25,24 +31,24 @@ func _on_area_entered(area):
 		circle_animation.stop()
 		circle_animation.play("shrink_in")
 		pm.possess(self)
+		emit_signal("player_possessed")
 		await dm.exit_cycle_started
 		await get_tree().create_timer(cooldown_possessed).timeout
 		set_collision_layer_value(1,true)
 		set_collision_mask_value(1,true)
 		
-	# 1. Cek apakah yang masuk adalah sebuah Hitbox
 	if area is Hitbox:
-		# 2. Cari node 'Stats' yang seharusnya ada di parent kita
-		# (Struktur: Player/Hurtbox dan Player/Stats)
 		var stats_node = get_parent().get_node_or_null("Stats")
 		
 		if stats_node:
-			# 3. Panggil fungsi 'take_damage' di Stats dan kirim damage-nya
-			stats_node.take_damage(area.damage)
+			var hit_direction = (get_parent().global_position - area.global_position).normalized()
+			stats_node.take_damage(area.damage, hit_direction)
 		else:
 			print("ERROR: " + get_parent().name + " tidak punya node Stats!")
 
 func auto_exit() -> void:
+	posses_effect.play("out")
+	emit_signal("player_auto_exit")
 	circle_animation.stop()
 	circle_animation.play("shrink_in")
 	circle_animation.advance(0.76)
@@ -51,8 +57,13 @@ func auto_exit() -> void:
 	await circle_animation.animation_finished
 
 func exit() -> void:
+	posses_effect.play("out")
 	circle_animation.play("fade_out")
 	await circle_animation.animation_finished
 
 func get_current_circle_time() -> float:
 	return circle_animation.current_animation_position
+
+func reset_hurtbox():
+	monitoring=false
+	monitoring=true

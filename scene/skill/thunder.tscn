@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=3 uid="uid://buh1lj7tdd2r3"]
+
+[ext_resource type="Shader" uid="uid://borhasfct6qho" path="res://shader/thunder.tres" id="1_wx6sb"]
+[ext_resource type="Texture2D" uid="uid://baqkd422twb8j" path="res://assets/particle/test2.jpg" id="2_26crx"]
+[ext_resource type="Script" uid="uid://cywdgwubw0eey" path="res://script/skill/thunder.gd" id="3_26crx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ufg7g"]
+shader = ExtResource("1_wx6sb")
+shader_parameter/Vanishing_Value = 0.0
+shader_parameter/speed = Vector2(-2, 0)
+shader_parameter/basic_texture = ExtResource("2_26crx")
+
+[sub_resource type="Curve" id="Curve_wx6sb"]
+_limits = [0.0, 3.0, 0.0, 3.0]
+_data = [Vector2(0, 0.6190715), 0.0, -0.41977802, 0, 0, Vector2(3, 0.4616549), -1.3193011, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_26crx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.61263734, 1), 0.9673171, 0.9673171, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ufg7g"]
+curve = SubResource("Curve_26crx")
+
+[sub_resource type="Animation" id="Animation_ufg7g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/Vanishing_Value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:curve:point_1/position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.61263734, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:curve:point_0/position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_26crx"]
+resource_name = "start_thunder"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/Vanishing_Value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:curve:point_1/position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.07333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.61263734, 1), Vector2(0.99999, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:curve:point_0/position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.07333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.99998, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rmnqt"]
+_data = {
+&"RESET": SubResource("Animation_ufg7g"),
+&"start_thunder": SubResource("Animation_26crx")
+}
+
+[node name="Thunder" type="Line2D"]
+material = SubResource("ShaderMaterial_ufg7g")
+width = 250.0
+width_curve = SubResource("Curve_wx6sb")
+texture = SubResource("CurveTexture_ufg7g")
+texture_mode = 2
+script = ExtResource("3_26crx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rmnqt")
+}
+speed_scale = 1.4

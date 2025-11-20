@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BuffHood" load_steps=2 format=3 uid="uid://0p5lqt8h1ss5"]
+
+[ext_resource type="Script" uid="uid://dgrffc81v3gki" path="res://script/player/boons/hood/hood_boon.gd" id="1_xflh6"]
+
+[resource]
+script = ExtResource("1_xflh6")
+boon_type = 3
+metadata/_custom_type_script = "uid://dgrffc81v3gki"
