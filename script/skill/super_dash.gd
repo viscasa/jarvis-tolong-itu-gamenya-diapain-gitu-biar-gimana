@@ -79,7 +79,8 @@ func start_super_dash() -> void:
 	
 	dash_direction = (player.get_global_mouse_position() - player.global_position).normalized()
 	charge_direction = -dash_direction
-
+	
+	super_dash_recharge_counter = 0
 	emit_signal("super_dash_started")
 
 func process_super_dash(delta: float) -> void:
@@ -167,9 +168,10 @@ func _add_super_dash() :
 func _process_recharge_counter() -> void :
 	if super_dash_recharge_counter >= super_dash_recharge_needed :
 		super_dash_counter = 0
-		super_dash_recharge_counter = 0
 
 func _add_counter() :
+	if (super_dash_recharge_counter+1 > super_dash_recharge_needed) :
+		return
 	super_dash_recharge_counter += 1
 	emit_signal("rechare_counter_changed")
 

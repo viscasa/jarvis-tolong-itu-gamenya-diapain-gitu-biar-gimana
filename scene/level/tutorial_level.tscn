@@ -87,4 +87,5 @@ script = ExtResource("4_ucgp2")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 
+[editable path="PlayerSpawnPosition/Player"]
 [editable path="BrokenPuppet"]

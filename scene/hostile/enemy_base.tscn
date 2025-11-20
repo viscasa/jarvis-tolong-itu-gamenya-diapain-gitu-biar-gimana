@@ -344,6 +344,7 @@ sprite_frames = SubResource("SpriteFrames_roat0")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
+collision_mask = 2
 script = ExtResource("4_vhfx3")
 metadata/_custom_type_script = "uid://dtffxjfmsjwuw"
 
@@ -396,3 +397,5 @@ wait_time = 0.2
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_sf8nd")
 autoplay = "default"
+
+[connection signal="current_animation_changed" from="Hurtbox/Circle/CircleAnimation" to="Hurtbox" method="_on_circle_animation_current_animation_changed"]

@@ -26,16 +26,13 @@ func _on_area_entered(area):
 	allowed = dm.is_dashing or dm.is_exit_dashing
 
 	if allowed and not dm.auto_exit_possess_lock:
-		set_collision_layer_value(1,false)
-		set_collision_mask_value(1,false)
+		set_collision_layer_value(3,false)
+		set_collision_mask_value(2,false)
 		circle_animation.stop()
 		circle_animation.play("shrink_in")
 		pm.possess(self)
 		emit_signal("player_possessed")
 		await dm.exit_cycle_started
-		await get_tree().create_timer(cooldown_possessed).timeout
-		set_collision_layer_value(1,true)
-		set_collision_mask_value(1,true)
 		
 	if area is Hitbox:
 		var stats_node = get_parent().get_node_or_null("Stats")
@@ -67,3 +64,9 @@ func get_current_circle_time() -> float:
 func reset_hurtbox():
 	monitoring=false
 	monitoring=true
+
+func _on_circle_animation_current_animation_changed(name: String) -> void:
+	if name == "fade_out" :
+		await circle_animation.animation_finished
+		set_collision_layer_value(3,true)
+		set_collision_mask_value(2,true)
