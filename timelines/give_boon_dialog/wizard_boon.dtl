@@ -1,0 +1,7 @@
+set {currently_talking} = "isolde"
+if {random_dialog} == 1.0:
+	[signal arg="show_character"]
+	isolde: Magic’s a fickle wind, dear. I’ll let you borrow a taste of power.
+
+else:
+	isolde: A wooden boy off to save his kin, they'll burn you alive yknow? here's some aid to cool off the burn sweetheart.

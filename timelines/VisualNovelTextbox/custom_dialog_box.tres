@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://sjsqu16jgfsg"]
+
+[ext_resource type="Texture2D" uid="uid://c1lqcsam6gls0" path="res://assets/DialogueBox.png" id="1_udh4e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udh4e"]
+atlas = ExtResource("1_udh4e")
+region = Rect2(613, 471, 1078, 566)
+
+[resource]
+texture = SubResource("AtlasTexture_udh4e")
