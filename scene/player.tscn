@@ -55,7 +55,7 @@
 [ext_resource type="Script" uid="uid://bviu6417canup" path="res://script/player/circle_timing.gd" id="53_8h342"]
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="54_nv3o8"]
 [ext_resource type="Script" path="res://script/ui/damage_overlay.gd" id="55_fjrdf"]
-[ext_resource type="Shader" uid="uid://86l84p8mcfsh" path="res://shader/hit_overlay.gdshader" id="56_nnw3o"]
+[ext_resource type="Shader" path="res://shader/hit_overlay.gdshader" id="56_nnw3o"]
 [ext_resource type="PackedScene" uid="uid://deukhj1qgjpwo" path="res://scene/combo_ui.tscn" id="57_x2dav"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxxrj"]
@@ -1836,7 +1836,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lop3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajqqa"]
-size = Vector2(33.941124, 42.02104)
+size = Vector2(44, 42.02104)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_04bvi"]
 radius = 23.0

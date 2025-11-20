@@ -67,3 +67,7 @@ func exit() -> void:
 
 func get_current_circle_time() -> float:
 	return circle_animation.current_animation_position
+
+func reset_hurtbox():
+	monitoring=false
+	monitoring=true

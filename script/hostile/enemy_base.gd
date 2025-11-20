@@ -8,6 +8,7 @@ class_name EnemyBase
 @onready var stats: Stats = $Stats
 @onready var hitbox: Hitbox = $Hitbox
 @onready var hitbox_shape: CollisionShape2D = $Hitbox/CollisionShape2D
+@onready var hurtbox: Hurtbox = $Hurtbox
 @onready var attack_timer: Timer = $AttackTimer
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var nav_agent: NavigationAgent2D = $NavAgent

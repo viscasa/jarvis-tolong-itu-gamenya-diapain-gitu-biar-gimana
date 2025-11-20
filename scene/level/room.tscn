@@ -481,6 +481,7 @@ texture_region_size = Vector2i(64, 64)
 tile_shape = 1
 tile_size = Vector2i(64, 32)
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "GreenYellow"
 terrain_set_0/terrain_0/color = Color(0.3393284, 0.42088348, 0.1820567, 1)
@@ -518,6 +519,7 @@ navigation_enabled = false
 y_sort_enabled = true
 
 [node name="Player" parent="PlayerSpawnPosition" instance=ExtResource("6_ib65q")]
+collision_mask = 33
 
 [node name="RewardSpawnPosition" type="Marker2D" parent="."]
 y_sort_enabled = true

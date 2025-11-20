@@ -21,6 +21,8 @@ var pin: Pin
 @onready var morph_skill: Node2D = $"../SkillManager/MorphSkill"
 @onready var sprite: AnimatedSprite2D = $"../Sprite"
 @onready var ghost_timer: Timer = $"../GhostTimer"
+@onready var possession_manager: PossessionManager = $"../PossessionManager"
+@onready var possess_area: Area2D = $"../PossessArea"
 var ghost_scene = preload("res://scene/skill/dash_ghost.tscn")
 # ---------------------
 
@@ -34,7 +36,7 @@ const COOLDOWN := 1.0
 
 const EXIT_DASH_SPEED := 600.0 * SCALE_UP
 @export var exit_move_time := 0.20
-@export var exit_cycle_time := 0.25
+@export var exit_cycle_time := 0.3
 
 # ... (STATE (DASH) tidak berubah) ...
 var is_dashing: bool = false
@@ -208,22 +210,8 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 	
 	var mouse_pos = player.get_global_mouse_position()
 	dash_direction = (mouse_pos - player.global_position).normalized()
-	player.raycast.rotation = dash_direction.angle()
-	player.phasing_ray.force_raycast_update()
-	var can_phase = not player.phasing_ray.is_colliding()
-	
-	if auto_exit_possess_lock:
-		player.end_invisible() # Ini untuk hurtbox, biarkan
-	elif can_phase:
-		_is_phasing_dash = true
-		player.start_invisible()
-		ghost_timer.wait_time = 0.07
-		ghost_timer.start()
-	else:
-		_is_phasing_dash = false
-		player.end_invisible()
-		ghost_timer.wait_time = 0.07
-		ghost_timer.start()
+
+	player.end_invisible()
 	
 	AudioManager.start_sfx(self, "res://assets/audio/go out.wav", [0.9, 1.1], 0)
 	if is_auto:
@@ -233,12 +221,22 @@ func start_exit_dash(weak: bool = false, is_auto: bool = false) -> void:
 	else:
 		emit_signal("exit_dash_manual_started")
 		AudioManager.start_sfx(self, "res://assets/audio/dash.wav", [2, 3], 0, 0.1)
+		player.immune_damage(true)
 		_is_phasing_dash = false
 		ghost_timer.wait_time = 0.07
 		ghost_timer.start()
+		var _areas = possess_area.get_overlapping_areas()
+		print(_areas)
+		for _area in _areas:
+			if _area is Hurtbox:
+				_area.reset_hurtbox()
+				break
 
 	emit_signal("exit_movement_started")
 	emit_signal("exit_cycle_started")
+	
+	
+	
 	has_exited_since_last_possession = true
 
 func process_exit_dash(delta: float) -> void:

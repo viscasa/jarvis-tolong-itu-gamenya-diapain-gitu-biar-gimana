@@ -10,9 +10,6 @@ var music_current_position : float
 func _ready() -> void:
 	background_music.play()
 
-func _process(delta: float) -> void:
-	music_current_position = background_music.get_playback_position()
-
 func change_bgm_to_calm() -> void :
 	if (background_music["parameters/switch_to_clip"] == "Calm") :
 		return
