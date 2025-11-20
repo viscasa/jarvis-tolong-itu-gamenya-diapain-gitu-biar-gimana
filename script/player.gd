@@ -35,9 +35,6 @@ signal possessed(target)
 @export var knockback_strength: float = 300.0
 var is_in_knockback: bool = false
 var is_locked_out := false
-
-# --- VAR ANIMASI BARU ---
-# Menyimpan arah terakhir pemain (dari input atau dash) untuk animasi idle
 var last_move_direction := Vector2.DOWN
 var is_throwing_pin := false
 var is_throwing_pin_first := true
@@ -283,7 +280,7 @@ func morph(_name:String) :
 
 func start_invisible(time:float = 0) :
 	print("invis!")
-	hurt_box_player.set_collision_layer_value(2, false)
+	immune_damage(true)
 	set_collision_mask_value(1, false)
 	if time != 0 :
 		await get_tree().create_timer(time).timeout
@@ -291,8 +288,12 @@ func start_invisible(time:float = 0) :
 
 func end_invisible() :
 	print("berhenti invis!")
+	immune_damage(false)
 	hurt_box_player.set_collision_layer_value(2, true)
 	set_collision_mask_value(1, true)
+	
+func immune_damage(flag:bool) :
+	hurt_box_player.set_collision_layer_value(2, !flag)
 
 func _update_animation_state() -> void:
 	var anim_prefix = "Idle" 

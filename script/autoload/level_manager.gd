@@ -11,4 +11,5 @@ func get_next_level() :
 	var path = available_level.pick_random()
 	available_level.erase(path)
 	available_level.append(current_level)
+	current_level = path
 	return path
