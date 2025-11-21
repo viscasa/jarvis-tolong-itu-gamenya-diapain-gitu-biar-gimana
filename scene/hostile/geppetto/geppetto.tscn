@@ -1841,6 +1841,42 @@ region = Rect2(3072, 0, 128, 128)
 atlas = ExtResource("23_yo0lw")
 region = Rect2(3200, 0, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tv8w"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2c6j"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh1h7"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kp8r0"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxmwy"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pg3i"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcj0h"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(1280, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpujc"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(1408, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgetx"]
+atlas = ExtResource("28_h1uqt")
+region = Rect2(1536, 0, 128, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_o26py"]
 atlas = ExtResource("24_wqa6w")
 region = Rect2(0, 0, 128, 128)
@@ -2064,42 +2100,6 @@ region = Rect2(256, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_y8nso"]
 atlas = ExtResource("28_h1uqt")
 region = Rect2(384, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7tv8w"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(512, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h2c6j"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(640, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qh1h7"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(768, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kp8r0"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(896, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxmwy"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(1024, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2pg3i"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(1152, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bcj0h"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(1280, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dpujc"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(1408, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tgetx"]
-atlas = ExtResource("28_h1uqt")
-region = Rect2(1536, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1i4ls"]
 atlas = ExtResource("29_88mdo")
@@ -4489,6 +4489,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_7tv8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2c6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qh1h7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kp8r0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxmwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pg3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcj0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpujc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgetx")
+}],
+"loop": false,
+"name": &"Intro_S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_o26py")
 }, {
 "duration": 1.0,
@@ -5620,16 +5652,6 @@ z_index = -1
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(128, 0, 126.904945, 8.353676, 123.638504, 16.564419, 118.25658, 24.49174, 110.85125, 32, 101.549225, 38.96073, 90.50967, 45.254833, 77.92146, 50.774612, 64, 55.425625, 48.98348, 59.12829, 33.128838, 61.819252, 16.707352, 63.452473, 7.837481e-15, 64, -16.707352, 63.452473, -33.128838, 61.819252, -48.98348, 59.12829, -64, 55.425625, -77.92146, 50.774612, -90.50967, 45.254833, -101.549225, 38.96073, -110.85125, 32, -118.25658, 24.49174, -123.638504, 16.564419, -126.904945, 8.353676, -128, 7.837481e-15, -126.904945, -8.353676, -123.638504, -16.564419, -118.25658, -24.49174, -110.85125, -32, -101.549225, -38.96073, -90.50967, -45.254833, -77.92146, -50.774612, -64, -55.425625, -48.98348, -59.12829, -33.128838, -61.819252, -16.707352, -63.452473, -2.3512442e-14, -64, 16.707352, -63.452473, 33.128838, -61.819252, 48.98348, -59.12829, 64, -55.425625, 77.92146, -50.774612, 90.50967, -45.254833, 101.549225, -38.96073, 110.85125, -32, 118.25658, -24.49174, 123.638504, -16.564419, 126.904945, -8.353676)
 script = ExtResource("6_rquf0")
-radius = null
-iso_y_scale = null
-sides = null
-damage = null
-active_time = null
-lifetime_after_active = null
-rotation_offset = null
-shake_intensity = null
-shake_duration = null
-hit_mask = null
 
 [node name="Hitbox" type="Area2D" parent="HammerIndicator"]
 collision_mask = 2
@@ -5688,7 +5710,8 @@ y_sort_enabled = true
 material = SubResource("ShaderMaterial_4nnpq")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jkj85")
-animation = &"SUMMON_S"
+animation = &"Intro_S"
+autoplay = "IDLE_SW"
 offset = Vector2(0, -30)
 
 [node name="AttackIntervalTimer" type="Timer" parent="."]
@@ -5719,16 +5742,6 @@ z_index = -1
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(100, 0, 6.1230318e-15, 50, -100, 6.1230318e-15, -1.8369095e-14, -50)
 script = ExtResource("6_rquf0")
-radius = null
-iso_y_scale = null
-sides = null
-damage = null
-active_time = null
-lifetime_after_active = null
-rotation_offset = null
-shake_intensity = null
-shake_duration = null
-hit_mask = null
 
 [node name="Bottom" type="Polygon2D" parent="SwingIndicator"]
 visible = false
@@ -5736,16 +5749,6 @@ z_index = -1
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(100, 0, 6.1230318e-15, 50, -100, 6.1230318e-15, -1.8369095e-14, -50)
 script = ExtResource("6_rquf0")
-radius = null
-iso_y_scale = null
-sides = null
-damage = null
-active_time = null
-lifetime_after_active = null
-rotation_offset = null
-shake_intensity = null
-shake_duration = null
-hit_mask = null
 
 [node name="Mid" type="Polygon2D" parent="SwingIndicator"]
 visible = false
@@ -5753,16 +5756,6 @@ z_index = -1
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(100, 0, 6.1230318e-15, 50, -100, 6.1230318e-15, -1.8369095e-14, -50)
 script = ExtResource("6_rquf0")
-radius = null
-iso_y_scale = null
-sides = null
-damage = null
-active_time = null
-lifetime_after_active = null
-rotation_offset = null
-shake_intensity = null
-shake_duration = null
-hit_mask = null
 
 [node name="Shadow" type="Sprite2D" parent="."]
 z_index = -1

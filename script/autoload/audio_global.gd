@@ -8,7 +8,8 @@ var sfx_volume : int = 0
 var music_current_position : float
 
 func _ready() -> void:
-	background_music.play()
+	#background_music.play()
+	pass
 
 func change_bgm_to_calm() -> void :
 	if (background_music["parameters/switch_to_clip"] == "Calm") :
@@ -20,6 +21,8 @@ func change_bgm_to_combat() -> void :
 		return
 	background_music["parameters/switch_to_clip"] = "Combat"
 
+func stop_bgm():
+	background_music.stop()
 func start_sfx(sfx_position:Node, sfx_path:String, pitch_randomizer:Array = [1,1], volume:float = 0, start_at:float = 0) -> void :
 	var audio_resource := load(sfx_path)
 	var speaker = AudioStreamPlayer2D.new()
