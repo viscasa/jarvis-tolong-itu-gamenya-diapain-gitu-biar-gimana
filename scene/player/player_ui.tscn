@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://crree2q0ufg3s" path="res://assets/tile_assets/blank.png" id="9_2777s"]
 [ext_resource type="Texture2D" uid="uid://r6oaeurcs8k7" path="res://scene/player/ult_indicator.png" id="9_hpgat"]
 [ext_resource type="Texture2D" uid="uid://c7jy1hjtqxtic" path="res://scene/player/nail.png" id="10_2777s"]
-[ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="11_xaofh"]
+[ext_resource type="FontFile" uid="uid://kbyiuatbkcsx" path="res://assets/fonts/default_font.ttf" id="11_xaofh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xaofh"]
 atlas = ExtResource("9_2777s")

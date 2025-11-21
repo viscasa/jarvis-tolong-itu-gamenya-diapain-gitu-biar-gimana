@@ -22,7 +22,6 @@ func _ready():
 	var next_level = LevelManager.get_next_level()
 	for door in door_container.get_children():
 		door.next_scene_path = next_level
-
 func _start_wave(index: int):
 	AudioManager.change_bgm_to_combat()
 	if index >= waves.size():

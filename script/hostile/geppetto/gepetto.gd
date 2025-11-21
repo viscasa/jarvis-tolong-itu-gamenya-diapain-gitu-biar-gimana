@@ -45,6 +45,7 @@ var is_in_intro := true
 @export var spawn_container: Node2D
 @export var swing_indicator_node: Node2D
 @export var player_target: CharacterBody2D
+@onready var scream: ColorRect = $CanvasLayer/Scream
 
 enum State {SPAWNING, MOVING, ATTACKING } 
 var state: State = State.SPAWNING
@@ -373,9 +374,7 @@ func _update_animation_state() -> void:
 
 	_play_directional_animation(anim_prefix, anim_direction)
 
-# --- FUNGSI BARU UNTUK INTRO ---
 
-# Fungsi untuk memulai AI setelah intro selesai
 func start_combat():
 	is_in_intro = false
 	attack_timer.start()
@@ -387,6 +386,9 @@ func play_summon_animation_only():
 	_update_animation_state()
 	var camera = get_viewport().get_camera_2d()
 	await get_tree().create_timer(1).timeout
+	var material: ShaderMaterial = scream.material
+	material.set_shader_parameter("line_color", Color("ffffff98"))
+	material.set_shader_parameter("animation_speed", 20.0)
 	if camera and camera.has_method("apply_shake"):
 		camera.apply_shake(18.0, 2.0)
 	await animated_sprite.animation_finished
@@ -420,5 +422,6 @@ func perform_initial_spawn():
 		puppet.global_position = spawn_point.global_position
 	
 	is_attacking = false
+	scream.material = null
 	state = State.MOVING
 	_create_random_attack_sequence()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=84 format=3 uid="uid://n0wsn68c12ku"]
+[gd_scene load_steps=86 format=3 uid="uid://n0wsn68c12ku"]
 
 [ext_resource type="Script" uid="uid://ch8psrrxv33mj" path="res://script/level/door.gd" id="1_nt4bv"]
 [ext_resource type="Texture2D" uid="uid://bg03qyy06fgbo" path="res://icon.svg" id="2_d7pud"]
 [ext_resource type="Texture2D" uid="uid://d3ll74dbmsiyv" path="res://assets/boon_giver_icon/cinderella_icon.png" id="3_gm8bg"]
+[ext_resource type="Shader" uid="uid://dbgdpgcdtnv3k" path="res://shader/floating_icon.gdshader" id="3_tin18"]
 [ext_resource type="Texture2D" uid="uid://dbe48a0ibhmf3" path="res://assets/boon_giver_icon/riding_hood_icon.png" id="4_tin18"]
 [ext_resource type="Texture2D" uid="uid://bsl08m1wc4k37" path="res://assets/boon_giver_icon/pig_icon.png" id="5_hgomh"]
 [ext_resource type="Texture2D" uid="uid://dfyp1ox0564fe" path="res://assets/boon_giver_icon/rabbit_icon.png" id="6_llj56"]
@@ -10,6 +11,19 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nt4bv"]
 size = Vector2(42, 36)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hgomh"]
+shader = ExtResource("3_tin18")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/do_abs = false
+shader_parameter/do_quantize = false
+shader_parameter/quantize_to = 1.0
+shader_parameter/sine_amplitude = Vector2(0, -5)
+shader_parameter/sine_speed = Vector2(0, 2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7j62m"]
 atlas = ExtResource("3_gm8bg")
@@ -571,25 +585,30 @@ position = Vector2(0, -57.5)
 [node name="CinderellaIcon" type="AnimatedSprite2D" parent="BoonGiverIcon"]
 visible = false
 z_index = 1
+material = SubResource("ShaderMaterial_hgomh")
 position = Vector2(0, -26.5)
 sprite_frames = SubResource("SpriteFrames_1felf")
 
 [node name="RedRidingIcon" type="AnimatedSprite2D" parent="BoonGiverIcon"]
 visible = false
+material = SubResource("ShaderMaterial_hgomh")
 position = Vector2(0, -26.5)
 sprite_frames = SubResource("SpriteFrames_5osv6")
 
 [node name="PigIcon" type="AnimatedSprite2D" parent="BoonGiverIcon"]
 visible = false
+material = SubResource("ShaderMaterial_hgomh")
 position = Vector2(0, -26.5)
 sprite_frames = SubResource("SpriteFrames_4rlip")
 
 [node name="RabbitIcon" type="AnimatedSprite2D" parent="BoonGiverIcon"]
 visible = false
+material = SubResource("ShaderMaterial_hgomh")
 position = Vector2(0, -26.5)
 sprite_frames = SubResource("SpriteFrames_t0c7t")
 
 [node name="WizardIcon" type="AnimatedSprite2D" parent="BoonGiverIcon"]
 visible = false
+material = SubResource("ShaderMaterial_hgomh")
 position = Vector2(0, -26.5)
 sprite_frames = SubResource("SpriteFrames_jqlws")

@@ -69,7 +69,10 @@ func reveal_text(_text: String, keep_previous:=false) -> void:
 	custom_fx_reset()
 
 	if !keep_previous:
-		text = _text
+		var first_letter = _text.substr(0, 1)
+		var rest_text = _text.substr(1, _text.length() - 1)
+		var new_font_size = get_theme_font_size("normal_font_size") * 1.5
+		text = "[font_size=" + str(new_font_size) + "][font=res://assets/fonts/square_font.tres]" + first_letter + "[/font][/font_size]" + rest_text 
 		base_visible_characters = 0
 
 		if alignment == Alignment.CENTER:

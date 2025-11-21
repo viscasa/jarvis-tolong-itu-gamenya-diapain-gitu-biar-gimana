@@ -1,8 +1,10 @@
-[gd_scene load_steps=129 format=4 uid="uid://l31l1m5mycnv"]
+[gd_scene load_steps=132 format=4 uid="uid://l31l1m5mycnv"]
 
 [ext_resource type="Texture2D" uid="uid://dx4ncdgvarqr6" path="res://assets/tile_assets/tilemap.png" id="1_3vvsb"]
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_6rk7x"]
 [ext_resource type="Script" uid="uid://demowd6gvq01n" path="res://script/level/geppetto_level.gd" id="1_hxlo3"]
+[ext_resource type="Shader" uid="uid://c14b71jj81j1p" path="res://shader/scream.gdshader" id="1_pf506"]
+[ext_resource type="Texture2D" uid="uid://0q6kc38alqsc" path="res://squiggle_noise.png" id="2_3jj2u"]
 [ext_resource type="Texture2D" uid="uid://bcwptdwa2gjmm" path="res://assets/tile_assets/tilemap2.png" id="2_fw1jv"]
 [ext_resource type="Texture2D" uid="uid://dli0bvvbw7rto" path="res://assets/assets_angled_pixel_16x16/isometric_angled_pixel_0014.png" id="2_ohnom"]
 [ext_resource type="Texture2D" uid="uid://dc8gdkx8kn4y2" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071032.png" id="3_5tqeu"]
@@ -880,6 +882,17 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-470, 100, -480, 250, -
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vvsb"]
 size = Vector2(51, 21)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3jj2u"]
+shader = ExtResource("1_pf506")
+shader_parameter/noise = ExtResource("2_3jj2u")
+shader_parameter/line_color = Color(1, 1, 1, 0)
+shader_parameter/line_count = 0.45000000670554
+shader_parameter/line_density = 1.0
+shader_parameter/line_faloff = 0.6730000319675
+shader_parameter/mask_size = 0.0
+shader_parameter/mask_edge = 0.9530000452675
+shader_parameter/animation_speed = 0.5
+
 [node name="GepettoLevel" type="Node2D" node_paths=PackedStringArray("player", "geppetto", "camera")]
 script = ExtResource("1_hxlo3")
 player = NodePath("Player")
@@ -927,6 +940,7 @@ player_target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("6_1w48m")]
 position = Vector2(-389, 396)
+knockback_strength = null
 
 [node name="SpawnContainer" type="Node2D" parent="."]
 
@@ -1043,5 +1057,16 @@ player = NodePath("../Player")
 
 [node name="Parallax2D" parent="." instance=ExtResource("64_hxlo3")]
 layer = -10
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Scream" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_3jj2u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [editable path="Player"]

@@ -38,7 +38,6 @@ var is_locked_out := false
 var last_move_direction := Vector2.DOWN
 var is_throwing_pin := false
 var is_throwing_pin_first := true
-var input_disabled := false
 var input_direction := Vector2.ZERO # FIX: Deklarasikan variabel di sini
 
 
@@ -174,6 +173,10 @@ func _set_morph_dash_velocity():
 	velocity.y = vel.y / Y_MUL_DASH
 
 func _process_movement(delta: float) -> void:
+	if GlobalVar.input_disabled:
+		velocity = Vector2.ZERO
+		return
+
 	if super_dash.is_active() or morph_skill.is_active():
 		velocity = Vector2.ZERO
 		return
@@ -199,6 +202,8 @@ func can_start_possession() -> bool:
 	return true
 
 func handle_global_inputs() -> void:
+	if GlobalVar.input_disabled:
+		return
 	if Input.is_action_just_pressed("super_dash") and not possession_manager.is_possessing:
 		if can_start_possession():
 			skill_manager.start_or_return_super_dash()
@@ -367,7 +372,7 @@ func _on_knockback_timeout():
 	is_in_knockback = false
 
 func get_input():
-	if input_disabled:
+	if GlobalVar.input_disabled:
 		input_direction = Vector2.ZERO
 		return
 		

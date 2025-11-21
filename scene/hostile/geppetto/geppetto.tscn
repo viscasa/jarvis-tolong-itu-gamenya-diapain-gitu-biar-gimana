@@ -1,4 +1,4 @@
-[gd_scene load_steps=808 format=3 uid="uid://7xvfxcypiid7"]
+[gd_scene load_steps=811 format=3 uid="uid://7xvfxcypiid7"]
 
 [ext_resource type="Script" uid="uid://dbdomgjd0mftw" path="res://script/hostile/geppetto/gepetto.gd" id="1_iapjk"]
 [ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="1_ptpkp"]
@@ -53,6 +53,8 @@
 [ext_resource type="Texture2D" uid="uid://useqmv04mlee" path="res://assets/boss/triple_attack_1_sw_01-sheet.png" id="38_8hkir"]
 [ext_resource type="Texture2D" uid="uid://dgf4re1iq330d" path="res://assets/boss/triple_attack_1_w_01-sheet.png" id="39_6qm0g"]
 [ext_resource type="Texture2D" uid="uid://lx1gcjbg2od5" path="res://assets/shadow1.png" id="53_rqave"]
+[ext_resource type="Shader" uid="uid://c14b71jj81j1p" path="res://shader/scream.gdshader" id="54_jkj85"]
+[ext_resource type="Texture2D" uid="uid://0q6kc38alqsc" path="res://squiggle_noise.png" id="55_ygy4n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h1uqt"]
 radius = 68.35
@@ -5627,6 +5629,17 @@ animations = [{
 "speed": 17.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_guu3v"]
+shader = ExtResource("54_jkj85")
+shader_parameter/noise = ExtResource("55_ygy4n")
+shader_parameter/line_color = Color(1, 1, 1, 0)
+shader_parameter/line_count = 0.45000000670554
+shader_parameter/line_density = 1.0
+shader_parameter/line_faloff = 0.6730000319675
+shader_parameter/mask_size = 0.0
+shader_parameter/mask_edge = 0.9530000452675
+shader_parameter/animation_speed = 0.5
+
 [node name="Geppetto" type="CharacterBody2D" node_paths=PackedStringArray("swing_indicator_node")]
 y_sort_enabled = true
 collision_layer = 4
@@ -5762,5 +5775,16 @@ z_index = -1
 scale = Vector2(2.585, 2.585)
 texture = ExtResource("53_rqave")
 offset = Vector2(0, -25)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Scream" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_guu3v")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [connection signal="body_entered" from="HammerIndicator/Hitbox" to="HammerIndicator" method="_on_body_entered"]
