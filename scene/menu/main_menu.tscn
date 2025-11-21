@@ -1,29 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://pvq68uf7nkk2"]
+[gd_scene load_steps=16 format=3 uid="uid://pvq68uf7nkk2"]
 
 [ext_resource type="Script" uid="uid://f4waonwkuvjv" path="res://script/menu/main_menu.gd" id="1_5tvlq"]
 [ext_resource type="Texture2D" uid="uid://m3rkqq0vufss" path="res://assets/BuatMainMenu.png" id="2_wttdg"]
-[ext_resource type="Texture2D" uid="uid://bl5a32jeqrkjj" path="res://assets/button.png" id="3_123lf"]
+[ext_resource type="Texture2D" uid="uid://cuqdscsd008pa" path="res://assets/now button.png" id="3_hcpe2"]
+[ext_resource type="Script" uid="uid://sq0tpp54w6s8" path="res://script/ui/button.gd" id="3_kwj1b"]
 [ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="4_1j8a1"]
 [ext_resource type="Texture2D" uid="uid://daqkdu1b4pry8" path="res://assets/newlogo.png" id="6_8l8bj"]
 [ext_resource type="Texture2D" uid="uid://d1iu7xhw2qpug" path="res://assets/temp/ELR_FallLeaf.png" id="6_kwj1b"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_123lf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqtd8"]
+atlas = ExtResource("3_hcpe2")
+region = Rect2(655, 792, 644, 135)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1j8a1"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8l8bj"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kwj1b"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcpe2"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uqtd8"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jn1p"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5jn1p"]
+texture = SubResource("AtlasTexture_uqtd8")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h8o4p"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_puw1c"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4o61b"]
 
@@ -67,51 +59,47 @@ offset_top = 626.0
 offset_right = 1213.0
 offset_bottom = 742.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 128
-theme_override_styles/normal = SubResource("StyleBoxEmpty_123lf")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_1j8a1")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_8l8bj")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_kwj1b")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_hcpe2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5jn1p")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5jn1p")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5jn1p")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5jn1p")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h8o4p")
+script = ExtResource("3_kwj1b")
 
-[node name="ExitButton" type="Button" parent="."]
-offset_left = 660.0
-offset_top = 758.0
-offset_right = 1211.0
-offset_bottom = 869.0
-theme_override_font_sizes/font_size = 128
-theme_override_styles/normal = SubResource("StyleBoxEmpty_uqtd8")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_5jn1p")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_h8o4p")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_puw1c")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4o61b")
-
-[node name="Button" type="Sprite2D" parent="."]
-position = Vector2(1375, 351)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("3_123lf")
-
-[node name="START" type="Label" parent="Button"]
-offset_left = -432.6667
-offset_top = 190.66667
-offset_right = -148.66666
-offset_bottom = 254.0
+[node name="START" type="Label" parent="StartButton"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 24.0
+offset_right = 428.00003
+offset_bottom = 87.33333
 theme_override_fonts/font = ExtResource("4_1j8a1")
 theme_override_font_sizes/font_size = 40
 text = "START"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button2" type="Sprite2D" parent="."]
-position = Vector2(1378, 476.00003)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("3_123lf")
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 665.0
+offset_top = 755.0
+offset_right = 1216.0
+offset_bottom = 866.0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxTexture_5jn1p")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5jn1p")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5jn1p")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5jn1p")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4o61b")
+script = ExtResource("3_kwj1b")
 
-[node name="EXIT" type="Label" parent="Button2"]
-offset_left = -432.66666
-offset_top = 190.66667
-offset_right = -148.66666
-offset_bottom = 254.0
+[node name="EXIT" type="Label" parent="ExitButton"]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 23.0
+offset_right = 427.0
+offset_bottom = 86.33333
 theme_override_fonts/font = ExtResource("4_1j8a1")
 theme_override_font_sizes/font_size = 40
 text = "EXIT"
