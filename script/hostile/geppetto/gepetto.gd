@@ -22,6 +22,8 @@ var attack_pattern_index: int = 0
 var spawn_points = []
 var attack_sequence = []
 var path_update_timer: float = 0.0
+var override_anim_name: String = "" 
+const ISO_SCALE = Vector2(1.0, 0.5)
 func _ready():
 	health_bar.max_value = stats.max_health
 	health_bar.value = stats.current_health

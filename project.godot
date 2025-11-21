@@ -109,10 +109,13 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
 pin=""
 player=""
+<<<<<<< Updated upstream
 
 [gui]
 
 theme/custom_font="uid://dgtq0lu2e5wr6"
+=======
+>>>>>>> Stashed changes
 
 [input]
 

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:scene/player.tscn
 [gd_scene load_steps=289 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_c8aaj"]
@@ -57,6 +58,68 @@
 [ext_resource type="Script" path="res://script/ui/damage_overlay.gd" id="55_fjrdf"]
 [ext_resource type="Shader" path="res://shader/hit_overlay.gdshader" id="56_nnw3o"]
 [ext_resource type="PackedScene" uid="uid://deukhj1qgjpwo" path="res://scene/combo_ui.tscn" id="57_x2dav"]
+=======
+[gd_scene load_steps=290 format=3 uid="uid://d36d70p2syni3"]
+
+[ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_cm2cf"]
+[ext_resource type="Texture2D" uid="uid://lx1gcjbg2od5" path="res://assets/shadow1.png" id="2_2rx5w"]
+[ext_resource type="Texture2D" uid="uid://clmup2di7s62i" path="res://assets/player/idle/idle_e.png" id="2_lrcci"]
+[ext_resource type="Texture2D" uid="uid://vsl2x1n0glx4" path="res://assets/player/cast/cast_e.png" id="2_nrjwp"]
+[ext_resource type="Texture2D" uid="uid://c3ignf8uxrhyu" path="res://assets/player/dash/dash_e.png" id="2_xwoaf"]
+[ext_resource type="Texture2D" uid="uid://cqapiuwv0omy6" path="res://assets/player/dash/dash_n.png" id="3_8yg4a"]
+[ext_resource type="Shader" uid="uid://b1nwb5p0bjv5i" path="res://shader/blink.gdshader" id="3_i4afv"]
+[ext_resource type="Texture2D" uid="uid://2rkinw1mfbpt" path="res://assets/player/cast/cast_n.png" id="3_mwak4"]
+[ext_resource type="Texture2D" uid="uid://4oepilrd8khs" path="res://assets/player/idle/idle_n.png" id="3_txlge"]
+[ext_resource type="Texture2D" uid="uid://byfbdfcqrcq7p" path="res://assets/player/idle/idle_ne.png" id="4_04bvi"]
+[ext_resource type="Texture2D" uid="uid://couc35ucrcvrh" path="res://assets/player/cast/cast_ne.png" id="4_4xt4w"]
+[ext_resource type="Texture2D" uid="uid://ccar3ovtio0cb" path="res://assets/player/dash/dash_ne.png" id="4_nrjwp"]
+[ext_resource type="Texture2D" uid="uid://dwma1nknbs1ct" path="res://assets/player/dash/dash_nw.png" id="5_0oa35"]
+[ext_resource type="Script" uid="uid://bviu6417canup" path="res://script/player/circle_timing.gd" id="5_732fb"]
+[ext_resource type="Script" uid="uid://184i1jkejuje" path="res://script/player/dash_manager.gd" id="5_ajqqa"]
+[ext_resource type="Script" uid="uid://dg8lpebxxa4ju" path="res://script/player/attack_manager.gd" id="5_hfhxk"]
+[ext_resource type="Texture2D" uid="uid://8n482l7wkic7" path="res://assets/player/idle/idle_nw.png" id="5_nqjai"]
+[ext_resource type="Script" uid="uid://bbyofitikb5qc" path="res://script/skill/skill_manager.gd" id="5_pisg7"]
+[ext_resource type="Texture2D" uid="uid://jbopl5t8qkhu" path="res://assets/player/cast/cast_nw.png" id="5_qehiv"]
+[ext_resource type="Texture2D" uid="uid://dqs64vdmmneg7" path="res://assets/player/cast/cast_s.png" id="6_2rx5w"]
+[ext_resource type="Texture2D" uid="uid://b8bqnspmgsomg" path="res://assets/player/idle/idle_s.png" id="6_egxbn"]
+[ext_resource type="Texture2D" uid="uid://cxkk407qfypwm" path="res://assets/player/dash/dash_s1.png" id="6_j1wnj"]
+[ext_resource type="Script" uid="uid://bu0iam8jk0csv" path="res://script/skill/super_dash.gd" id="6_oypl4"]
+[ext_resource type="Script" uid="uid://23opve5ed1ex" path="res://script/player/possession_manager.gd" id="6_rkmeh"]
+[ext_resource type="Texture2D" uid="uid://cnt2w5on2auxe" path="res://assets/player/dash/dash_se.png" id="7_0kitm"]
+[ext_resource type="Texture2D" uid="uid://u7l3bdiyr1ih" path="res://assets/player/idle/idle_se.png" id="7_5sn52"]
+[ext_resource type="Texture2D" uid="uid://b7m5jpgki32yk" path="res://assets/player/cast/cast_se.png" id="7_i4afv"]
+[ext_resource type="Script" uid="uid://cps5dwhtnhmsi" path="res://script/skill/pin.gd" id="7_oypl4"]
+[ext_resource type="Texture2D" uid="uid://5uj6u3v234c6" path="res://assets/player/idle/idle_sw.png" id="8_fpo2j"]
+[ext_resource type="Texture2D" uid="uid://cwk6vmlv8f1yk" path="res://assets/player/dash/dash_sw.png" id="8_j5tvc"]
+[ext_resource type="PackedScene" uid="uid://mf4miuiyvjap" path="res://scene/skill/pin.tscn" id="8_qjg4s"]
+[ext_resource type="Texture2D" uid="uid://xb81b4eoqgkx" path="res://assets/player/cast/cast_sw.png" id="8_sxxrj"]
+[ext_resource type="Texture2D" uid="uid://droegm5h6fr1y" path="res://assets/player/dash/dash_w.png" id="9_1pcg1"]
+[ext_resource type="Script" uid="uid://bvtskufdxcgpu" path="res://script/skill/homing_shot.gd" id="9_1wtbu"]
+[ext_resource type="Texture2D" uid="uid://dcrm8b5ebhwp" path="res://assets/player/cast/cast_w.png" id="9_4fvns"]
+[ext_resource type="Texture2D" uid="uid://y7o2jl7t0kh5" path="res://assets/player/idle/idle_w.png" id="9_nfu6q"]
+[ext_resource type="Script" uid="uid://cgmsbawchaf13" path="res://script/skill/morph_skill.gd" id="9_oen5c"]
+[ext_resource type="Texture2D" uid="uid://0k3esp6vvv3e" path="res://assets/player/run/run_ne.png" id="10_04bvi"]
+[ext_resource type="Texture2D" uid="uid://bjwhagoupv124" path="res://assets/player/run/run_e.png" id="10_i2ta4"]
+[ext_resource type="PackedScene" uid="uid://rbphogr1dvw6" path="res://scene/skill/homing_projectile.tscn" id="10_p3aiu"]
+[ext_resource type="Script" uid="uid://bbl61wn2ljyp3" path="res://script/player/health_manager.gd" id="10_qjg4s"]
+[ext_resource type="Script" uid="uid://cmg0hbp1r416i" path="res://script/skill/triple_homing_shot.gd" id="11_f5r2w"]
+[ext_resource type="Texture2D" uid="uid://cdd8ejotdklud" path="res://assets/player/run/run_n.png" id="11_xwoaf"]
+[ext_resource type="Script" uid="uid://c2xhksrn233qj" path="res://script/skill/slash_shot.gd" id="13_5g408"]
+[ext_resource type="Texture2D" uid="uid://x8pdhmvjmq7x" path="res://assets/player/run/run_nw.png" id="13_hjdkc"]
+[ext_resource type="Texture2D" uid="uid://c61b35p40ci1s" path="res://assets/player/run/run_s.png" id="14_41ak2"]
+[ext_resource type="PackedScene" uid="uid://hx00w01i2p80" path="res://scene/skill/slash_projectile.tscn" id="14_sc4n2"]
+[ext_resource type="Texture2D" uid="uid://lb82kl32gir0" path="res://assets/player/run/run_se.png" id="15_xflo2"]
+[ext_resource type="Texture2D" uid="uid://it7n537h8lfp" path="res://assets/player/run/run_sw.png" id="16_lfqc2"]
+[ext_resource type="Texture2D" uid="uid://d2l7pbo0n1p3l" path="res://assets/player/run/run_w.png" id="17_yw1hm"]
+[ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="25_txlge"]
+[ext_resource type="Script" uid="uid://dwdoiospdpd7c" path="res://script/player/player_buff_manager.gd" id="26_04bvi"]
+[ext_resource type="Texture2D" uid="uid://b6b3hu5g6wb3w" path="res://assets/player/skill/burst_out.png" id="36_4fvns"]
+[ext_resource type="Texture2D" uid="uid://ckbg71qnjmn2b" path="res://assets/player/skill/possess.png" id="37_kosee"]
+[ext_resource type="PackedScene" uid="uid://buh1lj7tdd2r3" path="res://scene/skill/thunder.tscn" id="47_2rx5w"]
+[ext_resource type="Script" path="res://script/ui/damage_overlay.gd" id="54_4fvns"]
+[ext_resource type="Shader" uid="uid://86l84p8mcfsh" path="res://shader/hit_overlay.gdshader" id="54_sxxrj"]
+[ext_resource type="PackedScene" uid="uid://deukhj1qgjpwo" path="res://scene/combo_ui.tscn" id="56_kosee"]
+>>>>>>> Stashed changes:scene/player/player.tscn
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxxrj"]
 shader = ExtResource("3_32gv3")
@@ -1853,7 +1916,7 @@ bg_color = Color(0.76240367, 0.7624037, 0.7624035, 1)
 shader = ExtResource("56_nnw3o")
 shader_parameter/intensity = 0.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 collision_layer = 2
 motion_mode = 1
