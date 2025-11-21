@@ -927,6 +927,7 @@ player_target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("6_1w48m")]
 position = Vector2(-389, 396)
+knockback_strength = null
 
 [node name="SpawnContainer" type="Node2D" parent="."]
 

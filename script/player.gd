@@ -174,6 +174,12 @@ func _set_morph_dash_velocity():
 	velocity.y = vel.y / Y_MUL_DASH
 
 func _process_movement(delta: float) -> void:
+	# FIX: Tambahkan pengecekan ini di awal fungsi.
+	# Ini akan menghentikan semua kalkulasi gerakan jika input dinonaktifkan.
+	if input_disabled:
+		velocity = Vector2.ZERO
+		return
+
 	if super_dash.is_active() or morph_skill.is_active():
 		velocity = Vector2.ZERO
 		return
