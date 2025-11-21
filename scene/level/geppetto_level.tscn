@@ -907,6 +907,25 @@ scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_p3b4p")
 script = ExtResource("4_0ryd4")
 
+[node name="SwingIndicator" type="Node2D" parent="."]
+visible = false
+position = Vector2(-73, 34)
+
+[node name="Top" type="Polygon2D" parent="SwingIndicator"]
+position = Vector2(-78, 163)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 225, -93, 304, -52, 0, 100)
+
+[node name="Bottom" type="Polygon2D" parent="SwingIndicator"]
+position = Vector2(-239, 82)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 225, -93, 304, -52, 0, 100)
+
+[node name="Mid" type="Polygon2D" parent="SwingIndicator"]
+position = Vector2(-159, 122)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 104, -29, 225, -93, 304, -52, 0, 100)
+
 [node name="Gepetto" parent="." node_paths=PackedStringArray("puppet_container", "spawn_container", "swing_indicator", "player_target") instance=ExtResource("5_l811l")]
 position = Vector2(72, 166)
 puppet_container = NodePath("../PuppetContainer")
