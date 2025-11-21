@@ -36,11 +36,11 @@ overrides = {
 "name_label_box_modulate": "Color(1, 1, 1, 0)",
 "name_label_box_use_global_color": "false",
 "name_label_custom_font_size": "40.0",
-"name_label_font": "\"res://assets/fonts/AlmendraSC-Regular.ttf\"",
+"name_label_font": "\"res://assets/fonts/default_font.ttf\"",
 "name_label_use_global_font": "false",
 "name_label_use_global_font_size": "false",
 "next_indicator_enabled": "false",
-"normal_font": "\"res://assets/fonts/AlmendraSC-Regular.ttf\"",
+"normal_font": "\"res://assets/fonts/default_font.ttf\"",
 "text_custom_color": "Color(0.101960786, 0.101960786, 0.101960786, 1)",
 "text_size": "45.0",
 "text_use_global_color": "false",
@@ -79,4 +79,4 @@ layer_info = {
 "16": SubResource("Resource_mqy8a"),
 "17": SubResource("Resource_dgue6")
 }
-metadata/_latest_layer = ""
+metadata/_latest_layer = "13"

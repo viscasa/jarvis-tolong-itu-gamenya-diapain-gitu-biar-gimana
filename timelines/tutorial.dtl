@@ -1,0 +1,4 @@
+set {currently_talking} = "ruby"
+[signal arg="show_character"]
+ruby: Hush little one, you would rush head first into danger for your father? a kindred spirit we are
+[signal arg="hide_character"]

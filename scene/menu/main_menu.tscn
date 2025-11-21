@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://m3rkqq0vufss" path="res://assets/BuatMainMenu.png" id="2_wttdg"]
 [ext_resource type="Texture2D" uid="uid://cuqdscsd008pa" path="res://assets/now button.png" id="3_hcpe2"]
 [ext_resource type="Script" uid="uid://sq0tpp54w6s8" path="res://script/ui/button.gd" id="3_kwj1b"]
-[ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="4_1j8a1"]
+[ext_resource type="FontFile" uid="uid://kbyiuatbkcsx" path="res://assets/fonts/default_font.ttf" id="4_1j8a1"]
 [ext_resource type="Texture2D" uid="uid://daqkdu1b4pry8" path="res://assets/newlogo.png" id="6_8l8bj"]
 [ext_resource type="Texture2D" uid="uid://d1iu7xhw2qpug" path="res://assets/temp/ELR_FallLeaf.png" id="6_kwj1b"]
 

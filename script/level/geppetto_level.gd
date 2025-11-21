@@ -14,7 +14,7 @@ func _ready():
 	_start_boss_intro()
 
 func _start_boss_intro():
-	player.input_disabled = true
+	GlobalVar.input_disabled = true
 	
 	var tween = create_tween()
 	tween.set_parallel(true)
@@ -36,5 +36,5 @@ func _start_boss_intro():
 	
 	await return_tween.finished
 	
-	player.input_disabled = false
+	GlobalVar.input_disabled = false
 	geppetto.start_combat()
