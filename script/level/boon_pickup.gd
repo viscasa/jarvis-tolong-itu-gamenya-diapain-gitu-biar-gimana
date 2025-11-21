@@ -13,6 +13,9 @@ var selection_screen_scene = preload("res://scene/menu/boon_selection_screen.tsc
 @onready var rabbit_icon: AnimatedSprite2D = $BoonGiverIcon/RabbitIcon
 @onready var wizard_icon: AnimatedSprite2D = $BoonGiverIcon/WizardIcon
 var got_buff := false
+
+signal boon_picked
+
 func _ready():
 	var sprite_material = sprite_1.material
 	sprite_material.set_shader_parameter("frequency", 0.0)
@@ -54,10 +57,9 @@ func _on_body_entered(body):
 		get_tree().root.add_child(ui_screen)
 		ui_screen.show_boon_choices(boon_giver_id)
 
-
-
 func _on_got_buff():
 	var sprite_material = sprite_1.material
 	sprite_material.set_shader_parameter("frequency", 0.0)
 	boon_giver_icon.hide()
 	got_buff = true
+	boon_picked.emit()

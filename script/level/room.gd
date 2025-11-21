@@ -4,7 +4,7 @@ class_name Room
 
 @export var reward_scene: PackedScene
 @export var boon_pickup: Area2D
-@export_enum("move_northeast", "move_northwest") var player_start_animation:String
+@export_enum("move_northeast", "move_northwest") var player_start_animation:String = ""
 @onready var wave_spawners: Node2D = $WaveSpawners
 @onready var enemy_container: Node = $EnemyContainer
 @onready var player_spawn_position: Marker2D = $PlayerSpawnPosition
@@ -15,18 +15,25 @@ class_name Room
 var current_wave_index: int = 0
 var enemies_remaining_in_wave: int = 0
 var is_cleared: bool = false
+@export var is_first_level : bool = false
+var is_reward_spawned : bool = false
+var is_reward_picked : bool = false
 var waves: Array[Node]
 
 func _ready():
 	if player_start_animation :
 		move_player.play(player_start_animation)
 		await move_player.animation_finished
-	waves = wave_spawners.get_children()
-	_lock_all_doors()
-	_start_wave(current_wave_index)
-	var next_level = LevelManager.get_next_level()
-	for door in door_container.get_children():
-		door.next_scene_path = next_level
+	if boon_pickup and is_first_level :
+		_spawn_reward()
+	if boon_pickup and !is_first_level:
+		boon_pickup.boon_picked.connect(_unlock_all_doors)
+		waves = wave_spawners.get_children()
+		_lock_all_doors()
+		_start_wave(current_wave_index)
+		var next_level = LevelManager.get_next_level()
+		for door in door_container.get_children():
+			door.next_scene_path = next_level
 
 func _start_wave(index: int):
 	AudioManager.change_bgm_to_combat()
@@ -60,10 +67,12 @@ func _on_all_waves_cleared():
 	AudioManager.change_bgm_to_calm()
 	is_cleared = true
 	_spawn_reward()
-	_unlock_all_doors()
-
+	if is_first_level :
+		_unlock_all_doors()
 
 func _spawn_reward():
+	if is_reward_spawned :
+		return
 	var reward_id_to_spawn = RewardManager.next_reward_id
 	if reward_id_to_spawn == "":
 		return
@@ -73,6 +82,7 @@ func _spawn_reward():
 			
 	
 	boon_pickup.set_boon_giver_id(reward_id_to_spawn)
+	is_reward_spawned = true
 	
 	RewardManager.next_reward_id = ""
 
