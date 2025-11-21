@@ -1,4 +1,4 @@
-[gd_scene load_steps=289 format=3 uid="uid://d36d70p2syni3"]
+[gd_scene load_steps=290 format=3 uid="uid://d36d70p2syni3"]
 
 [ext_resource type="Script" uid="uid://brarpunovqb81" path="res://script/player.gd" id="1_c8aaj"]
 [ext_resource type="Texture2D" uid="uid://lx1gcjbg2od5" path="res://assets/shadow1.png" id="2_op5kk"]
@@ -54,8 +54,9 @@
 [ext_resource type="Script" uid="uid://bbl61wn2ljyp3" path="res://script/player/health_manager.gd" id="52_n7cfl"]
 [ext_resource type="Script" uid="uid://bviu6417canup" path="res://script/player/circle_timing.gd" id="53_8h342"]
 [ext_resource type="Script" uid="uid://3km3p747x7ex" path="res://script/player/hurt_box_player.gd" id="54_nv3o8"]
-[ext_resource type="Script" path="res://script/ui/damage_overlay.gd" id="55_fjrdf"]
-[ext_resource type="Shader" path="res://shader/hit_overlay.gdshader" id="56_nnw3o"]
+[ext_resource type="Script" uid="uid://cu5nkhvl2dyij" path="res://script/ui/damage_overlay.gd" id="55_fjrdf"]
+[ext_resource type="Script" uid="uid://mol3dmh0l8lh" path="res://script/player/camera_2d.gd" id="55_op5kk"]
+[ext_resource type="Shader" uid="uid://86l84p8mcfsh" path="res://shader/hit_overlay.gdshader" id="56_nnw3o"]
 [ext_resource type="PackedScene" uid="uid://deukhj1qgjpwo" path="res://scene/combo_ui.tscn" id="57_x2dav"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxxrj"]
@@ -1992,6 +1993,7 @@ position = Vector2(0, -33)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 15)
 zoom = Vector2(1.5, 1.5)
+script = ExtResource("55_op5kk")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 visible = false

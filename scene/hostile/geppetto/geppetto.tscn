@@ -1,12 +1,15 @@
-[gd_scene load_steps=804 format=3 uid="uid://7xvfxcypiid7"]
+[gd_scene load_steps=808 format=3 uid="uid://7xvfxcypiid7"]
 
 [ext_resource type="Script" uid="uid://dbdomgjd0mftw" path="res://script/hostile/geppetto/gepetto.gd" id="1_iapjk"]
 [ext_resource type="Script" uid="uid://cnxvknb5bqxce" path="res://script/components/stats.gd" id="1_ptpkp"]
 [ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="2_s1n0h"]
 [ext_resource type="PackedScene" uid="uid://0x16bvdxe50c" path="res://scene/hostile/geppetto/geppetto_scissors.tscn" id="3_o1mhc"]
+[ext_resource type="PackedScene" uid="uid://b28onaqdnjytk" path="res://scene/hostile/wolf.tscn" id="3_pegdt"]
 [ext_resource type="Script" uid="uid://cf1nrc451ad8p" path="res://script/components/boss_hurtbox.gd" id="3_w6ka3"]
+[ext_resource type="PackedScene" uid="uid://cd8pqdcf40jc3" path="res://scene/hostile/shooting_enemy.tscn" id="4_rqave"]
+[ext_resource type="PackedScene" uid="uid://bmy8uiudeygmw" path="res://scene/hostile/dash_shooting_enemy.tscn" id="5_rjdyr"]
 [ext_resource type="Script" uid="uid://dsj462rg05pel" path="res://script/components/hit_box.gd" id="5_w7hye"]
-[ext_resource type="Script" uid="uid://bdec50ymu4lsw" path="res://script/hostile/geppetto/hammer_indicator.gd" id="6_rquf0"]
+[ext_resource type="Script" uid="uid://bdec50ymu4lsw" path="res://script/hostile/geppetto/indicator.gd" id="6_rquf0"]
 [ext_resource type="Texture2D" uid="uid://cp511vlvuylir" path="res://assets/temp/White-Circle-PNG.png" id="8_fuaoe"]
 [ext_resource type="Texture2D" uid="uid://cepvxhydnt40g" path="res://assets/boss/attack_slam_e_01-sheet.png" id="9_12v4s"]
 [ext_resource type="Shader" uid="uid://b1nwb5p0bjv5i" path="res://shader/blink.gdshader" id="9_qi71n"]
@@ -49,6 +52,7 @@
 [ext_resource type="Texture2D" uid="uid://by2c4u116k7c3" path="res://assets/boss/triple_attack_1_se_01-sheet.png" id="37_y411r"]
 [ext_resource type="Texture2D" uid="uid://useqmv04mlee" path="res://assets/boss/triple_attack_1_sw_01-sheet.png" id="38_8hkir"]
 [ext_resource type="Texture2D" uid="uid://dgf4re1iq330d" path="res://assets/boss/triple_attack_1_w_01-sheet.png" id="39_6qm0g"]
+[ext_resource type="Texture2D" uid="uid://lx1gcjbg2od5" path="res://assets/shadow1.png" id="53_rqave"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h1uqt"]
 radius = 68.35
@@ -5591,13 +5595,24 @@ animations = [{
 "speed": 17.0
 }]
 
-[node name="Geppetto" type="CharacterBody2D" node_paths=PackedStringArray("swing_indicator")]
+[node name="Geppetto" type="CharacterBody2D" node_paths=PackedStringArray("swing_indicator_node")]
 y_sort_enabled = true
 collision_layer = 4
 script = ExtResource("1_iapjk")
+move_speed = 40.0
 puppet_scene = ExtResource("2_s1n0h")
+wolf_scene = ExtResource("3_pegdt")
+flying_puppet = ExtResource("4_rqave")
+dash_flying_puppet = ExtResource("5_rjdyr")
 scissor_scene = ExtResource("3_o1mhc")
-swing_indicator = NodePath("SwingIndicator")
+hammer_range = 300.0
+hammer_windup_time = 2.0
+hammer_damage_time = 1.6
+swing_phase1_windup = 2.0
+swing_phase1_damage_time = 1.2
+swing_phase2_windup = 2.0
+swing_phase2_damage_time = 1.6
+swing_indicator_node = NodePath("SwingIndicator")
 
 [node name="HammerIndicator" type="Polygon2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.29411766)
@@ -5605,8 +5620,19 @@ z_index = -1
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(128, 0, 126.904945, 8.353676, 123.638504, 16.564419, 118.25658, 24.49174, 110.85125, 32, 101.549225, 38.96073, 90.50967, 45.254833, 77.92146, 50.774612, 64, 55.425625, 48.98348, 59.12829, 33.128838, 61.819252, 16.707352, 63.452473, 7.837481e-15, 64, -16.707352, 63.452473, -33.128838, 61.819252, -48.98348, 59.12829, -64, 55.425625, -77.92146, 50.774612, -90.50967, 45.254833, -101.549225, 38.96073, -110.85125, 32, -118.25658, 24.49174, -123.638504, 16.564419, -126.904945, 8.353676, -128, 7.837481e-15, -126.904945, -8.353676, -123.638504, -16.564419, -118.25658, -24.49174, -110.85125, -32, -101.549225, -38.96073, -90.50967, -45.254833, -77.92146, -50.774612, -64, -55.425625, -48.98348, -59.12829, -33.128838, -61.819252, -16.707352, -63.452473, -2.3512442e-14, -64, 16.707352, -63.452473, 33.128838, -61.819252, 48.98348, -59.12829, 64, -55.425625, 77.92146, -50.774612, 90.50967, -45.254833, 101.549225, -38.96073, 110.85125, -32, 118.25658, -24.49174, 123.638504, -16.564419, 126.904945, -8.353676)
 script = ExtResource("6_rquf0")
+radius = null
+iso_y_scale = null
+sides = null
+damage = null
+active_time = null
+lifetime_after_active = null
+rotation_offset = null
+shake_intensity = null
+shake_duration = null
+hit_mask = null
 
 [node name="Hitbox" type="Area2D" parent="HammerIndicator"]
+collision_mask = 2
 script = ExtResource("5_w7hye")
 metadata/_custom_type_script = "uid://dsj462rg05pel"
 
@@ -5662,10 +5688,11 @@ y_sort_enabled = true
 material = SubResource("ShaderMaterial_4nnpq")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jkj85")
-animation = &"SUMMON_SE"
+animation = &"SUMMON_S"
 offset = Vector2(0, -30)
 
 [node name="AttackIntervalTimer" type="Timer" parent="."]
+wait_time = 4.0
 one_shot = true
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -5680,23 +5707,67 @@ show_percentage = false
 position = Vector2(0, -27)
 
 [node name="NavAgent" type="NavigationAgent2D" parent="."]
+target_desired_distance = 50.0
 simplify_path = true
 avoidance_enabled = true
 
 [node name="SwingIndicator" type="Node2D" parent="."]
-position = Vector2(-4, 7)
 
 [node name="Top" type="Polygon2D" parent="SwingIndicator"]
-position = Vector2(-177, 124)
+visible = false
+z_index = -1
 color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-77, 59, 225, -93, 304, -52, 0, 100)
+polygon = PackedVector2Array(100, 0, 6.1230318e-15, 50, -100, 6.1230318e-15, -1.8369095e-14, -50)
+script = ExtResource("6_rquf0")
+radius = null
+iso_y_scale = null
+sides = null
+damage = null
+active_time = null
+lifetime_after_active = null
+rotation_offset = null
+shake_intensity = null
+shake_duration = null
+hit_mask = null
 
 [node name="Bottom" type="Polygon2D" parent="SwingIndicator"]
-position = Vector2(-338, 43)
+visible = false
+z_index = -1
 color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-77, 59, 225, -93, 304, -52, 0, 100)
+polygon = PackedVector2Array(100, 0, 6.1230318e-15, 50, -100, 6.1230318e-15, -1.8369095e-14, -50)
+script = ExtResource("6_rquf0")
+radius = null
+iso_y_scale = null
+sides = null
+damage = null
+active_time = null
+lifetime_after_active = null
+rotation_offset = null
+shake_intensity = null
+shake_duration = null
+hit_mask = null
 
 [node name="Mid" type="Polygon2D" parent="SwingIndicator"]
-position = Vector2(-258, 83)
+visible = false
+z_index = -1
 color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-77, 59, 104, -29, 225, -93, 304, -52, 0, 100)
+polygon = PackedVector2Array(100, 0, 6.1230318e-15, 50, -100, 6.1230318e-15, -1.8369095e-14, -50)
+script = ExtResource("6_rquf0")
+radius = null
+iso_y_scale = null
+sides = null
+damage = null
+active_time = null
+lifetime_after_active = null
+rotation_offset = null
+shake_intensity = null
+shake_duration = null
+hit_mask = null
+
+[node name="Shadow" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(2.585, 2.585)
+texture = ExtResource("53_rqave")
+offset = Vector2(0, -25)
+
+[connection signal="body_entered" from="HammerIndicator/Hitbox" to="HammerIndicator" method="_on_body_entered"]
