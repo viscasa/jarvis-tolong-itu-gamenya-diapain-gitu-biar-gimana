@@ -38,6 +38,8 @@ var is_locked_out := false
 var last_move_direction := Vector2.DOWN
 var is_throwing_pin := false
 var is_throwing_pin_first := true
+var input_disabled := false
+var input_direction := Vector2.ZERO # FIX: Deklarasikan variabel di sini
 
 
 func _ready() -> void:
@@ -363,3 +365,10 @@ func _on_was_hit(direction: Vector2):
 
 func _on_knockback_timeout():
 	is_in_knockback = false
+
+func get_input():
+	if input_disabled:
+		input_direction = Vector2.ZERO
+		return
+		
+	input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
