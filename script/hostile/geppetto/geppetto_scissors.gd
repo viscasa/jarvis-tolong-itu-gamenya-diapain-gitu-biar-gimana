@@ -7,7 +7,8 @@ class_name Scissor
 
 @export var turn_speed: float = 5.0 
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite2D
+
 @onready var hitbox: Area2D = $Hitbox
 @onready var homing_timer: Timer = $HomingTimer
 
@@ -16,7 +17,7 @@ var current_direction: Vector2 = Vector2.DOWN
 enum State { HOMING, STRAIGHT}
 var state: State = State.HOMING
 var damage: float = 10.0 
-
+@onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
 func _ready():
 	player_target = get_tree().get_first_node_in_group("player")
 	
@@ -25,7 +26,6 @@ func _ready():
 	homing_timer.timeout.connect(_on_homing_timer_timeout)
 	homing_timer.start()
 	
-	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	
 	if is_instance_valid(player_target):
 		current_direction = global_position.direction_to(player_target.global_position)
@@ -65,18 +65,10 @@ func _on_homing_timer_timeout():
 	add_child(lifetime_timer)
 	lifetime_timer.start()
 
-func _on_hitbox_body_entered(body):
-	if body is Player:
-		var stats = body.get_node_or_null("Stats")
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if area is HurtboxPlayer:
+		var stats = area.get_parent().get_node_or_null("HealthManager")
 		if stats:
 			stats.take_damage(damage)
 		queue_free()
-	
-	if body is EnemyBase:
-		if body is Geppetto:
-			return
-			
-		var stats = body.get_node_or_null("Stats")
-		if stats:
-			stats.take_damage(damage)
-		queue_free() 

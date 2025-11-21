@@ -109,6 +109,7 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
 pin=""
 player=""
+"<<<<<<<Updatedupstream[gui]theme/custom_font"="uid://dgtq0lu2e5wr6"
 
 [gui]
 

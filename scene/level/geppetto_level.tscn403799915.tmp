@@ -1,4 +1,4 @@
-[gd_scene load_steps=128 format=4 uid="uid://l31l1m5mycnv"]
+[gd_scene load_steps=126 format=4 uid="uid://l31l1m5mycnv"]
 
 [ext_resource type="Texture2D" uid="uid://dx4ncdgvarqr6" path="res://assets/tile_assets/tilemap.png" id="1_3vvsb"]
 [ext_resource type="Texture2D" uid="uid://bnq7tegdmdgit" path="res://assets/tile_assets/ground/tile_grass_1.png" id="1_6rk7x"]
@@ -62,8 +62,6 @@
 [ext_resource type="Texture2D" uid="uid://c16hhl8hcebs8" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071021.png" id="54_wcveh"]
 [ext_resource type="Texture2D" uid="uid://cwjcus3c56m6q" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071024.png" id="55_unq2g"]
 [ext_resource type="Texture2D" uid="uid://b5uxwka0x0p8v" path="res://assets/tile_assets/Tile batu/Untitled542_20251109071029.png" id="56_8jsrr"]
-[ext_resource type="PackedScene" uid="uid://bgaglybpdid6m" path="res://scene/player/player_ui.tscn" id="63_hb460"]
-[ext_resource type="PackedScene" uid="uid://ug8pl1hfgn37" path="res://scene/background/parallax_cloud.tscn" id="64_hxlo3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hb460"]
 texture = ExtResource("1_3vvsb")
@@ -909,13 +907,44 @@ scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_p3b4p")
 script = ExtResource("4_0ryd4")
 
+[node name="SwingIndicator" type="Node2D" parent="."]
+visible = false
+position = Vector2(-73, 34)
+
+[node name="Top" type="Polygon2D" parent="SwingIndicator"]
+position = Vector2(-78, 163)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 225, -93, 304, -52, 0, 100)
+
+[node name="Bottom" type="Polygon2D" parent="SwingIndicator"]
+position = Vector2(-239, 82)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 225, -93, 304, -52, 0, 100)
+
+[node name="Mid" type="Polygon2D" parent="SwingIndicator"]
+position = Vector2(-159, 122)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-77, 59, 104, -29, 225, -93, 304, -52, 0, 100)
+
 [node name="Gepetto" parent="." node_paths=PackedStringArray("puppet_container", "spawn_container", "player_target") instance=ExtResource("5_l811l")]
 position = Vector2(72, 166)
-scale = Vector2(1.5, 1.5)
-body_radius = 20.0
-personal_space = 170.0
-hammer_recovery_time = 0.0
-swing_recovery_time = 0.0
+path_update_rate = null
+body_radius = null
+personal_space = null
+hammer_range = null
+hammer_offset = null
+hammer_windup_time = null
+hammer_damage_time = null
+hammer_recovery_time = null
+swing_phase1_windup = null
+swing_phase1_damage_time = null
+swing_phase2_windup = null
+swing_phase2_damage_time = null
+swing_recovery_time = null
+indicator_color_windup = null
+indicator_color_damage = null
+hammer_damage = null
+swing_damage = null
 puppet_container = NodePath("../PuppetContainer")
 spawn_container = NodePath("../SpawnContainer")
 player_target = NodePath("../Player")
@@ -1032,9 +1061,3 @@ shape = SubResource("RectangleShape2D_3vvsb")
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(510, 215)
 shape = SubResource("RectangleShape2D_3vvsb")
-
-[node name="PlayerUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("63_hb460")]
-player = NodePath("../Player")
-
-[node name="Parallax2D" parent="." instance=ExtResource("64_hxlo3")]
-layer = -10

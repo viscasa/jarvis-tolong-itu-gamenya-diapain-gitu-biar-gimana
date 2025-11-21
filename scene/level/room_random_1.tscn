@@ -31,6 +31,7 @@ position = Vector2(-5, -15)
 [node name="EnemySpawner6" type="Marker2D" parent="WaveSpawners/Wave1" index="0"]
 position = Vector2(657, -72)
 script = ExtResource("2_p0vtg")
+ENEMY_TYPE = 1
 metadata/_custom_type_script = "uid://b8chfmlwj0vn0"
 
 [node name="EnemySpawner7" type="Marker2D" parent="WaveSpawners/Wave1" index="1"]
