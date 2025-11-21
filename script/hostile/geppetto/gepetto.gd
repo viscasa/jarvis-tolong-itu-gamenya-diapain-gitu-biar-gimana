@@ -8,7 +8,8 @@ class_name Geppetto
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 var last_move_direction := Vector2.DOWN
-var is_attacking := false 
+var is_attacking := false
+var is_in_intro := true
 
 @export var puppet_scene: PackedScene 
 @export var wolf_scene: PackedScene
@@ -45,8 +46,8 @@ var is_attacking := false
 @export var swing_indicator_node: Node2D
 @export var player_target: CharacterBody2D
 
-enum State { MOVING, ATTACKING }
-var state: State = State.MOVING
+enum State {SPAWNING, MOVING, ATTACKING } 
+var state: State = State.SPAWNING
 
 var attack_pattern_index := 0
 var spawn_points = []
@@ -56,7 +57,6 @@ var path_update_timer := 0.0
 const ISO_SCALE = Vector2(1.0, 0.5)
 
 func _ready():
-	AudioManager.change_bgm_to_combat()
 	health_bar.max_value = stats.max_health
 	health_bar.value = stats.current_health
 
@@ -67,12 +67,14 @@ func _ready():
 	nav_agent.simplify_path = true
 	nav_agent.target_desired_distance = personal_space 
 	nav_agent.path_desired_distance = 8.0
+	
 	nav_agent.avoidance_enabled = true
 	
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
-	attack_timer.start()
 	call_deferred("_setup_navigation")
+	
 	hammer_indicator.hide()
+	
 	nav_agent.velocity_computed.connect(_on_nav_agent_velocity_computed)
 
 func _setup_navigation():
@@ -91,6 +93,8 @@ func _physics_process(delta):
 		_update_target_position()
 
 	match state:
+		State.SPAWNING:
+			return
 		State.MOVING:
 			_state_chase(delta)
 		State.ATTACKING:
@@ -119,7 +123,7 @@ func _state_attack(delta):
 	nav_agent.set_velocity(Vector2.ZERO)
 
 func _on_attack_timer_timeout():
-	if state == State.ATTACKING:
+	if state == State.ATTACKING or is_in_intro:
 		return
 		
 	state = State.ATTACKING 
@@ -157,7 +161,11 @@ func _perform_spawn_puppets():
 	
 	attack_pattern_index = 0 
 	_update_animation_state() 
+	var camera = get_viewport().get_camera_2d()
+	await get_tree().create_timer(1).timeout
 	
+	if camera and camera.has_method("apply_shake"):
+		camera.apply_shake(36.0, 4.0)
 	await animated_sprite.animation_finished
 	
 	var puppet_types = []
@@ -229,7 +237,10 @@ func _perform_scissor_attack():
 	is_attacking = true
 	attack_pattern_index = 2 
 	_update_animation_state()
-	
+	var camera = get_viewport().get_camera_2d()
+	await get_tree().create_timer(1).timeout
+	if camera and camera.has_method("apply_shake"):
+		camera.apply_shake(18.0, 2.0)
 	await animated_sprite.animation_finished
 
 	if scissor_scene:
@@ -361,3 +372,53 @@ func _update_animation_state() -> void:
 		last_move_direction = anim_direction
 
 	_play_directional_animation(anim_prefix, anim_direction)
+
+# --- FUNGSI BARU UNTUK INTRO ---
+
+# Fungsi untuk memulai AI setelah intro selesai
+func start_combat():
+	is_in_intro = false
+	attack_timer.start()
+	print("Geppetto combat started!")
+
+func play_summon_animation_only():
+	is_attacking = true
+	attack_pattern_index = 0 
+	_update_animation_state()
+	var camera = get_viewport().get_camera_2d()
+	await get_tree().create_timer(1).timeout
+	if camera and camera.has_method("apply_shake"):
+		camera.apply_shake(18.0, 2.0)
+	await animated_sprite.animation_finished
+	
+	
+	is_attacking = false
+
+func perform_initial_spawn():
+	is_attacking = true
+	attack_pattern_index = 0 
+	_play_directional_animation("Intro", Vector2(1, -0.5))
+	var camera = get_viewport().get_camera_2d()
+	await get_tree().create_timer(1).timeout
+	if camera and camera.has_method("apply_shake"):
+		camera.apply_shake(18.0, 2.0)
+	await animated_sprite.animation_finished
+	
+	AudioManager.background_music.play()
+	AudioManager.change_bgm_to_combat()
+	
+	
+
+	
+	var all_points = spawn_container.get_children()
+	all_points.shuffle()
+	var picked_points = all_points.slice(0, 2) 
+	
+	for spawn_point in picked_points:
+		var puppet = puppet_scene.instantiate()
+		puppet_container.add_child(puppet, true) 
+		puppet.global_position = spawn_point.global_position
+	
+	is_attacking = false
+	state = State.MOVING
+	_create_random_attack_sequence()
