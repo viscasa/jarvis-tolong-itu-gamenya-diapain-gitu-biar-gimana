@@ -4,7 +4,7 @@ if {random_dialog} == 1.0:
 	straw: Quick and easy’s my way, friend!
 	stick: Hey! Sturdy enough to stand!
 	brick: Or strong enough to last.
-	3pigs: Take your pick — but build smart.
+	3pigs: Take your pick, but build smart.
 
 else:
 	3pigs: We’ve built and rebuilt more times than we can count. Try not to blow it down, eh?
