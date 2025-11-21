@@ -554,6 +554,7 @@ animations = [{
 }]
 
 [node name="BoonPickup" type="Area2D"]
+y_sort_enabled = true
 collision_mask = 2
 script = ExtResource("1_aldpv")
 
@@ -562,10 +563,11 @@ position = Vector2(-0.25, -7.75)
 shape = SubResource("RectangleShape2D_lng1f")
 
 [node name="Sprite1" type="Sprite2D" parent="."]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_ee5ta")
-position = Vector2(4, -1)
+position = Vector2(4, -28)
 texture = ExtResource("2_lng1f")
-offset = Vector2(-3, -38)
+offset = Vector2(-3, -10.91)
 
 [node name="Sprite2" type="Sprite2D" parent="."]
 visible = false

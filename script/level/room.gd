@@ -3,19 +3,24 @@ class_name Room
 
 
 @export var reward_scene: PackedScene
+@export var boon_pickup: Area2D
+@export_enum("move_northeast", "move_northwest") var player_start_animation:String
 @onready var wave_spawners: Node2D = $WaveSpawners
 @onready var enemy_container: Node = $EnemyContainer
 @onready var player_spawn_position: Marker2D = $PlayerSpawnPosition
 @onready var reward_spawn_position: Marker2D = $RewardSpawnPosition
 @onready var wave_spawner: Node2D = $WaveSpawners
 @onready var door_container: Node2D = $DoorContainer
-@export var boon_pickup: Area2D
+@onready var move_player: AnimationPlayer = $MovePlayer
 var current_wave_index: int = 0
 var enemies_remaining_in_wave: int = 0
 var is_cleared: bool = false
 var waves: Array[Node]
 
 func _ready():
+	if player_start_animation :
+		move_player.play(player_start_animation)
+		await move_player.animation_finished
 	waves = wave_spawners.get_children()
 	_lock_all_doors()
 	_start_wave(current_wave_index)
