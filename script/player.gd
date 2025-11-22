@@ -4,10 +4,10 @@ class_name Player
 const SCALE_UP = 1.7
 const SPEED = 150.0 * SCALE_UP
 const Y_MUL = 2
-const Y_MUL_DASH = 1.7
+const Y_MUL_DASH = 1.5
 const ACCELERATION = 600.0 * SCALE_UP
 
-const DASH_SPEED = 600.0  * SCALE_UP
+const DASH_SPEED = 600.0 * SCALE_UP
 const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 
 @onready var dash_manager: DashManager = $DashManager
@@ -34,6 +34,10 @@ signal possessed(target)
 @onready var shadow: Sprite2D = $Shadow
 @onready var knockback_timer: Timer = $KnockbackTimer
 @export var knockback_strength: float = 300.0
+
+@export var is_in_cutscene: bool = false
+@export var cutscene_direction: Vector2 = Vector2.ZERO
+
 var is_in_knockback: bool = false
 var is_locked_out := false
 var last_move_direction := Vector2.DOWN
@@ -128,6 +132,7 @@ func _start_death_sequence() -> void:
 	tween.tween_property(camera, "zoom", Vector2(2.4, 2.4), 0.2).set_trans(Tween.TRANS_SINE)
 	TransitionManager.iris_transition("res://scene/game_over_screen.tscn", global_position - last_hit_direction * 10)
 func _physics_process(delta: float) -> void:
+	raycast.look_at(get_global_mouse_position())
 	if is_dead:
 		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
 		move_and_slide()
@@ -220,10 +225,16 @@ func _process_movement(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 
-	var input_vector := Vector2(
-		Input.get_action_strength("right") - Input.get_action_strength("left"),
-		Input.get_action_strength("down") - Input.get_action_strength("up")
-	)
+	var input_vector := Vector2.ZERO
+	
+	if is_in_cutscene:
+		input_vector = cutscene_direction
+	else:
+		input_vector = Vector2(
+			Input.get_action_strength("right") - Input.get_action_strength("left"),
+			Input.get_action_strength("down") - Input.get_action_strength("up")
+		)
+
 	var current_speed = PlayerBuffManager.current_stats.move_speed
 	
 	if input_vector.length() > 0.0:
@@ -241,6 +252,9 @@ func can_start_possession() -> bool:
 	return true
 
 func handle_global_inputs() -> void:
+	if is_in_cutscene:
+		return
+
 	if GlobalVar.input_disabled:
 		return
 	if Input.is_action_just_pressed("super_dash") and not possession_manager.is_possessing:
@@ -384,9 +398,6 @@ func _get_direction_suffix(direction: Vector2) -> String:
 		return "NE"
 	
 	return "S"
-
-
-
 
 func _on_animation_finished() -> void:
 	if sprite.animation.begins_with("Cast") :

@@ -22,10 +22,11 @@ position = Vector2(0, 80)
 scale = Vector2(6.235, 6.235)
 
 [node name="Parallax2D" type="Parallax2D" parent="Node2D"]
-scroll_offset = Vector2(-3, 0)
+scroll_offset = Vector2(1, 89)
 repeat_size = Vector2(576, 0)
 autoscroll = Vector2(1, 0)
 repeat_times = 7
+ignore_camera_scroll = true
 
 [node name="2" type="Sprite2D" parent="Node2D/Parallax2D"]
 texture = ExtResource("2_r4p6o")
@@ -34,6 +35,7 @@ texture = ExtResource("2_r4p6o")
 repeat_size = Vector2(576, 0)
 autoscroll = Vector2(2, 0)
 repeat_times = 7
+ignore_camera_scroll = true
 
 [node name="3" type="Sprite2D" parent="Node2D/Parallax2D2"]
 texture = ExtResource("3_bqakw")
@@ -42,6 +44,7 @@ texture = ExtResource("3_bqakw")
 repeat_size = Vector2(576, 0)
 autoscroll = Vector2(3, 0)
 repeat_times = 7
+ignore_camera_scroll = true
 
 [node name="4" type="Sprite2D" parent="Node2D/Parallax2D3"]
 texture = ExtResource("4_1jjbv")
@@ -50,6 +53,7 @@ texture = ExtResource("4_1jjbv")
 repeat_size = Vector2(576, 0)
 autoscroll = Vector2(4, 0)
 repeat_times = 7
+ignore_camera_scroll = true
 
 [node name="5" type="Sprite2D" parent="Node2D/Parallax2D4"]
 texture = ExtResource("5_q1b3k")
@@ -58,6 +62,7 @@ texture = ExtResource("5_q1b3k")
 repeat_size = Vector2(576, 0)
 autoscroll = Vector2(5, 0)
 repeat_times = 7
+ignore_camera_scroll = true
 
 [node name="6" type="Sprite2D" parent="Node2D/Parallax2D5"]
 texture = ExtResource("6_5lavj")
