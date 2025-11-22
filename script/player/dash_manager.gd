@@ -25,9 +25,17 @@ var pin: Pin
 var ghost_scene = preload("res://scene/skill/dash_ghost.tscn")
 
 const SCALE_UP = 1.7
-const DASH_SPEED := 600.0 * SCALE_UP
-@export var dash_move_time := 0.20
+const BASE_DASH_SPEED := 600.0 * SCALE_UP 
+@export var dash_move_time := 0.20 # Ini sekarang menjadi durasi dasar
 @export var dash_cycle_time := 0.3
+
+var effective_dash_speed: float:
+	get:
+		# FIX: Kecepatan efektif sekarang dihitung berdasarkan durasi dash.
+		# Jika durasi dash 2x lebih lama (dari boon), kecepatan juga 2x lebih besar
+		# untuk menempuh jarak 2x lebih jauh dalam waktu yang sama.
+		# Kita akan sesuaikan cara velocity dihitung di player.gd
+		return BASE_DASH_SPEED
 
 const COOLDOWN := 1.0
 

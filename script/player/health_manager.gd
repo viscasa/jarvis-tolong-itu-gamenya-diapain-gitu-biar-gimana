@@ -58,6 +58,7 @@ func heal(amount: float):
 	var final_heal = amount * stats.healing_bonus
 	
 	current_health += final_heal
+	stats.current_health = current_health
 	DamageNumber.display_number(final_heal, damage_number_origin, Color.GREEN, true)
 	health_bar.value = current_health
 func take_damage(damage_amount: float, crit_multiplier: float = 1.0, is_melee := false, dir := Vector2(1.0, 1.0)):
@@ -108,10 +109,13 @@ func take_damage(damage_amount: float, crit_multiplier: float = 1.0, is_melee :=
 			DamageNumber.display_number(final_damage, damage_number_origin, Color.RED)
 		current_health -= final_damage
 		health_bar.value = current_health
+	stats.current_health = current_health
 
 func _try_resurrect():
 	PlayerBuffManager.consume_resurrection()
 	current_health = max_health * 0.5
+	var stats = PlayerBuffManager.current_stats
+	stats.current_health = current_health
 	emit_signal("resurrected")
 func add_shield(amount: float):
 	current_shield = amount

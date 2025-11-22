@@ -1,6 +1,11 @@
 extends Node
 
 var next_reward_id: String = "pig"
+
+# FIX Bug 4: Tracking berdasarkan nama, bukan path
+var collected_boon_names: Array[String] = []
+var collected_boon_paths: Array[String] = [] # Keep for backward compatibility
+
 signal got_buff
 var showing_reward_screen := false
 var reward_database: Dictionary = {
@@ -31,14 +36,41 @@ var reward_database: Dictionary = {
 	}
 }
 
-var collected_boon_paths: Array[String] = []
+# --- FUNGSI BARU ---
+func register_boon_by_name(boon_name: String):
+	if not boon_name in collected_boon_names:
+		collected_boon_names.append(boon_name)
+		print("✓ Registered boon: ", boon_name)
+
+func unregister_boon_by_name(boon_name: String):
+	var idx = collected_boon_names.find(boon_name)
+	if idx != -1:
+		collected_boon_names.remove_at(idx)
+		print("✗ Unregistered boon: ", boon_name)
+
+func is_boon_collected_by_name(boon_name: String) -> bool:
+	return boon_name in collected_boon_names
+
+func get_collected_boon_names() -> Array[String]:
+	return collected_boon_names.duplicate()
+# --- END FUNGSI BARU ---
 
 func register_boon_as_collected(boon: BuffBase):
-	if boon.resource_path and not boon.resource_path in collected_boon_paths:
-		collected_boon_paths.append(boon.resource_path)
+	# Update: Sekarang gunakan nama
+	register_boon_by_name(boon.boon_name)
+	
+	# Keep path tracking for compatibility
+	if not boon.resource_path.is_empty():
+		if not boon.resource_path in collected_boon_paths:
+			collected_boon_paths.append(boon.resource_path)
+
+func is_boon_collected(boon_path: String) -> bool:
+	return boon_path in collected_boon_paths
 
 func reset_collected_boons():
+	collected_boon_names.clear()
 	collected_boon_paths.clear()
+	print("Reset all collected boons")
 
 func get_random_reward_choices(amount: int):
 	var all_rewards = reward_database.keys()
@@ -64,6 +96,7 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 			cinderella_choices.append(boon)
 			
 		return cinderella_choices
+		
 	var giver_data = get_reward_data(boon_giver_id)
 
 	if not giver_data or not giver_data.has("boon_folder_path"):
@@ -80,11 +113,11 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 		while file_name != "":
 			if file_name.ends_with(".tres"):
 				var full_path = boon_folder_path + file_name
+				var boon_res = load(full_path)
 				
-				if not full_path in collected_boon_paths:
-					var boon_res = load(full_path)
-					if boon_res:
-						available_boons.append(boon_res)
+				# FIX Bug 4: Cek berdasarkan nama, bukan path
+				if boon_res and not is_boon_collected_by_name(boon_res.boon_name):
+					available_boons.append(boon_res)
 						
 			file_name = dir.get_next().trim_suffix(".remap")
 

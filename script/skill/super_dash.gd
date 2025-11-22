@@ -167,7 +167,8 @@ func _add_super_dash() :
 
 func _process_recharge_counter() -> void :
 	if super_dash_recharge_counter >= super_dash_recharge_needed :
-		super_dash_counter = 0
+		super_dash_counter = super_dash_max
+		super_dash_recharge_counter = 0
 
 func _add_counter() :
 	if (super_dash_recharge_counter+1 > super_dash_recharge_needed) :

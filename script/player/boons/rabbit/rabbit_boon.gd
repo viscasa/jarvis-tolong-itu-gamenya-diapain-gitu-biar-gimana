@@ -52,9 +52,9 @@ func _load_type_2():
 func _load_type_3():
 	icon_id = 13
 	boon_name = "Quick Getaway"
-	boon_description = "Your standard dash distance is increased by 80%."
-	modifier.dash_duration = 1.8
-	modifier.set_mode("dash_duration", "multiply")
+	boon_description = "Your standard dash distance is increased by 50%."
+	modifier.dash_range = 1.5   # 50% lebih jauh
+	modifier.set_mode("dash_range", "multiply")
 	boon_icon = load("res://icon.svg")
 	
 
@@ -75,4 +75,3 @@ func _load_type_5():
 	modifier.evasion_chance = 0.2
 	modifier.set_mode("evasion_chance", "add") 
 	boon_icon = load("res://icon.svg")
-	

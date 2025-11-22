@@ -67,7 +67,13 @@ func _ready() -> void:
 	dash_manager.pin = pin
 	
 	PlayerBuffManager.buffs_updated.connect(_on_buffs_updated)
-	_on_buffs_updated(PlayerBuffManager.base_stats)
+	_on_buffs_updated(PlayerBuffManager.current_stats)
+	# health player terakhir
+	health_manager.current_health = clamp(
+		PlayerBuffManager.current_stats.current_health,
+		0.0,
+		PlayerBuffManager.current_stats.hp
+	)
 	health_manager.no_health.connect(_on_player_died)
 	skill_manager.stolen_skill_used.connect(_on_stolen_skill_used)
 	
@@ -79,12 +85,23 @@ func _ready() -> void:
 	knockback_timer.timeout.connect(_on_knockback_timeout)
 	
 func _on_buffs_updated(new_stats: PlayerModifier):
-	
+	health_manager.max_health = new_stats.hp
+	PlayerBuffManager.current_stats.current_health = clamp(
+		PlayerBuffManager.current_stats.current_health,
+		0.0,
+		health_manager.max_health
+	)
 	health_manager.max_health = new_stats.hp
 	
-	dash_manager.dash_move_time = new_stats.dash_duration
+	dash_manager.dash_move_time = new_stats.dash_range / DASH_SPEED
 	
+	var old_requirement = super_dash.super_dash_recharge_needed
 	super_dash.super_dash_recharge_needed = 3 + new_stats.super_dash_cost
+	
+	if super_dash.super_dash_recharge_counter >= super_dash.super_dash_recharge_needed and super_dash.super_dash_counter < super_dash.super_dash_max:
+		super_dash.super_dash_counter = super_dash.super_dash_max
+		super_dash.super_dash_recharge_counter = 0
+	
 	super_dash.aoe_radius = (50.0 * SCALE_UP) * new_stats.explosion_size
 	super_dash.aoe_damage = 50.0 * new_stats.explosion_damage # (Damage dasar 50)
 	

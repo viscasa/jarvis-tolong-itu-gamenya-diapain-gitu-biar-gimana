@@ -25,7 +25,7 @@ func add_buff(buff: BuffBase):
 		if is_instance_valid(player):
 			var health_manager = player.get_node_or_null("HealthManager")
 			if is_instance_valid(health_manager):
-				health_manager.current_health = health_manager.max_health
+				health_manager.heal(health_manager.max_health - health_manager.current_health)
 	
 	else:
 		list_of_buffs.append(buff)
@@ -90,6 +90,7 @@ func _trade_and_gain_buffs(trade_count: int, gain_count: int):
 		if list_of_buffs.size() > 0:
 			var idx = randi_range(0, list_of_buffs.size() - 1)
 			var removed_boon = list_of_buffs.pop_at(idx)
+			RewardManager.unregister_boon_by_name(removed_boon.boon_name) # ← HARUS DITAMBAHKAN
 			
 	_gain_random_buffs(gain_count) 
 
@@ -105,6 +106,9 @@ func _gain_random_buffs(amount: int):
 
 func _reroll_all_buffs():
 	var new_buff_count = list_of_buffs.size()
+	
+	for old_boon in list_of_buffs:
+		RewardManager.unregister_boon_by_name(old_boon.boon_name)
 	list_of_buffs.clear()
 	
 	var pool = _get_full_boon_pool(["Cinderella"])
@@ -112,7 +116,9 @@ func _reroll_all_buffs():
 
 	for new_boon in new_boons:
 		list_of_buffs.append(new_boon)
-		print("  Boon baru: ", new_boon.boon_name)
+		# FIX: Daftarkan kembali boon baru yang didapat dari reroll
+		RewardManager.register_boon_by_name(new_boon.boon_name)
+		print("  Boon baru (reroll): ", new_boon.boon_name)
 
 
 	
@@ -120,10 +126,14 @@ func _reroll_all_buffs():
 func _trade_all_for_hp():
 	var boon_count = list_of_buffs.size()
 	
+	for boon in list_of_buffs:
+		RewardManager.unregister_boon_by_name(boon.boon_name) # ← HARUS DITAMBAHKAN
+	list_of_buffs.clear()
+	
 	if boon_count != 0:
 		list_of_buffs.clear()
 		
-		var hp_gain = boon_count * 2 
+		var hp_gain = boon_count * 30
 		
 		base_stats.hp += hp_gain
 		
@@ -188,11 +198,10 @@ func _get_full_boon_pool(exclude_givers: Array[String] = []) -> Array[BuffBase]:
 func _get_random_buffs_from_pool(amount: int, pool: Array[BuffBase]) -> Array[BuffBase]:
 	var chosen_boons: Array[BuffBase] = []
 	
-	var available_pool = []
-	var collected_names = []
-	for buff in list_of_buffs:
-		collected_names.append(buff.boon_name)
+	# FIX: Hanya gunakan daftar dari RewardManager. Ini adalah satu-satunya sumber kebenaran.
+	var collected_names = RewardManager.get_collected_boon_names()
 		
+	var available_pool = []
 	for boon in pool:
 		if not boon.boon_name in collected_names:
 			available_pool.append(boon)
@@ -208,10 +217,14 @@ func _trade_all_for_evasion():
 	
 	var boon_count = list_of_buffs.size()
 	
+	for boon in list_of_buffs:
+		RewardManager.unregister_boon_by_name(boon.boon_name) # ← HARUS DITAMBAHKAN
+	list_of_buffs.clear()
+	
 	if boon_count != 0:
 		list_of_buffs.clear()
 		
-		var evasion_gain = float(boon_count) * 0.05
+		var evasion_gain = float(boon_count) * 0.02
 		
 		base_stats.evasion_chance += evasion_gain
 			
@@ -229,4 +242,4 @@ func consume_resurrection():
 			print("Consuming resurrection boon: ", boon.boon_name)
 			list_of_buffs.remove_at(i) 
 			_calculate_all() 
-			return 
+			return

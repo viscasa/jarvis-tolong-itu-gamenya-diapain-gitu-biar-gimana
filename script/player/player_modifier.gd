@@ -3,7 +3,8 @@ class_name PlayerModifier
 
 # --- STATS DASAR ---
 @export var hp: float = 100.0
-@export var dash_range: float = 600.0
+@export var current_health: float = 100.0
+@export var dash_range: float = 200.0
 @export var move_speed: float = 200.0
 @export var base_damage: float = 2000.0
 @export var final_damage: float = 1.0
