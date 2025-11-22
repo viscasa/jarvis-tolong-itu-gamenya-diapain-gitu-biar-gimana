@@ -72,7 +72,7 @@ func throw_pin() -> void:
 		return
 		
 	var pin_instance = pin_scene.instantiate()
-	get_tree().root.add_child(pin_instance, true)
+	get_parent().get_parent().get_parent().add_child(pin_instance, true)
 	pin_instance.global_position = player_pos
 	
 	if pin_instance.has_method("launch"):

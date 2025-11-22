@@ -102,9 +102,7 @@ func start_dash() -> void:
 
 	if is_exit_moving and not is_exit_weak:
 		_force_end_exit_movement()
-	
-	player.raycast.rotation = dash_direction.angle()
-	
+		
 	player.phasing_ray.force_raycast_update()
 	
 	var can_phase = not player.phasing_ray.is_colliding()

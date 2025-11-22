@@ -4,7 +4,7 @@ class_name Player
 const SCALE_UP = 1.7
 const SPEED = 150.0 * SCALE_UP
 const Y_MUL = 2
-const Y_MUL_DASH = 1.7
+const Y_MUL_DASH = 1.5
 const ACCELERATION = 600.0 * SCALE_UP
 
 const DASH_SPEED = 600.0 * SCALE_UP
@@ -99,6 +99,7 @@ func _on_player_died(): #TODO
 	get_tree().reload_current_scene()
 
 func _physics_process(delta: float) -> void:
+	raycast.look_at(get_global_mouse_position())
 	indicator.look_at(get_global_mouse_position())
 	if is_in_knockback:
 		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)

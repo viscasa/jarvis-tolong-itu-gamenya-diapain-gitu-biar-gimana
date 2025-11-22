@@ -577,6 +577,7 @@ texture = ExtResource("3_k54js")
 offset = Vector2(0, -6)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

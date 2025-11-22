@@ -1484,9 +1484,11 @@ shape = SubResource("CircleShape2D_bk3dr")
 
 [node name="AnimatedSprite2D" parent="." index="3"]
 material = SubResource("ShaderMaterial_t8nl8")
+position = Vector2(0, 28)
 sprite_frames = SubResource("SpriteFrames_6nnlf")
 animation = &"STUNNED_E"
 frame_progress = 0.28902847
+offset = Vector2(0, -28)
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_vt8rj")
@@ -1531,3 +1533,8 @@ position = Vector2(0, 13)
 
 [node name="North" type="Marker2D" parent="BulletPosition" index="7"]
 position = Vector2(0, -45)
+
+[node name="PossesEffect" parent="." index="12"]
+position = Vector2(0, 28)
+animation = &"out"
+offset = Vector2(0, -28)

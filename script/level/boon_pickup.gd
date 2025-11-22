@@ -1,4 +1,5 @@
 extends Area2D
+class_name BoonPickup
 
 var boon_giver_id: String = ""
 @export_enum("Tree", "Orb") var sprite = 0

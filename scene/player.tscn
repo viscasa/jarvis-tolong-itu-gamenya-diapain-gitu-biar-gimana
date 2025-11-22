@@ -1862,13 +1862,14 @@ wall_min_slide_angle = 1.5707964
 floor_constant_speed = true
 safe_margin = 0.6
 script = ExtResource("1_c8aaj")
+is_in_cutscene = true
 
 [node name="Shadow" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(0, 15)
-scale = Vector2(0.7, 0.7)
+position = Vector2(0, 3.9999993)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_op5kk")
-offset = Vector2(0, -20)
+offset = Vector2(0, -21)
 
 [node name="GhostTimer" type="Timer" parent="."]
 wait_time = 0.07
@@ -1882,26 +1883,28 @@ wait_time = 0.00999999999999999
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_sxxrj")
-position = Vector2(0, -4)
+position = Vector2(0, 4)
 sprite_frames = SubResource("SpriteFrames_k0kj3")
-animation = &"Idle_E"
+animation = &"Idle_NE"
+offset = Vector2(0, -20)
 
 [node name="PossesEffect" type="AnimatedSprite2D" parent="."]
 z_index = 1
+position = Vector2(0, 4)
 sprite_frames = SubResource("SpriteFrames_wc042")
+animation = &"posses"
 autoplay = "default"
+offset = Vector2(0, -4)
 
 [node name="Raycast" type="Node2D" parent="."]
-position = Vector2(0, 15)
 
 [node name="PhasingRay" type="RayCast2D" parent="Raycast"]
 position = Vector2(88, 0)
-target_position = Vector2(10, 0)
+target_position = Vector2(35, 0)
 hit_from_inside = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, 15)
 rotation = 0.7853982
 scale = Vector2(0.49999997, 0.49999997)
 shape = SubResource("RectangleShape2D_5lop3")
