@@ -5,6 +5,7 @@ signal super_dash_started
 signal super_dash_charge_ended
 signal super_dash_movement_ended 
 signal rechare_counter_changed
+signal charges_changed(current: int, cost: int, max: int) 
 
 @onready var attack_manager: AttackManager = $"../../AttackManager"
 @onready var thunder: Line2D = $"../Thunder"
@@ -20,10 +21,11 @@ const SCALE_UP = 1.7
 @export var stop_friction_factor := 0.1 * SCALE_UP
 @export var aoe_radius := 50.0 * SCALE_UP
 @export var aoe_damage := 50.0
-@export var super_dash_max : int = 1
-@export var super_dash_counter : int = 1
-@export var super_dash_recharge_counter : int = 0
-@export var super_dash_recharge_needed : int = 3
+@export var super_dash_max : int = 1  # buat nyimpan berapa kali cast super dash, sekarang tidak terpakai
+@export var super_dash_counter : int = 1 # TIDAK DIPAKAI LAGI
+@export var super_dash_recharge_counter : int = 0  # jumlah charge dimiliki (0..3)
+@export var super_dash_recharge_needed : int = 3   # biaya (3 normal, 2 dengan boon)
+@export var super_dash_recharge_max: int = 3       # kapasitas kontainer
 
 var player: Player
 var dash_manager: DashManager
@@ -62,25 +64,33 @@ func _ready() -> void:
 	aoe_area.body_entered.connect(_on_aoe_body_entered)
 	
 	attack_manager.critical_circle.connect(_add_counter)
-	super_dash_started.connect(_add_super_dash)
-	rechare_counter_changed.connect(_process_recharge_counter)
+	emit_signal("charges_changed", super_dash_recharge_counter, super_dash_recharge_needed, super_dash_recharge_max)
+
+func set_recharge_cost(value: int) -> void:
+	super_dash_recharge_needed = clamp(value, 1, super_dash_recharge_max)
+	emit_signal("charges_changed", super_dash_recharge_counter, super_dash_recharge_needed, super_dash_recharge_max)
 
 func is_active() -> bool:
 	return is_charging or is_dashing
-func start_super_dash() -> void:
-	if super_dash_counter >= super_dash_max :
-		return
 
+func can_start_super_dash() -> bool:
+	if super_dash_recharge_counter < super_dash_recharge_needed:
+		return false
 	if is_active() or dash_manager.is_dashing or dash_manager.is_dash_moving or dash_manager.is_exit_dashing or dash_manager.is_exit_moving:
-		return
+		return false
+	return true
 
+func start_super_dash() -> void:
+	if not can_start_super_dash():
+		return
+	super_dash_recharge_counter = max(0, super_dash_recharge_counter - super_dash_recharge_needed)
+	emit_signal("rechare_counter_changed")
+	emit_signal("charges_changed", super_dash_recharge_counter, super_dash_recharge_needed, super_dash_recharge_max)
+	
 	is_charging = true
 	charge_timer = charge_time
-	
 	dash_direction = (player.get_global_mouse_position() - player.global_position).normalized()
 	charge_direction = -dash_direction
-	
-	super_dash_recharge_counter = 0
 	emit_signal("super_dash_started")
 
 func process_super_dash(delta: float) -> void:
@@ -157,24 +167,11 @@ func _on_aoe_body_entered(body) -> void:
 	
 	attack_manager.attack(body, hit_direction, false, aoe_damage)
 
-func _reset_super_dash_counter() :
-	super_dash_counter = 0
-
-func _add_super_dash() :
-	if (super_dash_counter+1>super_dash_max) :
-		return
-	super_dash_counter+=1
-
-func _process_recharge_counter() -> void :
-	if super_dash_recharge_counter >= super_dash_recharge_needed :
-		super_dash_counter = super_dash_max
-		super_dash_recharge_counter = 0
-
 func _add_counter() :
-	if (super_dash_recharge_counter+1 > super_dash_recharge_needed) :
-		return
-	super_dash_recharge_counter += 1
-	emit_signal("rechare_counter_changed")
+	if super_dash_recharge_counter < super_dash_recharge_max:
+		super_dash_recharge_counter += 1
+		emit_signal("rechare_counter_changed")
+		emit_signal("charges_changed", super_dash_recharge_counter, super_dash_recharge_needed, super_dash_recharge_max)
 
 func instance_ghost(color : Color = Color.WHITE) -> void :
 	var ghost: Sprite2D = ghost_scene.instantiate()

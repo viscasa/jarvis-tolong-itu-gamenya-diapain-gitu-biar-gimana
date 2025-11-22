@@ -28,7 +28,6 @@ func shoot_projectile() -> void:
 	if initial_dir == Vector2.ZERO:
 		initial_dir = Vector2.RIGHT
 
-	# IMPROVEMENT: Tambahkan delay untuk bullet ke-2 dst
 	for i in range(bullet_count):
 		if i > 0:
 			await get_tree().create_timer(0.1).timeout

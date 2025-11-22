@@ -102,12 +102,10 @@ func _on_buffs_updated(new_stats: PlayerModifier):
 	var old_requirement = super_dash.super_dash_recharge_needed
 	super_dash.super_dash_recharge_needed = 3 + new_stats.super_dash_cost
 	
-	if super_dash.super_dash_recharge_counter >= super_dash.super_dash_recharge_needed and super_dash.super_dash_counter < super_dash.super_dash_max:
-		super_dash.super_dash_counter = super_dash.super_dash_max
-		super_dash.super_dash_recharge_counter = 0
+
 	
 	super_dash.aoe_radius = (50.0 * SCALE_UP) * new_stats.explosion_size
-	super_dash.aoe_damage = 50.0 * new_stats.explosion_damage # (Damage dasar 50)
+	super_dash.aoe_damage = 50.0 * new_stats.explosion_damage 
 	
 	var base_crit_start = 0.63
 	var base_crit_end = 0.76
@@ -122,7 +120,7 @@ func _on_player_died():
 	player_has_died.emit() 
 	_start_death_sequence()
 func _start_death_sequence() -> void:
-	hurt_box_player.set_deferred("disabled", true)
+	hurt_box_player.set_deferred("disabled", true)	
 	
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	

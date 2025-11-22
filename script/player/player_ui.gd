@@ -176,17 +176,16 @@ func _update_super_dash_indicator():
 	
 	var target_frame = 0
 	
-	if is_ready:
-		target_frame = 3 
+
+	var current_charge = super_dash.super_dash_recharge_counter
+	if current_charge == 3:
+		target_frame = 3
+	elif current_charge == 2:
+		target_frame = 2 
+	elif current_charge == 1:
+		target_frame = 1 
 	else:
-		var current_charge = super_dash.super_dash_recharge_counter
-		
-		if current_charge == 2:
-			target_frame = 2 
-		elif current_charge == 1:
-			target_frame = 1 
-		else:
-			target_frame = 0 
+		target_frame = 0 
 	if super_dash_indicator.frame != target_frame:
 		super_dash_indicator.frame = target_frame
 
