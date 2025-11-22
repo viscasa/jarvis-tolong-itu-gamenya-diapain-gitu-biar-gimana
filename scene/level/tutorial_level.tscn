@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://nfb6k3y2ymip"]
+[gd_scene load_steps=9 format=4 uid="uid://nfb6k3y2ymip"]
 
 [ext_resource type="PackedScene" uid="uid://yncml2ptnko7" path="res://scene/level/room.tscn" id="1_scad7"]
 [ext_resource type="PackedScene" uid="uid://n0wsn68c12ku" path="res://scene/level/door.tscn" id="2_te7ks"]
 [ext_resource type="PackedScene" uid="uid://bopshekyxove8" path="res://scene/hostile/broken_puppet.tscn" id="3_n7h5c"]
 [ext_resource type="Script" uid="uid://04pxw75e5exq" path="res://script/level/tutorial_todo.gd" id="4_ucgp2"]
+[ext_resource type="PackedScene" uid="uid://dmgrba63cpi7k" path="res://scene/hazard/spike.tscn" id="5_ucgp2"]
 
 [sub_resource type="Shader" id="Shader_n7h5c"]
 resource_local_to_scene = true
@@ -84,6 +85,9 @@ layout_mode = 0
 offset_right = 445.0
 offset_bottom = 172.0
 script = ExtResource("4_ucgp2")
+
+[node name="Spike" parent="CanvasLayer" index="1" instance=ExtResource("5_ucgp2")]
+position = Vector2(256, -153)
 
 [editable path="PlayerSpawnPosition/Player"]
 [editable path="BrokenPuppet"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmgrba63cpi7k"]
+
+[ext_resource type="Script" uid="uid://326te3iy8hab" path="res://script/hazard/spike.gd" id="1_kd1io"]
+[ext_resource type="Texture2D" uid="uid://bcwptdwa2gjmm" path="res://assets/tile_assets/tilemap2.png" id="1_ynlg7"]
+[ext_resource type="Script" uid="uid://dsj462rg05pel" path="res://script/components/hit_box.gd" id="3_kim3s"]
+
+[node name="Spike" type="StaticBody2D"]
+script = ExtResource("1_kd1io")
+
+[node name="SpikeSprite" type="Sprite2D" parent="."]
+position = Vector2(0.20000076, -0.27999878)
+texture = ExtResource("1_ynlg7")
+offset = Vector2(0, -20.72)
+region_enabled = true
+region_rect = Rect2(966, 386, 49, 42)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, -12)
+polygon = PackedVector2Array(0, -14, 28, 0, 0, 14, -28, 0)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_kim3s")
+metadata/_custom_type_script = "uid://dsj462rg05pel"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
+position = Vector2(1, -12)
+polygon = PackedVector2Array(0, -16, 32, 0, 0, 16, -32, 0)

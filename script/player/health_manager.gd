@@ -29,7 +29,7 @@ var max_shield_amount: float = 0.0
 			shield_bar.max_value = max_health + 10
 			shield_bar.value = current_health
 		_update_ui()
-@export var base_defense: float = 2.0
+@export var base_defense: float = 0.0
 @export var health_bar : ProgressBar
 @export var heal_amount : float = 10.0
 @onready var damage_number_origin: Node2D = $"../DamageNumberOrigin"
@@ -62,6 +62,7 @@ func heal(amount: float):
 	DamageNumber.display_number(final_heal, damage_number_origin, Color.GREEN, true)
 	health_bar.value = current_health
 func take_damage(damage_amount: float, crit_multiplier: float = 1.0, is_melee := false, dir := Vector2(1.0, 1.0)):
+	print("damage" + str(damage_amount))
 	var stats = PlayerBuffManager.current_stats
 	if randf() < stats.evasion_chance:
 		print("EVASION! Serangan dihindari.")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://cvsd5nv77naw"]
+[gd_scene load_steps=7 format=4 uid="uid://cvsd5nv77naw"]
 
 [ext_resource type="PackedScene" uid="uid://yncml2ptnko7" path="res://scene/level/room.tscn" id="1_cowkl"]
 [ext_resource type="Script" uid="uid://b8chfmlwj0vn0" path="res://script/level/enemy_spawn_point.gd" id="2_p0vtg"]
 [ext_resource type="PackedScene" uid="uid://n0wsn68c12ku" path="res://scene/level/door.tscn" id="3_h5jlr"]
 [ext_resource type="PackedScene" uid="uid://cu64rfxjwm0yf" path="res://scene/level/boon_pickup.tscn" id="3_qbdna"]
+[ext_resource type="PackedScene" uid="uid://dmgrba63cpi7k" path="res://scene/hazard/spike.tscn" id="5_ix412"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_h5jlr"]
 vertices = PackedVector2Array(814, -67, 850, -68, 738, -6, 747, -30, 820, -84, 787, -97, 159, -36, 347, 2, 404, 29, 341, 64, 118, -19, 370, 76, 314, 111, -317, -143, 628, -428, 394, -402, 333, -432, 506, -527, 657, -453, 461, -301, 365, -351, 395, -367, 800, -344, 672, -326, 824, -117, 852, -100, 341, 129, 284, 157, 929, -378, 1073, -333, 1100, -324, 1081, -307, 694, -304, 365, -386, 1078, -271, 1099, -258, 995, -196, 962, -213, 982, -408, 1100, -356, 797, -162, 847, -134, 399, -166, 691, -287, 1102, -289, 891, -214, 706, -24, 723, -60, 673, -5, 607, -38, 579, -25, 538, -40, 511, -23, 479, -39, 370, -141, 304, -184, 382, -23, 56, -91, 105, -221, 16, -237, 29, -248, 62, -229, 181, -223, 196, -233, 226, -216, 246, -225, 258, -232, 281, -219, 892, -396, 644, -318, 305, -219, 646, -293, 328, -206, 414, -7, 39, -69, -104, -249, -61, -229, -40, -244, -11, -236, 154, -219, 926, -197, 671, -285, 126, -231)
@@ -102,3 +103,6 @@ carve_navigation_mesh = true
 
 [node name="BoonPickup" parent="." index="12" instance=ExtResource("3_qbdna")]
 position = Vector2(670, -298)
+
+[node name="Spike" parent="." index="14" instance=ExtResource("5_ix412")]
+position = Vector2(158, 27)
