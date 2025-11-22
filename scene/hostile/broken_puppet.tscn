@@ -1588,7 +1588,7 @@ attack_range = 70.0
 
 [node name="Shadow" type="Sprite2D" parent="." index="0"]
 z_index = -1
-position = Vector2(0, 5.000001)
+position = Vector2(0, 7)
 scale = Vector2(1.35, 1.35)
 texture = ExtResource("3_gdwyp")
 offset = Vector2(0, -20)
@@ -1608,11 +1608,12 @@ shape = SubResource("CapsuleShape2D_02fdu")
 
 [node name="AnimatedSprite2D" parent="." index="4"]
 material = SubResource("ShaderMaterial_bed1b")
-position = Vector2(0, -12)
+position = Vector2(0, 7)
 sprite_frames = SubResource("SpriteFrames_02fdu")
 animation = &"STUNNED_NW"
 frame = 3
 frame_progress = 1.0
+offset = Vector2(0, -21)
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_02fdu")
@@ -1620,3 +1621,8 @@ shape = SubResource("RectangleShape2D_02fdu")
 [node name="HealthBar" parent="." index="7"]
 offset_top = -46.0
 offset_bottom = -42.0
+
+[node name="PossesEffect" parent="." index="11"]
+position = Vector2(0, 7)
+animation = &"out"
+offset = Vector2(0, -7)

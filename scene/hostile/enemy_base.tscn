@@ -395,6 +395,7 @@ wait_time = 0.2
 
 [node name="PossesEffect" type="AnimatedSprite2D" parent="."]
 z_index = 1
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_sf8nd")
 autoplay = "default"
 

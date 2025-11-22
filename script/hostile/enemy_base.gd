@@ -139,13 +139,19 @@ func _on_attack_timer_timeout():
 	_update_target_position()
 
 func _on_death():
-	current_state = State.DEAD
 	set_physics_process(false)
 	var player := player_target
 	if is_instance_valid(player):
+		print("masuk")
 		var buff_manager = player.get_node_or_null("BuffManager")
 		if is_instance_valid(buff_manager):
 			buff_manager._on_enemy_killed()
+		if current_state == State.POSSESSED:
+			print("hello")
+			var dash_manager:DashManager = player.get_node_or_null("DashManager")
+			if is_instance_valid(dash_manager):
+				dash_manager.start_exit_dash(false, true)
+	current_state = State.DEAD
 	queue_free()
 
 func _on_was_hit(direction: Vector2):

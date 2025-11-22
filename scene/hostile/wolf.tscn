@@ -1765,9 +1765,9 @@ shape = SubResource("CircleShape2D_tujma")
 
 [node name="AnimatedSprite2D" parent="." index="3"]
 material = SubResource("ShaderMaterial_lho47")
-position = Vector2(0, -22)
 sprite_frames = SubResource("SpriteFrames_st8lr")
 animation = &"STUNNED_W"
+offset = Vector2(0, -22)
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_obxat")
@@ -1777,3 +1777,6 @@ z_index = -1
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("19_cj11o")
 offset = Vector2(0, -20)
+
+[node name="PossesEffect" parent="." index="11"]
+animation = &"out"

@@ -1,28 +1,19 @@
-[gd_scene load_steps=22 format=3 uid="uid://yncml2ptnko7"]
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://cyglnyqh5jl8c"]
 
-[ext_resource type="Script" uid="uid://do6lcn32wdt8o" path="res://script/level/room.gd" id="1_6ar0q"]
-[ext_resource type="Texture2D" uid="uid://crree2q0ufg3s" path="res://assets/tile_assets/blank.png" id="4_ib65q"]
-[ext_resource type="Script" uid="uid://db5o4u2ao8oyu" path="res://script/tilemap/isometric_tilemap.gd" id="5_7j0h5"]
-[ext_resource type="PackedScene" uid="uid://yvfty5mbnbc8" path="res://scene/menu/pause_menu.tscn" id="6_3xw8e"]
-[ext_resource type="PackedScene" uid="uid://bgaglybpdid6m" path="res://scene/player/player_ui.tscn" id="6_7pugk"]
-[ext_resource type="PackedScene" uid="uid://d36d70p2syni3" path="res://scene/player.tscn" id="6_ib65q"]
-[ext_resource type="PackedScene" uid="uid://ug8pl1hfgn37" path="res://scene/background/parallax_cloud.tscn" id="7_7pugk"]
-[ext_resource type="Texture2D" uid="uid://dx4ncdgvarqr6" path="res://assets/tile_assets/tilemap.png" id="58_rtw3q"]
+[ext_resource type="Texture2D" uid="uid://dx4ncdgvarqr6" path="res://assets/tile_assets/tilemap.png" id="1_p06u6"]
+[ext_resource type="Texture2D" uid="uid://crree2q0ufg3s" path="res://assets/tile_assets/blank.png" id="3_gf75i"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_ib65q"]
 tile_data = PackedInt32Array(262144, 786432, 8, 393216, 786432, 9, 131073, 786432, 9, 196608, 786432, 8, 262145, 786432, 8, 327680, 786432, 9, 393217, 786432, 9, 458752, 786432, 9, 524289, 786432, 8, 2, 786432, 8, 65537, 786432, 9, 131074, 786432, 9, 196609, 786432, 8, 262146, 786432, 8, 327681, 786432, 9, 393218, 786432, 9, 458753, 786432, 9, 524290, 786432, 9, 589825, 786432, 9, 655362, 786432, 9, 3, 786432, 8, 65538, 786432, 8, 131075, 786432, 8, 196610, 786432, 9, 262147, 786432, 8, 327682, 786432, 9, 393219, 786432, 9, 458754, 786432, 8, 524291, 786432, 8, 589826, 786432, 9, 655363, 786432, 9, 720898, 786432, 8, 65539, 786432, 8, 131076, 786432, 9, 196611, 786432, 9, 262148, 786432, 9, 327683, 786432, 8, 393220, 786432, 8, 458755, 786432, 8, 524292, 786432, 9, 589827, 786432, 8, 655364, 786432, 8, 720899, 786432, 9, 196612, 786432, 9, 262149, 786432, 8, 327684, 786432, 9, 393221, 786432, 9, 458756, 786432, 9, 524293, 786432, 8, 589828, 786432, 8)
 
-[sub_resource type="TileMapPattern" id="TileMapPattern_qr4op"]
-tile_data = PackedInt32Array(327680, 786432, 8, 458752, 786432, 9, 589824, 786432, 8, 720896, 786432, 9, 196609, 786432, 9, 262145, 786432, 8, 327681, 786432, 8, 393217, 786432, 9, 458753, 786432, 9, 524289, 786432, 9, 589825, 786432, 8, 655361, 786432, 9, 720897, 786432, 8, 786433, 786432, 9, 851969, 786432, 9, 65538, 786432, 8, 131074, 786432, 9, 196610, 786432, 9, 262146, 786432, 8, 327682, 786432, 8, 393218, 786432, 9, 458754, 786432, 9, 524290, 786432, 9, 589826, 786432, 9, 655362, 786432, 8, 720898, 786432, 8, 786434, 786432, 9, 851970, 786432, 9, 917506, 786432, 9, 983042, 786432, 8, 3, 786432, 8, 65539, 786432, 8, 131075, 786432, 8, 196611, 786432, 8, 262147, 786432, 9, 327683, 786432, 8, 393219, 786432, 9, 458755, 786432, 9, 524291, 786432, 9, 589827, 786432, 9, 655363, 786432, 8, 720899, 786432, 8, 786435, 786432, 9, 851971, 786432, 9, 917507, 786432, 9, 983043, 786432, 9, 1048579, 786432, 9, 4, 786432, 8, 65540, 786432, 8, 131076, 786432, 8, 196612, 786432, 9, 262148, 786432, 8, 327684, 786432, 8, 393220, 786432, 8, 458756, 786432, 9, 524292, 786432, 9, 589828, 786432, 9, 655364, 786432, 9, 720900, 786432, 9, 786436, 786432, 9, 851972, 786432, 9, 917508, 786432, 8, 983044, 786432, 8, 1048580, 786432, 9, 5, 786432, 8, 65541, 786432, 8, 131077, 786432, 9, 196613, 786432, 9, 262149, 786432, 9, 327685, 786432, 8, 393221, 786432, 8, 458757, 786432, 9, 524293, 786432, 9, 589829, 786432, 9, 655365, 786432, 8, 720901, 786432, 9, 786437, 786432, 8, 851973, 786432, 9, 917509, 786432, 8, 983045, 786432, 9, 1048581, 786432, 8, 6, 786432, 8, 65542, 786432, 8, 131078, 786432, 8, 196614, 786432, 8, 262150, 786432, 9, 327686, 786432, 9, 393222, 786432, 8, 458758, 786432, 9, 524294, 786432, 9, 589830, 786432, 8, 655366, 786432, 9, 720902, 786432, 9, 786438, 786432, 9, 851974, 786432, 8, 917510, 786432, 9, 983046, 786432, 8, 1048582, 786432, 8, 131079, 786432, 8, 196615, 786432, 8, 262151, 786432, 8, 327687, 786432, 9, 393223, 786432, 8, 458759, 786432, 8, 524295, 786432, 9, 589831, 786432, 8, 655367, 786432, 8, 720903, 786432, 8, 786439, 786432, 9, 851975, 786432, 9, 917511, 786432, 9, 262152, 786432, 9, 327688, 786432, 9, 393224, 786432, 9, 458760, 786432, 9, 524296, 786432, 8, 589832, 786432, 9, 655368, 786432, 9, 720904, 786432, 8, 786440, 786432, 8)
+[sub_resource type="TileMapPattern" id="TileMapPattern_knreq"]
+tile_data = PackedInt32Array(196608, 1048576, 2, 327680, 1048576, 2, 458752, 1048576, 2, 589824, 1048576, 2, 65537, 1048576, 2, 131073, 1048576, 2, 196609, 1048576, 2, 262145, 1048576, 2, 327681, 1048576, 2, 393217, 1048576, 2, 458753, 1048576, 2, 524289, 1048576, 2, 589825, 1048576, 2, 655361, 1048576, 2, 720897, 1048576, 2, 2, 1048576, 2, 65538, 1048576, 2, 131074, 1048576, 2, 196610, 1048576, 2, 262146, 1048576, 2, 327682, 1048576, 2, 393218, 1048576, 2, 458754, 1048576, 2, 524290, 1048576, 2, 589826, 1048576, 2, 655362, 1048576, 2, 720898, 1048576, 2, 786434, 1048576, 2, 3, 1048576, 2, 65539, 1048576, 2, 131075, 1048576, 2, 196611, 1048576, 2, 262147, 1048576, 2, 327683, 1048576, 2, 393219, 1048576, 2, 458755, 1048576, 2, 524291, 1048576, 2, 589827, 1048576, 2, 655363, 1048576, 2, 720899, 1048576, 2, 786435, 1048576, 2, 4, 1048576, 2, 65540, 1048576, 2, 131076, 1048576, 2, 196612, 1048576, 2, 262148, 1048576, 2, 327684, 1048576, 2, 393220, 1048576, 2, 458756, 1048576, 2, 524292, 1048576, 2, 589828, 1048576, 2, 655364, 1048576, 2, 720900, 1048576, 2, 786436, 1048576, 2, 5, 1048576, 2, 65541, 1048576, 2, 131077, 1048576, 2, 196613, 1048576, 2, 262149, 1048576, 2, 327685, 1048576, 2, 393221, 1048576, 2, 458757, 1048576, 2, 524293, 1048576, 2, 589829, 1048576, 2, 655365, 1048576, 2, 720901, 1048576, 2, 786437, 1048576, 2, 131078, 1048576, 2, 196614, 1048576, 2, 262150, 1048576, 2, 327686, 1048576, 2, 393222, 1048576, 2, 458758, 1048576, 2, 524294, 1048576, 2, 589830, 1048576, 2, 655366, 1048576, 2)
 
-[sub_resource type="TileMapPattern" id="TileMapPattern_7j0h5"]
-tile_data = PackedInt32Array(131073, 851968, 2, 196608, 786432, 2, 262145, 851968, 2, 327680, 851968, 2, 393217, 786432, 2, 2, 851968, 2, 65537, 851968, 2, 131074, 851968, 2, 196609, 786432, 2, 262146, 786432, 2, 327681, 851968, 2, 393218, 786432, 2, 458753, 851968, 2, 524290, 786432, 2, 3, 786432, 2, 65538, 786432, 2, 131075, 851968, 2, 196610, 786432, 2, 262147, 851968, 2, 327682, 851968, 2, 393219, 851968, 2, 458754, 786432, 2, 524291, 786432, 2, 65539, 851968, 2, 131076, 786432, 2, 196611, 786432, 2, 262148, 851968, 2, 327683, 851968, 2, 393220, 851968, 2, 458755, 851968, 2, 196612, 786432, 2, 327684, 851968, 2)
-
-[sub_resource type="TileMapPattern" id="TileMapPattern_5pks2"]
-tile_data = PackedInt32Array(131073, 851968, 2, 196608, 786432, 2, 262145, 851968, 2, 327680, 851968, 2, 393217, 851968, 2, 458752, 786432, 2, 524289, 851968, 2, 589824, 851968, 2, 655361, 786432, 2, 720896, 851968, 2, 786433, 851968, 2, 2, 851968, 2, 65537, 851968, 2, 131074, 851968, 2, 196609, 786432, 2, 262146, 851968, 2, 327681, 851968, 2, 393218, 851968, 2, 458753, 786432, 2, 524290, 851968, 2, 589825, 851968, 2, 655362, 851968, 2, 720897, 786432, 2, 786434, 851968, 2, 851969, 851968, 2, 917506, 786432, 2, 3, 786432, 2, 65538, 786432, 2, 131075, 851968, 2, 196610, 786432, 2, 262147, 786432, 2, 327682, 786432, 2, 393219, 851968, 2, 458754, 851968, 2, 524291, 851968, 2, 589826, 851968, 2, 655363, 851968, 2, 720898, 786432, 2, 786435, 786432, 2, 851970, 851968, 2, 917507, 786432, 2, 983042, 786432, 2, 4, 851968, 2, 65539, 851968, 2, 131076, 851968, 2, 196611, 786432, 2, 262148, 786432, 2, 327683, 851968, 2, 393220, 786432, 2, 458755, 786432, 2, 524292, 786432, 2, 589827, 786432, 2, 655364, 851968, 2, 720899, 786432, 2, 786436, 851968, 2, 851971, 851968, 2, 917508, 851968, 2, 983043, 851968, 2, 5, 851968, 2, 65540, 851968, 2, 131077, 851968, 2, 196612, 851968, 2, 262149, 786432, 2, 327684, 851968, 2, 393221, 851968, 2, 458756, 786432, 2, 524293, 786432, 2, 589828, 851968, 2, 655365, 786432, 2, 720900, 786432, 2, 786437, 851968, 2, 851972, 851968, 2, 917509, 851968, 2, 983044, 786432, 2, 6, 786432, 2, 65541, 851968, 2, 131078, 786432, 2, 196613, 851968, 2, 262150, 786432, 2, 327685, 786432, 2, 393222, 851968, 2, 458757, 786432, 2, 524294, 786432, 2, 589829, 851968, 2, 655366, 786432, 2, 720901, 786432, 2, 786438, 851968, 2, 851973, 851968, 2, 917510, 851968, 2, 983045, 851968, 2, 65542, 786432, 2, 131079, 851968, 2, 196614, 851968, 2, 262151, 786432, 2, 327686, 851968, 2, 393223, 851968, 2, 458758, 851968, 2, 524295, 851968, 2, 589830, 786432, 2, 655367, 851968, 2, 720902, 786432, 2, 786439, 786432, 2, 851974, 851968, 2, 917511, 786432, 2, 983046, 786432, 2, 196615, 786432, 2, 262152, 786432, 2, 327687, 851968, 2, 393224, 851968, 2, 458759, 851968, 2, 524296, 786432, 2, 589831, 851968, 2, 655368, 786432, 2, 720903, 851968, 2, 786440, 786432, 2, 851975, 851968, 2)
+[sub_resource type="TileMapPattern" id="TileMapPattern_p06u6"]
+tile_data = PackedInt32Array(196608, 1048576, 2, 327680, 1048576, 2, 65537, 1048576, 2, 131073, 1048576, 2, 196609, 1048576, 2, 262145, 1048576, 2, 327681, 1048576, 2, 393217, 1048576, 2, 458753, 1048576, 2, 2, 1048576, 2, 65538, 1048576, 2, 131074, 1048576, 2, 196610, 1048576, 2, 262146, 1048576, 2, 327682, 1048576, 2, 393218, 1048576, 2, 458754, 1048576, 2, 524290, 1048576, 2, 131075, 1048576, 2, 196611, 1048576, 2, 262147, 1048576, 2, 327683, 1048576, 2, 393219, 1048576, 2, 458755, 1048576, 2, 524291, 1048576, 2, 262148, 1048576, 2, 327684, 1048576, 2, 393220, 1048576, 2)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bocdx"]
-texture = ExtResource("58_rtw3q")
+texture = ExtResource("1_p06u6")
 texture_region_size = Vector2i(64, 64)
 12:9/0 = 0
 12:9/0/terrain_set = 0
@@ -343,12 +334,12 @@ texture_region_size = Vector2i(64, 64)
 6:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -16, -32, 0, 0, 16, 32, 0)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5pks2"]
-texture = ExtResource("4_ib65q")
+texture = ExtResource("3_gf75i")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -16, -32, 0, 0, 16, 32, 0)
 
-[sub_resource type="TileSet" id="TileSet_c6qtm"]
+[resource]
 tile_shape = 1
 tile_size = Vector2i(64, 32)
 physics_layer_0/collision_layer = 1
@@ -365,208 +356,5 @@ terrain_set_2/terrain_0/color = Color(0.43133852, 0.3936311, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_bocdx")
 sources/3 = SubResource("TileSetAtlasSource_5pks2")
 pattern_0 = SubResource("TileMapPattern_ib65q")
-pattern_1 = SubResource("TileMapPattern_qr4op")
-pattern_2 = SubResource("TileMapPattern_7j0h5")
-pattern_3 = SubResource("TileMapPattern_5pks2")
-
-[sub_resource type="Animation" id="Animation_7j0h5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSpawnPosition/Player:is_in_cutscene")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerSpawnPosition/Player:cutscene_direction")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_ib65q"]
-resource_name = "move_northeast"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSpawnPosition/Player:is_in_cutscene")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerSpawnPosition/Player:cutscene_direction")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, -1), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5pks2"]
-resource_name = "move_northwest"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSpawnPosition/Player:is_in_cutscene")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerSpawnPosition/Player:cutscene_direction")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-1, -1), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_07dy3"]
-resource_name = "move_southeast"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSpawnPosition/Player:is_in_cutscene")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerSpawnPosition/Player:cutscene_direction")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_qr4op"]
-resource_name = "move_southwest"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSpawnPosition/Player:is_in_cutscene")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerSpawnPosition/Player:cutscene_direction")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-1, 1), Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5pks2"]
-_data = {
-&"RESET": SubResource("Animation_7j0h5"),
-&"move_northeast": SubResource("Animation_ib65q"),
-&"move_northwest": SubResource("Animation_5pks2"),
-&"move_southeast": SubResource("Animation_07dy3"),
-&"move_southwest": SubResource("Animation_qr4op")
-}
-
-[node name="Room" type="Node2D"]
-y_sort_enabled = true
-script = ExtResource("1_6ar0q")
-
-[node name="Ground" type="TileMapLayer" parent="."]
-z_index = -2
-tile_set = SubResource("TileSet_c6qtm")
-navigation_enabled = false
-script = ExtResource("5_7j0h5")
-
-[node name="Object1" type="TileMapLayer" parent="."]
-z_index = -2
-tile_set = SubResource("TileSet_c6qtm")
-navigation_enabled = false
-
-[node name="Object2" type="TileMapLayer" parent="."]
-y_sort_enabled = true
-tile_set = SubResource("TileSet_c6qtm")
-navigation_enabled = false
-
-[node name="PlayerSpawnPosition" type="Marker2D" parent="."]
-y_sort_enabled = true
-
-[node name="Player" parent="PlayerSpawnPosition" instance=ExtResource("6_ib65q")]
-collision_mask = 33
-is_in_cutscene = false
-
-[node name="RewardSpawnPosition" type="Marker2D" parent="."]
-y_sort_enabled = true
-
-[node name="EnemyContainer" type="Node2D" parent="."]
-y_sort_enabled = true
-
-[node name="WaveSpawners" type="Node2D" parent="."]
-y_sort_enabled = true
-
-[node name="DoorContainer" type="Node2D" parent="."]
-y_sort_enabled = true
-
-[node name="PauseMenu" parent="." instance=ExtResource("6_3xw8e")]
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-
-[node name="PlayerUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_7pugk")]
-player = NodePath("../PlayerSpawnPosition/Player")
-
-[node name="Parallax2D" parent="." instance=ExtResource("7_7pugk")]
-layer = -10
-
-[node name="MovePlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_5pks2")
-}
+pattern_1 = SubResource("TileMapPattern_knreq")
+pattern_2 = SubResource("TileMapPattern_p06u6")
