@@ -36,6 +36,7 @@ func _ready() -> void:
 
 
 func _on_textbox_show() -> void:
+	GlobalVar.input_disabled = true
 	if animation_in == AnimationsIn.NONE:
 		return
 	play('RESET')
@@ -66,6 +67,7 @@ func _on_textbox_hide() -> void:
 
 	if not animation_finished.is_connected(Callable(animation_system, &'animation_finished')):
 		animation_finished.connect(Callable(animation_system, &'animation_finished'), CONNECT_ONE_SHOT)
+	GlobalVar.input_disabled = false
 	#hide_dialog_box()
 
 func _on_about_to_show_text(info:Dictionary) -> void:

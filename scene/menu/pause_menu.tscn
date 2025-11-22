@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cf607egin1a4n" path="res://assets/Pause.png" id="2_f8nhd"]
 [ext_resource type="PackedScene" uid="uid://cqket0i1delga" path="res://scene/menu/sound_slider.tscn" id="2_upqr3"]
 [ext_resource type="Texture2D" uid="uid://bl5a32jeqrkjj" path="res://assets/button.png" id="4_77uqw"]
-[ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="5_o12qf"]
+[ext_resource type="FontFile" uid="uid://kbyiuatbkcsx" path="res://assets/fonts/default_font.ttf" id="5_o12qf"]
 [ext_resource type="Texture2D" uid="uid://c1lqcsam6gls0" path="res://assets/DialogueBox.png" id="5_x2uye"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x2uye"]

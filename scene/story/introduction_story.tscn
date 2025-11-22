@@ -1,0 +1,278 @@
+[gd_scene load_steps=13 format=3 uid="uid://co5glljrn5n16"]
+
+[ext_resource type="Script" uid="uid://clh3bw8bkj6k1" path="res://script/story/introduction_story.gd" id="1_v5jrm"]
+[ext_resource type="Shader" uid="uid://dfmj6mmvmq8f0" path="res://shader/story.gdshader" id="1_xkkke"]
+[ext_resource type="Texture2D" uid="uid://ch6jeype0s57w" path="res://assets/story/intro_1.png" id="2_iw3w0"]
+[ext_resource type="Texture2D" uid="uid://0q6kc38alqsc" path="res://squiggle_noise.png" id="2_v5jrm"]
+[ext_resource type="Texture2D" uid="uid://dpduw5parkcpm" path="res://assets/story/intro_2.png" id="3_v5jrm"]
+[ext_resource type="Texture2D" uid="uid://dbno8pgm1xqoh" path="res://assets/story/intro_3.png" id="4_frks0"]
+[ext_resource type="Texture2D" uid="uid://cln3i7kns3fnw" path="res://assets/story/intro_4.png" id="5_4duc1"]
+
+[sub_resource type="Animation" id="Animation_v5jrm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["[font_size=120][font=res://assets/fonts/square_font.tres]O[/font][/font_size]nce upon a time, in a quiet corner of an old abandoned workshop, there lived a little wooden boy named Pinocchio. He was locked inside a small iron cage, surrounded by flickering shadows."]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Intro2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Intro1:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RichTextLabel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(902, 120)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Intro3:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Intro4:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_iw3w0"]
+resource_name = "introduction_story"
+length = 93.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 12.233334, 24.848322, 32.403595, 47.01361, 58.836784, 69.4892, 76.272934),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["[font_size=120][font=res://assets/fonts/square_font.tres]O[/font][/font_size]nce upon a time, in a quiet corner of an old abandoned workshop, there lived a little wooden boy named Pinocchio. He was locked inside a small iron cage, surrounded by flickering shadows.", "The other toys, once cheerful and kind, had turned into wicked dolls. Their glassy eyes gleamed with mischief, and their wooden steps creaked with anger as they circled his cage every night, making sure he could never escape.", "But on one strange and magical night, everything changed.", "A sudden rush of wind swept through the workshop.
+Swift, sharp, and colder than any breeze should be. 
+For a moment, the shadows seemed to shift, as if someone unseen had stepped between them.", "Then SHRRING! a single, slicing sound echoed through the room, followed by a powerful CLANG! as the thick chains around Pinocchio’s cage split cleanly in two as though cut by a blade faster than the wind.", "For the first time in a very long time, Pinocchio was free.
+Heart pounding, he stepped out into the dusty workshop. The evil dolls watched from the darkness, their wooden faces twisted with fury.", "Pinocchio’s legs trembled, but inside his chest, a brave little flame began to glow. Someone important to him, someone very dear, was out there, waiting to be saved.", "So began the grand adventure of the small wooden boy.
+He marched into the darkness, ready to face the wicked dolls one by one, journeying through cursed forests and shadowed rooms, all for a single purpose:
+
+[center][font_size=95]To defeat the evil dolls and save the one he loved most.[/font_size][/center]"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1288823, 2.2666667, 6.0266666, 7, 11.2, 12.2, 12.233334, 13.2, 16.784573, 17.717903, 23.78457, 23.814987, 24.814987, 24.848322, 25.814987, 31.381063, 31.400408, 32.37026, 32.403595, 33.37026, 35.306507, 36.239838, 38.239838, 39.239838, 43.99108, 45.99108, 46.01042, 46.98027, 47.01361, 47.98027, 49.99108, 57.563858, 57.613014, 57.632355, 58.602203, 58.635544, 59.602203, 62.57968, 64.47968, 68.46667, 68.479675, 68.48601, 69.45586, 69.4892, 70.45586, 74.966675, 75.00001, 75.049164, 75.068504, 76.03835, 76.07169, 77.03835, 85.084175, 85.61751, 88.07949, 89.97949),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.092443146, 0.092443146, 0.612, 0.612, 1.0, 1.0, 0.0, 0.0, 0.311, 0.311, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.256, 0.256, 0.535, 0.535, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.299, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.309, 0.309, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.784, 0.784, 1.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(11.233334, 12.213485, 13.2, 23.848322, 24.828472, 25.814987, 31.403593, 32.383743, 33.37026, 46.01361, 46.99376, 47.98027, 57.635544, 58.615692, 59.602203, 68.4892, 69.469345, 70.45586, 75.07169, 76.05184, 77.03835),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Intro2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 47.086136, 47.61989, 58.616287, 59.449623),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Intro1:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(47.086685, 47.94194),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RichTextLabel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(58.613014, 58.713013, 76.05412, 76.08261),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(902, 70), Vector2(23, 70), Vector2(23, 70), Vector2(902, 70)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Intro3:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 58.632915, 59.166668, 76.11715, 76.950485),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Intro4:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 76.100006, 76.63376),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_frks0"]
+_data = {
+&"RESET": SubResource("Animation_v5jrm"),
+&"introduction_story": SubResource("Animation_iw3w0")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e56cd"]
+shader = ExtResource("1_xkkke")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.02
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_v5jrm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v5jrm"]
+shader = ExtResource("1_xkkke")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.03
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_v5jrm")
+
+[node name="IntroductionStory" type="Node2D"]
+script = ExtResource("1_v5jrm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_frks0")
+}
+
+[node name="Intro1" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_e56cd")
+position = Vector2(960, 540)
+texture = ExtResource("2_iw3w0")
+
+[node name="Intro2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_e56cd")
+position = Vector2(960, 540)
+texture = ExtResource("3_v5jrm")
+
+[node name="Intro3" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_e56cd")
+position = Vector2(960, 540)
+texture = ExtResource("4_frks0")
+
+[node name="Intro4" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_e56cd")
+position = Vector2(960, 540)
+texture = ExtResource("5_4duc1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_v5jrm")
+offset_left = 902.0
+offset_top = 120.0
+offset_right = 1896.0002
+offset_bottom = 1088.0
+theme_override_colors/default_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[font_size=120][font=res://assets/fonts/square_font.tres]O[/font][/font_size]nce upon a time, in a quiet corner of an old abandoned workshop, there lived a little wooden boy named Pinocchio. He was locked inside a small iron cage, surrounded by flickering shadows."
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

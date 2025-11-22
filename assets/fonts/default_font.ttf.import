@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dgtq0lu2e5wr6"
-path="res://.godot/imported/AlmendraSC-Regular.ttf-e411051742bc06652800897a9cfcd810.fontdata"
+uid="uid://kbyiuatbkcsx"
+path="res://.godot/imported/default_font.ttf-1179220519e1b888467efa01d0bf4154.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/AlmendraSC-Regular.ttf"
-dest_files=["res://.godot/imported/AlmendraSC-Regular.ttf-e411051742bc06652800897a9cfcd810.fontdata"]
+source_file="res://assets/fonts/default_font.ttf"
+dest_files=["res://.godot/imported/default_font.ttf-1179220519e1b888467efa01d0bf4154.fontdata"]
 
 [params]
 

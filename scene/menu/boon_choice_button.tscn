@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cugay3hao8gkq" path="res://script/level/boon_choice_button.gd" id="1_jduhr"]
 [ext_resource type="Texture2D" uid="uid://c1lqcsam6gls0" path="res://assets/DialogueBox.png" id="2_2tm14"]
-[ext_resource type="FontFile" uid="uid://dgtq0lu2e5wr6" path="res://assets/fonts/AlmendraSC-Regular.ttf" id="3_tauos"]
+[ext_resource type="FontFile" uid="uid://kbyiuatbkcsx" path="res://assets/fonts/default_font.ttf" id="3_tauos"]
 [ext_resource type="PackedScene" uid="uid://ynqo1h8r21li" path="res://scene/boon_icon_texture.tscn" id="4_8jbkv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8jbkv"]

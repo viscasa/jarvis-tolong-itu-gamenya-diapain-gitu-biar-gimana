@@ -24,6 +24,7 @@ AudioManager="*res://scene/audio/world_audio_manager.tscn"
 LevelManager="*res://script/autoload/level_manager.gd"
 PlayerBuffManager="*res://script/player/player_buff_manager.gd"
 DialogCharacter="*res://scene/dialog_character.tscn"
+GlobalVar="*res://script/autoload/global_var.gd"
 
 [dialogic]
 
@@ -45,6 +46,7 @@ directories/dtl_directory={
 "rabbit_boon": "res://timelines/give_boon_dialog/rabbit_boon.dtl",
 "red_riding_hood_boon": "res://timelines/give_boon_dialog/red_riding_hood_boon.dtl",
 "test": "res://timelines/test.dtl",
+"tutorial": "res://timelines/tutorial.dtl",
 "wizard_boon": "res://timelines/give_boon_dialog/wizard_boon.dtl"
 }
 layout/style_list=["res://timelines/custom_style.tres"]
@@ -113,7 +115,7 @@ player=""
 
 [gui]
 
-theme/custom_font="uid://dgtq0lu2e5wr6"
+theme/custom_font="uid://kbyiuatbkcsx"
 
 [input]
 

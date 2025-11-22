@@ -17,6 +17,7 @@ var is_spawning: bool = false
 var total_expected_tasks: int = 9
 
 func _ready():
+	Dialogic.start("tutorial")
 	_queue_task(1, "Left click / Space to dash", 
 		func(): return dash_manager.is_dashing
 	)

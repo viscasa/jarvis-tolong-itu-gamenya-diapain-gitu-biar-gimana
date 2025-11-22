@@ -31,6 +31,7 @@ const EXIT_DASH_SPEED = 120.0 * SCALE_UP
 @onready var camera: Camera2D = $Camera2D
 @onready var indicator: Node2D = $Indicator
 signal possessed(target)
+@onready var shadow: Sprite2D = $Shadow
 @onready var knockback_timer: Timer = $KnockbackTimer
 @export var knockback_strength: float = 300.0
 
@@ -39,12 +40,14 @@ signal possessed(target)
 
 var is_in_knockback: bool = false
 var is_locked_out := false
-var last_move_direction := Vector2(1,-1)
+var last_move_direction := Vector2.DOWN
+var last_hit_direction := Vector2.DOWN
 var is_throwing_pin := false
 var is_throwing_pin_first := true
-var input_disabled := false
-var input_direction := Vector2.ZERO # FIX: Deklarasikan variabel di sini
+var input_direction := Vector2.ZERO 
+var is_dead := false
 
+signal player_has_died
 
 func _ready() -> void:
 	
@@ -95,11 +98,32 @@ func _on_buffs_updated(new_stats: PlayerModifier):
 	circle_timing.crit_interval[1] = base_crit_end + (new_stats.possesian_timing / 2.0)
 	
 		
-func _on_player_died(): #TODO
-	get_tree().reload_current_scene()
+func _on_player_died():
+	if is_dead:
+		return
+	is_dead = true
+	player_has_died.emit() 
+	_start_death_sequence()
+func _start_death_sequence() -> void:
+	hurt_box_player.set_deferred("disabled", true)
+	
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	Engine.time_scale = 0.2
+	
+	var tween = create_tween()
+	tween.set_parallel()
+	#tween.set_process_mode(Tween.TWEEN_PROCESS_ALWAYS) 
+	
+	tween.tween_property(camera, "zoom", Vector2(2.4, 2.4), 0.2).set_trans(Tween.TRANS_SINE)
 
 func _physics_process(delta: float) -> void:
 	raycast.look_at(get_global_mouse_position())
+	if is_dead:
+		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
+		move_and_slide()
+		_update_animation_state() 
+		return
 	indicator.look_at(get_global_mouse_position())
 	if is_in_knockback:
 		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
@@ -179,6 +203,10 @@ func _set_morph_dash_velocity():
 	velocity.y = vel.y / Y_MUL_DASH
 
 func _process_movement(delta: float) -> void:
+	if GlobalVar.input_disabled:
+		velocity = Vector2.ZERO
+		return
+
 	if super_dash.is_active() or morph_skill.is_active():
 		velocity = Vector2.ZERO
 		return
@@ -213,6 +241,8 @@ func handle_global_inputs() -> void:
 	if is_in_cutscene:
 		return
 
+	if GlobalVar.input_disabled:
+		return
 	if Input.is_action_just_pressed("super_dash") and not possession_manager.is_possessing:
 		if can_start_possession():
 			skill_manager.start_or_return_super_dash()
@@ -275,6 +305,9 @@ func immune_damage(flag:bool) :
 	hurt_box_player.set_collision_layer_value(2, !flag)
 
 func _update_animation_state() -> void:
+	if is_dead:
+		_play_directional_animation("Death", -last_hit_direction)
+		return 
 	var anim_prefix = "Idle" 
 	var anim_direction = last_move_direction 
 
@@ -366,6 +399,8 @@ func _on_stolen_skill_used():
 	if stats.shield_on_skill_use > 0:
 		health_manager.add_shield(stats.shield_on_skill_use)
 func _on_was_hit(direction: Vector2):
+	if direction != Vector2.ZERO:
+		last_hit_direction = direction
 	if dash_manager.is_dashing or super_dash.is_dashing or morph_skill.is_dashing:
 		return
 	if is_in_knockback: 
@@ -378,7 +413,7 @@ func _on_knockback_timeout():
 	is_in_knockback = false
 
 func get_input():
-	if input_disabled:
+	if GlobalVar.input_disabled:
 		input_direction = Vector2.ZERO
 		return
 		
