@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b12d1q20jgw48"]
+
+[ext_resource type="Script" uid="uid://bjc57xjcusf4k" path="res://script/autoload/transition_manager.gd" id="1_jmr5p"]
+[ext_resource type="Shader" uid="uid://ddkmleia7dxky" path="res://shader/iris_transition.gdshader" id="2_co2g3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_83oyf"]
+shader = ExtResource("2_co2g3")
+shader_parameter/circle_size = 2.0
+shader_parameter/circle_position = Vector2(0.5, 0.5)
+
+[node name="TransitionManager" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_jmr5p")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_83oyf")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0.101960786, 0.101960786, 0.101960786, 1)

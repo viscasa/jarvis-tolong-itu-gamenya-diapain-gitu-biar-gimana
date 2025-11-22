@@ -18,7 +18,7 @@ func _init():
 
 		2: # Glass Slipper
 			boon_name = "The Invisible Gown"
-			boon_description = "Remove all your current boons. Gain +5% permanent Evasion for each boon removed."
+			boon_description = "Remove all your current boons. Gain +2% permanent Evasion for each boon removed."
 			icon_id = 2
 			
 		3: # Fairy Godmother’s Wish

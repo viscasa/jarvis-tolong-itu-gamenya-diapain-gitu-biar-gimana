@@ -139,6 +139,10 @@ func _on_attack_timer_timeout():
 	_update_target_position()
 
 func _on_death():
+	current_state = State.DEAD
+	
+	PlayerBuffManager._on_enemy_killed()
+	
 	set_physics_process(false)
 	var player := player_target
 	if is_instance_valid(player):

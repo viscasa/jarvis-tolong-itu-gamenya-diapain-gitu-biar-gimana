@@ -30,12 +30,10 @@ func _toggle_pause():
 
 	if not paused:
 		animation_player.play("pause")
-		print("Game Paused")
 		await animation_player.animation_finished
 		get_tree().paused = true
 	else:
 		animation_player.play_backwards("pause")
-		print("Game Resumed")
 		await animation_player.animation_finished
 		get_tree().paused = false
 

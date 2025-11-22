@@ -13,6 +13,7 @@ class_name PlayerUI
 
 @onready var super_dash_indicator: AnimatedSprite2D = $SuperDashIndicator
 @onready var pin_label: Label = $PinLabel
+@onready var health_bar_label: Label = $HealthBar/HealthBarLabel
 
 var health_manager: HealthManager
 var dash_manager: DashManager
@@ -26,6 +27,8 @@ const SKILL_ICON_JUMP_HEIGHT = -20.0
 
 
 func _ready():
+	health_bar_label.text = str(int(health_bar.value)) + "/" + str(int(health_bar.max_value))
+	
 	if not player:
 		set_process(false) 
 		return
@@ -186,3 +189,14 @@ func _update_super_dash_indicator():
 			target_frame = 0 
 	if super_dash_indicator.frame != target_frame:
 		super_dash_indicator.frame = target_frame
+
+
+	
+
+
+func _on_health_bar_changed() -> void:
+	health_bar_label.text = str(int(health_bar.value)) + "/" + str(int(health_bar.max_value))
+
+
+func _on_health_bar_value_changed(value: float) -> void:
+	health_bar_label.text = str(int(health_bar.value)) + "/" + str(int(health_bar.max_value))

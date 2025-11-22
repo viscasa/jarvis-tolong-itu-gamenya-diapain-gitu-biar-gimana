@@ -1,0 +1,307 @@
+[gd_scene load_steps=17 format=3 uid="uid://bupy74v1mq6s"]
+
+[ext_resource type="Shader" uid="uid://dfmj6mmvmq8f0" path="res://shader/story.gdshader" id="1_05q0d"]
+[ext_resource type="Script" uid="uid://wkmitr1ot6rb" path="res://script/menu/game_over_screen.gd" id="1_7ufge"]
+[ext_resource type="Texture2D" uid="uid://cqvl1wcpgk6wi" path="res://assets/story/game_over.png" id="1_c0347"]
+[ext_resource type="Texture2D" uid="uid://0q6kc38alqsc" path="res://squiggle_noise.png" id="2_7ufge"]
+[ext_resource type="Script" uid="uid://sq0tpp54w6s8" path="res://script/ui/button.gd" id="4_5sfvh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oaeg8"]
+shader = ExtResource("1_05q0d")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.02
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_7ufge")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4juv"]
+shader = ExtResource("1_05q0d")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.03
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_7ufge")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kpcds"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcee2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6gdvf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pn1ri"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68b02"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vdxn"]
+
+[sub_resource type="Animation" id="Animation_7ufge"]
+resource_name = "game_over"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TryAgainLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.99),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExitButton/GiveUpLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.5, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("YesButton/YesLabel:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("YesButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ExitButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ExitButton:mouse_default_cursor_shape")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 2]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("YesButton:mouse_default_cursor_shape")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 2]
+}
+
+[sub_resource type="Animation" id="Animation_5sfvh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TryAgainLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExitButton/GiveUpLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("YesButton/YesLabel:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("YesButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ExitButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ExitButton:mouse_default_cursor_shape")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("YesButton:mouse_default_cursor_shape")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oaeg8"]
+_data = {
+&"RESET": SubResource("Animation_5sfvh"),
+&"game_over": SubResource("Animation_7ufge")
+}
+
+[node name="GameOverScreen" type="CanvasLayer"]
+script = ExtResource("1_7ufge")
+
+[node name="GameOver" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_oaeg8")
+position = Vector2(960, 540)
+texture = ExtResource("1_c0347")
+
+[node name="TryAgainLabel" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_l4juv")
+offset_left = 763.0
+offset_top = 600.0
+offset_right = 1863.0
+offset_bottom = 1129.0
+theme_override_colors/default_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "Try Again...?"
+horizontal_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="YesButton" type="Button" parent="."]
+offset_left = 956.0
+offset_top = 761.0
+offset_right = 1271.0
+offset_bottom = 926.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kpcds")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hcee2")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_6gdvf")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pn1ri")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_68b02")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8vdxn")
+disabled = true
+script = ExtResource("4_5sfvh")
+
+[node name="YesLabel" type="RichTextLabel" parent="YesButton"]
+material = SubResource("ShaderMaterial_l4juv")
+layout_mode = 0
+offset_left = -36.0
+offset_top = -12.0
+offset_right = 338.0
+offset_bottom = 177.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.101960786, 0.3764706, 0.101960786, 1)
+theme_override_font_sizes/normal_font_size = 160
+bbcode_enabled = true
+text = "Yes
+"
+horizontal_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 1319.0
+offset_top = 761.0
+offset_right = 1863.0
+offset_bottom = 926.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kpcds")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hcee2")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_6gdvf")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pn1ri")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_68b02")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8vdxn")
+disabled = true
+script = ExtResource("4_5sfvh")
+
+[node name="GiveUpLabel" type="RichTextLabel" parent="ExitButton"]
+material = SubResource("ShaderMaterial_l4juv")
+layout_mode = 0
+offset_left = -37.0
+offset_top = -12.0
+offset_right = 585.0
+offset_bottom = 173.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.43529412, 0.101960786, 0.101960786, 1)
+theme_override_font_sizes/normal_font_size = 160
+bbcode_enabled = true
+text = "Give Up"
+horizontal_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_oaeg8")
+}
+
+[connection signal="pressed" from="YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

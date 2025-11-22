@@ -60,6 +60,15 @@ offset_bottom = 984.0
 value = 100.0
 texture_progress = ExtResource("2_2odna")
 
+[node name="HealthBarLabel" type="Label" parent="HealthBar"]
+layout_mode = 0
+offset_left = 25.0
+offset_right = 443.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 32
+text = "50/100"
+horizontal_alignment = 1
+
 [node name="Dash" type="TextureProgressBar" parent="."]
 offset_left = 47.0
 offset_top = 990.0
@@ -137,3 +146,6 @@ offset_bottom = 953.0
 theme_override_fonts/font = ExtResource("11_xaofh")
 theme_override_font_sizes/font_size = 56
 text = "3/3"
+
+[connection signal="changed" from="HealthBar" to="." method="_on_health_bar_changed"]
+[connection signal="value_changed" from="HealthBar" to="." method="_on_health_bar_value_changed"]
