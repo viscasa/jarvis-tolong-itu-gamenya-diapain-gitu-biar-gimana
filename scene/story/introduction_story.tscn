@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://co5glljrn5n16"]
+[gd_scene load_steps=20 format=3 uid="uid://co5glljrn5n16"]
 
 [ext_resource type="Script" uid="uid://clh3bw8bkj6k1" path="res://script/story/introduction_story.gd" id="1_v5jrm"]
 [ext_resource type="Shader" uid="uid://dfmj6mmvmq8f0" path="res://shader/story.gdshader" id="1_xkkke"]
@@ -7,13 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://dpduw5parkcpm" path="res://assets/story/intro_2.png" id="3_v5jrm"]
 [ext_resource type="Texture2D" uid="uid://dbno8pgm1xqoh" path="res://assets/story/intro_3.png" id="4_frks0"]
 [ext_resource type="Texture2D" uid="uid://cln3i7kns3fnw" path="res://assets/story/intro_4.png" id="5_4duc1"]
+[ext_resource type="Script" uid="uid://sq0tpp54w6s8" path="res://script/ui/button.gd" id="8_frks0"]
 
 [sub_resource type="Animation" id="Animation_v5jrm"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/path = NodePath("StoryLabel:text")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -25,7 +26,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("RichTextLabel:visible_ratio")
+tracks/1/path = NodePath("StoryLabel:visible_ratio")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -37,7 +38,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("RichTextLabel:modulate")
+tracks/2/path = NodePath("StoryLabel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -73,7 +74,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("RichTextLabel:position")
+tracks/5/path = NodePath("StoryLabel:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -113,7 +114,7 @@ length = 93.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/path = NodePath("StoryLabel:text")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -131,7 +132,7 @@ He marched into the darkness, ready to face the wicked dolls one by one, journey
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("RichTextLabel:visible_ratio")
+tracks/1/path = NodePath("StoryLabel:visible_ratio")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -143,7 +144,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("RichTextLabel:modulate")
+tracks/2/path = NodePath("StoryLabel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -179,7 +180,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("RichTextLabel:position")
+tracks/5/path = NodePath("StoryLabel:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -233,6 +234,18 @@ shader_parameter/strength = 0.03
 shader_parameter/fps = 6.0
 shader_parameter/noise = ExtResource("2_v5jrm")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4duc1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e56cd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plpyb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wm7p0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_58h4s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5fd37"]
+
 [node name="IntroductionStory" type="Node2D"]
 script = ExtResource("1_v5jrm")
 
@@ -264,15 +277,47 @@ material = SubResource("ShaderMaterial_e56cd")
 position = Vector2(960, 540)
 texture = ExtResource("5_4duc1")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="StoryLabel" type="RichTextLabel" parent="."]
 material = SubResource("ShaderMaterial_v5jrm")
 offset_left = 902.0
 offset_top = 120.0
 offset_right = 1896.0002
 offset_bottom = 1088.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
 text = "[font_size=120][font=res://assets/fonts/square_font.tres]O[/font][/font_size]nce upon a time, in a quiet corner of an old abandoned workshop, there lived a little wooden boy named Pinocchio. He was locked inside a small iron cage, surrounded by flickering shadows."
 
+[node name="SkipButton" type="Button" parent="."]
+offset_left = 1674.0
+offset_top = 944.0
+offset_right = 1864.0
+offset_bottom = 1046.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4duc1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_e56cd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_plpyb")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_wm7p0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_58h4s")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5fd37")
+disabled = true
+script = ExtResource("8_frks0")
+hover_scale = Vector2(1.08, 1.08)
+
+[node name="SkipLabel" type="RichTextLabel" parent="SkipButton"]
+material = SubResource("ShaderMaterial_v5jrm")
+layout_mode = 0
+offset_left = 9.0
+offset_top = -9.0
+offset_right = 213.0
+offset_bottom = 112.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "Skip"
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="SkipButton" to="." method="_on_skip_button_pressed"]
