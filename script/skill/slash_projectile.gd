@@ -1,12 +1,13 @@
 extends CharacterBody2D
 class_name SlashProjectile
 
-var speed: float = 1000
+var speed: float = 2000
 var damage: float = 25.0
 var lifetime: float = 0.7
 var direction: Vector2 = Vector2.RIGHT
 
 @onready var timer: Timer = $Timer
+@onready var particle: Node2D = $Particle
 
 var bodies_hit: Array = []
 
@@ -14,6 +15,9 @@ func _ready() -> void:
 	timer.wait_time = lifetime
 	timer.timeout.connect(queue_free)
 	timer.start()
+	var tween = create_tween()
+	tween.tween_property(particle, "modulate:a", 0, lifetime)
+	
 
 func launch(_initial_direction: Vector2):
 	direction = _initial_direction.normalized()
