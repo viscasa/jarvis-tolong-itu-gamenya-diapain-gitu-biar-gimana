@@ -25,6 +25,7 @@ LevelManager="*res://script/autoload/level_manager.gd"
 PlayerBuffManager="*res://script/player/player_buff_manager.gd"
 DialogCharacter="*res://scene/dialog_character.tscn"
 GlobalVar="*res://script/autoload/global_var.gd"
+TransitionManager="*res://scene/transition_manager.tscn"
 
 [dialogic]
 

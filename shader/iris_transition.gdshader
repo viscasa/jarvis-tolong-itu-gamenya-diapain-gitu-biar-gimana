@@ -15,5 +15,5 @@ void fragment() {
 	float dist = length(diff);
 	float circle = smoothstep(circle_size - 0.01, circle_size, dist);
 	
-	COLOR = vec4(0.0, 0.0, 0.0, circle);
+	COLOR = vec4(0.1, 0.1, 0.1, circle);
 }

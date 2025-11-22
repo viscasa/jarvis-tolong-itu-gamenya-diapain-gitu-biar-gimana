@@ -217,3 +217,16 @@ func _trade_all_for_evasion():
 			
 func reset_all_buffs():
 	list_of_buffs.clear()
+	base_stats = PlayerModifier.new()
+	
+	_calculate_all()
+	
+	RewardManager.reset_collected_boons()
+func consume_resurrection():
+	for i in range(list_of_buffs.size()):
+		var boon = list_of_buffs[i]
+		if boon.modifier.ressurection > 0:
+			print("Consuming resurrection boon: ", boon.boon_name)
+			list_of_buffs.remove_at(i) 
+			_calculate_all() 
+			return 

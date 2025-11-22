@@ -110,17 +110,7 @@ func take_damage(damage_amount: float, crit_multiplier: float = 1.0, is_melee :=
 		health_bar.value = current_health
 
 func _try_resurrect():
-	var stats = PlayerBuffManager.current_stats
-	
-	print("HOUSE OF BRICK! Anda hidup kembali!")
-	
-	stats.ressurection -= 1
-	
-	var res_buff = BuffBase.new()
-	res_buff.modifier.ressurection = -1 
-	res_buff.modifier.set_mode("ressurection", "add")
-	PlayerBuffManager.add_buff(res_buff) 
-	
+	PlayerBuffManager.consume_resurrection()
 	current_health = max_health * 0.5
 	emit_signal("resurrected")
 func add_shield(amount: float):

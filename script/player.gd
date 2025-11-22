@@ -109,10 +109,9 @@ func _start_death_sequence() -> void:
 	
 	var tween = create_tween()
 	tween.set_parallel()
-	#tween.set_process_mode(Tween.TWEEN_PROCESS_ALWAYS) 
 	
 	tween.tween_property(camera, "zoom", Vector2(2.4, 2.4), 0.2).set_trans(Tween.TRANS_SINE)
-
+	TransitionManager.iris_transition("res://scene/game_over_screen.tscn", global_position - last_hit_direction * 10)
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		velocity = velocity.lerp(Vector2.ZERO, 5.0 * delta)
