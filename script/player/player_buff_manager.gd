@@ -43,13 +43,15 @@ func remove_expired_buffs():
 		_calculate_all()
 
 func _calculate_all():
-	var new_stats = base_stats 
+	var prev_current_hp: float = current_stats.current_health if current_stats else base_stats.current_health
 	
+	var new_stats = base_stats
 	for buff in list_of_buffs:
 		new_stats = new_stats.apply_modifier(buff.modifier)
-		
-	current_stats = new_stats
 	
+	new_stats.current_health = clamp(prev_current_hp, 0.0, new_stats.hp)
+	
+	current_stats = new_stats
 	emit_signal("buffs_updated", current_stats)
 
 func _process(delta: float) -> void:

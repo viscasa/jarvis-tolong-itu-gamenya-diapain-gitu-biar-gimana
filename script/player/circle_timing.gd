@@ -50,8 +50,7 @@ func _on_exit() -> void:
 		player.morph(enemy.name)
 		
 		if randf() < stats.perfect_possess_super_charge_chance:
-			super_dash.super_dash_recharge_counter = super_dash.super_dash_recharge_needed
-			super_dash._process_recharge_counter() 
+			super_dash.super_dash_recharge_counter = 3
 		
 	else:
 		if stats.heal_on_miss > 0:
