@@ -71,7 +71,7 @@ func _load_type_4():
 func _load_type_5():
 	icon_id = 15
 	boon_name = "Soft Fur" 
-	boon_description = "Grants a 20% chance to evade all incoming damage."
-	modifier.evasion_chance = 0.2
+	boon_description = "Grants a 15% chance to evade all incoming damage (max 50% evasion)."
+	modifier.evasion_chance = 0.15
 	modifier.set_mode("evasion_chance", "add") 
 	boon_icon = load("res://icon.svg")

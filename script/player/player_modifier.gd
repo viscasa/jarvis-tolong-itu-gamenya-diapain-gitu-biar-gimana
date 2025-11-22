@@ -57,6 +57,7 @@ func set_mode(stat_name: String, mode: String):
 
 func apply_modifier(other: PlayerModifier) -> PlayerModifier:
 	var result := PlayerModifier.new()
+	result.evasion_chance = min(result.evasion_chance, 0.5)
 	for key in get_property_list():
 		var name = key.name
 		if name == "op_modes":
