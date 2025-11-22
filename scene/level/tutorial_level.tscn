@@ -48,6 +48,20 @@ tile_map_data = PackedByteArray("AAD//wEAAAAAAAkAAAAAAAAAAAAAAAkAAAAAAP//AAAAAAk
 [node name="Object2" parent="." index="2"]
 tile_map_data = PackedByteArray("AAAEAPv/AAAIAAgAAAAFAOn/AAAIAAgAAAABAPL/AAAGAAgAAAAJAPP/AAAHAAgAAAAIAPr/AAACAAkAAAADAO7/AAADAAkAAAAIAOf/AAACAAAAAAAJAOj/AAADAAAAAAA=")
 
+[node name="SuperDash" parent="PlayerSpawnPosition/Player/SkillManager" index="0"]
+charge_time = null
+charge_speed = null
+dash_speed = null
+max_dash_distance = null
+stop_friction_factor = null
+aoe_radius = null
+aoe_damage = null
+super_dash_max = null
+super_dash_counter = null
+super_dash_recharge_counter = null
+super_dash_recharge_needed = null
+super_dash_recharge_max = null
+
 [node name="BrokenPuppet" parent="." index="12" instance=ExtResource("3_n7h5c")]
 position = Vector2(359, -200)
 

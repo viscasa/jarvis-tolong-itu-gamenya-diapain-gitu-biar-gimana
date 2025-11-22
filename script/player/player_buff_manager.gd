@@ -90,7 +90,7 @@ func _trade_and_gain_buffs(trade_count: int, gain_count: int):
 		if list_of_buffs.size() > 0:
 			var idx = randi_range(0, list_of_buffs.size() - 1)
 			var removed_boon = list_of_buffs.pop_at(idx)
-			RewardManager.unregister_boon_by_name(removed_boon.boon_name) # ← HARUS DITAMBAHKAN
+			RewardManager.unregister_boon_by_name(removed_boon.boon_name) 
 			
 	_gain_random_buffs(gain_count) 
 
@@ -116,7 +116,6 @@ func _reroll_all_buffs():
 
 	for new_boon in new_boons:
 		list_of_buffs.append(new_boon)
-		# FIX: Daftarkan kembali boon baru yang didapat dari reroll
 		RewardManager.register_boon_by_name(new_boon.boon_name)
 		print("  Boon baru (reroll): ", new_boon.boon_name)
 
@@ -127,7 +126,7 @@ func _trade_all_for_hp():
 	var boon_count = list_of_buffs.size()
 	
 	for boon in list_of_buffs:
-		RewardManager.unregister_boon_by_name(boon.boon_name) # ← HARUS DITAMBAHKAN
+		RewardManager.unregister_boon_by_name(boon.boon_name)
 	list_of_buffs.clear()
 	
 	if boon_count != 0:
@@ -198,7 +197,6 @@ func _get_full_boon_pool(exclude_givers: Array[String] = []) -> Array[BuffBase]:
 func _get_random_buffs_from_pool(amount: int, pool: Array[BuffBase]) -> Array[BuffBase]:
 	var chosen_boons: Array[BuffBase] = []
 	
-	# FIX: Hanya gunakan daftar dari RewardManager. Ini adalah satu-satunya sumber kebenaran.
 	var collected_names = RewardManager.get_collected_boon_names()
 		
 	var available_pool = []
@@ -218,7 +216,7 @@ func _trade_all_for_evasion():
 	var boon_count = list_of_buffs.size()
 	
 	for boon in list_of_buffs:
-		RewardManager.unregister_boon_by_name(boon.boon_name) # ← HARUS DITAMBAHKAN
+		RewardManager.unregister_boon_by_name(boon.boon_name)
 	list_of_buffs.clear()
 	
 	if boon_count != 0:

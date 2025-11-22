@@ -2,9 +2,8 @@ extends Node
 
 var next_reward_id: String = "pig"
 
-# FIX Bug 4: Tracking berdasarkan nama, bukan path
 var collected_boon_names: Array[String] = []
-var collected_boon_paths: Array[String] = [] # Keep for backward compatibility
+var collected_boon_paths: Array[String] = [] 
 
 signal got_buff
 var showing_reward_screen := false
@@ -35,8 +34,6 @@ var reward_database: Dictionary = {
 		"name": "Bountiful Piggies"
 	}
 }
-
-# --- FUNGSI BARU ---
 func register_boon_by_name(boon_name: String):
 	if not boon_name in collected_boon_names:
 		collected_boon_names.append(boon_name)
@@ -53,13 +50,10 @@ func is_boon_collected_by_name(boon_name: String) -> bool:
 
 func get_collected_boon_names() -> Array[String]:
 	return collected_boon_names.duplicate()
-# --- END FUNGSI BARU ---
 
 func register_boon_as_collected(boon: BuffBase):
-	# Update: Sekarang gunakan nama
 	register_boon_by_name(boon.boon_name)
 	
-	# Keep path tracking for compatibility
 	if not boon.resource_path.is_empty():
 		if not boon.resource_path in collected_boon_paths:
 			collected_boon_paths.append(boon.resource_path)
@@ -115,7 +109,6 @@ func get_boon_choices(boon_giver_id: String, amount: int) -> Array[BuffBase]:
 				var full_path = boon_folder_path + file_name
 				var boon_res = load(full_path)
 				
-				# FIX Bug 4: Cek berdasarkan nama, bukan path
 				if boon_res and not is_boon_collected_by_name(boon_res.boon_name):
 					available_boons.append(boon_res)
 						

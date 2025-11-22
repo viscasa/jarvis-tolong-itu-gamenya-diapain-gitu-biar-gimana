@@ -941,6 +941,19 @@ player_target = NodePath("../Player")
 [node name="Player" parent="." instance=ExtResource("6_1w48m")]
 position = Vector2(-389, 396)
 
+[node name="SuperDash" parent="Player/SkillManager" index="0"]
+charge_time = null
+charge_speed = null
+dash_speed = null
+max_dash_distance = null
+stop_friction_factor = null
+aoe_radius = null
+aoe_damage = null
+super_dash_max = null
+super_dash_counter = null
+super_dash_recharge_counter = null
+super_dash_recharge_needed = null
+
 [node name="SpawnContainer" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="SpawnContainer"]

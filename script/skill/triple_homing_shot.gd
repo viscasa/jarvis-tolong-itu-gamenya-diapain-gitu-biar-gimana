@@ -27,14 +27,12 @@ func shoot_projectiles() -> void:
 	if initial_dir == Vector2.ZERO:
 		initial_dir = Vector2.RIGHT
 	
-	# Tembak 3 bullet pertama secara normal
 	_fire_one_projectile(initial_dir, stats) 
 	_fire_one_projectile(initial_dir.rotated(-spread_angle), stats) 
 	_fire_one_projectile(initial_dir.rotated(spread_angle), stats)
 	
 	var bullet_multiplier = stats.bullet_multiplier
 	
-	# IMPROVEMENT: Tambahkan delay untuk bullet multiplier
 	for i in range(bullet_multiplier):
 		await get_tree().create_timer(0.1).timeout
 		
