@@ -1,6 +1,6 @@
 extends Node
 
-@export var base_stats: PlayerModifier = PlayerModifier.new() # Stat dasar player
+@export var base_stats: PlayerModifier = PlayerModifier.new() 
 var current_stats: PlayerModifier = PlayerModifier.new()
 var list_of_buffs: Array[BuffBase] = []
 var frenzy_kill_count: int = 0
@@ -215,3 +215,5 @@ func _trade_all_for_evasion():
 		
 		base_stats.evasion_chance += evasion_gain
 			
+func reset_all_buffs():
+	list_of_buffs.clear()

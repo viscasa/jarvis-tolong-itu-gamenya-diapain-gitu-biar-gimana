@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://yvfty5mbnbc8"]
+[gd_scene load_steps=16 format=3 uid="uid://yvfty5mbnbc8"]
 
 [ext_resource type="Script" uid="uid://bi0sp176gvjmr" path="res://script/menu/pause_menu.gd" id="1_upqr3"]
 [ext_resource type="Texture2D" uid="uid://cf607egin1a4n" path="res://assets/Pause.png" id="2_f8nhd"]
 [ext_resource type="PackedScene" uid="uid://cqket0i1delga" path="res://scene/menu/sound_slider.tscn" id="2_upqr3"]
+[ext_resource type="Script" uid="uid://sq0tpp54w6s8" path="res://script/ui/button.gd" id="3_x2uye"]
 [ext_resource type="Texture2D" uid="uid://bl5a32jeqrkjj" path="res://assets/button.png" id="4_77uqw"]
 [ext_resource type="FontFile" uid="uid://kbyiuatbkcsx" path="res://assets/fonts/default_font.ttf" id="5_o12qf"]
 [ext_resource type="Texture2D" uid="uid://c1lqcsam6gls0" path="res://assets/DialogueBox.png" id="5_x2uye"]
@@ -56,6 +57,7 @@ _data = {
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
+layer = 4
 visible = false
 script = ExtResource("1_upqr3")
 
@@ -63,28 +65,37 @@ script = ExtResource("1_upqr3")
 position = Vector2(967, 534)
 texture = ExtResource("2_f8nhd")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-offset_left = 310.0
-offset_top = 54.0
-offset_right = 1249.0
-offset_bottom = 627.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-color = Color(0.44291076, 0.44291076, 0.44291073, 0.4392157)
-
 [node name="ContinueButton" type="Button" parent="."]
-offset_left = 1088.0
-offset_top = 787.0
-offset_right = 1626.0
-offset_bottom = 896.0
+offset_left = 1052.0
+offset_top = 786.0
+offset_right = 1590.0
+offset_bottom = 895.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x2uye")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_nkcr6")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_cf26q")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_4st08")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cv00p")
 text = "Continue"
+script = ExtResource("3_x2uye")
+
+[node name="Button2" type="Sprite2D" parent="ContinueButton"]
+position = Vector2(708.0001, -280)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_77uqw")
+
+[node name="Label" type="Label" parent="ContinueButton"]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 22.0
+offset_right = 407.0
+offset_bottom = 85.33333
+theme_override_fonts/font = ExtResource("5_o12qf")
+theme_override_font_sizes/font_size = 40
+text = "Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Master" type="Label" parent="."]
 offset_left = 632.0
@@ -175,19 +186,3 @@ theme_override_font_sizes/font_size = 20
 text = "DESC"
 vertical_alignment = 1
 autowrap_mode = 2
-
-[node name="Button2" type="Sprite2D" parent="."]
-position = Vector2(1796.0001, 507)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("4_77uqw")
-
-[node name="Label" type="Label" parent="Button2"]
-offset_left = -432.66666
-offset_top = 190.66667
-offset_right = -148.66666
-offset_bottom = 254.0
-theme_override_fonts/font = ExtResource("5_o12qf")
-theme_override_font_sizes/font_size = 40
-text = "Continue"
-horizontal_alignment = 1
-vertical_alignment = 1

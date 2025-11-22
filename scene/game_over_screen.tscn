@@ -1,0 +1,115 @@
+[gd_scene load_steps=14 format=3 uid="uid://bupy74v1mq6s"]
+
+[ext_resource type="Shader" uid="uid://dfmj6mmvmq8f0" path="res://shader/story.gdshader" id="1_05q0d"]
+[ext_resource type="Script" uid="uid://wkmitr1ot6rb" path="res://script/menu/game_over_screen.gd" id="1_7ufge"]
+[ext_resource type="Texture2D" uid="uid://cqvl1wcpgk6wi" path="res://assets/story/game_over.png" id="1_c0347"]
+[ext_resource type="Texture2D" uid="uid://0q6kc38alqsc" path="res://squiggle_noise.png" id="2_7ufge"]
+[ext_resource type="Script" uid="uid://sq0tpp54w6s8" path="res://script/ui/button.gd" id="4_5sfvh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oaeg8"]
+shader = ExtResource("1_05q0d")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.02
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_7ufge")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4juv"]
+shader = ExtResource("1_05q0d")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.03
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_7ufge")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kpcds"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcee2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6gdvf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pn1ri"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68b02"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vdxn"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+script = ExtResource("1_7ufge")
+
+[node name="GameOver" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_oaeg8")
+position = Vector2(960, 540)
+texture = ExtResource("1_c0347")
+
+[node name="TryAgainLabel" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_l4juv")
+offset_left = 763.0
+offset_top = 600.0
+offset_right = 1863.0
+offset_bottom = 1129.0
+theme_override_colors/default_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "Try Again...?"
+horizontal_alignment = 1
+
+[node name="YesButton" type="Button" parent="."]
+offset_left = 956.0
+offset_top = 761.0
+offset_right = 1271.0
+offset_bottom = 926.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kpcds")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hcee2")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_6gdvf")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pn1ri")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_68b02")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8vdxn")
+script = ExtResource("4_5sfvh")
+
+[node name="YesLabel" type="RichTextLabel" parent="YesButton"]
+material = SubResource("ShaderMaterial_l4juv")
+layout_mode = 0
+offset_left = -36.0
+offset_top = -12.0
+offset_right = 338.0
+offset_bottom = 177.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.101960786, 0.3764706, 0.101960786, 1)
+theme_override_font_sizes/normal_font_size = 160
+bbcode_enabled = true
+text = "Yes
+"
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 1319.0
+offset_top = 761.0
+offset_right = 1863.0
+offset_bottom = 926.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kpcds")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hcee2")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_6gdvf")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pn1ri")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_68b02")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8vdxn")
+script = ExtResource("4_5sfvh")
+
+[node name="GiveUpLabel" type="RichTextLabel" parent="ExitButton"]
+material = SubResource("ShaderMaterial_l4juv")
+layout_mode = 0
+offset_left = -37.0
+offset_top = -12.0
+offset_right = 585.0
+offset_bottom = 173.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.43529412, 0.101960786, 0.101960786, 1)
+theme_override_font_sizes/normal_font_size = 160
+bbcode_enabled = true
+text = "Give Up"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
