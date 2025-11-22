@@ -8,7 +8,7 @@ class_name EnemyBase
 @export var update_rate: float = 0.35
 @export var knockback_strength: float = 200.0
 
-enum State { CHASE, ATTACK, POSSESSED, DEAD }
+enum State { CHASE, ATTACK, POSSESSED, DEAD, PLAYER_DEAD }
 
 @onready var stats: Stats = $Stats
 @onready var hitbox: Hitbox = $Hitbox
@@ -26,6 +26,7 @@ var is_in_knockback: bool = false
 var last_move_direction: Vector2 = Vector2.DOWN
 var is_attacking: bool = false
 var is_stunned: bool = false
+var _player_death_pending := false
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -55,6 +56,8 @@ func _find_player():
 	var players = get_tree().get_root().find_children("*", "Player", true, false)
 	if not players.is_empty():
 		player_target = players[0]
+		if not player_target.is_connected("player_has_died", _on_player_death_detected):
+			player_target.player_has_died.connect(_on_player_death_detected)
 	if not is_instance_valid(player_target):
 		current_state = State.DEAD
 		set_physics_process(false)
@@ -75,6 +78,11 @@ func _setup_navigation():
 func _physics_process(delta: float) -> void:
 	if current_state == State.DEAD:
 		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+	if current_state == State.PLAYER_DEAD:
+		_state_player_dead(delta)
+		_update_animation_state()
 		move_and_slide()
 		return
 	if not is_instance_valid(player_target) and current_state != State.POSSESSED:
@@ -121,9 +129,14 @@ func _perform_attack():
 		hitbox_shape.disabled = true
 
 func _on_attack_timer_timeout():
+	is_attacking = false 
+	
+	if _player_death_pending:
+		current_state = State.PLAYER_DEAD
+		return 
+		
 	current_state = State.CHASE
 	_update_target_position()
-	is_attacking = false
 
 func _on_death():
 	current_state = State.DEAD
@@ -151,10 +164,11 @@ func _on_nav_agent_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
 func _on_animation_finished():
-	if is_attacking:
-		is_attacking = false
 	if is_stunned:
 		is_stunned = false
+	if is_attacking and _player_death_pending:
+		is_attacking = false
+		current_state = State.PLAYER_DEAD
 
 func on_possessed():
 	current_state = State.POSSESSED
@@ -199,7 +213,9 @@ func _state_possessed(delta: float) -> void:
 func _update_animation_state():
 	var prefix := "IDLE"
 	var dir := last_move_direction
-	if is_stunned:
+	if current_state == State.PLAYER_DEAD:
+		prefix = "IDLE"
+	elif is_stunned:
 		prefix = "STUNNED"
 	elif is_attacking:
 		prefix = "ATTACK"
@@ -230,3 +246,14 @@ func _get_direction_suffix(direction: Vector2) -> String:
 	if angle >= -5.0 * PI / 8.0 and angle < -3.0 * PI / 8.0: return "N"
 	if angle >= -3.0 * PI / 8.0 and angle < -PI / 8.0: return "NE"
 	return "S"
+
+func _on_player_death_detected():
+	_player_death_pending = true 
+	attack_timer.stop() 
+	
+	if not is_attacking:
+		current_state = State.PLAYER_DEAD
+
+func _state_player_dead(_delta: float) -> void:
+	nav_agent.set_velocity(Vector2.ZERO)
+	velocity = Vector2.ZERO

@@ -47,13 +47,14 @@ var is_in_intro := true
 @export var player_target: CharacterBody2D
 @onready var scream: ColorRect = $CanvasLayer/Scream
 
-enum State {SPAWNING, MOVING, ATTACKING } 
+enum State {SPAWNING, MOVING, ATTACKING, PLAYER_DEAD } 
 var state: State = State.SPAWNING
 
 var attack_pattern_index := 0
 var spawn_points = []
 var attack_sequence = []
 var path_update_timer := 0.0
+var _player_death_pending := false
 
 const ISO_SCALE = Vector2(1.0, 0.5)
 
@@ -63,6 +64,10 @@ func _ready():
 
 	if is_instance_valid(spawn_container):
 		spawn_points = spawn_container.get_children()
+		
+	if is_instance_valid(player_target):
+		if not player_target.is_connected("player_has_died", _on_player_death_detected):
+			player_target.player_has_died.connect(_on_player_death_detected)
 		
 	nav_agent.radius = body_radius
 	nav_agent.simplify_path = true
@@ -96,6 +101,8 @@ func _physics_process(delta):
 	match state:
 		State.SPAWNING:
 			return
+		State.PLAYER_DEAD: 
+			_state_player_dead(delta)
 		State.MOVING:
 			_state_chase(delta)
 		State.ATTACKING:
@@ -123,8 +130,25 @@ func _state_attack(delta):
 	velocity = Vector2.ZERO
 	nav_agent.set_velocity(Vector2.ZERO)
 
+func _state_player_dead(_delta: float) -> void:
+	nav_agent.set_velocity(Vector2.ZERO)
+
+func _on_player_death_detected():
+	_player_death_pending = true 
+	attack_timer.stop()
+	
+	if not is_attacking:
+		state = State.PLAYER_DEAD
+	
+	if is_instance_valid(swing_indicator_node):
+		for indicator in swing_indicator_node.get_children():
+			if indicator.has_method("hide"):
+				indicator.hide()
+	if is_instance_valid(hammer_indicator):
+		hammer_indicator.hide()
+
 func _on_attack_timer_timeout():
-	if state == State.ATTACKING or is_in_intro:
+	if state == State.ATTACKING or is_in_intro or state == State.PLAYER_DEAD:
 		return
 		
 	state = State.ATTACKING 
@@ -321,12 +345,22 @@ func _on_nav_agent_velocity_computed(safe_velocity: Vector2):
 
 func _setup_next_attack():
 	is_attacking = false 
+	
+	if _player_death_pending:
+		state = State.PLAYER_DEAD 
+		return 
+		
 	state = State.MOVING 
 	nav_agent.avoidance_enabled = true
 	attack_timer.start()
 	
 func _skip_attack():
 	is_attacking = false 
+	
+	if _player_death_pending:
+		state = State.PLAYER_DEAD
+		return
+		
 	state = State.MOVING
 	nav_agent.avoidance_enabled = true
 	attack_timer.start()
@@ -359,7 +393,9 @@ func _update_animation_state() -> void:
 	var anim_prefix = "IDLE"
 	var anim_direction = last_move_direction
 
-	if is_attacking:
+	if state == State.PLAYER_DEAD:
+		anim_prefix = "IDLE"
+	elif is_attacking:
 		match attack_pattern_index:
 			0: anim_prefix = "SUMMON"
 			1: anim_prefix = "ATTACK_SLAM"
